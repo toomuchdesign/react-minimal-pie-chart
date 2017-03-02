@@ -1,0 +1,17 @@
+{
+  "presets": [
+    ["es2015", {"modules": false, "loose": true}],
+  ],
+  "env": {
+    "commonjs": {
+      "presets": [
+        ["es2015", {"modules": "commonjs", "loose": true}],
+      ]
+    },
+    "test": {
+      "presets": [
+        ["es2015", {"modules": "commonjs", "loose": true}],
+      ]
+    }
+  }
+}

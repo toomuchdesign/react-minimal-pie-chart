@@ -1,0 +1,15 @@
+# OS generated files
+.*
+*.db
+*.log
+node_modules
+es
+lib
+coverage
+
+# Trailing dotted files
+!.babelrc
+!.editorconfig
+!.gitignore
+!.npmignore
+!.travis.yml
