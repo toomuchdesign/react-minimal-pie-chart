@@ -18,7 +18,8 @@
     "preversion": "npm test",
     "version": "git add package.json",
     "postversion": "git push && git push --tags",
-    "prepublish": "npm run compile"
+    "prepublish": "npm run compile",
+    "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "keywords": [
     "react",
@@ -41,6 +42,7 @@
     "svg-arc-corners": "^1.0.4"
   },
   "devDependencies": {
+    "@kadira/storybook": "^2.35.3",
     "babel-cli": "^6.23.0",
     "babel-core": "^6.23.1",
     "babel-jest": "^19.0.0",
