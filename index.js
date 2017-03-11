@@ -103,7 +103,10 @@ CheapGoalPie.propTypes = {
       PropTypes.string,
     ]),
   ),
-  size: PropTypes.number,
+  size: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
   lineWidth: PropTypes.number,
   cornerRadius: PropTypes.number,
   startAngle: PropTypes.number,
@@ -111,7 +114,7 @@ CheapGoalPie.propTypes = {
 };
 
 CheapGoalPie.defaultProps = {
-  size: 100,
+  size: '100%',
   startAngle: 0,
   endAngle: 360,
   lineWidth: 100,
