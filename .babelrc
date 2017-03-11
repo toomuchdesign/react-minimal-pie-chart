@@ -2,6 +2,10 @@
   "presets": [
     ["es2015", {"modules": false, "loose": true}],
   ],
+  "plugins": [
+    "transform-object-rest-spread",
+    "transform-react-jsx"
+  ],
   "env": {
     "commonjs": {
       "presets": [
