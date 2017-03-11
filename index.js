@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import cornerArc from 'svg-arc-corners';
 
-const VIEWBOX_SIZE = 100;
+const VIEWBOX_SIZE = 200;
 const VIEWBOX_HALF_SIZE = VIEWBOX_SIZE / 2;
 
 const sumValues = data => data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);
@@ -114,6 +114,6 @@ CheapGoalPie.defaultProps = {
   size: 100,
   startAngle: 0,
   endAngle: 360,
-  lineWidth: 10,
+  lineWidth: 100,
   cornerRadius: 0,
 };
