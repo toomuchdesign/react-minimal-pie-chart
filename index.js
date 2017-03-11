@@ -6,8 +6,8 @@ const VIEWBOX_HALF_SIZE = VIEWBOX_SIZE / 2;
 
 const sumValues = data => data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);
 
-const evaluateDegreesFromValues = (data, totalAngle) => {
-  const total = sumValues(data);
+const evaluateDegreesFromValues = (data, totalAngle, totalValue) => {
+  const total = totalValue || sumValues(data);
 
   // Append "degrees" property into each data entry
   return data.map(dataEntry => Object.assign(
@@ -61,7 +61,11 @@ export default function CheapGoalPie({ style, ...props }) {
     return null;
   }
 
-  const normalizedData = evaluateDegreesFromValues(props.data, props.endAngle - props.startAngle);
+  const normalizedData = evaluateDegreesFromValues(
+    props.data,
+    props.endAngle - props.startAngle,
+    props.totalValue
+  );
 
   return (
     <div
@@ -90,9 +94,9 @@ CheapGoalPie.propTypes = {
         PropTypes.string,
       ]),
       color: PropTypes.string,
-      degrees: PropTypes.number,
     }),
   ),
+  totalValue: PropTypes.number,
   style: PropTypes.arrayOf(
     PropTypes.oneOfType([
       PropTypes.number,
