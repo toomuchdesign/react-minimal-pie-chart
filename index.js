@@ -100,7 +100,7 @@ CheapGoalPie.propTypes = {
     }),
   ),
   totalValue: PropTypes.number,
-  style: PropTypes.arrayOf(
+  style: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
