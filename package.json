@@ -39,7 +39,7 @@
     "react-dom": "^15.0.0"
   },
   "dependencies": {
-    "svg-arc-corners": "^1.0.4"
+    "svg-partial-circle": "^0.1.0"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import cornerArc from 'svg-arc-corners';
+import partialCircle from 'svg-partial-circle';
 
 const VIEWBOX_SIZE = 200;
 const VIEWBOX_HALF_SIZE = VIEWBOX_SIZE / 2;
@@ -16,23 +16,27 @@ const evaluateDegreesFromValues = (data, totalAngle, totalValue) => {
   ));
 };
 
-const makeSingleSegment = (startAngle = 0, endAngle = 0, key, color, lineWidth, cornerRadius) => {
-  // Let svg-arc-corners evaluate "d" value
-  // https://github.com/w8r/svg-arc-corners/tree/v1.0.4
-  const pathD = cornerArc(
-    [VIEWBOX_HALF_SIZE, VIEWBOX_HALF_SIZE],   // Center chart to the middle of viewBox
-    VIEWBOX_HALF_SIZE,                        // Radius
-    startAngle,
-    endAngle,
-    lineWidth,
-    cornerRadius,
-  );
+const degreesToRadians = degrees => ((degrees * Math.PI) / 180);
+
+const makeSingleSegment = (startAngle = 0, endAngle = 0, key, color, lineWidth, rounded) => {
+  // Let svg-partial-circle evaluate "d" value
+  const pathD = partialCircle(
+      VIEWBOX_HALF_SIZE, VIEWBOX_HALF_SIZE,     // center X and Y
+      VIEWBOX_HALF_SIZE - (lineWidth / 2) ,     // radius
+      degreesToRadians(startAngle),
+      degreesToRadians(endAngle),
+  )
+  .map(command => command.join(' '))
+  .join(' ');
 
   return (
     <path
       d={pathD}
       key={key}
-      fill={color}
+      stroke={color}
+      strokeWidth={lineWidth}
+      strokeLinecap={rounded ? 'round' : undefined}
+      fill="none"
     />
   );
 };
@@ -47,7 +51,7 @@ const makeSegments = (data, props) => {
       dataEntry.key || index,
       dataEntry.color,
       props.lineWidth,
-      props.cornerRadius,
+      props.rounded,
     );
 
     // Keep track of how many degrees have already been taken
@@ -108,7 +112,7 @@ CheapGoalPie.propTypes = {
     PropTypes.string,
   ]),
   lineWidth: PropTypes.number,
-  cornerRadius: PropTypes.number,
+  rounded: PropTypes.bool,
   startAngle: PropTypes.number,
   endAngle: PropTypes.number,
 };
@@ -118,5 +122,5 @@ CheapGoalPie.defaultProps = {
   startAngle: 0,
   endAngle: 360,
   lineWidth: 100,
-  cornerRadius: 0,
+  rounded: 0,
 };

@@ -31,7 +31,7 @@ storiesOf('React easy pie chart', module)
     <PieChart
       data={dataMock}
       lineWidth={15}
-      cornerRadius={15}
+      rounded
     />
   ))
   .add('custom size', () => (
