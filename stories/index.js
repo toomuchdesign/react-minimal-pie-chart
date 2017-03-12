@@ -34,10 +34,10 @@ storiesOf('React easy pie chart', module)
       rounded
     />
   ))
-  .add('custom size', () => (
+  .add('custom size (with style={{ height: \'200px\' }})', () => (
     <PieChart
       data={dataMock}
-      size={200}
+      style={{ height: '200px' }}
     />
   ))
   .add('with totalValue', () => (

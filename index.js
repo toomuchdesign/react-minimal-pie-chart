@@ -73,8 +73,7 @@ export default function CheapGoalPie({ style, ...props }) {
 
   return (
     <div
-      style={Object.assign({ height: `${props.size}px` }, style)}
-      {...props}
+      style={style}
     >
       <svg
         viewBox={`0 0 ${VIEWBOX_SIZE} ${VIEWBOX_SIZE}`}
@@ -92,7 +91,7 @@ CheapGoalPie.displayName = 'CheapGoalPie';
 CheapGoalPie.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.number,
+      value: PropTypes.number.isRequired,
       key: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.string,
@@ -107,10 +106,6 @@ CheapGoalPie.propTypes = {
       PropTypes.string,
     ]),
   ),
-  size: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
   lineWidth: PropTypes.number,
   rounded: PropTypes.bool,
   startAngle: PropTypes.number,
@@ -118,7 +113,6 @@ CheapGoalPie.propTypes = {
 };
 
 CheapGoalPie.defaultProps = {
-  size: '100%',
   startAngle: 0,
   endAngle: 360,
   lineWidth: 100,
