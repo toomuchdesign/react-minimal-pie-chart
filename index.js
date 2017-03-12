@@ -60,7 +60,7 @@ const makeSegments = (data, props) => {
   });
 };
 
-export default function CheapGoalPie({ style, ...props }) {
+export default function CheapGoalPie(props) {
   if (props.data === undefined) {
     return null;
   }
@@ -73,7 +73,8 @@ export default function CheapGoalPie({ style, ...props }) {
 
   return (
     <div
-      style={style}
+      className={props.className}
+      style={props.style}
     >
       <svg
         viewBox={`0 0 ${VIEWBOX_SIZE} ${VIEWBOX_SIZE}`}
