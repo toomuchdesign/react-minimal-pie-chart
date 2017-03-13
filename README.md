@@ -1,4 +1,4 @@
-# React easy pie chart [![Build Status][ci-img]][ci]
+# React minimal pie chart [![Build Status][ci-img]][ci]
 
 ...
 
