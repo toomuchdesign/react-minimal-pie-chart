@@ -3,6 +3,7 @@ import partialCircle from 'svg-partial-circle';
 
 const VIEWBOX_SIZE = 200;
 const VIEWBOX_HALF_SIZE = VIEWBOX_SIZE / 2;
+const PI = Math.PI;
 
 const sumValues = data => data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);
 
@@ -16,13 +17,22 @@ const evaluateDegreesFromValues = (data, totalAngle, totalValue) => {
   ));
 };
 
-const degreesToRadians = degrees => ((degrees * Math.PI) / 180);
+const degreesToRadians = degrees => ((degrees * PI) / 180);
 
-const makeSingleSegment = (startAngle = 0, endAngle = 0, key, color, lineWidth, rounded) => {
+const makeSingleSegment = (startAngle = 0, endAngle = 0, key, color, lineWidth, rounded, hiddenPercentage) => {
+  const radius = VIEWBOX_HALF_SIZE - (lineWidth / 2);
+  let strokeDasharray;
+  let strokeDashoffset;
+
+  if(!isNaN(hiddenPercentage)) {
+    strokeDasharray = ((PI * radius) / 180) * (endAngle - startAngle);
+    strokeDashoffset = ((strokeDasharray * -1) / 100) * hiddenPercentage;
+  }
+
   // Let svg-partial-circle evaluate "d" value
   const pathD = partialCircle(
       VIEWBOX_HALF_SIZE, VIEWBOX_HALF_SIZE,     // center X and Y
-      VIEWBOX_HALF_SIZE - (lineWidth / 2) ,     // radius
+      radius,                                   // radius
       degreesToRadians(startAngle),
       degreesToRadians(endAngle),
   )
@@ -36,6 +46,8 @@ const makeSingleSegment = (startAngle = 0, endAngle = 0, key, color, lineWidth, 
       stroke={color}
       strokeWidth={lineWidth}
       strokeLinecap={rounded ? 'round' : undefined}
+      strokeDasharray={strokeDasharray}
+      strokeDashoffset={strokeDashoffset}
       fill="none"
     />
   );
@@ -111,6 +123,8 @@ CheapGoalPie.propTypes = {
   rounded: PropTypes.bool,
   startAngle: PropTypes.number,
   endAngle: PropTypes.number,
+  animate: PropTypes.bool,
+  hidden: PropTypes.number,
 };
 
 CheapGoalPie.defaultProps = {
