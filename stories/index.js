@@ -46,3 +46,11 @@ storiesOf('React easy pie chart', module)
       totalValue={90}
     />
   ))
+  .add('hide a half of the pie with hidden={50}', () => (
+    <PieChart
+      data={[
+        { value: 10, key: 1, color: 'blue' },
+      ]}
+      hidden={50}
+    />
+  ))
