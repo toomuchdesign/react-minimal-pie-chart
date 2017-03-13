@@ -19,56 +19,52 @@ const evaluateDegreesFromValues = (data, totalAngle, totalValue) => {
 
 const degreesToRadians = degrees => ((degrees * PI) / 180);
 
-const makeSingleSegment = (startAngle = 0, endAngle = 0, key, color, lineWidth, rounded, hiddenPercentage) => {
-  const radius = VIEWBOX_HALF_SIZE - (lineWidth / 2);
-  let strokeDasharray;
-  let strokeDashoffset;
-
-  if(!isNaN(hiddenPercentage)) {
-    strokeDasharray = ((PI * radius) / 180) * (endAngle - startAngle);
-    strokeDashoffset = ((strokeDasharray * -1) / 100) * hiddenPercentage;
-  }
-
+const makeSingleSegmentPath = (startAngle = 0, lengthDegrees = 0, radius) => {
   // Let svg-partial-circle evaluate "d" value
-  const pathD = partialCircle(
+  return partialCircle(
       VIEWBOX_HALF_SIZE, VIEWBOX_HALF_SIZE,     // center X and Y
       radius,                                   // radius
       degreesToRadians(startAngle),
-      degreesToRadians(endAngle),
+      degreesToRadians(startAngle + lengthDegrees),
   )
   .map(command => command.join(' '))
   .join(' ');
-
-  return (
-    <path
-      d={pathD}
-      key={key}
-      stroke={color}
-      strokeWidth={lineWidth}
-      strokeLinecap={rounded ? 'round' : undefined}
-      strokeDasharray={strokeDasharray}
-      strokeDashoffset={strokeDashoffset}
-      fill="none"
-    />
-  );
 };
 
 const makeSegments = (data, props) => {
+  const radius = VIEWBOX_HALF_SIZE - (props.lineWidth / 2);
   let degreesAccumulator = 0;
 
   return data.map((dataEntry, index) => {
-    const segment = makeSingleSegment(
+    let strokeDasharray;
+    let strokeDashoffset;
+
+    const segmentPath = makeSingleSegmentPath(
       degreesAccumulator + props.startAngle,
-      degreesAccumulator + props.startAngle + dataEntry.degrees,
-      dataEntry.key || index,
-      dataEntry.color,
-      props.lineWidth,
-      props.rounded,
+      dataEntry.degrees,
+      radius,
     );
+
+    if(!isNaN(props.hidden)) {
+      strokeDasharray = ((PI * radius) / 180) * (dataEntry.degrees);
+      strokeDashoffset = ((strokeDasharray * -1) / 100) * props.hidden;
+    }
 
     // Keep track of how many degrees have already been taken
     degreesAccumulator += dataEntry.degrees;
-    return segment;
+    console.log(dataEntry);
+    return (
+      <path
+        d={segmentPath}
+        key={dataEntry.key}
+        stroke={dataEntry.color}
+        strokeWidth={props.lineWidth}
+        strokeLinecap={props.rounded ? 'round' : undefined}
+        strokeDasharray={strokeDasharray}
+        strokeDashoffset={strokeDashoffset}
+        fill="none"
+      />
+    );
   });
 };
 
