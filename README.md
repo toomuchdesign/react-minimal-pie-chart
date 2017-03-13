@@ -2,7 +2,6 @@
 
 ...
 
-[reselect]:                     https://github.com/reactjs/reselect
 [ci-img]:                       https://travis-ci.org/toomuchdesign/react-easy-pie-chart.svg
 [ci]:                           https://travis-ci.org/toomuchdesign/react-easy-pie-chart
 
@@ -19,4 +18,8 @@ npm install react-easy-pie-chart
 ...
 
 ## Todo's
-...
+- CSS path animation
+- `addingAngle` to pad pie segments
+- Fix (startAngle - endAngle) > 360 edge case
+- Allow/fix endAngle > startAngle edge case
+- Custom `cx` `cy`?
