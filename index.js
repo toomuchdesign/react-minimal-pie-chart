@@ -131,5 +131,4 @@ CheapGoalPie.defaultProps = {
   startAngle: 0,
   endAngle: 360,
   lineWidth: 100,
-  rounded: 0,
 };
