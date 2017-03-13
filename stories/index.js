@@ -17,8 +17,8 @@ storiesOf('React easy pie chart', module)
   .add('180° arc', () => (
     <PieChart
       data={dataMock}
-      startAngle={-90}
-      endAngle={90}
+      startAngle={-180}
+      endAngle={0}
     />
   ))
   .add('arc chart', () => (
@@ -34,16 +34,18 @@ storiesOf('React easy pie chart', module)
       rounded
     />
   ))
-  .add('custom size (with style={{ height: \'200px\' }})', () => (
+  .add('custom size with style prop', () => (
     <PieChart
       data={dataMock}
       style={{ height: '200px' }}
     />
   ))
-  .add('with totalValue', () => (
+  .add('uncomplete chart with totalValue', () => (
     <PieChart
       data={dataMock}
-      totalValue={90}
+      totalValue={60}
+      startAngle={-180}
+      endAngle={0}
     />
   ))
   .add('hide a half of the pie with hidden={50}', () => (
@@ -52,5 +54,7 @@ storiesOf('React easy pie chart', module)
         { value: 10, key: 1, color: 'blue' },
       ]}
       hidden={50}
+      startAngle={-180}
+      endAngle={180}
     />
   ))
