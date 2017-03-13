@@ -74,7 +74,7 @@ const makeSegments = (data, props) => {
   });
 };
 
-export default function CheapGoalPie(props) {
+export default function ReactMinimalPieChart(props) {
   if (props.data === undefined) {
     return null;
   }
@@ -101,9 +101,9 @@ export default function CheapGoalPie(props) {
   );
 }
 
-CheapGoalPie.displayName = 'CheapGoalPie';
+ReactMinimalPieChart.displayName = 'ReactMinimalPieChart';
 
-CheapGoalPie.propTypes = {
+ReactMinimalPieChart.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.number.isRequired,
@@ -130,7 +130,7 @@ CheapGoalPie.propTypes = {
   hidden: PropTypes.number,
 };
 
-CheapGoalPie.defaultProps = {
+ReactMinimalPieChart.defaultProps = {
   startAngle: 0,
   endAngle: 360,
   lineWidth: 100,

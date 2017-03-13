@@ -1,7 +1,7 @@
 {
-  "name": "react-easy-pie-chart",
+  "name": "react-minimal-pie-chart",
   "version": "0.0.0",
-  "description": "Barebone React pie/donough charts",
+  "description": "Lightweight but versatile SVG pie/donought charts for React",
   "main": "lib/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
@@ -30,7 +30,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/toomuchdesign/react-easy-pie-chart.git"
+    "url": "git+https://github.com/toomuchdesign/react-minimal-pie-chart.git"
   },
   "author": "Andrea Carraro <me@andreacarraro.it>",
   "license": "MIT",

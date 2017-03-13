@@ -8,7 +8,7 @@ const dataMock = [
   { value: 20, key: 3, color: 'green' },
 ];
 
-storiesOf('React easy pie chart', module)
+storiesOf('React minimal pie chart', module)
   .add('default', () => (
     <PieChart
       data={dataMock}
