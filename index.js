@@ -21,16 +21,16 @@ const degreesToRadians = degrees => ((degrees * PI) / 180);
 
 const makeSingleSegmentPath = (startAngle = 0, lengthDegrees = 0, radius) => {
   // Let svg-partial-circle evaluate "d" value
-  let endAngle = startAngle + lengthDegrees;
-
   // Patch: calculating a 360° ring produces a broken path
-  if (endAngle === 360) { endAngle = 359.999 };
+  const patchedLengthDegrees = lengthDegrees === 360
+    ? 359.999
+    : lengthDegrees;
 
   return partialCircle(
       VIEWBOX_HALF_SIZE, VIEWBOX_HALF_SIZE,     // center X and Y
       radius,                                   // radius
       degreesToRadians(startAngle),
-      degreesToRadians(endAngle),
+      degreesToRadians(startAngle + patchedLengthDegrees),
   )
   .map(command => command.join(' '))
   .join(' ');
