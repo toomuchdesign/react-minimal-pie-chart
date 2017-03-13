@@ -19,7 +19,7 @@ const evaluateDegreesFromValues = (data, totalAngle, totalValue) => {
 
 const degreesToRadians = degrees => ((degrees * PI) / 180);
 
-const makeSingleSegmentPath = (startAngle = 0, lengthDegrees = 0, radius) => {
+const makeSingleSegmentPath = (startAngle = 0, lengthDegrees = 0, radius, paddingAngle = 0) => {
   // Let svg-partial-circle evaluate "d" value
   // Patch: calculating a 360° ring produces a broken path
   const patchedLengthDegrees = lengthDegrees === 360
@@ -30,7 +30,7 @@ const makeSingleSegmentPath = (startAngle = 0, lengthDegrees = 0, radius) => {
       VIEWBOX_HALF_SIZE, VIEWBOX_HALF_SIZE,     // center X and Y
       radius,                                   // radius
       degreesToRadians(startAngle),
-      degreesToRadians(startAngle + patchedLengthDegrees),
+      degreesToRadians(startAngle + patchedLengthDegrees - paddingAngle),
   )
   .map(command => command.join(' '))
   .join(' ');
@@ -48,6 +48,7 @@ const makeSegments = (data, props) => {
       degreesAccumulator + props.startAngle,
       dataEntry.degrees,
       radius,
+      props.paddingAngle
     );
 
     if(!isNaN(props.hidden)) {
@@ -120,10 +121,11 @@ CheapGoalPie.propTypes = {
       PropTypes.string,
     ]),
   ),
-  lineWidth: PropTypes.number,
-  rounded: PropTypes.bool,
   startAngle: PropTypes.number,
   endAngle: PropTypes.number,
+  paddingAngle: PropTypes.number,
+  lineWidth: PropTypes.number,
+  rounded: PropTypes.bool,
   animate: PropTypes.bool,
   hidden: PropTypes.number,
 };

@@ -34,6 +34,13 @@ storiesOf('React easy pie chart', module)
       rounded
     />
   ))
+  .add('with paddingAngle', () => (
+    <PieChart
+      data={dataMock}
+      lineWidth={15}
+      paddingAngle={5}
+    />
+  ))
   .add('custom size with style prop', () => (
     <PieChart
       data={dataMock}
