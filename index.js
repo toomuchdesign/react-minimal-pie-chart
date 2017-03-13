@@ -22,6 +22,8 @@ const degreesToRadians = degrees => ((degrees * PI) / 180);
 const makeSingleSegmentPath = (startAngle = 0, lengthDegrees = 0, radius) => {
   // Let svg-partial-circle evaluate "d" value
   let endAngle = startAngle + lengthDegrees;
+
+  // Patch: calculating a 360° ring produces a broken path
   if (endAngle === 360) { endAngle = 359.999 };
 
   return partialCircle(
@@ -55,7 +57,7 @@ const makeSegments = (data, props) => {
 
     // Keep track of how many degrees have already been taken
     degreesAccumulator += dataEntry.degrees;
-    console.log(dataEntry);
+
     return (
       <path
         d={segmentPath}
