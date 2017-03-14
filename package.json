@@ -19,7 +19,8 @@
     "version": "git add package.json",
     "postversion": "git push && git push --tags",
     "prepublish": "npm run compile",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "build-storybook": "build-storybook -o ./.out"
   },
   "keywords": [
     "react",
