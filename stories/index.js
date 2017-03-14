@@ -2,6 +2,17 @@ import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 import PieChart from '../index.js';
 
+const ContainDecorator = (story) => (
+  <div
+    style={{
+      maxWidth: '400px',
+      margin: '0 auto',
+    }}
+  >
+    {story()}
+  </div>
+);
+
 const dataMock = [
   { value: 10, key: 1, color: 'blue' },
   { value: 15, key: 2, color: 'orange' },
@@ -9,6 +20,7 @@ const dataMock = [
 ];
 
 storiesOf('React minimal pie chart', module)
+  .addDecorator(ContainDecorator)
   .add('default', () => (
     <PieChart
       data={dataMock}
@@ -44,7 +56,7 @@ storiesOf('React minimal pie chart', module)
   .add('custom size with style prop', () => (
     <PieChart
       data={dataMock}
-      style={{ height: '200px' }}
+      style={{ height: '100px' }}
     />
   ))
   .add('uncomplete chart with totalValue', () => (
