@@ -26,40 +26,40 @@ storiesOf('React minimal pie chart', module)
       data={dataMock}
     />
   ))
-  .add('180° arc', () => (
+  .add('180° arc with custom "startAngle"/"endAngle"', () => (
     <PieChart
       data={dataMock}
       startAngle={-180}
       endAngle={0}
     />
   ))
-  .add('arc chart', () => (
+  .add('with custom "lineWidth"', () => (
     <PieChart
       data={dataMock}
       lineWidth={15}
     />
   ))
-  .add('arc chart + rounded corners', () => (
+  .add('with custom "lineWidth" + "rounded"', () => (
     <PieChart
       data={dataMock}
       lineWidth={15}
       rounded
     />
   ))
-  .add('with paddingAngle', () => (
+  .add('with custom "lineWidth" + "paddingAngle"', () => (
     <PieChart
       data={dataMock}
       lineWidth={15}
       paddingAngle={5}
     />
   ))
-  .add('custom size with style prop', () => (
+  .add('with custom "style" height', () => (
     <PieChart
       data={dataMock}
       style={{ height: '100px' }}
     />
   ))
-  .add('uncomplete chart with totalValue', () => (
+  .add('uncomplete chart with custom "totalValue"', () => (
     <PieChart
       data={dataMock}
       totalValue={60}
@@ -67,17 +67,13 @@ storiesOf('React minimal pie chart', module)
       endAngle={0}
     />
   ))
-  .add('reveal just a section with reveal={70}', () => (
+  .add('animation on mount with "animate"', () => (
     <PieChart
-      data={[
-        { value: 10, key: 1, color: 'blue' },
-      ]}
-      reveal={70}
-      startAngle={-180}
-      endAngle={180}
+      data={dataMock}
+      animate
     />
   ))
-  .add('As a loading bar', () => {
+  .add('as a loading bar with "reveal"', () => {
     const Wrapper = class Wrapper extends Component {
       constructor(props) {
         super(props);
@@ -99,14 +95,13 @@ storiesOf('React minimal pie chart', module)
           <div>
             <PieChart
               data={[
-                { value: 10, key: 1, color: 'blue' },
+                { value: 1, key: 1, color: 'blue' },
               ]}
               reveal={this.state.percentage}
               animate
             />
           Reveal: {this.state.percentage}%
             <input
-              id="percentage"
               type="range"
               min="0"
               max="100"
@@ -122,9 +117,3 @@ storiesOf('React minimal pie chart', module)
 
     return <Wrapper />;
   })
-  .add('animate chart on mount', () => (
-    <PieChart
-      data={dataMock}
-      animate
-    />
-  ))
