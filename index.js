@@ -58,13 +58,13 @@ const makeSegments = (data, props, hide) => {
 
     // Animate/hide paths with "stroke-dasharray" + "stroke-dashoffset"
     // https://css-tricks.com/svg-line-animation-works/
-    if(props.animate || !isNaN(props.hidden)) {
+    if(props.animate || !isNaN(props.reveal)) {
       strokeDasharray = ((PI * radius) / 180) * (dataEntry.degrees);
     }
 
-    if(hide || !isNaN(props.hidden)) {
-      const hiddenPercentage = hide ? 100 : props.hidden;
-      strokeDashoffset = ((strokeDasharray) / 100) * hiddenPercentage;
+    if(hide || !isNaN(props.reveal)) {
+      const revealedPercentage = hide ? 0 : props.reveal;
+      strokeDashoffset = ((strokeDasharray) / 100) * (100 - revealedPercentage);
     }
 
     // Keep track of how many degrees have already been taken
@@ -167,7 +167,7 @@ ReactMinimalPieChart.propTypes = {
   animate: PropTypes.bool,
   animationDuration: PropTypes.number,
   animationEasing: PropTypes.string,
-  hidden: PropTypes.number,
+  reveal: PropTypes.number,
 };
 
 ReactMinimalPieChart.defaultProps = {

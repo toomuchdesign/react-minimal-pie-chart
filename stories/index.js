@@ -67,12 +67,12 @@ storiesOf('React minimal pie chart', module)
       endAngle={0}
     />
   ))
-  .add('hide a part of the pie with hidden={25}', () => (
+  .add('reveal just a section with reveal={70}', () => (
     <PieChart
       data={[
         { value: 10, key: 1, color: 'blue' },
       ]}
-      hidden={25}
+      reveal={70}
       startAngle={-180}
       endAngle={180}
     />
@@ -101,10 +101,10 @@ storiesOf('React minimal pie chart', module)
               data={[
                 { value: 10, key: 1, color: 'blue' },
               ]}
-              hidden={this.state.percentage}
+              reveal={this.state.percentage}
               animate
             />
-          Hidden: {this.state.percentage}%
+          Reveal: {this.state.percentage}%
             <input
               id="percentage"
               type="range"
