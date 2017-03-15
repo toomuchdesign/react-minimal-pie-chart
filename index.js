@@ -98,15 +98,17 @@ export default class ReactMinimalPieChart extends Component {
 
   componentDidMount() {
     if (this.props.animate === true) {
-      this.startAnimation();
+      setTimeout(
+        () => window.requestAnimationFrame(
+          this.startAnimation.bind(this)
+        )
+      );
     }
   }
 
   startAnimation() {
-    setTimeout(() => {
-      this.hidePaths = false;
-      this.forceUpdate();
-    });
+    this.hidePaths = false;
+    this.forceUpdate();
   }
 
   render() {
