@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 import PieChart from '../index.js';
 
@@ -77,6 +77,51 @@ storiesOf('React minimal pie chart', module)
       endAngle={180}
     />
   ))
+  .add('As a loading bar', () => {
+    const Wrapper = class Wrapper extends Component {
+      constructor(props) {
+        super(props);
+
+        this.state = {
+          percentage: 20,
+        }
+
+        this.handleRangeChange = this.handleRangeChange.bind(this);
+      }
+
+      handleRangeChange(e) {
+        const newValue = e.target.value;
+        this.setState(() => ({ percentage: Number(newValue) }));
+      }
+
+      render() {
+        return(
+          <div>
+            <PieChart
+              data={[
+                { value: 10, key: 1, color: 'blue' },
+              ]}
+              hidden={this.state.percentage}
+              animate
+            />
+          Hidden: {this.state.percentage}%
+            <input
+              id="percentage"
+              type="range"
+              min="0"
+              max="100"
+              step="1"
+              value={this.state.percentage}
+              style={{width: '100%'}}
+              onChange={this.handleRangeChange}
+            />
+          </div>
+        );
+      }
+    };
+
+    return <Wrapper />;
+  })
   .add('animate chart on mount', () => (
     <PieChart
       data={dataMock}
