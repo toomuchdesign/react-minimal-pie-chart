@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import partialCircle from 'svg-partial-circle';
 
 const VIEWBOX_SIZE = 200;
@@ -36,13 +36,18 @@ const makeSingleSegmentPath = (startAngle = 0, lengthDegrees = 0, radius, paddin
   .join(' ');
 };
 
-const makeSegments = (data, props) => {
+const makeTransitionStyleObject = (duration = 0, easing = '') => ({
+  transition: `stroke-dashoffset ${duration}ms ${easing}`,
+});
+
+const makeSegments = (data, props, hide) => {
   const radius = VIEWBOX_HALF_SIZE - (props.lineWidth / 2);
   let degreesAccumulator = 0;
 
   return data.map((dataEntry, index) => {
     let strokeDasharray;
     let strokeDashoffset;
+    let style;
 
     const segmentPath = makeSingleSegmentPath(
       degreesAccumulator + props.startAngle,
@@ -51,9 +56,15 @@ const makeSegments = (data, props) => {
       props.paddingAngle
     );
 
-    if(!isNaN(props.hidden)) {
+    // Animate/hide paths with "stroke-dasharray" + "stroke-dashoffset"
+    // https://css-tricks.com/svg-line-animation-works/
+    if(props.animate || !isNaN(props.hidden)) {
       strokeDasharray = ((PI * radius) / 180) * (dataEntry.degrees);
-      strokeDashoffset = ((strokeDasharray * -1) / 100) * props.hidden;
+    }
+
+    if(hide || !isNaN(props.hidden)) {
+      const hiddenPercentage = hide ? 100 : props.hidden;
+      strokeDashoffset = ((strokeDasharray) / 100) * hiddenPercentage;
     }
 
     // Keep track of how many degrees have already been taken
@@ -63,6 +74,7 @@ const makeSegments = (data, props) => {
       <path
         d={segmentPath}
         key={dataEntry.key}
+        style={props.animate && makeTransitionStyleObject(props.animationDuration, props.animationEasing)}
         stroke={dataEntry.color}
         strokeWidth={props.lineWidth}
         strokeLinecap={props.rounded ? 'round' : undefined}
@@ -74,31 +86,55 @@ const makeSegments = (data, props) => {
   });
 };
 
-export default function ReactMinimalPieChart(props) {
-  if (props.data === undefined) {
-    return null;
+export default class ReactMinimalPieChart extends Component {
+
+  constructor(props) {
+    super(props);
+
+    if (this.props.animate === true) {
+      this.hidePaths = true;
+    }
   }
 
-  const normalizedData = evaluateDegreesFromValues(
-    props.data,
-    props.endAngle - props.startAngle,
-    props.totalValue
-  );
+  componentDidMount() {
+    if (this.props.animate === true) {
+      this.startAnimation();
+    }
+  }
 
-  return (
-    <div
-      className={props.className}
-      style={props.style}
-    >
-      <svg
-        viewBox={`0 0 ${VIEWBOX_SIZE} ${VIEWBOX_SIZE}`}
-        width="100%"
-        height="100%"
+  startAnimation() {
+    setTimeout(() => {
+      this.hidePaths = false;
+      this.forceUpdate();
+    });
+  }
+
+  render() {
+    if (this.props.data === undefined) {
+      return null;
+    }
+
+    const normalizedData = evaluateDegreesFromValues(
+      this.props.data,
+      this.props.endAngle - this.props.startAngle,
+      this.props.totalValue
+    );
+
+    return (
+      <div
+        className={this.props.className}
+        style={this.props.style}
       >
-        {makeSegments(normalizedData, props)}
-      </svg>
-    </div>
-  );
+        <svg
+          viewBox={`0 0 ${VIEWBOX_SIZE} ${VIEWBOX_SIZE}`}
+          width="100%"
+          height="100%"
+        >
+          {makeSegments(normalizedData, this.props, this.hidePaths)}
+        </svg>
+      </div>
+    );
+  }
 }
 
 ReactMinimalPieChart.displayName = 'ReactMinimalPieChart';
@@ -127,6 +163,8 @@ ReactMinimalPieChart.propTypes = {
   lineWidth: PropTypes.number,
   rounded: PropTypes.bool,
   animate: PropTypes.bool,
+  animationDuration: PropTypes.number,
+  animationEasing: PropTypes.string,
   hidden: PropTypes.number,
 };
 
@@ -134,4 +172,6 @@ ReactMinimalPieChart.defaultProps = {
   startAngle: 0,
   endAngle: 360,
   lineWidth: 100,
+  animationDuration: 500,
+  animationEasing: 'ease-out',
 };

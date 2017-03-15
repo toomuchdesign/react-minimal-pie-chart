@@ -67,13 +67,19 @@ storiesOf('React minimal pie chart', module)
       endAngle={0}
     />
   ))
-  .add('hide a half of the pie with hidden={50}', () => (
+  .add('hide a part of the pie with hidden={25}', () => (
     <PieChart
       data={[
         { value: 10, key: 1, color: 'blue' },
       ]}
-      hidden={50}
+      hidden={25}
       startAngle={-180}
       endAngle={180}
+    />
+  ))
+  .add('animate chart on mount', () => (
+    <PieChart
+      data={dataMock}
+      animate
     />
   ))
