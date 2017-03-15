@@ -30,7 +30,7 @@ describe('ReactMinimalPieChart component', () => {
       />
     );
 
-    const pathElements = wrapper.find('path');
+    const pathElements = wrapper.find('ReactMinimalPieChartPath');
     expect(pathElements.length).toEqual(dataMock.length);
   });
 

@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import partialCircle from 'svg-partial-circle';
+import Path from './ReactMinimalPieChartPath';
 
 const VIEWBOX_SIZE = 200;
 const VIEWBOX_HALF_SIZE = VIEWBOX_SIZE / 2;
-const PI = Math.PI;
 
 const sumValues = data => data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);
 
@@ -17,69 +16,43 @@ const evaluateDegreesFromValues = (data, totalAngle, totalValue) => {
   ));
 };
 
-const degreesToRadians = degrees => ((degrees * PI) / 180);
-
-const makeSingleSegmentPath = (startAngle = 0, lengthDegrees = 0, radius, paddingAngle = 0) => {
-  // Let svg-partial-circle evaluate "d" value
-  // Patch: calculating a 360° ring produces a broken path
-  const patchedLengthDegrees = lengthDegrees === 360
-    ? 359.999
-    : lengthDegrees;
-
-  return partialCircle(
-      VIEWBOX_HALF_SIZE, VIEWBOX_HALF_SIZE,     // center X and Y
-      radius,                                   // radius
-      degreesToRadians(startAngle),
-      degreesToRadians(startAngle + patchedLengthDegrees - paddingAngle),
-  )
-  .map(command => command.join(' '))
-  .join(' ');
-};
-
-const makeTransitionStyleObject = (duration = 0, easing = '') => ({
+const makePathTransitionStyle = (duration = 0, easing = '') => ({
   transition: `stroke-dashoffset ${duration}ms ${easing}`,
 });
 
 const makeSegments = (data, props, hide) => {
-  const radius = VIEWBOX_HALF_SIZE - (props.lineWidth / 2);
-  let degreesAccumulator = 0;
+  // Keep track of how many degrees have already been taken
+  let latestPathAngle = 0;
+  let reveal;
+  const style = props.animate && makePathTransitionStyle(props.animationDuration, props.animationEasing);
+
+  // Hide/reveal a path segment?
+  if (hide === true) {
+    reveal = 0;
+  } else if (typeof props.reveal === 'number') {
+    reveal = props.reveal;
+  } else if (hide === false) {
+    reveal = 100;
+  }
 
   return data.map((dataEntry, index) => {
-    let strokeDasharray;
-    let strokeDashoffset;
-    let style;
-
-    const segmentPath = makeSingleSegmentPath(
-      degreesAccumulator + props.startAngle,
-      dataEntry.degrees,
-      radius,
-      props.paddingAngle
-    );
-
-    // Animate/hide paths with "stroke-dasharray" + "stroke-dashoffset"
-    // https://css-tricks.com/svg-line-animation-works/
-    if(props.animate || !isNaN(props.reveal)) {
-      strokeDasharray = ((PI * radius) / 180) * (dataEntry.degrees);
-    }
-
-    if(hide || !isNaN(props.reveal)) {
-      const revealedPercentage = hide ? 0 : props.reveal;
-      strokeDashoffset = ((strokeDasharray) / 100) * (100 - revealedPercentage);
-    }
-
-    // Keep track of how many degrees have already been taken
-    degreesAccumulator += dataEntry.degrees;
+    const startAngle = latestPathAngle;
+    latestPathAngle += dataEntry.degrees;
 
     return (
-      <path
-        d={segmentPath}
+      <Path
         key={dataEntry.key}
-        style={props.animate && makeTransitionStyleObject(props.animationDuration, props.animationEasing)}
+        cx={VIEWBOX_HALF_SIZE}
+        cy={VIEWBOX_HALF_SIZE}
+        startAngle={startAngle}
+        lengthAngle={dataEntry.degrees}
+        radius={VIEWBOX_HALF_SIZE}
+        lineWidth={props.lineWidth}
+        paddingAngle={props.paddingAngle}
+        reveal={reveal}
+        style={style}
         stroke={dataEntry.color}
-        strokeWidth={props.lineWidth}
         strokeLinecap={props.rounded ? 'round' : undefined}
-        strokeDasharray={strokeDasharray}
-        strokeDashoffset={strokeDashoffset}
         fill="none"
       />
     );

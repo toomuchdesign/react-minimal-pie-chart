@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { storiesOf, action } from '@kadira/storybook';
-import PieChart from '../index.js';
+import PieChart from '../src/index.js';
 
 const ContainDecorator = (story) => (
   <div
