@@ -8,10 +8,12 @@ const sumValues = data => data.reduce((acc, dataEntry) => acc + dataEntry.value,
 
 const evaluateDegreesFromValues = (data, totalAngle, totalValue) => {
   const total = totalValue || sumValues(data);
+  let totalAngleAbsolute = Math.abs(totalAngle);
+  if (totalAngleAbsolute > 360) { totalAngleAbsolute = 360 };
 
   // Append "degrees" property into each data entry
   return data.map(dataEntry => Object.assign(
-    { degrees: (dataEntry.value / total) * totalAngle },
+    { degrees: (dataEntry.value / total) * totalAngleAbsolute },
     dataEntry,
   ));
 };
@@ -22,7 +24,7 @@ const makePathTransitionStyle = (duration = 0, easing = '') => ({
 
 const makeSegments = (data, props, hide) => {
   // Keep track of how many degrees have already been taken
-  let latestPathAngle = 0;
+  let latestPathAngle = props.startAngle;
   let reveal;
   const style = props.animate && makePathTransitionStyle(props.animationDuration, props.animationEasing);
 

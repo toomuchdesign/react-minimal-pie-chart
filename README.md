@@ -18,7 +18,5 @@ npm install react-minimal-pie-chart
 ...
 
 ## Todo's
-- CSS path animation
-- Fix (startAngle - endAngle) > 360 edge case
-- Allow/fix endAngle > startAngle edge case
+- Consider endAngle > startAngle edge case
 - Custom `cx` `cy`?
