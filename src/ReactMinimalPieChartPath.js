@@ -71,4 +71,5 @@ ReactMinimalPieChartPath.defaultProps = {
   lengthAngle: 0,
   lineWidth: 100,
   paddingAngle: 0,
+  radius: 100,
 };
