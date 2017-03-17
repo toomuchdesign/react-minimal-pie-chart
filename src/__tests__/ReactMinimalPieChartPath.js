@@ -28,28 +28,6 @@ describe('ReactMinimalPieChartPath component', () => {
     expect(wrapper.prop('strokeWidth')).toBe(5);
   });
 
-  it('"strokeDasharray" should match actual path arc length when "reveal" is provided', () => {
-    const radio = 100;
-    const lineWidth = 10;
-    const lengthAngle = 90;
-
-    const wrapper = shallow(
-      <PieChartPath
-        cx={100}
-        cy={100}
-        lengthAngle={90}
-        reveal={50}
-        radius={radio}
-        lineWidth={lineWidth}
-      />
-    );
-
-    const actualPathRadio = radio - (lineWidth / 2);
-    const actualPathArcLength = ((actualPathRadio * Math.PI) / 180) * lengthAngle;
-
-    expect(actualPathArcLength).toEqual(wrapper.prop('strokeDasharray'));
-  });
-
   it('Should render a fully revealed path with "strokeDashoffset" = 0', () => {
     const wrapper = shallow(
       <PieChartPath
