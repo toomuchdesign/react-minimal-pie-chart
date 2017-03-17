@@ -59,7 +59,7 @@ ReactMinimalPieChartPath.propTypes = {
   cx: PropTypes.number.isRequired,
   cy: PropTypes.number.isRequired,
   startAngle: PropTypes.number,
-  lengthAngle: PropTypes.number.isRequired,
+  lengthAngle: PropTypes.number,
   radius: PropTypes.number,
   lineWidth: PropTypes.number,
   paddingAngle: PropTypes.number,

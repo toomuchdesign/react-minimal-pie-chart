@@ -1,4 +1,3 @@
-/* eslint comma-dangle: 0 */
 import React from 'react';
 import { shallow } from 'enzyme';
 
@@ -23,7 +22,7 @@ describe('ReactMinimalPieChart component', () => {
     expect(wrapper.getNode()).toEqual(null);
   });
 
-  it('Should return a path element for each entry in props.data', () => {
+  it('Should return a Path component for each entry in props.data', () => {
     const wrapper = shallow(
       <PieChart
         data={dataMock}
