@@ -8,12 +8,12 @@ const sumValues = data => data.reduce((acc, dataEntry) => acc + dataEntry.value,
 
 const evaluateDegreesFromValues = (data, totalAngle, totalValue) => {
   const total = totalValue || sumValues(data);
-  let totalAngleAbsolute = Math.abs(totalAngle);
-  if (totalAngleAbsolute > 360) { totalAngleAbsolute = 360 };
+  if (totalAngle > 360) { totalAngle = 360 };
+  if (totalAngle < -360) { totalAngle = -360 };
 
   // Append "degrees" property into each data entry
   return data.map(dataEntry => Object.assign(
-    { degrees: (dataEntry.value / total) * totalAngleAbsolute },
+    { degrees: (dataEntry.value / total) * totalAngle },
     dataEntry,
   ));
 };
