@@ -26,11 +26,11 @@ storiesOf('React minimal pie chart', module)
       data={dataMock}
     />
   ))
-  .add('180° arc with custom "startAngle"/"endAngle"', () => (
+  .add('180° arc with custom "startAngle"/"lengthAngle"', () => (
     <PieChart
       data={dataMock}
       startAngle={-180}
-      endAngle={0}
+      lengthAngle={180}
     />
   ))
   .add('with custom "lineWidth"', () => (
@@ -63,8 +63,6 @@ storiesOf('React minimal pie chart', module)
     <PieChart
       data={dataMock}
       totalValue={60}
-      startAngle={-180}
-      endAngle={0}
     />
   ))
   .add('animation on mount with "animate"', () => (

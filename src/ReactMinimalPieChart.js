@@ -93,8 +93,8 @@ export default class ReactMinimalPieChart extends Component {
 
     const normalizedData = evaluateDegreesFromValues(
       this.props.data,
-      this.props.endAngle - this.props.startAngle,
-      this.props.totalValue
+      this.props.lengthAngle,
+      this.props.totalValue,
     );
 
     return (
@@ -135,7 +135,7 @@ ReactMinimalPieChart.propTypes = {
     ]),
   ),
   startAngle: PropTypes.number,
-  endAngle: PropTypes.number,
+  lengthAngle: PropTypes.number,
   paddingAngle: PropTypes.number,
   lineWidth: PropTypes.number,
   rounded: PropTypes.bool,
@@ -147,7 +147,7 @@ ReactMinimalPieChart.propTypes = {
 
 ReactMinimalPieChart.defaultProps = {
   startAngle: 0,
-  endAngle: 360,
+  lengthAngle: 360,
   lineWidth: 100,
   animationDuration: 500,
   animationEasing: 'ease-out',
