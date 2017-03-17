@@ -39,7 +39,7 @@ export default function ReactMinimalPieChartPath (
   // https://css-tricks.com/svg-line-animation-works/
   if (typeof reveal === 'number') {
     strokeDasharray = ((PI * actualRadio) / 180) * lengthAngle;
-    strokeDashoffset = (strokeDasharray / 100) * (100 - reveal);
+    strokeDashoffset = strokeDasharray + (strokeDasharray / 100) * reveal;
   }
 
   return (

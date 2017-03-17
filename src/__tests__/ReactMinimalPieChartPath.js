@@ -28,7 +28,7 @@ describe('ReactMinimalPieChartPath component', () => {
     expect(wrapper.prop('strokeWidth')).toBe(5);
   });
 
-  it('Should render a fully revealed path with "strokeDashoffset" = 0', () => {
+  it('Should render a fully revealed path with "strokeDashoffset" === 2 x "strokeDasharray"', () => {
     const wrapper = shallow(
       <PieChartPath
         cx={100}
@@ -38,7 +38,7 @@ describe('ReactMinimalPieChartPath component', () => {
       />
     );
 
-    expect(wrapper.prop('strokeDashoffset')).toBe(0);
+    expect(wrapper.prop('strokeDashoffset')).toBe(wrapper.prop('strokeDasharray') * 2);
   });
 
   it('Should render a fully hidden path with "strokeDashoffset" === "strokeDasharray"', () => {
@@ -67,6 +67,6 @@ describe('ReactMinimalPieChartPath component', () => {
 
     const strokeDashoffset = wrapper.prop('strokeDashoffset');
     const strokeDasharray = wrapper.prop('strokeDasharray');
-    expect(strokeDashoffset).toEqual(strokeDasharray * (3 / 4));
+    expect(strokeDashoffset).toEqual(strokeDasharray + ( strokeDasharray / 4));
   });
 });
