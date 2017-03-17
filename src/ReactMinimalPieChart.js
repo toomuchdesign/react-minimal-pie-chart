@@ -18,13 +18,13 @@ const evaluateDegreesFromValues = (data, totalAngle, totalValue) => {
   ));
 };
 
-const makePathTransitionStyle = (duration = 0, easing = '') => ({
+const makePathTransitionStyle = (duration, easing) => ({
   transition: `stroke-dashoffset ${duration}ms ${easing}`,
 });
 
 const makeSegments = (data, props, hide) => {
   // Keep track of how many degrees have already been taken
-  let latestPathAngle = props.startAngle;
+  let lastPathAngle = props.startAngle;
   let reveal;
   const style = props.animate && makePathTransitionStyle(props.animationDuration, props.animationEasing);
 
@@ -38,12 +38,12 @@ const makeSegments = (data, props, hide) => {
   }
 
   return data.map((dataEntry, index) => {
-    const startAngle = latestPathAngle;
-    latestPathAngle += dataEntry.degrees;
+    const startAngle = lastPathAngle;
+    lastPathAngle += dataEntry.degrees;
 
     return (
       <Path
-        key={dataEntry.key}
+        key={dataEntry.key || index}
         cx={VIEWBOX_HALF_SIZE}
         cy={VIEWBOX_HALF_SIZE}
         startAngle={startAngle}
