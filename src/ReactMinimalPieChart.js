@@ -26,7 +26,9 @@ const makeSegments = (data, props, hide) => {
   // Keep track of how many degrees have already been taken
   let lastPathAngle = props.startAngle;
   let reveal;
-  const style = props.animate && makePathTransitionStyle(props.animationDuration, props.animationEasing);
+  const style = props.animate
+    ? makePathTransitionStyle(props.animationDuration, props.animationEasing)
+    : undefined;
 
   // Hide/reveal a path segment?
   if (hide === true) {
