@@ -18,5 +18,5 @@ npm install react-minimal-pie-chart
 ...
 
 ## Todo's
-- Consider endAngle > startAngle edge case
+- Make negative `lengthAngle` render a counterclockwise chart
 - Custom `cx` `cy`?

@@ -10,8 +10,7 @@ const makePathCommands = (cx, cy, startAngle, lengthAngle, radius, paddingAngle)
   const patchedLengthAngle = lengthAngle === 360
     ? 359.999
     : lengthAngle;
-    console.log('startAngle',startAngle);
-    console.log(patchedLengthAngle);
+
   return partialCircle(
       cx, cy,                                   // center X and Y
       radius,                                   // radius

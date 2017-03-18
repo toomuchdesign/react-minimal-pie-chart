@@ -13,7 +13,7 @@ const evaluateDegreesFromValues = (data, totalAngle, totalValue) => {
 
   // Append "degrees" property into each data entry
   return data.map(dataEntry => Object.assign(
-    { degrees: (dataEntry.value / total) * totalAngle },
+    { degrees: (dataEntry.value / total) * Math.abs(totalAngle) },
     dataEntry,
   ));
 };
