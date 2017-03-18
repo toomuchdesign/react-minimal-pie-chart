@@ -149,6 +149,8 @@ ReactMinimalPieChart.defaultProps = {
   startAngle: 0,
   lengthAngle: 360,
   lineWidth: 100,
+  rounded: false,
+  animate: false,
   animationDuration: 500,
   animationEasing: 'ease-out',
 };
