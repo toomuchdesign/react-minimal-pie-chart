@@ -10,7 +10,8 @@ const makePathCommands = (cx, cy, startAngle, lengthAngle, radius, paddingAngle)
   const patchedLengthAngle = lengthAngle === 360
     ? 359.999
     : lengthAngle;
-
+    console.log('startAngle',startAngle);
+    console.log(patchedLengthAngle);
   return partialCircle(
       cx, cy,                                   // center X and Y
       radius,                                   // radius
@@ -38,7 +39,7 @@ export default function ReactMinimalPieChartPath (
   // Animate/hide paths with "stroke-dasharray" + "stroke-dashoffset"
   // https://css-tricks.com/svg-line-animation-works/
   if (typeof reveal === 'number') {
-    strokeDasharray = ((PI * actualRadio) / 180) * lengthAngle;
+    strokeDasharray = ((PI * actualRadio) / 180) * Math.abs(lengthAngle);
     strokeDashoffset = strokeDasharray + (strokeDasharray / 100) * reveal;
   }
 
