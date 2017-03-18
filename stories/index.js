@@ -71,6 +71,13 @@ storiesOf('React minimal pie chart', module)
       animate
     />
   ))
+  .add('animation on mount with "animate" and negative lengthAngle', () => (
+    <PieChart
+      data={dataMock}
+      lengthAngle={-360}
+      animate
+    />
+  ))
   .add('as a loading bar with "reveal"', () => {
     const Wrapper = class Wrapper extends Component {
       constructor(props) {
