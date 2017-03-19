@@ -111,6 +111,7 @@ export default class ReactMinimalPieChart extends Component {
         >
           {makeSegments(normalizedData, this.props, this.hidePaths)}
         </svg>
+        {this.props.children}
       </div>
     );
   }
@@ -145,6 +146,7 @@ ReactMinimalPieChart.propTypes = {
   animationDuration: PropTypes.number,
   animationEasing: PropTypes.string,
   reveal: PropTypes.number,
+  children: PropTypes.node,
 };
 
 ReactMinimalPieChart.defaultProps = {
