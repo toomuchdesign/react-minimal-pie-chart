@@ -1,9 +1,9 @@
 # React minimal pie chart [![Build Status][ci-img]][ci]
-Lightweight React **SVG pie charts**, with **versatile options** and **CSS animation** included.
+Lightweight React **SVG pie charts**, with **versatile options** and **CSS animation** included. [Demo][storybook].
 
 [ci-img]:                       https://travis-ci.org/toomuchdesign/react-minimal-pie-chart.svg
 [ci]:                           https://travis-ci.org/toomuchdesign/react-minimal-pie-chart
-[storybook]:https://f4442c1e-0562-45ed-89e9-34b069224803.sbook.io/
+[storybook]:                    https://f4442c1e-0562-45ed-89e9-34b069224803.sbook.io
 
 ```js
 import PieChart from 'react-minimal-pie-chart';
@@ -51,5 +51,6 @@ Property | Type | Description | Default
 - Make negative `lengthAngle` render a counterclockwise chart
 - Custom `cx` `cy`?
 - Make a device/browser compatibility table
-- Define a className targeting segment paths for custom CSS animations
+- Define a className targeting each segment path for custom CSS animations
 - Background segment
+- Fix/extend [svg-partial-circle](https://github.com/derhuerst/svg-partial-circle)
