@@ -7,8 +7,8 @@ const degreesToRadians = degrees => ((degrees * PI) / 180);
 const makePathCommands = (cx, cy, startAngle, lengthAngle, radius, paddingAngle) => {
   // Let svg-partial-circle evaluate "d" value
   // Patch: calculating a 360° ring produces a broken path
-  if (lengthAngle === 360) lengthAngle = 359.999;
-  if (lengthAngle === -360) lengthAngle = -359.999;
+  if (lengthAngle >= 360) lengthAngle = 359.999;
+  if (lengthAngle <= -360) lengthAngle = -359.999;
 
   paddingAngle = lengthAngle > 0
     ? paddingAngle
