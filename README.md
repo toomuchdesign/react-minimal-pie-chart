@@ -30,7 +30,6 @@ Because [Recharts](https://github.com/recharts/recharts) is awesome, but when yo
 - Customizable CSS animations trough [stroke-dasharray + stroke-dashoffset strategy](https://css-tricks.com/svg-line-animation-works/)
 - Configurable: Pie, Donut, Loading, Completion charts (see [Demo][storybook])
 
-
 ## Options
 Property | Type | Description | Default
 ----- | ----- | ----- | -----
@@ -46,6 +45,10 @@ Property | Type | Description | Default
 **animationDuration** | *Number* | Animation duration in ms | 500
 **animationEasing** | *String* | Animation CSS easing | "ease-out"
 **reveal** | *Number* | Turn on CSS animation and reveal just a percentage of each segment| -
+
+## Misc
+### How svg arc paths work?
+http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/
 
 ## Todo's
 - Custom `cx` `cy`?

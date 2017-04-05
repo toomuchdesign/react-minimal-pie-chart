@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import Path from './ReactMinimalPieChartPath';
 
 const VIEWBOX_SIZE = 200;
@@ -64,7 +64,7 @@ const makeSegments = (data, props, hide) => {
   });
 };
 
-export default class ReactMinimalPieChart extends Component {
+export default class ReactMinimalPieChart extends PureComponent {
 
   constructor(props) {
     super(props);
