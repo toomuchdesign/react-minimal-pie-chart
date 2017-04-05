@@ -7,15 +7,18 @@ const degreesToRadians = degrees => ((degrees * PI) / 180);
 const makePathCommands = (cx, cy, startAngle, lengthAngle, radius, paddingAngle) => {
   // Let svg-partial-circle evaluate "d" value
   // Patch: calculating a 360° ring produces a broken path
-  const patchedLengthAngle = lengthAngle === 360
-    ? 359.999
-    : lengthAngle;
+  if (lengthAngle === 360) lengthAngle = 359.999;
+  if (lengthAngle === -360) lengthAngle = -359.999;
+
+  paddingAngle = lengthAngle > 0
+    ? paddingAngle
+    : - paddingAngle;
 
   return partialCircle(
       cx, cy,                                   // center X and Y
       radius,                                   // radius
       degreesToRadians(startAngle),
-      degreesToRadians(startAngle + patchedLengthAngle - paddingAngle),
+      degreesToRadians(startAngle + lengthAngle - paddingAngle),
   )
   .map(command => command.join(' '))
   .join(' ');

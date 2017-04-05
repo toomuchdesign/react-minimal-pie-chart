@@ -29,8 +29,14 @@ storiesOf('React minimal pie chart', module)
   .add('180° arc with custom "startAngle"/"lengthAngle"', () => (
     <PieChart
       data={dataMock}
-      startAngle={-180}
+      startAngle={180}
       lengthAngle={180}
+    />
+  ))
+  .add('180° arc with negative "lengthAngle"', () => (
+    <PieChart
+      data={dataMock}
+      lengthAngle={-180}
     />
   ))
   .add('with custom "lineWidth"', () => (
@@ -53,6 +59,14 @@ storiesOf('React minimal pie chart', module)
       paddingAngle={5}
     />
   ))
+  .add('with custom "lineWidth" + "paddingAngle" + negative "lengthAngle"', () => (
+    <PieChart
+      data={dataMock}
+      lineWidth={15}
+      paddingAngle={5}
+      lengthAngle={-360}
+    />
+  ))
   .add('with custom "style" height', () => (
     <PieChart
       data={dataMock}
@@ -71,13 +85,13 @@ storiesOf('React minimal pie chart', module)
       animate
     />
   ))
-  // .add('animation on mount with "animate" and negative lengthAngle', () => (
-  //   <PieChart
-  //     data={dataMock}
-  //     lengthAngle={-360}
-  //     animate
-  //   />
-  // ))
+  .add('clockwise animation on mount with negative "lengthAngle"', () => (
+    <PieChart
+      data={dataMock}
+      lengthAngle={-360}
+      animate
+    />
+  ))
   .add('as a loading bar with "reveal"', () => {
     const Wrapper = class Wrapper extends Component {
       constructor(props) {
@@ -103,7 +117,6 @@ storiesOf('React minimal pie chart', module)
                 { value: 1, key: 1, color: '#E38627' },
               ]}
               reveal={this.state.percentage}
-              lengthAngle={360}
               lineWidth={20}
               animate
             />

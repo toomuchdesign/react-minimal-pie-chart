@@ -36,7 +36,7 @@ Property | Type | Description | Default
 ----- | ----- | ----- | -----
 **data** *(required)* | *Array* | The source data which each element is a segment. | -
 **startAngle** | *Number* | The start angle of first sector | 0
-**lengthAngle** | *Number* | The total angle taken by the chart | 360
+**lengthAngle** | *Number* | The total angle taken by the chart *(can be negative to make the chart clockwise!)* | 360
 **totalValue** | *Number* | The total value represented by the full chart | -
 **lineWidth** | *Number* | The width of the line representing each sector *(100 === full pie)* | 100
 **paddingAngle** | *Number* | The angle between two sectors| -
@@ -48,7 +48,6 @@ Property | Type | Description | Default
 **reveal** | *Number* | Turn on CSS animation and reveal just a percentage of each segment| -
 
 ## Todo's
-- Make negative `lengthAngle` render a counterclockwise chart
 - Custom `cx` `cy`?
 - Make a device/browser compatibility table
 - Define a className targeting each segment path for custom CSS animations
