@@ -65,6 +65,25 @@ describe('ReactMinimalPieChart component', () => {
     expect(pieLengthAngle).toEqual(pathsTotalLengthAngle);
   });
 
+  it('Should render a set of arc paths having total negative lengthAngle === -270°', () => {
+    const pieLengthAngle = -270;
+    let pathsTotalLengthAngle = 0;
+
+    const wrapper = shallow(
+      <PieChart
+        data={dataMock}
+        lengthAngle={pieLengthAngle}
+      />
+    );
+
+    const paths = wrapper.find('ReactMinimalPieChartPath');
+    paths.forEach((path) => {
+      pathsTotalLengthAngle += path.prop('lengthAngle');
+    });
+
+    expect(pieLengthAngle).toEqual(pathsTotalLengthAngle);
+  });
+
   it('Should append children paths a "transition" inline style prop with custom duration/easing', () => {
     const wrapper = shallow(
       <PieChart
