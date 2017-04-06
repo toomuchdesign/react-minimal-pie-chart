@@ -1,5 +1,5 @@
 # React minimal pie chart [![Build Status][ci-img]][ci]
-Lightweight React **SVG pie charts**, with **versatile options** and **CSS animation** included. [Demo][storybook].
+Lightweight React **SVG pie charts**, with **versatile options** and **CSS animation** included. 👏 &nbsp;[Demo][storybook]&nbsp;👏.
 
 [ci-img]:                       https://travis-ci.org/toomuchdesign/react-minimal-pie-chart.svg
 [ci]:                           https://travis-ci.org/toomuchdesign/react-minimal-pie-chart
