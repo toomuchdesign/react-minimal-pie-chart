@@ -1,5 +1,7 @@
 # 1.0.0
 - Enable negative `lengthAngle` to configure clockwise and counterclockwise charts
+- Add `rx` and `ry` props to set custom chart center coordinates
+- Add `radius` prop
 - Make counterclockwise charts by default
 - Make <ReactMinimalPieChart> a pure component
 
