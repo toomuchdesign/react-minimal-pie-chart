@@ -39,6 +39,15 @@ storiesOf('React minimal pie chart', module)
       lengthAngle={-180}
     />
   ))
+  .add('custom center', () => (
+    <PieChart
+      data={dataMock}
+      cx={100}
+      cy={100}
+      startAngle={-180}
+      lengthAngle={90}
+    />
+  ))
   .add('with custom "lineWidth"', () => (
     <PieChart
       data={dataMock}

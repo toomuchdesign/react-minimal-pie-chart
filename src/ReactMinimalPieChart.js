@@ -1,8 +1,9 @@
 import React, { PureComponent, PropTypes } from 'react';
 import Path from './ReactMinimalPieChartPath';
 
-const VIEWBOX_SIZE = 200;
+const VIEWBOX_SIZE = 100;
 const VIEWBOX_HALF_SIZE = VIEWBOX_SIZE / 2;
+const LINE_WIDTH_SIZE_FACTOR = VIEWBOX_HALF_SIZE / 100;
 
 const sumValues = data => data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);
 
@@ -47,12 +48,12 @@ const makeSegments = (data, props, hide) => {
     return (
       <Path
         key={dataEntry.key || index}
-        cx={VIEWBOX_HALF_SIZE}
-        cy={VIEWBOX_HALF_SIZE}
+        cx={props.cx}
+        cy={props.cy}
         startAngle={startAngle}
         lengthAngle={dataEntry.degrees}
         radius={VIEWBOX_HALF_SIZE}
-        lineWidth={props.lineWidth}
+        lineWidth={LINE_WIDTH_SIZE_FACTOR * props.lineWidth}
         paddingAngle={props.paddingAngle}
         reveal={reveal}
         style={style}
@@ -65,7 +66,6 @@ const makeSegments = (data, props, hide) => {
 };
 
 export default class ReactMinimalPieChart extends PureComponent {
-
   constructor(props) {
     super(props);
 
@@ -131,6 +131,8 @@ ReactMinimalPieChart.propTypes = {
       color: PropTypes.string,
     }),
   ),
+  cx: PropTypes.number,
+  cy: PropTypes.number,
   totalValue: PropTypes.number,
   style: PropTypes.objectOf(
     PropTypes.oneOfType([
@@ -151,6 +153,8 @@ ReactMinimalPieChart.propTypes = {
 };
 
 ReactMinimalPieChart.defaultProps = {
+  cx: VIEWBOX_HALF_SIZE,
+  cy: VIEWBOX_HALF_SIZE,
   startAngle: 0,
   lengthAngle: 360,
   lineWidth: 100,
