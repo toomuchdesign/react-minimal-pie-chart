@@ -3,7 +3,6 @@ import Path from './ReactMinimalPieChartPath';
 
 const VIEWBOX_SIZE = 100;
 const VIEWBOX_HALF_SIZE = VIEWBOX_SIZE / 2;
-const LINE_WIDTH_SIZE_FACTOR = VIEWBOX_HALF_SIZE / 100;
 
 const sumValues = data => data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);
 
@@ -52,8 +51,8 @@ const makeSegments = (data, props, hide) => {
         cy={props.cy}
         startAngle={startAngle}
         lengthAngle={dataEntry.degrees}
-        radius={VIEWBOX_HALF_SIZE}
-        lineWidth={LINE_WIDTH_SIZE_FACTOR * props.lineWidth}
+        radius={props.radius}
+        lineWidth={(props.radius / 100) * props.lineWidth}
         paddingAngle={props.paddingAngle}
         reveal={reveal}
         style={style}
@@ -144,6 +143,7 @@ ReactMinimalPieChart.propTypes = {
   lengthAngle: PropTypes.number,
   paddingAngle: PropTypes.number,
   lineWidth: PropTypes.number,
+  radius: PropTypes.number,
   rounded: PropTypes.bool,
   animate: PropTypes.bool,
   animationDuration: PropTypes.number,
@@ -158,6 +158,7 @@ ReactMinimalPieChart.defaultProps = {
   startAngle: 0,
   lengthAngle: 360,
   lineWidth: 100,
+  radius: VIEWBOX_HALF_SIZE,
   rounded: false,
   animate: false,
   animationDuration: 500,

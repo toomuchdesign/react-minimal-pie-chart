@@ -39,7 +39,8 @@ Property | Type | Description | Default
 **startAngle** | *Number* | The start angle of first sector | 0
 **lengthAngle** | *Number* | The total angle taken by the chart *(can be negative to make the chart clockwise!)* | 360
 **totalValue** | *Number* | The total value represented by the full chart | -
-**lineWidth** | *Number* | The width of the line representing each sector *(100 === full pie)* | 100
+**lineWidth** | *Number* | The width of the line representing each sector. The value is the percentage of chart radio*(100 === full pie)* | 100
+**radius** | *Number* | The radius of the pie. The value is the percentage of the component width * | 50
 **paddingAngle** | *Number* | The angle between two sectors| -
 **rounded** | *Bool* | Round line caps of each sector| false
 **style** | *Object* | The style object assigned to chart wrapper | -
