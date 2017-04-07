@@ -4,18 +4,11 @@ import partialCircle from './partialCircle';
 const PI = Math.PI;
 const degreesToRadians = degrees => ((degrees * PI) / 180);
 
-const makePathCommands = (cx, cy, startAngle, lengthAngle, radius, paddingAngle) => {
-  let patchedLengthAngle = Math.abs(lengthAngle) - paddingAngle;
+const makePathCommands = (cx, cy, startAngle, lengthAngle, radius) => {
+  let patchedLengthAngle = lengthAngle;
 
-  // Patch: 360° round paths are impossible to draw
-  if (patchedLengthAngle >= 360) {
-    patchedLengthAngle = 359.999;
-  }
-
-  // Restore lengthAngle direction
-  if (lengthAngle < 0) {
-    patchedLengthAngle = -patchedLengthAngle;
-  }
+  if (patchedLengthAngle >= 360) patchedLengthAngle = 359.999;
+  if (patchedLengthAngle <= -360) patchedLengthAngle = -359.999;
 
   return partialCircle(
       cx, cy,                                   // center X and Y
@@ -28,7 +21,7 @@ const makePathCommands = (cx, cy, startAngle, lengthAngle, radius, paddingAngle)
 };
 
 export default function ReactMinimalPieChartPath (
-  {cx, cy, startAngle, lengthAngle, radius, paddingAngle, lineWidth, reveal, ...props}
+  {cx, cy, startAngle, lengthAngle, radius, lineWidth, reveal, ...props}
 ) {
   const actualRadio = radius - (lineWidth / 2);
   const pathCommands = makePathCommands(
@@ -36,7 +29,6 @@ export default function ReactMinimalPieChartPath (
     startAngle,
     lengthAngle,
     actualRadio,
-    paddingAngle,
   );
   let strokeDasharray;
   let strokeDashoffset;
@@ -68,7 +60,6 @@ ReactMinimalPieChartPath.propTypes = {
   lengthAngle: PropTypes.number,
   radius: PropTypes.number,
   lineWidth: PropTypes.number,
-  paddingAngle: PropTypes.number,
   reveal: PropTypes.number,
 };
 
@@ -76,6 +67,5 @@ ReactMinimalPieChartPath.defaultProps = {
   startAngle: 0,
   lengthAngle: 0,
   lineWidth: 100,
-  paddingAngle: 0,
   radius: 100,
 };

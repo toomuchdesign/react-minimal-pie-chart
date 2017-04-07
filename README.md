@@ -55,6 +55,7 @@ http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/
 
 ## Todo's
 - Custom viewBox size or ratio
+- Find a better solution for padding evaluation
 - Make a device/browser compatibility table
 - Define a className targeting each segment path for custom CSS animations
 - Background segment

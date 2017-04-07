@@ -5,15 +5,22 @@ const VIEWBOX_SIZE = 100;
 const VIEWBOX_HALF_SIZE = VIEWBOX_SIZE / 2;
 
 const sumValues = data => data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);
+const sumDegrees = data => data.reduce((acc, dataEntry) => acc + dataEntry.degrees, 0);
 
-const evaluateDegreesFromValues = (data, totalAngle, totalValue) => {
+// @TODO extract padding evaluation
+const evaluateDegreesFromValues = (data, totalAngle, totalValue, paddingAngle) => {
   const total = totalValue || sumValues(data);
-  if (totalAngle > 360) totalAngle = 360;
-  if (totalAngle < -360) totalAngle = -360;
+
+  // Substract form total available degrees the space taken by segments padding
+  const degreesTakenByPadding = paddingAngle * (data.length);
+  let totalDegrees = Math.abs(totalAngle) - degreesTakenByPadding;
+
+  if (totalDegrees > 360) totalDegrees = 360;
+  if (totalAngle < 0) totalDegrees = -totalDegrees;
 
   // Append "degrees" property into each data entry
   return data.map(dataEntry => Object.assign(
-    { degrees: (dataEntry.value / total) * totalAngle },
+    { degrees: (dataEntry.value / total) * totalDegrees },
     dataEntry,
   ));
 };
@@ -25,6 +32,7 @@ const makeSegmentTransitionStyle = (duration, easing) => ({
 const makeSegments = (data, props, hide) => {
   // Keep track of how many degrees have already been taken
   let lastSegmentAngle = props.startAngle;
+  const segmentsPaddingAngle = props.paddingAngle * (props.lengthAngle / Math.abs(props.lengthAngle));
   let reveal;
 
   const style = props.animate
@@ -42,7 +50,7 @@ const makeSegments = (data, props, hide) => {
 
   return data.map((dataEntry, index) => {
     const startAngle = lastSegmentAngle;
-    lastSegmentAngle += dataEntry.degrees;
+    lastSegmentAngle += dataEntry.degrees + segmentsPaddingAngle;
 
     return (
       <Path
@@ -53,7 +61,6 @@ const makeSegments = (data, props, hide) => {
         lengthAngle={dataEntry.degrees}
         radius={props.radius}
         lineWidth={(props.radius / 100) * props.lineWidth}
-        paddingAngle={props.paddingAngle}
         reveal={reveal}
         style={style}
         stroke={dataEntry.color}
@@ -97,6 +104,7 @@ export default class ReactMinimalPieChart extends PureComponent {
       this.props.data,
       this.props.lengthAngle,
       this.props.totalValue,
+      this.props.paddingAngle,
     );
 
     return (
@@ -157,6 +165,7 @@ ReactMinimalPieChart.defaultProps = {
   cy: VIEWBOX_HALF_SIZE,
   startAngle: 0,
   lengthAngle: 360,
+  paddingAngle: 0,
   lineWidth: 100,
   radius: VIEWBOX_HALF_SIZE,
   rounded: false,
