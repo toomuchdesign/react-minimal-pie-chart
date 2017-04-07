@@ -7,6 +7,15 @@ const VIEWBOX_HALF_SIZE = VIEWBOX_SIZE / 2;
 const sumValues = data => data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);
 const sumDegrees = data => data.reduce((acc, dataEntry) => acc + dataEntry.degrees, 0);
 
+const evaluateViewBoxSize = (ratio, baseSize) => {
+  // Wide ratio
+  if (ratio > 1) {
+    return `${baseSize} ${baseSize / ratio}`;
+  }
+  // Narrow/squared ratio
+  return `${baseSize * ratio} ${baseSize}`;
+}
+
 // @TODO extract padding evaluation
 const evaluateDegreesFromValues = (data, totalAngle, totalValue, paddingAngle) => {
   const total = totalValue || sumValues(data);
@@ -113,7 +122,7 @@ export default class ReactMinimalPieChart extends PureComponent {
         style={this.props.style}
       >
         <svg
-          viewBox={`0 0 ${VIEWBOX_SIZE} ${VIEWBOX_SIZE}`}
+          viewBox={`0 0 ${evaluateViewBoxSize(this.props.ratio, VIEWBOX_SIZE)}`}
           width="100%"
           height="100%"
         >
@@ -140,6 +149,7 @@ ReactMinimalPieChart.propTypes = {
   ),
   cx: PropTypes.number,
   cy: PropTypes.number,
+  ratio: PropTypes.number,
   totalValue: PropTypes.number,
   style: PropTypes.objectOf(
     PropTypes.oneOfType([
@@ -163,6 +173,7 @@ ReactMinimalPieChart.propTypes = {
 ReactMinimalPieChart.defaultProps = {
   cx: VIEWBOX_HALF_SIZE,
   cy: VIEWBOX_HALF_SIZE,
+  ratio: 1,
   startAngle: 0,
   lengthAngle: 360,
   paddingAngle: 0,

@@ -46,6 +46,30 @@ describe('ReactMinimalPieChart component', () => {
     expect(wrapper.prop('style')).toEqual(styleMock);
   });
 
+  it('Should render a wide-ratio <svg> with viewBox = "0 0 100 25"', () => {
+    const wrapper = shallow(
+      <PieChart
+        data={dataMock}
+        ratio={4}
+      />
+    );
+
+    const svg = wrapper.find('svg').first();
+    expect(svg.prop('viewBox')).toBe('0 0 100 25');
+  });
+
+  it('Should render a narrow-ratio <svg> with viewBox = "0 0 10 100"', () => {
+    const wrapper = shallow(
+      <PieChart
+        data={dataMock}
+        ratio={1/10}
+      />
+    );
+
+    const svg = wrapper.find('svg').first();
+    expect(svg.prop('viewBox')).toBe('0 0 10 100');
+  });
+
   it('Should render a set of arc paths having total lengthAngle === 270°', () => {
     const pieLengthAngle = 270;
     let pathsTotalLengthAngle = 0;
@@ -82,6 +106,27 @@ describe('ReactMinimalPieChart component', () => {
     });
 
     expect(pieLengthAngle).toEqual(pathsTotalLengthAngle);
+  });
+
+  it('Should render a set of arc paths + paddings having total lengthAngle === 270°', () => {
+    const pieLengthAngle = 270;
+    let pathsTotalLengthAngle = 0;
+    const totalPaddingDegrees = 10 * dataMock.length;
+
+    const wrapper = shallow(
+      <PieChart
+        data={dataMock}
+        lengthAngle={pieLengthAngle}
+        paddingAngle={10}
+      />
+    );
+
+    const paths = wrapper.find('ReactMinimalPieChartPath');
+    paths.forEach((path) => {
+      pathsTotalLengthAngle += path.prop('lengthAngle');
+    });
+
+    expect(pieLengthAngle).toEqual(pathsTotalLengthAngle + totalPaddingDegrees);
   });
 
   it('Should append children paths a "transition" inline style prop with custom duration/easing', () => {

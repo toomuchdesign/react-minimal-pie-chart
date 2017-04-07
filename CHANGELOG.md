@@ -1,6 +1,7 @@
 # 1.0.0
 - Enable negative `lengthAngle` to configure clockwise and counterclockwise charts
 - Add `rx` and `ry` props to set custom chart center coordinates
+- Add `ratio` prop
 - Add `radius` prop
 - Re-evaluate segments size when `paddingAngle` is > 0
 - Make counterclockwise charts by default

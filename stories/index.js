@@ -33,10 +33,11 @@ storiesOf('React minimal pie chart', module)
       lengthAngle={180}
     />
   ))
-  .add('180° arc with negative "lengthAngle"', () => (
+  .add('180° arc with negative "lengthAngle" and custom svg ratio', () => (
     <PieChart
       data={dataMock}
       lengthAngle={-180}
+      ratio={2}
     />
   ))
   .add('custom center + "radius"', () => (

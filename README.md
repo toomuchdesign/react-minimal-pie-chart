@@ -36,6 +36,7 @@ Property | Type | Description | Default
 **data** *(required)* | *Array* | The source data which each element is a segment. | -
 **cx** | *Number* | The x-coordinate of center. The value is the percentage of the component width | 50
 **cy** | *Number* | The y-coordinate of center. The value is the percentage of the component height | 50
+**ratio** | *Number* | The ratio of rendered svg element | 1
 **startAngle** | *Number* | The start angle of first sector | 0
 **lengthAngle** | *Number* | The total angle taken by the chart *(can be negative to make the chart clockwise!)* | 360
 **totalValue** | *Number* | The total value represented by the full chart | -
@@ -54,7 +55,6 @@ Property | Type | Description | Default
 http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/
 
 ## Todo's
-- Custom viewBox size or ratio
 - Find a better solution for padding evaluation
 - Make a device/browser compatibility table
 - Define a className targeting each segment path for custom CSS animations
