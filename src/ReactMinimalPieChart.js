@@ -29,7 +29,7 @@ const evaluateDegreesFromValues = (data, totalAngle, totalValue, paddingAngle) =
   // Append "degrees" property into each data entry
   return data.map(dataEntry => Object.assign(
     { degrees: (dataEntry.value / total) * totalDegrees },
-    dataEntry,
+    dataEntry
   ));
 };
 
@@ -112,7 +112,7 @@ export default class ReactMinimalPieChart extends PureComponent {
       this.props.data,
       this.props.lengthAngle,
       this.props.totalValue,
-      this.props.paddingAngle,
+      this.props.paddingAngle
     );
 
     return (
@@ -144,7 +144,7 @@ ReactMinimalPieChart.propTypes = {
         PropTypes.string,
       ]),
       color: PropTypes.string,
-    }),
+    })
   ),
   cx: PropTypes.number,
   cy: PropTypes.number,
@@ -154,7 +154,7 @@ ReactMinimalPieChart.propTypes = {
     PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
-    ]),
+    ])
   ),
   startAngle: PropTypes.number,
   lengthAngle: PropTypes.number,

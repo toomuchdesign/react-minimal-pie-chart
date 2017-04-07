@@ -14,7 +14,7 @@ const makePathCommands = (cx, cy, startAngle, lengthAngle, radius) => {
       cx, cy,                                   // center X and Y
       radius,
       degreesToRadians(startAngle),
-      degreesToRadians(startAngle + patchedLengthAngle),
+      degreesToRadians(startAngle + patchedLengthAngle)
   )
   .map(command => command.join(' '))
   .join(' ');
@@ -28,7 +28,7 @@ export default function ReactMinimalPieChartPath (
     cx, cy,
     startAngle,
     lengthAngle,
-    actualRadio,
+    actualRadio
   );
   let strokeDasharray;
   let strokeDashoffset;

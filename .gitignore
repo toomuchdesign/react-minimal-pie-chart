@@ -10,6 +10,7 @@ coverage
 # Trailing dotted files
 !.babelrc
 !.editorconfig
+!.eslintrc
 !.gitignore
 !.npmignore
 !.storybook

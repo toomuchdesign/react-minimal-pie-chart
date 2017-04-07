@@ -59,4 +59,5 @@ http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/
 - Make a device/browser compatibility table
 - Define a className targeting each segment path for custom CSS animations
 - Background segment
+- Add `babel-eslint`?
 - Fix/extend [svg-partial-circle](https://github.com/derhuerst/svg-partial-circle)
