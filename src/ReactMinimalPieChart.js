@@ -18,20 +18,20 @@ const evaluateDegreesFromValues = (data, totalAngle, totalValue) => {
   ));
 };
 
-const makePathTransitionStyle = (duration, easing) => ({
+const makeSegmentTransitionStyle = (duration, easing) => ({
   transition: `stroke-dashoffset ${duration}ms ${easing}`,
 });
 
 const makeSegments = (data, props, hide) => {
   // Keep track of how many degrees have already been taken
-  let lastPathAngle = props.startAngle;
+  let lastSegmentAngle = props.startAngle;
   let reveal;
 
   const style = props.animate
-    ? makePathTransitionStyle(props.animationDuration, props.animationEasing)
+    ? makeSegmentTransitionStyle(props.animationDuration, props.animationEasing)
     : undefined;
 
-  // Hide/reveal a path segment?
+  // Hide/reveal a segment?
   if (hide === true) {
     reveal = 0;
   } else if (typeof props.reveal === 'number') {
@@ -41,8 +41,8 @@ const makeSegments = (data, props, hide) => {
   }
 
   return data.map((dataEntry, index) => {
-    const startAngle = lastPathAngle;
-    lastPathAngle += dataEntry.degrees;
+    const startAngle = lastSegmentAngle;
+    lastSegmentAngle += dataEntry.degrees;
 
     return (
       <Path
@@ -69,7 +69,7 @@ export default class ReactMinimalPieChart extends PureComponent {
     super(props);
 
     if (this.props.animate === true) {
-      this.hidePaths = true;
+      this.hideSegments = true;
     }
   }
 
@@ -84,7 +84,7 @@ export default class ReactMinimalPieChart extends PureComponent {
   }
 
   startAnimation() {
-    this.hidePaths = false;
+    this.hideSegments = false;
     this.forceUpdate();
   }
 
@@ -109,7 +109,7 @@ export default class ReactMinimalPieChart extends PureComponent {
           width="100%"
           height="100%"
         >
-          {makeSegments(normalizedData, this.props, this.hidePaths)}
+          {makeSegments(normalizedData, this.props, this.hideSegments)}
         </svg>
         {this.props.children}
       </div>
