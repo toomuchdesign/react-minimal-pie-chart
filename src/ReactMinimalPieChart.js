@@ -5,7 +5,6 @@ const VIEWBOX_SIZE = 100;
 const VIEWBOX_HALF_SIZE = VIEWBOX_SIZE / 2;
 
 const sumValues = data => data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);
-const sumDegrees = data => data.reduce((acc, dataEntry) => acc + dataEntry.degrees, 0);
 
 const evaluateViewBoxSize = (ratio, baseSize) => {
   // Wide ratio
