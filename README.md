@@ -55,7 +55,7 @@ Property | Type | Description | Default
 http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/
 
 ## Todo's
-- Find a better solution for padding evaluation
+- Find a better `paddingAngle` implementation
 - Make a device/browser compatibility table
 - Define a className targeting each segment path for custom CSS animations
 - Background segment
