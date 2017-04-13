@@ -169,7 +169,7 @@ describe('ReactMinimalPieChart component', () => {
     expect(firstPath.prop('reveal')).toEqual(0);
 
     // Manually fire .startAnimation()
-    // @TODO Find a smarter approach of firing the animation
+    // @TODO Find a smarter approach to fire the animation
     wrapper.instance().startAnimation();
 
     firstPath = wrapper.find('ReactMinimalPieChartPath').first();

@@ -6,6 +6,7 @@
 - Re-evaluate segments size when `paddingAngle` is > 0
 - Make counterclockwise charts by default
 - Make <ReactMinimalPieChart> a pure component
+- Add eslint parsing
 
 # 0.0.2
 - Incorporate `svg-partial-circle` lib
