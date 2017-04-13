@@ -3,7 +3,7 @@ Lightweight React **SVG pie charts**, with **versatile options** and **CSS anima
 
 [ci-img]:                       https://travis-ci.org/toomuchdesign/react-minimal-pie-chart.svg
 [ci]:                           https://travis-ci.org/toomuchdesign/react-minimal-pie-chart
-[storybook]:                    https://f4442c1e-0562-45ed-89e9-34b069224803.sbook.io
+[storybook]:                    https://9418d72f-9482-4f88-8e85-9d97b23efbef.sbook.io
 
 ```js
 import PieChart from 'react-minimal-pie-chart';
@@ -60,4 +60,5 @@ http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/
 - Define a className targeting each segment path for custom CSS animations
 - Background segment
 - Add `babel-eslint`?
+- Add UMD export?
 - Fix/extend [svg-partial-circle](https://github.com/derhuerst/svg-partial-circle)
