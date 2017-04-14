@@ -26,7 +26,7 @@ npm install react-minimal-pie-chart
 Because [Recharts](https://github.com/recharts/recharts) is awesome, but when you need just a simple pie/donought chart, few line of code are usually enough.
 
 ## Features
-- No dependencies
+- No dependencies (except for [React's prop-types](https://github.com/reactjs/prop-types))
 - Customizable CSS animations trough [stroke-dasharray + stroke-dashoffset strategy](https://css-tricks.com/svg-line-animation-works/)
 - Configurable: Pie, Donut, Loading, Completion charts (see [Demo][storybook])
 

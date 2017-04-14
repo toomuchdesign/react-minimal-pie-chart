@@ -41,6 +41,9 @@
     "react": "^15.0.0",
     "react-dom": "^15.0.0"
   },
+  "dependencies": {
+    "prop-types": "^15.5.7"
+  },
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",
     "babel-cli": "^6.23.0",

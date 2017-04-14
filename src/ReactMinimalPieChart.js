@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import Path from './ReactMinimalPieChartPath';
 
 const VIEWBOX_SIZE = 100;
