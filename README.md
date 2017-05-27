@@ -3,7 +3,7 @@ Lightweight React **SVG pie charts**, with **versatile options** and **CSS anima
 
 [ci-img]:                       https://travis-ci.org/toomuchdesign/react-minimal-pie-chart.svg
 [ci]:                           https://travis-ci.org/toomuchdesign/react-minimal-pie-chart
-[storybook]:                    https://9418d72f-9482-4f88-8e85-9d97b23efbef.sbook.io
+[storybook]:                    http://www.andreacarraro.it/react-minimal-pie-chart
 
 ```js
 import PieChart from 'react-minimal-pie-chart';
