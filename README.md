@@ -61,4 +61,4 @@ http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/
 - Background segment
 - Add `babel-eslint`?
 - Add UMD export?
-- Fix/extend [svg-partial-circle](https://github.com/derhuerst/svg-partial-circle)
+- Setup Rollup.js to include transpiled version of [svg-partial-circle](https://github.com/derhuerst/svg-partial-circle)?

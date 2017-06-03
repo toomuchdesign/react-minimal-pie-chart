@@ -1,5 +1,4 @@
 // Taken from: https://github.com/derhuerst/svg-partial-circle
-// @TODO: fix/extend svg-partial-circle lib
 export default function partialCircle(cx, cy, r, start, end) {
   const length = end - start;
   if (length === 0) return [];
