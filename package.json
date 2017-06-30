@@ -14,8 +14,6 @@
     "tests": "npm run lint && npm t",
     "clean": "rm -rf lib es",
     "compile": "npm run clean && rollup -c",
-    "compile:es": "babel src -d es --ignore '__tests__/**'",
-    "compile:commonjs": "NODE_ENV=commonjs babel src -d lib --ignore '__tests__/**'",
     "lint": "eslint ./src --ext .js --ignore-pattern **/__tests__/",
     "preversion": "npm run tests",
     "version": "git add package.json",

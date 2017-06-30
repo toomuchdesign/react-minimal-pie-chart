@@ -26,8 +26,7 @@ export default {
   targets: [
     {
       dest: pkg.main,
-      format: 'umd',
-      moduleName: 'ReactMinimalPieChart',
+      format: 'cjs',
       sourceMap: true,
     },
     {
