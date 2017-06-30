@@ -9,9 +9,11 @@ let external = Object.keys(pkg.dependencies);
 
 let plugins = [
   resolve({
+    // Resolve and include "svg-partial-circle" package only
     jail: __dirname + '/node_modules/svg-partial-circle',
   }),
   commonjs({
+    // https://github.com/reactjs/react-redux/issues/643#issuecomment-285008041
     namedExports: {
       'node_modules/react/react.js': ['PureComponent'],
     },

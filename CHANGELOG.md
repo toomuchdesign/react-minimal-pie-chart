@@ -1,3 +1,10 @@
+# 2.0.0
+- Compile with Rollup.js to bundle with a transpiled version of `svg-partial-circle v0.2.0`
+
+# 1.1.0
+- Migrate React's prop types to external `prop-types` package
+- Swap `react-addons-test-utils` with `react-test-renderer` as `enzyme` required dependencies
+
 # 1.1.0
 - Migrate React's prop types to external `prop-types` package
 - Swap `react-addons-test-utils` with `react-test-renderer` as `enzyme` required dependencies
