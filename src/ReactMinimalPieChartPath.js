@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import partialCircle from './partialCircle';
+import partialCircle from 'svg-partial-circle';
 
 const PI = Math.PI;
 const degreesToRadians = degrees => ((degrees * PI) / 180);
