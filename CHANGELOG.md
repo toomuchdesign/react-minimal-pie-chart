@@ -5,10 +5,6 @@
 - Migrate React's prop types to external `prop-types` package
 - Swap `react-addons-test-utils` with `react-test-renderer` as `enzyme` required dependencies
 
-# 1.1.0
-- Migrate React's prop types to external `prop-types` package
-- Swap `react-addons-test-utils` with `react-test-renderer` as `enzyme` required dependencies
-
 # 1.0.0
 - Enable negative `lengthAngle` to configure clockwise and counterclockwise charts
 - Add `rx` and `ry` props to set custom chart center coordinates
