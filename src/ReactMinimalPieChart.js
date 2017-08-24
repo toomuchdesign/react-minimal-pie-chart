@@ -125,6 +125,7 @@ export default class ReactMinimalPieChart extends PureComponent {
           viewBox={`0 0 ${evaluateViewBoxSize(this.props.ratio, VIEWBOX_SIZE)}`}
           width="100%"
           height="100%"
+          style={{ display: 'block' }}
         >
           {makeSegments(normalizedData, this.props, this.hideSegments)}
         </svg>
