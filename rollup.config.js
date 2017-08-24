@@ -1,11 +1,12 @@
 // https://github.com/rollup/rollup-starter-project
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-import babelrc from 'babelrc-rollup';
 import babel from 'rollup-plugin-babel';
 
 let pkg = require('./package.json');
-let external = Object.keys(pkg.dependencies);
+let external = [].concat(
+  Object.keys(pkg.dependencies), Object.keys(pkg.peerDependencies)
+);
 
 let plugins = [
   resolve({
@@ -18,7 +19,7 @@ let plugins = [
       'node_modules/react/react.js': ['PureComponent'],
     },
   }),
-  babel(babelrc()),
+  babel(),
 ];
 
 export default {

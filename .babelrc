@@ -7,6 +7,11 @@
     "transform-react-jsx"
   ],
   "env": {
+    "rollup": {
+      "plugins": [
+        "external-helpers"
+      ]
+    },
     "test": {
       "presets": [
         ["es2015", {"modules": "commonjs", "loose": true}]
