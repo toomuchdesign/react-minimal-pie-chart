@@ -4,15 +4,16 @@ import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 
 let pkg = require('./package.json');
-let external = [].concat(
-  Object.keys(pkg.dependencies), Object.keys(pkg.peerDependencies)
-);
+let external = []
+  // Mark dependencies and peerDependencies as external
+  .concat(
+    Object.keys(pkg.dependencies), Object.keys(pkg.peerDependencies)
+  )
+  // ...But bundle svg-partial-circle into the package
+  .filter(pkgName => pkgName !== 'svg-partial-circle');
 
 let plugins = [
-  resolve({
-    // Resolve and include "svg-partial-circle" package only
-    jail: __dirname + '/node_modules/svg-partial-circle',
-  }),
+  resolve(),
   commonjs({
     // https://github.com/reactjs/react-redux/issues/643#issuecomment-285008041
     namedExports: {
