@@ -20,14 +20,14 @@ const evaluateViewBoxSize = (ratio, baseSize) => {
 const evaluateDegreesFromValues = (data, totalAngle, totalValue, paddingAngle) => {
   const total = totalValue || sumValues(data);
 
-  // Substract form total available degrees the space taken by segments padding
+  // Remove segments padding from total degrees
   const degreesTakenByPadding = paddingAngle * (data.length);
   let totalDegrees = Math.abs(totalAngle) - degreesTakenByPadding;
 
   if (totalDegrees > 360) totalDegrees = 360;
   if (totalAngle < 0) totalDegrees = -totalDegrees;
 
-  // Append "degrees" property into each data entry
+  // Append "degrees" into each data entry
   return data.map(dataEntry => Object.assign(
     { degrees: (dataEntry.value / total) * totalDegrees },
     dataEntry
@@ -48,7 +48,7 @@ const makeSegments = (data, props, hide) => {
     ? makeSegmentTransitionStyle(props.animationDuration, props.animationEasing)
     : undefined;
 
-  // Hide/reveal a segment?
+  // Hide/reveal the segment?
   if (hide === true) {
     reveal = 0;
   } else if (typeof props.reveal === 'number') {
