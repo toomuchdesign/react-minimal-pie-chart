@@ -58,9 +58,9 @@
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
     "react-test-renderer": "^15.5.4",
-    "rollup": "^0.43.0",
-    "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup": "^0.48.2",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-commonjs": "^8.2.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "svg-partial-circle": "0.2.0"
   }

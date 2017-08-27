@@ -24,19 +24,19 @@ let plugins = [
 ];
 
 export default {
-  entry: 'src/index.js',
+  input: 'src/index.js',
   plugins: plugins,
   external: external,
-  targets: [
+  output: [
     {
-      dest: pkg.main,
+      file: pkg.main,
       format: 'cjs',
-      sourceMap: true,
+      sourcemap: true,
     },
     {
-      dest: pkg.module,
+      file: pkg.module,
       format: 'es',
-      sourceMap: true,
+      sourcemap: true,
     },
   ],
 };
