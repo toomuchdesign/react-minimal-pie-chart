@@ -1,3 +1,6 @@
+# 3.0.0
+- Make SVG element `display: block` to remove undesired spacing
+
 # 2.0.0
 - Compile with Rollup.js to bundle with a transpiled version of `svg-partial-circle v0.2.0`
 
