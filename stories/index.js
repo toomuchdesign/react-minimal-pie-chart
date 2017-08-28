@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { storiesOf, action } from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 import PieChart from '../src/index.js';
 
 const ContainDecorator = (story) => (
