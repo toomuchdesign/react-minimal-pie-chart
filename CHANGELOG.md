@@ -1,3 +1,6 @@
+# 3.0.1
+- Update `react`/`react-dom` peer dependency version to accept versions `15` and `16`
+
 # 3.0.0
 - Make SVG element `display: block` to remove undesired spacing
 
