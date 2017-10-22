@@ -1,6 +1,6 @@
 {
   "name": "react-minimal-pie-chart",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Lightweight but versatile SVG pie/donut charts for React",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -36,8 +36,8 @@
   "author": "Andrea Carraro <me@andreacarraro.it>",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0"
+    "react": "^15.0.0 || ^16.0.0",
+    "react-dom": "^15.0.0 || ^16.0.0"
   },
   "dependencies": {
     "prop-types": "^15.5.7"
