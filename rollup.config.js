@@ -14,13 +14,13 @@ let external = []
 
 let plugins = [
   resolve(),
+  babel(),
   commonjs({
     // https://github.com/reactjs/react-redux/issues/643#issuecomment-285008041
     namedExports: {
       'node_modules/react/react.js': ['PureComponent'],
     },
   }),
-  babel(),
 ];
 
 export default {
