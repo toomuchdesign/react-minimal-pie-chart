@@ -13,8 +13,14 @@ const styleMock = {
   color: 'green',
 }
 
+jest.useFakeTimers();
+
+beforeAll(() => {
+  global.requestAnimationFrame = (callback) => {callback(); return 'id';};
+})
+
 describe('ReactMinimalPieChart component', () => {
-  it('Should return null props.data is undefined', () => {
+  it('Should return null if props.data is undefined', () => {
     const wrapper = shallow(
       <PieChart />
     );
@@ -158,7 +164,7 @@ describe('ReactMinimalPieChart component', () => {
     });
   });
 
-  it('Should perform paths CSS animation by rendering paths twice by setting "reveal" to 0 and then to 100', () => {
+  it('Should animate path on mount by rendering twice and setting "reveal" from 0 to 100', () => {
     const wrapper = shallow(
       <PieChart
         data={dataMock}
@@ -168,11 +174,31 @@ describe('ReactMinimalPieChart component', () => {
     let firstPath = wrapper.find('ReactMinimalPieChartPath').first();
     expect(firstPath.prop('reveal')).toEqual(0);
 
-    // Manually fire .startAnimation()
-    // @TODO Find a smarter approach to fire the animation
-    wrapper.instance().startAnimation();
+    // Manually fire componentDidMount hook
+    wrapper.instance().componentDidMount();
+    jest.runAllTimers();
 
     firstPath = wrapper.find('ReactMinimalPieChartPath').first();
     expect(firstPath.prop('reveal')).toEqual(100);
+  });
+
+  it('Should not fire forceUpdate on unmounted component', () => {
+    const wrapper = shallow(
+      <PieChart
+        data={dataMock}
+        animate
+      />
+    );
+
+    const chartInstance = wrapper.instance();
+    chartInstance.startAnimation = jest.fn();
+
+    // Simulate edge case of animation fired after component was unmounted
+    // See: https://github.com/toomuchdesign/react-react-minimalm-pie-chart/issues/8
+    chartInstance.componentDidMount();
+    wrapper.unmount();
+    jest.runAllTimers();
+
+    expect(chartInstance.startAnimation).not.toHaveBeenCalled();
   });
 });
