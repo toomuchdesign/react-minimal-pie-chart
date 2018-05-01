@@ -1,0 +1,61 @@
+{
+  "projectName": "react-minimal-pie-chart",
+  "projectOwner": "toomuchdesign",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "toomuchdesign",
+      "name": "Andrea Carraro",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/4573549?v=4",
+      "profile": "http://www.andreacarraro.it",
+      "contributions": [
+        "code",
+        "doc",
+        "infra",
+        "test",
+        "review"
+      ]
+    },
+    {
+      "login": "rufman",
+      "name": "Stephane Rufer",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1128559?v=4",
+      "profile": "https://github.com/rufman",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "jaaberg",
+      "name": "Jørgen Aaberg",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1413255?v=4",
+      "profile": "https://github.com/jaaberg",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "TobiahRex",
+      "name": "Tobiah Rex",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/16377119?v=4",
+      "profile": "http://www.tobiahrex.com",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "edwardfhsiao",
+      "name": "Edward Xiao",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/11728228?v=4",
+      "profile": "https://edwardxiao.com",
+      "contributions": [
+        "bug"
+      ]
+    }
+  ]
+}
