@@ -4,9 +4,9 @@ import { shallow } from 'enzyme';
 import PieChart from '../index';
 
 const dataMock = [
-  { value: 10, key: 1, color: 'blue' },
-  { value: 15, key: 2, color: 'orange' },
-  { value: 20, key: 3, color: 'green' },
+  { value: 10, color: 'blue' },
+  { value: 15, color: 'orange' },
+  { value: 20, color: 'green' },
 ];
 
 const styleMock = {
