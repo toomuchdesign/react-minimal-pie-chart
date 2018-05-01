@@ -14,9 +14,9 @@ const ContainDecorator = (story) => (
 );
 
 const dataMock = [
-  { value: 10, key: 1, color: '#E38627' },
-  { value: 15, key: 2, color: '#C13C37' },
-  { value: 20, key: 3, color: '#6A2135' },
+  { value: 10, color: '#E38627' },
+  { value: 15, color: '#C13C37' },
+  { value: 20, color: '#6A2135' },
 ];
 
 storiesOf('React minimal pie chart', module)

@@ -10,9 +10,9 @@ import PieChart from 'react-minimal-pie-chart';
 
 <PieChart
   data={[
-    { value: 10, key: 1, color: '#E38627' },
-    { value: 15, key: 2, color: '#C13C37' },
-    { value: 20, key: 3, color: '#6A2135' },
+    { value: 10, color: '#E38627' },
+    { value: 15, color: '#C13C37' },
+    { value: 20, color: '#6A2135' },
   ]}
 />
 ```
@@ -49,6 +49,12 @@ Property | Type | Description | Default
 **animationDuration** | *Number* | Animation duration in ms | 500
 **animationEasing** | *String* | Animation CSS easing | "ease-out"
 **reveal** | *Number* | Turn on CSS animation and reveal just a percentage of each segment| -
+
+Each **data** entry can also accept an **optional [`key` property](https://reactjs.org/docs/lists-and-keys.html)** just in case items' indexes weren't enough:
+
+```js
+{ value: 10, key: 1, color: '#E38627' }
+```
 
 ## Browsers support
 The main requirement of this library is an accurate rendering of [SVG Stroke properties](https://www.w3schools.com/graphics/svg_stroking.asp).
