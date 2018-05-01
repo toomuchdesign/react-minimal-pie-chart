@@ -1,3 +1,6 @@
+# 3.0.2
+- Prevent initial animation when component is unmounted
+
 # 3.0.1
 - Update `react`/`react-dom` peer dependency version to accept versions `15` and `16`
 
