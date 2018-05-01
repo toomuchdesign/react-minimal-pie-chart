@@ -93,8 +93,10 @@ export default class ReactMinimalPieChart extends PureComponent {
     if (this.props.animate === true && requestAnimationFrame) {
       this.initialAnimationTimerId = setTimeout(
         () => {
+          this.initialAnimationTimerId = null;
           this.initialAnimationRAFId = requestAnimationFrame(
             () => {
+              this.initialAnimationRAFId = null,
               this.startAnimation();
             }
           )
