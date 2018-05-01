@@ -11,6 +11,7 @@ coverage
 !.babelrc
 !.editorconfig
 !.eslintrc
+!.github
 !.gitignore
 !.npmignore
 !.storybook
