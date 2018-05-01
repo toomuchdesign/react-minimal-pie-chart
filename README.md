@@ -50,6 +50,15 @@ Property | Type | Description | Default
 **animationEasing** | *String* | Animation CSS easing | "ease-out"
 **reveal** | *Number* | Turn on CSS animation and reveal just a percentage of each segment| -
 
+## Browsers support
+The main requirement of this library is an accurate rendering of [SVG Stroke properties](https://www.w3schools.com/graphics/svg_stroking.asp).
+
+### Not supported
+- IE ≤ 10
+
+### Partially supported
+- IE 11
+
 ## Misc
 ### How svg arc paths work?
 http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/
@@ -66,6 +75,6 @@ http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/
 Thanks to you all ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-| [<img src="https://avatars3.githubusercontent.com/u/4573549?v=4" width="100px;"/><br /><sub>Andrea Carraro</sub>](http://www.andreacarraro.it)<br />[💻](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=toomuchdesign "Code") [📖](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=toomuchdesign "Documentation") [🚇](#infra-toomuchdesign "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=toomuchdesign "Tests") [👀](#review-toomuchdesign "Reviewed Pull Requests") | [<img src="https://avatars3.githubusercontent.com/u/1128559?v=4" width="100px;"/><br /><sub>Stephane Rufer</sub>](https://github.com/rufman)<br />[🐛](https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3Arufman "Bug reports") [💻](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=rufman "Code") | [<img src="https://avatars3.githubusercontent.com/u/1413255?v=4" width="100px;"/><br /><sub>Jørgen Aaberg</sub>](https://github.com/jaaberg)<br />[💻](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=jaaberg "Code") | [<img src="https://avatars3.githubusercontent.com/u/16377119?v=4" width="100px;"/><br /><sub>Tobiah Rex</sub>](http://www.tobiahrex.com)<br />[🐛](https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3ATobiahRex "Bug reports") |
-| :---: | :---: | :---: | :---: |
+| [<img src="https://avatars3.githubusercontent.com/u/4573549?v=4" width="100px;"/><br /><sub>Andrea Carraro</sub>](http://www.andreacarraro.it)<br />[💻](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=toomuchdesign "Code") [📖](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=toomuchdesign "Documentation") [🚇](#infra-toomuchdesign "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=toomuchdesign "Tests") [👀](#review-toomuchdesign "Reviewed Pull Requests") | [<img src="https://avatars3.githubusercontent.com/u/1128559?v=4" width="100px;"/><br /><sub>Stephane Rufer</sub>](https://github.com/rufman)<br />[🐛](https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3Arufman "Bug reports") [💻](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=rufman "Code") | [<img src="https://avatars3.githubusercontent.com/u/1413255?v=4" width="100px;"/><br /><sub>Jørgen Aaberg</sub>](https://github.com/jaaberg)<br />[💻](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=jaaberg "Code") | [<img src="https://avatars3.githubusercontent.com/u/16377119?v=4" width="100px;"/><br /><sub>Tobiah Rex</sub>](http://www.tobiahrex.com)<br />[🐛](https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3ATobiahRex "Bug reports") | [<img src="https://avatars2.githubusercontent.com/u/11728228?v=4" width="100px;"/><br /><sub>Edward Xiao</sub>](https://edwardxiao.com)<br />[🐛](https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3Aedwardfhsiao "Bug reports") |
+| :---: | :---: | :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
