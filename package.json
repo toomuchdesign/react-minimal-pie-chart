@@ -45,10 +45,10 @@
     "prop-types": "^15.5.7"
   },
   "devDependencies": {
-    "@storybook/react": "^3.2.8",
-    "all-contributors-cli": "^4.5.1",
+    "@storybook/react": "^3.4.3",
+    "all-contributors-cli": "^4.11.1",
     "babel-core": "^6.23.1",
-    "babel-jest": "^19.0.0",
+    "babel-jest": "^21.2.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-react-jsx": "^6.23.0",
@@ -57,7 +57,7 @@
     "enzyme": "^2.7.1",
     "eslint": "^3.19.0",
     "eslint-plugin-react": "^6.10.3",
-    "jest": "^19.0.2",
+    "jest": "^21.2.1",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
     "react-test-renderer": "^15.5.4",
