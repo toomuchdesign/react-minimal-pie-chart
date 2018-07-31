@@ -56,6 +56,9 @@ const makeSegments = (data, props, hide) => {
   } else if (hide === false) {
     reveal = 100;
   }
+  
+  const onMouseOver = props.onMouseOver || (() => {})
+  const onMouseOut = props.onMouseOut || (() => {})
 
   return data.map((dataEntry, index) => {
     const startAngle = lastSegmentAngle;
@@ -75,6 +78,8 @@ const makeSegments = (data, props, hide) => {
         stroke={dataEntry.color}
         strokeLinecap={props.rounded ? 'round' : undefined}
         fill="none"
+        onMouseOver={e => onMouseOver(e, dataEntry, index)}
+        onMouseOut={e => onMouseOut(e, dataEntry, index)}
       />
     );
   });
@@ -184,6 +189,8 @@ ReactMinimalPieChart.propTypes = {
   animationEasing: PropTypes.string,
   reveal: PropTypes.number,
   children: PropTypes.node,
+  onMouseOver: PropTypes.func,
+  onMouseOut: PropTypes.func,
 };
 
 ReactMinimalPieChart.defaultProps = {
