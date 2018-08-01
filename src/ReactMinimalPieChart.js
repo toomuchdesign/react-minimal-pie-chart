@@ -14,7 +14,7 @@ const evaluateViewBoxSize = (ratio, baseSize) => {
   }
   // Narrow/squared ratio
   return `${baseSize * ratio} ${baseSize}`;
-}
+};
 
 // @TODO extract padding evaluation
 const evaluateDegreesFromValues = (data, totalAngle, totalValue, paddingAngle) => {
@@ -35,7 +35,7 @@ const evaluateDegreesFromValues = (data, totalAngle, totalValue, paddingAngle) =
 };
 
 const makeSegmentTransitionStyle = (duration, easing) => ({
-  transition: `stroke-dashoffset ${duration}ms ${easing}`,
+  transition: `stroke-dashoffset ${duration}ms ${easing}`
 });
 
 const makeSegments = (data, props, hide) => {
@@ -56,9 +56,8 @@ const makeSegments = (data, props, hide) => {
   } else if (hide === false) {
     reveal = 100;
   }
-  
-  const onMouseOver = props.onMouseOver || (() => {})
-  const onMouseOut = props.onMouseOut || (() => {})
+
+  const { onMouseOver, onMouseOut, onClick } = props;
 
   return data.map((dataEntry, index) => {
     const startAngle = lastSegmentAngle;
@@ -77,16 +76,17 @@ const makeSegments = (data, props, hide) => {
         style={style}
         stroke={dataEntry.color}
         strokeLinecap={props.rounded ? 'round' : undefined}
-        fill="none"
+        fill='none'
         onMouseOver={e => onMouseOver(e, dataEntry, index)}
         onMouseOut={e => onMouseOut(e, dataEntry, index)}
+        onClick={e => onClick(e, dataEntry, index)}
       />
     );
   });
 };
 
 export default class ReactMinimalPieChart extends PureComponent {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     if (this.props.animate === true) {
@@ -94,7 +94,7 @@ export default class ReactMinimalPieChart extends PureComponent {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     if (this.props.animate === true && requestAnimationFrame) {
       this.initialAnimationTimerId = setTimeout(
         () => {
@@ -104,13 +104,13 @@ export default class ReactMinimalPieChart extends PureComponent {
               this.initialAnimationRAFId = null,
               this.startAnimation();
             }
-          )
+          );
         }
       );
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     if (this.initialAnimationTimerId) {
       clearTimeout(this.initialAnimationTimerId);
     }
@@ -119,12 +119,12 @@ export default class ReactMinimalPieChart extends PureComponent {
     }
   }
 
-  startAnimation() {
+  startAnimation () {
     this.hideSegments = false;
     this.forceUpdate();
   }
 
-  render() {
+  render () {
     if (this.props.data === undefined) {
       return null;
     }
@@ -143,8 +143,8 @@ export default class ReactMinimalPieChart extends PureComponent {
       >
         <svg
           viewBox={`0 0 ${evaluateViewBoxSize(this.props.ratio, VIEWBOX_SIZE)}`}
-          width="100%"
-          height="100%"
+          width='100%'
+          height='100%'
           style={{ display: 'block' }}
         >
           {makeSegments(normalizedData, this.props, this.hideSegments)}
@@ -163,9 +163,9 @@ ReactMinimalPieChart.propTypes = {
       value: PropTypes.number.isRequired,
       key: PropTypes.oneOfType([
         PropTypes.number,
-        PropTypes.string,
+        PropTypes.string
       ]),
-      color: PropTypes.string,
+      color: PropTypes.string
     })
   ),
   cx: PropTypes.number,
@@ -175,7 +175,7 @@ ReactMinimalPieChart.propTypes = {
   style: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.number,
-      PropTypes.string,
+      PropTypes.string
     ])
   ),
   startAngle: PropTypes.number,
@@ -191,6 +191,7 @@ ReactMinimalPieChart.propTypes = {
   children: PropTypes.node,
   onMouseOver: PropTypes.func,
   onMouseOut: PropTypes.func,
+  onClick: PropTypes.func
 };
 
 ReactMinimalPieChart.defaultProps = {
@@ -206,4 +207,7 @@ ReactMinimalPieChart.defaultProps = {
   animate: false,
   animationDuration: 500,
   animationEasing: 'ease-out',
+  onMouseOver: (event, data, index) => {},
+  onMouseOut: (event, data, index) => {},
+  onClick: (event, data, index) => {}
 };
