@@ -35,7 +35,7 @@ const evaluateDegreesFromValues = (data, totalAngle, totalValue, paddingAngle) =
 };
 
 const makeSegmentTransitionStyle = (duration, easing) => ({
-  transition: `stroke-dashoffset ${duration}ms ${easing}`
+  transition: `stroke-dashoffset ${duration}ms ${easing}`,
 });
 
 const makeSegments = (data, props, hide) => {
@@ -163,9 +163,9 @@ ReactMinimalPieChart.propTypes = {
       value: PropTypes.number.isRequired,
       key: PropTypes.oneOfType([
         PropTypes.number,
-        PropTypes.string
+        PropTypes.string,
       ]),
-      color: PropTypes.string
+      color: PropTypes.string,
     })
   ),
   cx: PropTypes.number,
@@ -175,7 +175,7 @@ ReactMinimalPieChart.propTypes = {
   style: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.number,
-      PropTypes.string
+      PropTypes.string,
     ])
   ),
   startAngle: PropTypes.number,
@@ -191,7 +191,7 @@ ReactMinimalPieChart.propTypes = {
   children: PropTypes.node,
   onMouseOver: PropTypes.func,
   onMouseOut: PropTypes.func,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 ReactMinimalPieChart.defaultProps = {
@@ -209,5 +209,5 @@ ReactMinimalPieChart.defaultProps = {
   animationEasing: 'ease-out',
   onMouseOver: (event, data, index) => {},
   onMouseOut: (event, data, index) => {},
-  onClick: (event, data, index) => {}
+  onClick: (event, data, index) => {},
 };
