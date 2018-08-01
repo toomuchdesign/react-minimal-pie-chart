@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import PieChart from '../src/index.js';
 
 const ContainDecorator = (story) => (
   <div
     style={{
       maxWidth: '400px',
-      margin: '0 auto',
+      margin: '0 auto'
     }}
   >
     {story()}
@@ -16,8 +17,22 @@ const ContainDecorator = (story) => (
 const dataMock = [
   { value: 10, color: '#E38627' },
   { value: 15, color: '#C13C37' },
-  { value: 20, color: '#6A2135' },
+  { value: 20, color: '#6A2135' }
 ];
+
+class DemoInteraction extends Component {
+  onMouseOut (e, d, i) {
+    e.target.style.stroke = d.color;
+  }
+
+  onMouseOver (e, d, i) {
+    e.target.style.stroke = 'cyan';
+  }
+
+  render () {
+    return (<PieChart data={dataMock} onClick={action('CLICK')} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} />);
+  }
+}
 
 storiesOf('React minimal pie chart', module)
   .addDecorator(ContainDecorator)
@@ -103,29 +118,30 @@ storiesOf('React minimal pie chart', module)
       animate
     />
   ))
+  .add('Interaction using click/mouseOver/mouseOut', () => (<DemoInteraction />))
   .add('as a loading bar with "reveal"', () => {
     const Wrapper = class Wrapper extends Component {
-      constructor(props) {
+      constructor (props) {
         super(props);
 
         this.state = {
-          percentage: 20,
-        }
+          percentage: 20
+        };
 
         this.handleRangeChange = this.handleRangeChange.bind(this);
       }
 
-      handleRangeChange(e) {
+      handleRangeChange (e) {
         const newValue = e.target.value;
         this.setState(() => ({ percentage: Number(newValue) }));
       }
 
-      render() {
-        return(
+      render () {
+        return (
           <div>
             <PieChart
               data={[
-                { value: 1, key: 1, color: '#E38627' },
+                { value: 1, key: 1, color: '#E38627' }
               ]}
               reveal={this.state.percentage}
               lineWidth={20}
@@ -133,10 +149,10 @@ storiesOf('React minimal pie chart', module)
             />
           Reveal: {this.state.percentage}%
             <input
-              type="range"
-              min="0"
-              max="100"
-              step="1"
+              type='range'
+              min='0'
+              max='100'
+              step='1'
               value={this.state.percentage}
               style={{width: '100%'}}
               onChange={this.handleRangeChange}
@@ -147,4 +163,4 @@ storiesOf('React minimal pie chart', module)
     };
 
     return <Wrapper />;
-  })
+  });
