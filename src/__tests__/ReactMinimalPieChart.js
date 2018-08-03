@@ -232,7 +232,7 @@ describe('ReactMinimalPieChart component', () => {
           expect(eventCallbackMock).toHaveBeenCalledTimes(1);
           expect(eventCallbackMock).toHaveBeenLastCalledWith(
             eventMock,
-            dataMock[0],
+            dataMock,
             0
           );
         })

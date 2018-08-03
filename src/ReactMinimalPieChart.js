@@ -57,8 +57,6 @@ const makeSegments = (data, props, hide) => {
     reveal = 100;
   }
 
-  const { onMouseOver, onMouseOut, onClick } = props;
-
   return data.map((dataEntry, index) => {
     const startAngle = lastSegmentAngle;
     lastSegmentAngle += dataEntry.degrees + segmentsPaddingAngle;
@@ -77,9 +75,9 @@ const makeSegments = (data, props, hide) => {
         stroke={dataEntry.color}
         strokeLinecap={props.rounded ? 'round' : undefined}
         fill='none'
-        onMouseOver={e => onMouseOver(e, dataEntry, index)}
-        onMouseOut={e => onMouseOut(e, dataEntry, index)}
-        onClick={e => onClick(e, dataEntry, index)}
+        onMouseOver={props.onMouseOver && (e => props.onMouseOver(e, props.data, index))}
+        onMouseOut={props.onMouseOut && (e => props.onMouseOut(e, props.data, index))}
+        onClick={props.onClick && (e => props.onClick(e, props.data, index))}
       />
     );
   });
@@ -207,7 +205,7 @@ ReactMinimalPieChart.defaultProps = {
   animate: false,
   animationDuration: 500,
   animationEasing: 'ease-out',
-  onMouseOver: (event, data, index) => {},
-  onMouseOut: (event, data, index) => {},
-  onClick: (event, data, index) => {},
+  onMouseOver: undefined,
+  onMouseOut: undefined,
+  onClick: undefined,
 };
