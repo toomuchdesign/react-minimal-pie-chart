@@ -5,11 +5,11 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import PieChart from '../src/index.js';
 
-const ContainDecorator = (story) => (
+const ContainDecorator = story => (
   <div
     style={{
       maxWidth: '400px',
-      margin: '0 auto'
+      margin: '0 auto',
     }}
   >
     {story()}
@@ -19,7 +19,7 @@ const ContainDecorator = (story) => (
 const dataMock = [
   { value: 10, color: '#E38627' },
   { value: 15, color: '#C13C37' },
-  { value: 20, color: '#6A2135' }
+  { value: 20, color: '#6A2135' },
 ];
 
 class DemoInteraction extends Component {
@@ -27,7 +27,7 @@ class DemoInteraction extends Component {
     super(props);
     this.state = {
       data: dataMock,
-    }
+    };
 
     this.onMouseOut = this.onMouseOut.bind(this);
     this.onMouseOver = this.onMouseOver.bind(this);
@@ -36,49 +36,44 @@ class DemoInteraction extends Component {
     };
   }
 
-  onMouseOut (e, d, i) {
+  onMouseOut(e, d, i) {
     this.setState({
       data: dataMock,
-    })
+    });
   }
 
-  onMouseOver (e, d, i) {
+  onMouseOver(e, d, i) {
     const data = d.map((entry, index) => {
-      return index === i
-        ? {...entry, color: 'cyan'}
-        : entry
-    })
+      return index === i ? { ...entry, color: 'cyan' } : entry;
+    });
 
     this.setState({
       data,
-    })
+    });
   }
 
-  render () {
-    return (<PieChart data={this.state.data} segmentsStyle={this.segmentsStyle} onClick={action('CLICK')} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} animate/>);
+  render() {
+    return (
+      <PieChart
+        data={this.state.data}
+        segmentsStyle={this.segmentsStyle}
+        onClick={action('CLICK')}
+        onMouseOver={this.onMouseOver}
+        onMouseOut={this.onMouseOut}
+        animate
+      />
+    );
   }
 }
 
 storiesOf('React minimal pie chart', module)
   .addDecorator(ContainDecorator)
-  .add('default', () => (
-    <PieChart
-      data={dataMock}
-    />
-  ))
+  .add('default', () => <PieChart data={dataMock} />)
   .add('180° arc with custom "startAngle"/"lengthAngle"', () => (
-    <PieChart
-      data={dataMock}
-      startAngle={180}
-      lengthAngle={180}
-    />
+    <PieChart data={dataMock} startAngle={180} lengthAngle={180} />
   ))
   .add('180° arc with negative "lengthAngle" and custom svg ratio', () => (
-    <PieChart
-      data={dataMock}
-      lengthAngle={-180}
-      ratio={2}
-    />
+    <PieChart data={dataMock} lengthAngle={-180} ratio={2} />
   ))
   .add('custom center + "radius"', () => (
     <PieChart
@@ -91,95 +86,72 @@ storiesOf('React minimal pie chart', module)
     />
   ))
   .add('with custom "lineWidth"', () => (
-    <PieChart
-      data={dataMock}
-      lineWidth={15}
-    />
+    <PieChart data={dataMock} lineWidth={15} />
   ))
   .add('with custom "lineWidth" + "rounded"', () => (
-    <PieChart
-      data={dataMock}
-      lineWidth={15}
-      rounded
-    />
+    <PieChart data={dataMock} lineWidth={15} rounded />
   ))
   .add('with custom "lineWidth" + "paddingAngle"', () => (
-    <PieChart
-      data={dataMock}
-      lineWidth={15}
-      paddingAngle={5}
-    />
+    <PieChart data={dataMock} lineWidth={15} paddingAngle={5} />
   ))
-  .add('with custom "lineWidth" + "paddingAngle" + negative "lengthAngle"', () => (
-    <PieChart
-      data={dataMock}
-      lineWidth={15}
-      paddingAngle={5}
-      lengthAngle={-360}
-    />
-  ))
+  .add(
+    'with custom "lineWidth" + "paddingAngle" + negative "lengthAngle"',
+    () => (
+      <PieChart
+        data={dataMock}
+        lineWidth={15}
+        paddingAngle={5}
+        lengthAngle={-360}
+      />
+    )
+  )
   .add('with custom "style" height', () => (
-    <PieChart
-      data={dataMock}
-      style={{ height: '100px' }}
-    />
+    <PieChart data={dataMock} style={{ height: '100px' }} />
   ))
   .add('uncomplete chart with custom "totalValue"', () => (
-    <PieChart
-      data={dataMock}
-      totalValue={60}
-    />
+    <PieChart data={dataMock} totalValue={60} />
   ))
   .add('animation on mount with "animate"', () => (
-    <PieChart
-      data={dataMock}
-      animate
-    />
+    <PieChart data={dataMock} animate />
   ))
   .add('clockwise animation on mount with negative "lengthAngle"', () => (
-    <PieChart
-      data={dataMock}
-      lengthAngle={-360}
-      animate
-    />
+    <PieChart data={dataMock} lengthAngle={-360} animate />
   ))
-  .add('Interaction using click/mouseOver/mouseOut', () => (<DemoInteraction />))
+  .add('Interaction using click/mouseOver/mouseOut', () => <DemoInteraction />)
   .add('as a loading bar with "reveal"', () => {
     const Wrapper = class Wrapper extends Component {
-      constructor (props) {
+      constructor(props) {
         super(props);
 
         this.state = {
-          percentage: 20
+          percentage: 20,
         };
 
         this.handleRangeChange = this.handleRangeChange.bind(this);
       }
 
-      handleRangeChange (e) {
+      handleRangeChange(e) {
         const newValue = e.target.value;
         this.setState(() => ({ percentage: Number(newValue) }));
       }
 
-      render () {
+      render() {
         return (
           <div>
             <PieChart
-              data={[
-                { value: 1, key: 1, color: '#E38627' }
-              ]}
+              data={[{ value: 1, key: 1, color: '#E38627' }]}
               reveal={this.state.percentage}
               lineWidth={20}
               animate
             />
-          Reveal: {this.state.percentage}%
+            Reveal: {this.state.percentage}%
             <input
-              type='range'
-              min='0'
-              max='100'
-              step='1'
+              type="range"
+              min="0"
+              max="100"
+              step="1"
               value={this.state.percentage}
-              style={{width: '100%'}}
+              style={{ width: '100%' }}
               onChange={this.handleRangeChange}
             />
           </div>
