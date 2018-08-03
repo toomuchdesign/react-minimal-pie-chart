@@ -173,6 +173,7 @@ ReactMinimalPieChart.propTypes = {
   cy: PropTypes.number,
   ratio: PropTypes.number,
   totalValue: PropTypes.number,
+  className: PropTypes.string,
   style: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.number,
