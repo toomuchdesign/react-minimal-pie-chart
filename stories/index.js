@@ -21,16 +21,39 @@ const dataMock = [
 ];
 
 class DemoInteraction extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: dataMock,
+    }
+
+    this.onMouseOut = this.onMouseOut.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.segmentsStyle = {
+      transition: 'stroke .3s, stroke-dashoffset .5s ease-out',
+    };
+  }
+
   onMouseOut (e, d, i) {
-    e.target.style.stroke = d.color;
+    this.setState({
+      data: dataMock,
+    })
   }
 
   onMouseOver (e, d, i) {
-    e.target.style.stroke = 'cyan';
+    const data = d.map((entry, index) => {
+      return index === i
+        ? {...entry, color: 'cyan'}
+        : entry
+    })
+
+    this.setState({
+      data,
+    })
   }
 
   render () {
-    return (<PieChart data={dataMock} onClick={action('CLICK')} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} />);
+    return (<PieChart data={this.state.data} segmentsStyle={this.segmentsStyle} onClick={action('CLICK')} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} animate/>);
   }
 }
 

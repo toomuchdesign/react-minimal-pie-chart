@@ -44,9 +44,12 @@ const makeSegments = (data, props, hide) => {
   const segmentsPaddingAngle = props.paddingAngle * (props.lengthAngle / Math.abs(props.lengthAngle));
   let reveal;
 
-  const style = props.animate
+  const transitionStyle = props.animate
     ? makeSegmentTransitionStyle(props.animationDuration, props.animationEasing)
     : undefined;
+
+  // @TODO merge style.transition properties
+  const style = Object.assign({}, transitionStyle, props.segmentsStyle);
 
   // Hide/reveal the segment?
   if (hide === true) {
@@ -171,6 +174,12 @@ ReactMinimalPieChart.propTypes = {
   ratio: PropTypes.number,
   totalValue: PropTypes.number,
   style: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ])
+  ),
+  segmentsStyle: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
