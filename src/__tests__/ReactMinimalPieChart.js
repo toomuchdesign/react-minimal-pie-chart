@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import PieChart from '../index';
+import PieChartPath from '../ReactMinimalPieChartPath';
 
 const dataMock = [
   { value: 10, color: 'blue' },
@@ -52,87 +53,91 @@ describe('ReactMinimalPieChart component', () => {
     expect(wrapper.prop('style')).toEqual(styleMock);
   });
 
-  it('Should render a wide-ratio <svg> with viewBox = "0 0 100 25"', () => {
-    const wrapper = shallow(
-      <PieChart
-        data={dataMock}
-        ratio={4}
-      />
-    );
+  describe('<svg> ratio', () => {
+    it('Should be horizontal when "ratio" > 1', () => {
+      const wrapper = shallow(
+        <PieChart
+          data={dataMock}
+          ratio={4}
+          />
+      );
 
-    const svg = wrapper.find('svg').first();
-    expect(svg.prop('viewBox')).toBe('0 0 100 25');
-  });
-
-  it('Should render a narrow-ratio <svg> with viewBox = "0 0 10 100"', () => {
-    const wrapper = shallow(
-      <PieChart
-        data={dataMock}
-        ratio={1/10}
-      />
-    );
-
-    const svg = wrapper.find('svg').first();
-    expect(svg.prop('viewBox')).toBe('0 0 10 100');
-  });
-
-  it('Should render a set of arc paths having total lengthAngle === 270°', () => {
-    const pieLengthAngle = 270;
-    let pathsTotalLengthAngle = 0;
-
-    const wrapper = shallow(
-      <PieChart
-        data={dataMock}
-        lengthAngle={pieLengthAngle}
-      />
-    );
-
-    const paths = wrapper.find('ReactMinimalPieChartPath');
-    paths.forEach((path) => {
-      pathsTotalLengthAngle += path.prop('lengthAngle');
+      const svg = wrapper.find('svg').first();
+      expect(svg.prop('viewBox')).toBe('0 0 100 25');
     });
 
-    expect(pieLengthAngle).toEqual(pathsTotalLengthAngle);
+    it('Should be certical when "ratio" < 1', () => {
+      const wrapper = shallow(
+        <PieChart
+          data={dataMock}
+          ratio={1/10}
+          />
+      );
+
+      const svg = wrapper.find('svg').first();
+      expect(svg.prop('viewBox')).toBe('0 0 10 100');
+    });
   });
 
-  it('Should render a set of arc paths having total negative lengthAngle === -270°', () => {
-    const pieLengthAngle = -270;
-    let pathsTotalLengthAngle = 0;
+  describe('Partial circle', () => {
+    it('Should render a set of arc paths having total lengthAngle === 270°', () => {
+      const pieLengthAngle = 270;
+      let pathsTotalLengthAngle = 0;
 
-    const wrapper = shallow(
-      <PieChart
-        data={dataMock}
-        lengthAngle={pieLengthAngle}
-      />
-    );
+      const wrapper = shallow(
+        <PieChart
+          data={dataMock}
+          lengthAngle={pieLengthAngle}
+        />
+      );
 
-    const paths = wrapper.find('ReactMinimalPieChartPath');
-    paths.forEach((path) => {
-      pathsTotalLengthAngle += path.prop('lengthAngle');
+      const paths = wrapper.find('ReactMinimalPieChartPath');
+      paths.forEach((path) => {
+        pathsTotalLengthAngle += path.prop('lengthAngle');
+      });
+
+      expect(pieLengthAngle).toEqual(pathsTotalLengthAngle);
     });
 
-    expect(pieLengthAngle).toEqual(pathsTotalLengthAngle);
-  });
+    it('Should render a set of arc paths having total negative lengthAngle === -270°', () => {
+      const pieLengthAngle = -270;
+      let pathsTotalLengthAngle = 0;
 
-  it('Should render a set of arc paths + paddings having total lengthAngle === 270°', () => {
-    const pieLengthAngle = 270;
-    let pathsTotalLengthAngle = 0;
-    const totalPaddingDegrees = 10 * dataMock.length;
+      const wrapper = shallow(
+        <PieChart
+          data={dataMock}
+          lengthAngle={pieLengthAngle}
+          />
+      );
 
-    const wrapper = shallow(
-      <PieChart
-        data={dataMock}
-        lengthAngle={pieLengthAngle}
-        paddingAngle={10}
-      />
-    );
+      const paths = wrapper.find('ReactMinimalPieChartPath');
+      paths.forEach((path) => {
+        pathsTotalLengthAngle += path.prop('lengthAngle');
+      });
 
-    const paths = wrapper.find('ReactMinimalPieChartPath');
-    paths.forEach((path) => {
-      pathsTotalLengthAngle += path.prop('lengthAngle');
+      expect(pieLengthAngle).toEqual(pathsTotalLengthAngle);
     });
 
-    expect(pieLengthAngle).toEqual(pathsTotalLengthAngle + totalPaddingDegrees);
+    it('Should render a set of arc paths + paddings having total lengthAngle === 270°', () => {
+      const pieLengthAngle = 270;
+      let pathsTotalLengthAngle = 0;
+      const totalPaddingDegrees = 10 * dataMock.length;
+
+      const wrapper = shallow(
+        <PieChart
+          data={dataMock}
+          lengthAngle={pieLengthAngle}
+          paddingAngle={10}
+          />
+      );
+
+      const paths = wrapper.find('ReactMinimalPieChartPath');
+      paths.forEach((path) => {
+        pathsTotalLengthAngle += path.prop('lengthAngle');
+      });
+
+      expect(pieLengthAngle).toEqual(pathsTotalLengthAngle + totalPaddingDegrees);
+    });
   });
 
   it('Should append children paths a "transition" inline style prop with custom duration/easing', () => {
@@ -201,4 +206,37 @@ describe('ReactMinimalPieChart component', () => {
 
     expect(chartInstance.startAnimation).not.toHaveBeenCalled();
   });
+
+  describe('Mouse interactions', () => {
+    [
+      {eventName: 'onClick', enzymeAction: 'click'},
+      {eventName: 'onMouseOver', enzymeAction: 'mouseover'},
+      {eventName: 'onMouseOut', enzymeAction: 'mouseout'},
+    ].forEach(test => {
+      describe(test.eventName, () => {
+        it('Should its interaction callback with expected arguments', () => {
+          const eventMock = jest.fn();
+          const eventCallbackMock = jest.fn();
+          const wrapper = shallow(
+            <PieChart
+              data={dataMock}
+              onClick={eventCallbackMock}
+              onMouseOver={eventCallbackMock}
+              onMouseOut={eventCallbackMock}
+            />
+          );
+
+          const segment = wrapper.find(PieChartPath).first();
+          segment.simulate(test.enzymeAction, eventMock);
+
+          expect(eventCallbackMock).toHaveBeenCalledTimes(1);
+          expect(eventCallbackMock).toHaveBeenLastCalledWith(
+            eventMock,
+            dataMock[0],
+            0
+          );
+        })
+      })
+    })
+  })
 });
