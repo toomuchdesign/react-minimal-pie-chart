@@ -17,6 +17,7 @@ const styleMock = {
 jest.useFakeTimers();
 
 beforeAll(() => {
+  // eslint-disable-next-line no-undef
   global.requestAnimationFrame = (callback) => {callback(); return 'id';};
 })
 

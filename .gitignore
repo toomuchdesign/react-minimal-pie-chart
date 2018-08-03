@@ -15,5 +15,7 @@ coverage
 !.github
 !.gitignore
 !.npmignore
+!.prettierrc
+!.prettierignore
 !.storybook
 !.travis.yml

@@ -1,3 +1,5 @@
+/* global module */
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';

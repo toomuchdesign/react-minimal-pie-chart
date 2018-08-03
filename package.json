@@ -11,16 +11,19 @@
   ],
   "scripts": {
     "test": "jest",
-    "tests": "npm run lint && npm t",
+    "test:all": "npm run lint && npm t",
     "clean": "rm -rf lib es",
     "compile": "npm run clean && BABEL_ENV=rollup rollup -c",
     "contrib:add": "all-contributors add",
     "contrib:generate": "all-contributors generate",
-    "lint": "eslint ./src --ext .js --ignore-pattern **/__tests__/",
-    "preversion": "npm run tests",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\" && npm run lint:fix",
+    "preversion": "npm run test:all",
     "version": "git add package.json",
     "postversion": "git push && git push --tags",
-    "prepublish": "npm run tests && npm run compile",
+    "prepublish": "npm run test:all && npm run compile",
+    "precommit": "lint-staged && npm test",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build-storybook": "build-storybook -o ./.out"
   },
@@ -56,8 +59,12 @@
     "babel-register": "^6.23.0",
     "enzyme": "^2.7.1",
     "eslint": "^3.19.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-react": "^6.10.3",
+    "husky": "^0.14.3",
     "jest": "^21.2.1",
+    "lint-staged": "^7.2.0",
+    "prettier": "^1.14.0",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
     "react-test-renderer": "^15.5.4",
@@ -66,5 +73,16 @@
     "rollup-plugin-commonjs": "^8.2.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "svg-partial-circle": "0.2.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{json,md}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
