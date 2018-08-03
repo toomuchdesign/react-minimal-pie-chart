@@ -12,30 +12,27 @@ const dataMock = [
 
 const styleMock = {
   color: 'green',
-}
+};
 
 jest.useFakeTimers();
 
 beforeAll(() => {
   // eslint-disable-next-line no-undef
-  global.requestAnimationFrame = (callback) => {callback(); return 'id';};
-})
+  global.requestAnimationFrame = callback => {
+    callback();
+    return 'id';
+  };
+});
 
 describe('ReactMinimalPieChart component', () => {
   it('Should return null if props.data is undefined', () => {
-    const wrapper = shallow(
-      <PieChart />
-    );
+    const wrapper = shallow(<PieChart />);
 
     expect(wrapper.getNode()).toEqual(null);
   });
 
   it('Should return a Path component for each entry in props.data', () => {
-    const wrapper = shallow(
-      <PieChart
-        data={dataMock}
-      />
-    );
+    const wrapper = shallow(<PieChart data={dataMock} />);
 
     const pathElements = wrapper.find(PieChartPath);
     expect(pathElements.length).toEqual(dataMock.length);
@@ -43,11 +40,7 @@ describe('ReactMinimalPieChart component', () => {
 
   it('Should pass down className and style props to the wrapping div', () => {
     const wrapper = shallow(
-      <PieChart
-        data={dataMock}
-        className="foo"
-        style={styleMock}
-      />
+      <PieChart data={dataMock} className="foo" style={styleMock} />
     );
 
     expect(wrapper.prop('className')).toBe('foo');
@@ -56,24 +49,14 @@ describe('ReactMinimalPieChart component', () => {
 
   describe('<svg> element', () => {
     it('Should be horizontal when "ratio" > 1', () => {
-      const wrapper = shallow(
-        <PieChart
-          data={dataMock}
-          ratio={4}
-          />
-      );
+      const wrapper = shallow(<PieChart data={dataMock} ratio={4} />);
 
       const svg = wrapper.find('svg').first();
       expect(svg.prop('viewBox')).toBe('0 0 100 25');
     });
 
     it('Should be certical when "ratio" < 1', () => {
-      const wrapper = shallow(
-        <PieChart
-          data={dataMock}
-          ratio={1/10}
-          />
-      );
+      const wrapper = shallow(<PieChart data={dataMock} ratio={1 / 10} />);
 
       const svg = wrapper.find('svg').first();
       expect(svg.prop('viewBox')).toBe('0 0 10 100');
@@ -86,14 +69,11 @@ describe('ReactMinimalPieChart component', () => {
       let pathsTotalLengthAngle = 0;
 
       const wrapper = shallow(
-        <PieChart
-          data={dataMock}
-          lengthAngle={pieLengthAngle}
-        />
+        <PieChart data={dataMock} lengthAngle={pieLengthAngle} />
       );
 
       const paths = wrapper.find(PieChartPath);
-      paths.forEach((path) => {
+      paths.forEach(path => {
         pathsTotalLengthAngle += path.prop('lengthAngle');
       });
 
@@ -105,14 +85,11 @@ describe('ReactMinimalPieChart component', () => {
       let pathsTotalLengthAngle = 0;
 
       const wrapper = shallow(
-        <PieChart
-          data={dataMock}
-          lengthAngle={pieLengthAngle}
-          />
+        <PieChart data={dataMock} lengthAngle={pieLengthAngle} />
       );
 
       const paths = wrapper.find(PieChartPath);
-      paths.forEach((path) => {
+      paths.forEach(path => {
         pathsTotalLengthAngle += path.prop('lengthAngle');
       });
 
@@ -129,15 +106,17 @@ describe('ReactMinimalPieChart component', () => {
           data={dataMock}
           lengthAngle={pieLengthAngle}
           paddingAngle={10}
-          />
+        />
       );
 
       const paths = wrapper.find(PieChartPath);
-      paths.forEach((path) => {
+      paths.forEach(path => {
         pathsTotalLengthAngle += path.prop('lengthAngle');
       });
 
-      expect(pieLengthAngle).toEqual(pathsTotalLengthAngle + totalPaddingDegrees);
+      expect(pieLengthAngle).toEqual(
+        pathsTotalLengthAngle + totalPaddingDegrees
+      );
     });
   });
 
@@ -149,7 +128,7 @@ describe('ReactMinimalPieChart component', () => {
           animate
           animationDuration={100}
           animationEasing="ease"
-          />
+        />
       );
       const firstPath = wrapper.find(PieChartPath).first();
 
@@ -159,25 +138,15 @@ describe('ReactMinimalPieChart component', () => {
     });
 
     it('Should receive the custom "reveal" prop', () => {
-      const wrapper = shallow(
-        <PieChart
-          data={dataMock}
-          reveal={22}
-          />
-      );
+      const wrapper = shallow(<PieChart data={dataMock} reveal={22} />);
 
-      wrapper.find(PieChartPath).forEach((path) => {
+      wrapper.find(PieChartPath).forEach(path => {
         expect(path.prop('reveal')).toBe(22);
       });
     });
 
     it('Should animate on mount by rendering twice and changing "reveal" value from 0 to 100', () => {
-      const wrapper = shallow(
-        <PieChart
-          data={dataMock}
-          animate
-          />
-      );
+      const wrapper = shallow(<PieChart data={dataMock} animate />);
       let firstPath = wrapper.find(PieChartPath).first();
       expect(firstPath.prop('reveal')).toEqual(0);
 
@@ -192,27 +161,19 @@ describe('ReactMinimalPieChart component', () => {
     it('Should receive "style" prop', () => {
       const styleMock = {
         foo: 'bar',
-      }
+      };
       const wrapper = shallow(
-        <PieChart
-          data={dataMock}
-          segmentsStyle={styleMock}
-        />
+        <PieChart data={dataMock} segmentsStyle={styleMock} />
       );
 
-      wrapper.find(PieChartPath).forEach((path) => {
+      wrapper.find(PieChartPath).forEach(path => {
         expect(path.prop('style')).toEqual(styleMock);
       });
     });
   });
 
   it('Should not fire forceUpdate on unmounted component', () => {
-    const wrapper = shallow(
-      <PieChart
-        data={dataMock}
-        animate
-      />
-    );
+    const wrapper = shallow(<PieChart data={dataMock} animate />);
 
     const chartInstance = wrapper.instance();
     chartInstance.startAnimation = jest.fn();
@@ -228,9 +189,9 @@ describe('ReactMinimalPieChart component', () => {
 
   describe('Mouse interactions', () => {
     [
-      {eventName: 'onClick', enzymeAction: 'click'},
-      {eventName: 'onMouseOver', enzymeAction: 'mouseover'},
-      {eventName: 'onMouseOut', enzymeAction: 'mouseout'},
+      { eventName: 'onClick', enzymeAction: 'click' },
+      { eventName: 'onMouseOver', enzymeAction: 'mouseover' },
+      { eventName: 'onMouseOut', enzymeAction: 'mouseout' },
     ].forEach(test => {
       describe(test.eventName, () => {
         it('Should its interaction callback with expected arguments', () => {
@@ -254,8 +215,8 @@ describe('ReactMinimalPieChart component', () => {
             dataMock,
             0
           );
-        })
-      })
-    })
-  })
+        });
+      });
+    });
+  });
 });

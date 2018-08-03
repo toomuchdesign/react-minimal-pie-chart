@@ -6,9 +6,7 @@ import babel from 'rollup-plugin-babel';
 let pkg = require('./package.json');
 let external = []
   // Mark dependencies and peerDependencies as external
-  .concat(
-    Object.keys(pkg.dependencies), Object.keys(pkg.peerDependencies)
-  )
+  .concat(Object.keys(pkg.dependencies), Object.keys(pkg.peerDependencies))
   // ...But bundle svg-partial-circle into the package
   .filter(pkgName => pkgName !== 'svg-partial-circle');
 
