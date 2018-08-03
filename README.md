@@ -49,9 +49,9 @@ Property | Type | Description | Default
 **animationDuration** | *Number* | Animation duration in ms | 500
 **animationEasing** | *String* | Animation CSS easing | "ease-out"
 **reveal** | *Number* | Turn on CSS animation and reveal just a percentage of each segment| -
-**onClick** | *Function* | Callback for when segments are clicked : `(event, data, index)`| -
-**onMouseOver** | *Function* | Callback for when the mouse passes over segments : `(event, data, index)`| -
-**onMouseOut** | *Function* | Callback for when the mouse passes off segments : `(event, data, index)`| -
+**onClick** | *Function* | Callback for when segments are clicked : `(event, data, dataIndex)`| -
+**onMouseOver** | *Function* | Callback for when the mouse passes over segments : `(event, data, dataIndex)`| -
+**onMouseOut** | *Function* | Callback for when the mouse passes off segments : `(event, data, dataIndex)`| -
 
 Each **data** entry can also accept an **optional [`key` property](https://reactjs.org/docs/lists-and-keys.html)** just in case items' indexes weren't enough:
 
