@@ -44,7 +44,8 @@ Property | Type | Description | Default
 **radius** | *Number* | The radius of the pie. The value is the percentage of the component width * | 50
 **paddingAngle** | *Number* | The angle between two sectors| -
 **rounded** | *Bool* | Round line caps of each sector| false
-**style** | *Object* | The style object assigned to chart wrapper | -
+**style** | *Object* | Style object assigned to chart wrapper | -
+**segmentsStyle** | *Object* | Style object assigned each segments | -
 **animate** | *Bool* | Animate sectors on component mount| false
 **animationDuration** | *Number* | Animation duration in ms | 500
 **animationEasing** | *String* | Animation CSS easing | "ease-out"
@@ -79,6 +80,7 @@ http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/
 - Background segment
 - Add `babel-eslint`?
 - Add UMD export?
+- Merge "segmentsStyle" and animation style properties
 
 ## Contributors
 Thanks to you all ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
