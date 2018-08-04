@@ -160,7 +160,10 @@ export default class ReactMinimalPieChart extends PureComponent {
     );
 
     return (
-      <div className={this.props.className} style={this.props.style}>
+      <div
+        className={this.props.className}
+        style={this.props.style}
+      >
         <svg
           viewBox={`0 0 ${evaluateViewBoxSize(this.props.ratio, VIEWBOX_SIZE)}`}
           width="100%"
