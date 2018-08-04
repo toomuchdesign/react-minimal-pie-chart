@@ -67,10 +67,18 @@ storiesOf('React minimal pie chart', module)
   .addDecorator(ContainDecorator)
   .add('default', () => <PieChart data={dataMock} />)
   .add('180° arc with custom "startAngle"/"lengthAngle"', () => (
-    <PieChart data={dataMock} startAngle={180} lengthAngle={180} />
+    <PieChart
+      data={dataMock}
+      startAngle={180}
+      lengthAngle={180}
+    />
   ))
   .add('180° arc with negative "lengthAngle" and custom svg ratio', () => (
-    <PieChart data={dataMock} lengthAngle={-180} ratio={2} />
+    <PieChart
+      data={dataMock}
+      lengthAngle={-180}
+      ratio={2}
+    />
   ))
   .add('custom center + "radius"', () => (
     <PieChart
@@ -83,13 +91,24 @@ storiesOf('React minimal pie chart', module)
     />
   ))
   .add('with custom "lineWidth"', () => (
-    <PieChart data={dataMock} lineWidth={15} />
+    <PieChart
+      data={dataMock}
+      lineWidth={15}
+    />
   ))
   .add('with custom "lineWidth" + "rounded"', () => (
-    <PieChart data={dataMock} lineWidth={15} rounded />
+    <PieChart
+      data={dataMock}
+      lineWidth={15}
+      rounded
+    />
   ))
   .add('with custom "lineWidth" + "paddingAngle"', () => (
-    <PieChart data={dataMock} lineWidth={15} paddingAngle={5} />
+    <PieChart
+      data={dataMock}
+      lineWidth={15}
+      paddingAngle={5}
+    />
   ))
   .add(
     'with custom "lineWidth" + "paddingAngle" + negative "lengthAngle"',
@@ -103,16 +122,29 @@ storiesOf('React minimal pie chart', module)
     )
   )
   .add('with custom "style" height', () => (
-    <PieChart data={dataMock} style={{ height: '100px' }} />
+    <PieChart
+      data={dataMock}
+      style={{ height: '100px' }}
+    />
   ))
   .add('uncomplete chart with custom "totalValue"', () => (
-    <PieChart data={dataMock} totalValue={60} />
+    <PieChart
+      data={dataMock}
+      totalValue={60}
+    />
   ))
   .add('animation on mount with "animate"', () => (
-    <PieChart data={dataMock} animate />
+    <PieChart
+      data={dataMock}
+      animate
+    />
   ))
   .add('clockwise animation on mount with negative "lengthAngle"', () => (
-    <PieChart data={dataMock} lengthAngle={-360} animate />
+    <PieChart
+      data={dataMock}
+      lengthAngle={-360}
+      animate
+    />
   ))
   .add('Interaction using click/mouseOver/mouseOut', () => <DemoInteraction />)
   .add('as a loading bar with "reveal"', () => {
