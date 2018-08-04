@@ -56,6 +56,19 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "konsumer",
+      "name": "David Konsumer",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/83857?v=4",
+      "profile": "https://keybase.io/konsumer",
+      "contributions": [
+        "code",
+        "doc",
+        "example",
+        "ideas"
+      ]
     }
-  ]
+  ],
+  "repoType": "github"
 }

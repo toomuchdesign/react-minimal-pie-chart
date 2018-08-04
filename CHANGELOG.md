@@ -1,3 +1,9 @@
+# 3.1.0
+
+- Add segments interaction callbacks: `onClick`, `onMouseOver`, `onMouseOut`
+- Add `segmentsStyle` prop
+- Setup up Prettier
+
 # 3.0.2
 
 - Prevent initial animation when component is unmounted
