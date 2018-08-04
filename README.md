@@ -49,7 +49,6 @@ Because [Recharts](https://github.com/recharts/recharts) is awesome, but when yo
 | **radius**            | _Number_   | The radius of the pie. The value is the percentage of the component width \*                                   | 50         |
 | **paddingAngle**      | _Number_   | The angle between two sectors                                                                                  | -          |
 | **rounded**           | _Bool_     | Round line caps of each sector                                                                                 | false      |
-| **style**             | _Object_   | Style object assigned to chart wrapper                                                                         | -          |
 | **segmentsStyle**     | _Object_   | Style object assigned each segments                                                                            | -          |
 | **animate**           | _Bool_     | Animate sectors on component mount                                                                             | false      |
 | **animationDuration** | _Number_   | Animation duration in ms                                                                                       | 500        |
@@ -87,11 +86,8 @@ http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/
 
 - Find a better `paddingAngle` implementation
 - Make a device/browser compatibility table
-- Define a className targeting each segment path for custom CSS animations
 - Background segment
-- Add `babel-eslint`?
 - Add UMD export?
-- Merge "segmentsStyle" and animation style properties
 
 ## Contributors
 

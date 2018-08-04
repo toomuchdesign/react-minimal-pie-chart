@@ -31,9 +31,6 @@ class DemoInteraction extends Component {
 
     this.onMouseOut = this.onMouseOut.bind(this);
     this.onMouseOver = this.onMouseOver.bind(this);
-    this.segmentsStyle = {
-      transition: 'stroke .3s, stroke-dashoffset .5s ease-out',
-    };
   }
 
   onMouseOut(e, d, i) {
@@ -44,7 +41,7 @@ class DemoInteraction extends Component {
 
   onMouseOver(e, d, i) {
     const data = d.map((entry, index) => {
-      return index === i ? { ...entry, color: 'cyan' } : entry;
+      return index === i ? { ...entry, color: 'grey' } : entry;
     });
 
     this.setState({
@@ -56,7 +53,7 @@ class DemoInteraction extends Component {
     return (
       <PieChart
         data={this.state.data}
-        segmentsStyle={this.segmentsStyle}
+        segmentsStyle={{ transition: 'stroke .3s' }}
         onClick={action('CLICK')}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}

@@ -42,9 +42,19 @@ const evaluateDegreesFromValues = (
   );
 };
 
-const makeSegmentTransitionStyle = (duration, easing) => ({
-  transition: `stroke-dashoffset ${duration}ms ${easing}`,
-});
+const makeSegmentTransitionStyle = (duration, easing, furtherStyles = {}) => {
+  // Merge CSS transition necessary for chart animation with the ones provided by "segmentsStyle"
+  const transition = [
+    `stroke-dashoffset ${duration}ms ${easing}`,
+    furtherStyles.transition,
+  ]
+    .filter(Boolean)
+    .join(',');
+
+  return {
+    transition,
+  };
+};
 
 const makeSegments = (data, props, hide) => {
   // Keep track of how many degrees have already been taken
@@ -53,12 +63,16 @@ const makeSegments = (data, props, hide) => {
     props.paddingAngle * (props.lengthAngle / Math.abs(props.lengthAngle));
   let reveal;
 
-  const transitionStyle = props.animate
-    ? makeSegmentTransitionStyle(props.animationDuration, props.animationEasing)
-    : undefined;
+  let style = props.segmentsStyle;
 
-  // @TODO merge style.transition properties
-  const style = Object.assign({}, transitionStyle, props.segmentsStyle);
+  if (props.animate) {
+    const transitionStyle = makeSegmentTransitionStyle(
+      props.animationDuration,
+      props.animationEasing,
+      style
+    );
+    style = Object.assign({}, style, transitionStyle);
+  }
 
   // Hide/reveal the segment?
   if (hide === true) {
