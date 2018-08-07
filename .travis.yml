@@ -1,10 +1,10 @@
 language: node_js
 node_js:
-  - "4"
   - "6"
-  - "7"
+  - "8"
+  - "10"
 script:
-  - npm test:all
+  - npm run test:all
   - npm run compile
 notifications:
   email:
