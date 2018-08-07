@@ -4,7 +4,7 @@ node_js:
   - "6"
   - "7"
 script:
-  - npm test
+  - npm test:all
   - npm run compile
 notifications:
   email:
