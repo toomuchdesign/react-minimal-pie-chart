@@ -36,5 +36,16 @@ export default {
       format: 'es',
       sourcemap: true,
     },
+    {
+      file: 'dist/index.js',
+      format: 'umd',
+      sourcemap: true,
+      exports: 'named',
+      name: 'ReactMinimalPieChart',
+      globals: {
+        react: 'React',
+        'prop-types': 'PropTypes',
+      },
+    },
   ],
 };

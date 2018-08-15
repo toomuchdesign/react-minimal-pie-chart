@@ -5,14 +5,17 @@
   "main": "lib/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
+  "browser": "dist/index.js",
   "files": [
+    "dist",
     "es",
-    "lib"
+    "lib",
+    "src"
   ],
   "scripts": {
     "test": "jest",
     "test:all": "npm run lint && npm t -- --coverage",
-    "clean": "rm -rf lib es",
+    "clean": "rm -rf lib es dist",
     "compile": "npm run clean && BABEL_ENV=rollup rollup -c",
     "contrib:add": "all-contributors add",
     "contrib:generate": "all-contributors generate",
