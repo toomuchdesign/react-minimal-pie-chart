@@ -1,3 +1,7 @@
+# 3.2.0
+
+- Add UMD export
+
 # 3.1.0
 
 - Add segments interaction callbacks: `onClick`, `onMouseOver`, `onMouseOut`
