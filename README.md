@@ -23,9 +23,15 @@ import PieChart from 'react-minimal-pie-chart';
 npm install react-minimal-pie-chart
 ```
 
+If you don't use a package manager, `react-minimal-pie-chart` exposes also an `ÙMD` module ready for the browser.
+
+```
+https://unpkg.com/react-minimal-pie-chart/umd/index.js
+```
+
 ## Why?
 
-Because [Recharts](https://github.com/recharts/recharts) is awesome, but when you need just a simple pie/donought chart, few line of code are usually enough.
+Because [Recharts](https://github.com/recharts/recharts) is awesome, but when you just need a simple pie/donought chart, a few lines of code are usually enough.
 
 ## Features
 
@@ -92,7 +98,6 @@ http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/
 - Find a better `paddingAngle` implementation
 - Make a device/browser compatibility table
 - Background segment
-- Add UMD export?
 
 ## Contributors
 
