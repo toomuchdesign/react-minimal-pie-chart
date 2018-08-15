@@ -16,6 +16,7 @@ coverage
 !.github
 !.gitignore
 !.npmignore
+!.npmrc
 !.prettierrc
 !.prettierignore
 !.storybook
