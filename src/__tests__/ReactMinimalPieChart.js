@@ -1,8 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import PieChart from '../index';
-import PieChartPath from '../ReactMinimalPieChartPath';
+import PieChart from '../../src/index';
 
 const dataMock = [
   { value: 10, color: 'blue' },
@@ -34,7 +33,7 @@ describe('ReactMinimalPieChart component', () => {
   it('Should return a Path component for each entry in props.data', () => {
     const wrapper = shallow(<PieChart data={dataMock} />);
 
-    const pathElements = wrapper.find(PieChartPath);
+    const pathElements = wrapper.find('ReactMinimalPieChartPath');
     expect(pathElements.length).toEqual(dataMock.length);
   });
 
@@ -85,7 +84,7 @@ describe('ReactMinimalPieChart component', () => {
         />
       );
 
-      const paths = wrapper.find(PieChartPath);
+      const paths = wrapper.find('ReactMinimalPieChartPath');
       paths.forEach(path => {
         pathsTotalLengthAngle += path.prop('lengthAngle');
       });
@@ -104,7 +103,7 @@ describe('ReactMinimalPieChart component', () => {
         />
       );
 
-      const paths = wrapper.find(PieChartPath);
+      const paths = wrapper.find('ReactMinimalPieChartPath');
       paths.forEach(path => {
         pathsTotalLengthAngle += path.prop('lengthAngle');
       });
@@ -125,7 +124,7 @@ describe('ReactMinimalPieChart component', () => {
         />
       );
 
-      const paths = wrapper.find(PieChartPath);
+      const paths = wrapper.find('ReactMinimalPieChartPath');
       paths.forEach(path => {
         pathsTotalLengthAngle += path.prop('lengthAngle');
       });
@@ -143,7 +142,7 @@ describe('ReactMinimalPieChart component', () => {
         reveal={22}
       />);
 
-      wrapper.find(PieChartPath).forEach(path => {
+      wrapper.find('ReactMinimalPieChartPath').forEach(path => {
         expect(path.prop('reveal')).toBe(22);
       });
     });
@@ -159,7 +158,7 @@ describe('ReactMinimalPieChart component', () => {
         />
       );
 
-      wrapper.find(PieChartPath).forEach(path => {
+      wrapper.find('ReactMinimalPieChartPath').forEach(path => {
         expect(path.prop('style')).toEqual(styleMock);
       });
     });
@@ -176,7 +175,7 @@ describe('ReactMinimalPieChart component', () => {
             animationEasing="ease"
           />
         );
-        const firstPath = wrapper.find(PieChartPath).first();
+        const firstPath = wrapper.find('ReactMinimalPieChartPath').first();
 
         const expected = 'stroke-dashoffset 100ms ease';
         const actual = firstPath.prop('style').transition;
@@ -195,7 +194,7 @@ describe('ReactMinimalPieChart component', () => {
             animationEasing="ease"
           />
         );
-        const firstPath = wrapper.find(PieChartPath).first();
+        const firstPath = wrapper.find('ReactMinimalPieChartPath').first();
 
         const expected = 'stroke-dashoffset 100ms ease,custom-transition';
         const actual = firstPath.prop('style').transition;
@@ -208,14 +207,14 @@ describe('ReactMinimalPieChart component', () => {
         data={dataMock}
         animate
       />);
-      let firstPath = wrapper.find(PieChartPath).first();
+      let firstPath = wrapper.find('ReactMinimalPieChartPath').first();
       expect(firstPath.prop('reveal')).toEqual(0);
 
       // Manually fire componentDidMount hook
       wrapper.instance().componentDidMount();
       jest.runAllTimers();
 
-      firstPath = wrapper.find(PieChartPath).first();
+      firstPath = wrapper.find('ReactMinimalPieChartPath').first();
       expect(firstPath.prop('reveal')).toEqual(100);
     });
 
@@ -257,7 +256,7 @@ describe('ReactMinimalPieChart component', () => {
             />
           );
 
-          const segment = wrapper.find(PieChartPath).first();
+          const segment = wrapper.find('ReactMinimalPieChartPath').first();
           segment.simulate(test.enzymeAction, eventMock);
 
           expect(eventCallbackMock).toHaveBeenCalledTimes(1);
