@@ -1,3 +1,7 @@
+# 3.3.0
+
+- Support `data.title` property to render `<title>` inside `<path>` element
+
 # 3.2.0
 
 - Add UMD export
