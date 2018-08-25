@@ -30,6 +30,7 @@ export default function ReactMinimalPieChartPath({
   radius,
   lineWidth,
   reveal,
+  title,
   ...props
 }) {
   const actualRadio = radius - lineWidth / 2;
@@ -57,7 +58,9 @@ export default function ReactMinimalPieChartPath({
       strokeDasharray={strokeDasharray}
       strokeDashoffset={strokeDashoffset}
       {...props}
-    />
+    >
+      {title && <title>{title}</title>}
+    </path>
   );
 }
 
@@ -71,6 +74,7 @@ ReactMinimalPieChartPath.propTypes = {
   radius: PropTypes.number,
   lineWidth: PropTypes.number,
   reveal: PropTypes.number,
+  title: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 ReactMinimalPieChartPath.defaultProps = {

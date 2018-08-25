@@ -183,6 +183,7 @@ ReactMinimalPieChart.displayName = 'ReactMinimalPieChart';
 ReactMinimalPieChart.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
+      title: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       value: PropTypes.number.isRequired,
       key: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       color: PropTypes.string,
