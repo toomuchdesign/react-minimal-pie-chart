@@ -10,7 +10,8 @@
     "dist",
     "es",
     "lib",
-    "src"
+    "src",
+    "!__tests__"
   ],
   "scripts": {
     "test": "jest",
