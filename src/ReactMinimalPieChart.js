@@ -171,6 +171,7 @@ export default class ReactMinimalPieChart extends PureComponent {
           style={{ display: 'block' }}
         >
           {makeSegments(normalizedData, this.props, this.hideSegments)}
+          {this.props.injectSvg && this.props.injectSvg()}
         </svg>
         {this.props.children}
       </div>
@@ -211,6 +212,7 @@ ReactMinimalPieChart.propTypes = {
   animationEasing: PropTypes.string,
   reveal: PropTypes.number,
   children: PropTypes.node,
+  injectSvg: PropTypes.func,
   onMouseOver: PropTypes.func,
   onMouseOut: PropTypes.func,
   onClick: PropTypes.func,

@@ -29,7 +29,7 @@
     "postversion": "git push && git push --tags",
     "prepublish": "npm run test:source && npm run compile && npm run test:bundles",
     "precommit": "lint-staged && npm test",
-    "storybook": "start-storybook -p 9001 -c .storybook",
+    "start": "start-storybook -p 9001 -c .storybook",
     "build-storybook": "build-storybook -o ./.out"
   },
   "keywords": [

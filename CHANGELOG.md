@@ -1,3 +1,7 @@
+# 3.4.0
+
+- Support `injectSvg` function property to inject any element into rendered `<svg>` element
+
 # 3.3.0
 
 - Support `data.title` property to render `<title>` inside `<path>` element
