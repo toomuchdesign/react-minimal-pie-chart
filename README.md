@@ -23,10 +23,10 @@ import PieChart from 'react-minimal-pie-chart';
 npm install react-minimal-pie-chart
 ```
 
-If you don't use a package manager, `react-minimal-pie-chart` exposes also an `ÙMD` module ready for the browser.
+If you don't use a package manager, `react-minimal-pie-chart` exposes also an `UMD` module ready for the browser.
 
 ```
-https://unpkg.com/react-minimal-pie-chart/umd/index.js
+https://unpkg.com/react-minimal-pie-chart/dist/index.js
 ```
 
 ## Why?
