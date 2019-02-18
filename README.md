@@ -59,6 +59,7 @@ Because [Recharts](https://github.com/recharts/recharts) is awesome, but when yo
 | **animationDuration** | _Number_   | Animation duration in ms                                                                                        | 500        |
 | **animationEasing**   | _String_   | Animation CSS easing                                                                                            | "ease-out" |
 | **reveal**            | _Number_   | Turn on CSS animation and reveal just a percentage of each segment                                              | -          |
+| **injectSvg**         | _Function_ | Inject <svg>` element with the output of the provided function (eg. gradients) | -                              |
 | **onClick**           | _Function_ | Custom event handler of `onClick` on each sector : `(event, data, dataIndex) => {}`                             | -          |
 | **onMouseOver**       | _Function_ | Custom event handler of `onMouseOver` on each sector : `(event, data, dataIndex) => {}`                         | -          |
 | **onMouseOut**        | _Function_ | Custom event handler of `onMouseOut` on each sector : `(event, data, dataIndex) => {}`                          | -          |
@@ -98,6 +99,7 @@ http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/
 - Find a better `paddingAngle` implementation
 - Make a device/browser compatibility table
 - Background segment
+- Consider switching `ReactMinimalPieChart` to extend default `React.Component`
 
 ## Contributors
 

@@ -237,6 +237,21 @@ describe('ReactMinimalPieChart component', () => {
     });
   });
 
+  describe('"injectSvg"', () => {
+    it('Should inject anything into rendered <svg>', () => {
+      const wrapper = shallow(
+        <PieChart
+          data={dataMock}
+          injectSvg={() => <defs />}
+        />
+      );
+
+      const svg = wrapper.find('svg').first();
+      const injectedElement = svg.find('defs');
+      expect(injectedElement.length).toEqual(1);
+    });
+  });
+
   describe('Mouse interactions', () => {
     [
       { eventName: 'onClick', enzymeAction: 'click' },
