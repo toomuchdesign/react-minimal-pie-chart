@@ -65,7 +65,16 @@ class DemoInteraction extends Component {
 
 storiesOf('React minimal pie chart', module)
   .addDecorator(ContainDecorator)
-  .add('default', () => <PieChart data={dataMock} />)
+  .add('default', () => (
+    <PieChart
+      data={dataMock}
+      label
+      labelStyle={{
+        fontSize: '5px',
+        fontFamily: 'sans-serif',
+      }}
+    />
+  ))
   .add('180° arc with custom "startAngle"/"lengthAngle"', () => (
     <PieChart
       data={dataMock}
@@ -144,6 +153,18 @@ storiesOf('React minimal pie chart', module)
       data={dataMock}
       lengthAngle={-360}
       animate
+    />
+  ))
+  .add('custom Label: show percentage', () => (
+    <PieChart
+      data={dataMock}
+      label={({ data, dataIndex }) =>
+        Math.round(data[dataIndex].percentage) + '%'
+      }
+      labelStyle={{
+        fontSize: '5px',
+        fontFamily: 'sans-serif',
+      }}
     />
   ))
   .add('gradients with "injectSvg":', () => {

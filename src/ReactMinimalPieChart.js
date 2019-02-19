@@ -1,21 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Path from './ReactMinimalPieChartPath';
+import DefaultLabel from './ReactMinimalPieChartLabel';
+import { degreesToRadians, evaluateViewBoxSize } from './utils';
 
 const VIEWBOX_SIZE = 100;
 const VIEWBOX_HALF_SIZE = VIEWBOX_SIZE / 2;
 
 const sumValues = data =>
   data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);
-
-const evaluateViewBoxSize = (ratio, baseSize) => {
-  // Wide ratio
-  if (ratio > 1) {
-    return `${baseSize} ${baseSize / ratio}`;
-  }
-  // Narrow/squared ratio
-  return `${baseSize * ratio} ${baseSize}`;
-};
 
 // @TODO extract padding evaluation
 const evaluateDegreesFromValues = (
@@ -33,10 +26,13 @@ const evaluateDegreesFromValues = (
   if (totalDegrees > 360) totalDegrees = 360;
   if (totalAngle < 0) totalDegrees = -totalDegrees;
 
-  // Append "degrees" into each data entry
+  // Append "degrees" and "percentage" into each data entry
   return data.map(dataEntry =>
     Object.assign(
-      { degrees: (dataEntry.value / total) * totalDegrees },
+      {
+        degrees: (dataEntry.value / total) * totalDegrees,
+        percentage: (100 * dataEntry.value) / total,
+      },
       dataEntry
     )
   );
@@ -85,7 +81,8 @@ const makeSegments = (data, props, hide) => {
 
   return data.map((dataEntry, index) => {
     const startAngle = lastSegmentAngle;
-    lastSegmentAngle += dataEntry.degrees + segmentsPaddingAngle;
+    const lengthAngle = dataEntry.degrees;
+    lastSegmentAngle += lengthAngle + segmentsPaddingAngle;
 
     return (
       <Path
@@ -93,7 +90,7 @@ const makeSegments = (data, props, hide) => {
         cx={props.cx}
         cy={props.cy}
         startAngle={startAngle}
-        lengthAngle={dataEntry.degrees}
+        lengthAngle={lengthAngle}
         radius={props.radius}
         lineWidth={(props.radius / 100) * props.lineWidth}
         reveal={reveal}
@@ -111,6 +108,51 @@ const makeSegments = (data, props, hide) => {
         onClick={props.onClick && (e => props.onClick(e, props.data, index))}
       />
     );
+  });
+};
+
+function renderLabelItem(option, props, value) {
+  if (React.isValidElement(option)) {
+    return React.cloneElement(option, props);
+  }
+
+  let label = value;
+  if (typeof option === 'function') {
+    label = option(props);
+    if (React.isValidElement(label)) {
+      return label;
+    }
+  }
+
+  return <DefaultLabel {...props}>{() => label}</DefaultLabel>;
+}
+
+const makeLabels = (data, props) => {
+  // Keep track of how many degrees have already been taken
+  let lastSegmentAngle = props.startAngle;
+  const segmentsPaddingAngle =
+    props.paddingAngle * (props.lengthAngle / Math.abs(props.lengthAngle));
+  const labelRadius = props.labelRadius || props.radius / 2;
+
+  return data.map((dataEntry, index) => {
+    const startAngle = lastSegmentAngle;
+    const lengthAngle = dataEntry.degrees;
+    lastSegmentAngle += lengthAngle + segmentsPaddingAngle;
+    const halfAngle = startAngle + lengthAngle / 2;
+    const halfAngleRadians = degreesToRadians(halfAngle);
+    // This object is passes as argument to "label" prop
+    const labelProps = {
+      key: `label-${dataEntry.key || index}`,
+      x: props.cx,
+      y: props.cy,
+      dx: Math.cos(halfAngleRadians) * labelRadius,
+      dy: Math.sin(halfAngleRadians) * labelRadius,
+      data: data,
+      dataIndex: index,
+      style: props.labelStyle,
+    };
+
+    return renderLabelItem(props.label, labelProps, dataEntry.value);
   });
 };
 
@@ -166,12 +208,13 @@ export default class ReactMinimalPieChart extends PureComponent {
         style={this.props.style}
       >
         <svg
-          viewBox={`0 0 ${evaluateViewBoxSize(this.props.ratio, VIEWBOX_SIZE)}`}
+          viewBox={evaluateViewBoxSize(this.props.ratio, VIEWBOX_SIZE)}
           width="100%"
           height="100%"
           style={{ display: 'block' }}
         >
           {makeSegments(normalizedData, this.props, this.hideSegments)}
+          {this.props.label && makeLabels(normalizedData, this.props)}
           {this.props.injectSvg && this.props.injectSvg()}
         </svg>
         {this.props.children}
@@ -214,6 +257,15 @@ ReactMinimalPieChart.propTypes = {
   reveal: PropTypes.number,
   children: PropTypes.node,
   injectSvg: PropTypes.func,
+  label: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.element,
+    PropTypes.bool,
+  ]),
+  labelRadius: PropTypes.number,
+  labelStyle: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  ),
   onMouseOver: PropTypes.func,
   onMouseOut: PropTypes.func,
   onClick: PropTypes.func,
@@ -232,6 +284,7 @@ ReactMinimalPieChart.defaultProps = {
   animate: false,
   animationDuration: 500,
   animationEasing: 'ease-out',
+  label: false,
   onMouseOver: undefined,
   onMouseOut: undefined,
   onClick: undefined,
