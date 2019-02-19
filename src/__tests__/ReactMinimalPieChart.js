@@ -1,13 +1,26 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import PieChart from '../../src/index';
+import PieChart, { PieChartLabel } from '../../src/index';
 
 const dataMock = [
   { value: 10, color: 'blue' },
   { value: 15, color: 'orange' },
   { value: 20, color: 'green' },
 ];
+
+const expectedNormalizedDataMock = {
+  x: expect.any(Number),
+  y: expect.any(Number),
+  dx: expect.any(Number),
+  dy: expect.any(Number),
+  data: dataMock.map(entry => ({
+    ...entry,
+    degrees: expect.any(Number),
+    percentage: expect.any(Number),
+  })),
+  dataIndex: expect.any(Number),
+};
 
 const styleMock = {
   color: 'green',
@@ -246,6 +259,93 @@ describe('ReactMinimalPieChart component', () => {
       const title = wrapper.find('title');
       expect(title.length).toEqual(1);
       expect(title.text()).toEqual('title-value');
+    });
+  });
+
+  describe('"label"', () => {
+    describe('true', () => {
+      it('Should render 3 "ReactMinimalPieChartLabel" instances with data.value', () => {
+        const wrapper = mount(<PieChart
+          data={dataMock}
+          label
+        />);
+
+        const labels = wrapper.find(PieChartLabel);
+        expect(labels.length).toBe(dataMock.length);
+
+        labels.forEach((label, index) => {
+          expect(label.text()).toBe(`${dataMock[index].value}`);
+        });
+      });
+    });
+
+    describe('provided as function', () => {
+      it('Should render 3 "ReactMinimalPieChartLabel" instances with custom content', () => {
+        const wrapper = mount(
+          <PieChart
+            data={dataMock}
+            label={props => props.dataIndex}
+          />
+        );
+
+        const labels = wrapper.find(PieChartLabel);
+        labels.forEach((label, index) => {
+          expect(label.text()).toBe(`${index}`);
+        });
+      });
+
+      it('Provided function should receive expected "props" object', () => {
+        const labelMock = jest.fn();
+        mount(<PieChart
+          data={dataMock}
+          label={labelMock}
+        />);
+
+        const actual = labelMock.mock.calls[0][0];
+        const expected = {
+          key: expect.any(String),
+          ...expectedNormalizedDataMock,
+        };
+
+        expect(actual).toEqual(expected);
+      });
+    });
+
+    describe('provided as component', () => {
+      it('Should render with expected props', () => {
+        const ComponentMock = jest.fn();
+        const wrapper = shallow(
+          <PieChart
+            data={dataMock}
+            label={<ComponentMock />}
+          />
+        );
+
+        const actual = wrapper
+          .find(ComponentMock)
+          .first()
+          .props();
+        const expected = expectedNormalizedDataMock;
+        expect(actual).toEqual(expected);
+      });
+    });
+  });
+
+  describe('"labelStyle"', () => {
+    it('Should assign provided value to each label as className', () => {
+      const styleMock = { foo: 'bar' };
+      const wrapper = mount(
+        <PieChart
+          data={dataMock}
+          label
+          labelStyle={styleMock}
+        />
+      );
+
+      const labels = wrapper.find(PieChartLabel);
+      labels.forEach(label => {
+        expect(label.prop('style')).toEqual(styleMock);
+      });
     });
   });
 

@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import partialCircle from 'svg-partial-circle';
-
-const PI = Math.PI;
-const degreesToRadians = degrees => (degrees * PI) / 180;
+import { degreesToRadians } from './utils';
 
 const makePathCommands = (cx, cy, startAngle, lengthAngle, radius) => {
   let patchedLengthAngle = lengthAngle;
 
-  if (patchedLengthAngle >= 360) patchedLengthAngle = 359.999;
-  if (patchedLengthAngle <= -360) patchedLengthAngle = -359.999;
+  if (lengthAngle >= 360) patchedLengthAngle = 359.999;
+  if (lengthAngle <= -360) patchedLengthAngle = -359.999;
 
   return partialCircle(
     cx,
@@ -47,7 +45,7 @@ export default function ReactMinimalPieChartPath({
   // Animate/hide paths with "stroke-dasharray" + "stroke-dashoffset"
   // https://css-tricks.com/svg-line-animation-works/
   if (typeof reveal === 'number') {
-    strokeDasharray = ((PI * actualRadio) / 180) * Math.abs(lengthAngle);
+    strokeDasharray = degreesToRadians(actualRadio) * Math.abs(lengthAngle);
     strokeDashoffset = strokeDasharray + (strokeDasharray / 100) * reveal;
   }
 
