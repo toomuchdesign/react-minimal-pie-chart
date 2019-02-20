@@ -6,3 +6,4 @@ es/
 lib/
 package.json
 package-lock.json
+storybook-static

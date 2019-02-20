@@ -7,6 +7,7 @@ es
 lib
 dist
 coverage
+storybook-static
 
 # Trailing dotted files
 !.all-contributorsrc
