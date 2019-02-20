@@ -30,7 +30,8 @@
     "prepublish": "npm run test:source && npm run compile && npm run test:bundles",
     "precommit": "lint-staged && npm test",
     "start": "start-storybook -p 9001 -c .storybook",
-    "build-storybook": "build-storybook -o ./.out"
+    "storybook:deploy": "storybook-to-ghpages",
+    "storybook:build": "build-storybook"
   },
   "keywords": [
     "react",
@@ -54,6 +55,7 @@
   },
   "devDependencies": {
     "@storybook/react": "^3.4.3",
+    "@storybook/storybook-deployer": "^2.8.1",
     "all-contributors-cli": "^4.11.1",
     "babel-core": "^6.23.1",
     "babel-jest": "^23.4.2",

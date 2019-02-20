@@ -100,6 +100,7 @@ http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/
 - Make a device/browser compatibility table
 - Background segment
 - Consider switching `ReactMinimalPieChart` to extend default `React.Component`
+- Consider moving storybook deployment to CI
 
 ## Contributors
 
@@ -116,6 +117,6 @@ Thanks to you all ([emoji key](https://github.com/kentcdodds/all-contributors#em
 [ci]: https://travis-ci.org/toomuchdesign/react-minimal-pie-chart
 [coveralls-badge]: https://coveralls.io/repos/github/toomuchdesign/react-minimal-pie-chart/badge.svg?branch=master
 [coveralls]: https://coveralls.io/github/toomuchdesign/react-minimal-pie-chart?branch=master
-[storybook]: http://www.andreacarraro.it/react-minimal-pie-chart
-[demo-interaction]: http://www.andreacarraro.it/react-minimal-pie-chart/?selectedKind=React%20minimal%20pie%20chart&selectedStory=Interaction%20using%20click%2FmouseOver%2FmouseOut&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel
+[storybook]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html
+[demo-interaction]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html?selectedKind=React%20minimal%20pie%20chart&selectedStory=Interaction%20using%20click%2FmouseOver%2FmouseOut&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel
 [demo-interaction-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v3.1.0/stories/index.js#L25
