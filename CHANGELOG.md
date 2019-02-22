@@ -1,3 +1,7 @@
+# 3.4.1
+
+- Fix chart to render `data.title` value as `<title>` inside `<path>` element
+
 # 3.4.0
 
 - Support `injectSvg` function property to inject any element into rendered `<svg>` element

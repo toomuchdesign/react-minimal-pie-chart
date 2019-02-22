@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import PieChart from '../../src/index';
 
@@ -234,6 +234,18 @@ describe('ReactMinimalPieChart component', () => {
       jest.runAllTimers();
 
       expect(chartInstance.startAnimation).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('"data.title"', () => {
+    it('Should render a <Title> element in its Path', () => {
+      const wrapper = mount(
+        <PieChart data={[{ title: 'title-value', value: 10, color: 'blue' }]} />
+      );
+
+      const title = wrapper.find('title');
+      expect(title.length).toEqual(1);
+      expect(title.text()).toEqual('title-value');
     });
   });
 
