@@ -97,6 +97,7 @@ const makeSegments = (data, props, hide) => {
         radius={props.radius}
         lineWidth={(props.radius / 100) * props.lineWidth}
         reveal={reveal}
+        title={dataEntry.title}
         style={style}
         stroke={dataEntry.color}
         strokeLinecap={props.rounded ? 'round' : undefined}

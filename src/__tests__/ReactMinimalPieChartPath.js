@@ -69,19 +69,4 @@ describe('ReactMinimalPieChartPath component', () => {
     const strokeDasharray = wrapper.prop('strokeDasharray');
     expect(strokeDashoffset).toEqual(strokeDasharray + strokeDasharray / 4);
   });
-
-  it('Should render a <Title> element when "title" prop provided', () => {
-    const wrapper = shallow(
-      <PieChartPath
-        cx={100}
-        cy={100}
-        title="title-value"
-      />
-    );
-
-    const title = wrapper.find('title');
-
-    expect(title.length).toEqual(1);
-    expect(title.text()).toEqual('title-value');
-  });
 });
