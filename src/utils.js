@@ -12,3 +12,25 @@ export function evaluateViewBoxSize(ratio, baseSize) {
   // Narrow/squared ratio
   return `0 0 ${baseSize * ratio} ${baseSize}`;
 }
+
+export function evaluateLabelTextAnchor({
+  labelPosition,
+  lineWidth,
+  labelHorizontalShift,
+} = {}) {
+  // Label in the vertical center
+  if (labelHorizontalShift === 0) {
+    return 'middle';
+  }
+  // Outward label
+  if (labelPosition > 100) {
+    return labelHorizontalShift > 0 ? 'start' : 'end';
+  }
+  // Inward label
+  const innerRadius = 100 - lineWidth;
+  if (labelPosition < innerRadius) {
+    return labelHorizontalShift > 0 ? 'end' : 'start';
+  }
+  // Overlying label
+  return 'middle';
+}
