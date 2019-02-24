@@ -13,6 +13,7 @@ const expectedNormalizedDataMock = {
   y: expect.any(Number),
   dx: expect.any(Number),
   dy: expect.any(Number),
+  textAnchor: expect.any(String),
   data: dataMock.map(entry => ({
     ...entry,
     degrees: expect.any(Number),

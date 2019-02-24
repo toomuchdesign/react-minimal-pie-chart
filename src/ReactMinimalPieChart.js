@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import Path from './ReactMinimalPieChartPath';
 import DefaultLabel from './ReactMinimalPieChartLabel';
 import { dataPropType, stylePropType } from './propTypes';
-import { degreesToRadians, evaluateViewBoxSize } from './utils';
+import {
+  degreesToRadians,
+  evaluateViewBoxSize,
+  evaluateLabelTextAnchor,
+} from './utils';
 
 const VIEWBOX_SIZE = 100;
 const VIEWBOX_HALF_SIZE = VIEWBOX_SIZE / 2;
@@ -133,7 +137,7 @@ const makeLabels = (data, props) => {
   let lastSegmentAngle = props.startAngle;
   const segmentsPaddingAngle =
     props.paddingAngle * (props.lengthAngle / Math.abs(props.lengthAngle));
-  const labelPosition = props.radius / 100 * props.labelPosition;
+  const labelPosition = (props.radius / 100) * props.labelPosition;
 
   return data.map((dataEntry, index) => {
     const startAngle = lastSegmentAngle;
@@ -141,14 +145,21 @@ const makeLabels = (data, props) => {
     lastSegmentAngle += lengthAngle + segmentsPaddingAngle;
     const halfAngle = startAngle + lengthAngle / 2;
     const halfAngleRadians = degreesToRadians(halfAngle);
+    const dx = Math.cos(halfAngleRadians) * labelPosition;
+    const dy = Math.sin(halfAngleRadians) * labelPosition;
 
     // This object is passed as props to the "label" component
     const labelProps = {
       key: `label-${dataEntry.key || index}`,
       x: props.cx,
       y: props.cy,
-      dx: Math.cos(halfAngleRadians) * labelPosition,
-      dy: Math.sin(halfAngleRadians) * labelPosition,
+      dx,
+      dy,
+      textAnchor: evaluateLabelTextAnchor({
+        lineWidth: props.lineWidth,
+        labelPosition: props.labelPosition,
+        labelHorizontalShift: dx,
+      }),
       data: data,
       dataIndex: index,
       color: dataEntry.color,
