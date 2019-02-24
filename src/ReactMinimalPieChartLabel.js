@@ -6,12 +6,27 @@ export default function ReactMinimalPieChartLabel({
   data,
   dataIndex,
   color,
+  horizontalAlignment,
   children,
   ...props
 }) {
+  // Align label horizontally
+  let textAnchorValue;
+  switch(horizontalAlignment) {
+    case 'outward':
+      textAnchorValue = props.dx > 0 ? 'start' : 'end';
+      break;
+    case 'inward':
+      textAnchorValue = props.dx > 0 ? 'end' : 'start';
+      break;
+    default:
+      textAnchorValue = 'middle';
+  }
+
   return (
+
     <text
-      textAnchor="middle"
+      textAnchor={textAnchorValue}
       alignmentBaseline="middle"
       className="react-minimal-pie-chart-label"
       fill={color}
@@ -25,8 +40,10 @@ export default function ReactMinimalPieChartLabel({
 ReactMinimalPieChartLabel.displayName = 'ReactMinimalPieChartLabel';
 
 ReactMinimalPieChartLabel.propTypes = {
-  data: dataPropType,
-  dataIndex: PropTypes.number,
   children: PropTypes.func.isRequired,
   color: PropTypes.string,
+  data: dataPropType,
+  dataIndex: PropTypes.number,
+  dx: PropTypes.number.isRequired,
+  horizontalAlignment: PropTypes.oneOf(['outward', 'inward']),
 };

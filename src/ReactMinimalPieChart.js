@@ -133,7 +133,7 @@ const makeLabels = (data, props) => {
   let lastSegmentAngle = props.startAngle;
   const segmentsPaddingAngle =
     props.paddingAngle * (props.lengthAngle / Math.abs(props.lengthAngle));
-  const labelRadius = props.labelRadius || props.radius / 2;
+  const labelPosition = props.radius / 100 * props.labelPosition;
 
   return data.map((dataEntry, index) => {
     const startAngle = lastSegmentAngle;
@@ -147,8 +147,8 @@ const makeLabels = (data, props) => {
       key: `label-${dataEntry.key || index}`,
       x: props.cx,
       y: props.cy,
-      dx: Math.cos(halfAngleRadians) * labelRadius,
-      dy: Math.sin(halfAngleRadians) * labelRadius,
+      dx: Math.cos(halfAngleRadians) * labelPosition,
+      dy: Math.sin(halfAngleRadians) * labelPosition,
       data: data,
       dataIndex: index,
       color: dataEntry.color,
@@ -254,7 +254,7 @@ ReactMinimalPieChart.propTypes = {
     PropTypes.element,
     PropTypes.bool,
   ]),
-  labelRadius: PropTypes.number,
+  labelPosition: PropTypes.number,
   labelStyle: stylePropType,
   onMouseOver: PropTypes.func,
   onMouseOut: PropTypes.func,
@@ -275,6 +275,7 @@ ReactMinimalPieChart.defaultProps = {
   animationDuration: 500,
   animationEasing: 'ease-out',
   label: false,
+  labelPosition: 50,
   onMouseOver: undefined,
   onMouseOut: undefined,
   onClick: undefined,
