@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-
-import PieChart, { PieChartLabel } from '../../src/index';
+import PieChart from '../../src/index';
 
 const dataMock = [
   { value: 10, color: 'blue' },
@@ -20,6 +19,7 @@ const expectedNormalizedDataMock = {
     percentage: expect.any(Number),
   })),
   dataIndex: expect.any(Number),
+  color: expect.any(String),
 };
 
 const styleMock = {
@@ -264,23 +264,24 @@ describe('ReactMinimalPieChart component', () => {
 
   describe('"label"', () => {
     describe('true', () => {
-      it('Should render 3 "ReactMinimalPieChartLabel" instances with data.value', () => {
+      it('Should render 3 <text> elements with expected text and "fill" attribute', () => {
         const wrapper = mount(<PieChart
           data={dataMock}
           label
         />);
 
-        const labels = wrapper.find(PieChartLabel);
+        const labels = wrapper.find('text');
         expect(labels.length).toBe(dataMock.length);
 
         labels.forEach((label, index) => {
           expect(label.text()).toBe(`${dataMock[index].value}`);
+          expect(label.prop('fill')).toBe(dataMock[index].color);
         });
       });
     });
 
     describe('provided as function', () => {
-      it('Should render 3 "ReactMinimalPieChartLabel" instances with custom content', () => {
+      it('Should render 3 <text> elements with custom content', () => {
         const wrapper = mount(
           <PieChart
             data={dataMock}
@@ -288,7 +289,7 @@ describe('ReactMinimalPieChart component', () => {
           />
         );
 
-        const labels = wrapper.find(PieChartLabel);
+        const labels = wrapper.find('text');
         labels.forEach((label, index) => {
           expect(label.text()).toBe(`${index}`);
         });
@@ -342,7 +343,7 @@ describe('ReactMinimalPieChart component', () => {
         />
       );
 
-      const labels = wrapper.find(PieChartLabel);
+      const labels = wrapper.find('text');
       labels.forEach(label => {
         expect(label.prop('style')).toEqual(styleMock);
       });
