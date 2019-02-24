@@ -1,6 +1,5 @@
 /* global module */
-/* eslint-disable no-unused-vars */
-import React, { Component } from 'react';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
 import PieChart from '../src/index.js';
 import InteractionStory from './InteractionStory';
@@ -25,6 +24,12 @@ const dataMock = [
   { title: 'Three', value: 20, color: '#6A2135' },
 ];
 
+const defaultLabelStyle = {
+  fontSize: '5px',
+  fontFamily: 'sans-serif',
+  fill: '#121212',
+};
+
 storiesOf('React minimal pie chart', module)
   .addDecorator(ContainDecorator)
   .add('default', () => <PieChart data={dataMock} />)
@@ -33,8 +38,7 @@ storiesOf('React minimal pie chart', module)
       data={dataMock}
       style={{ height: '100px' }}
     />
-  ))
-  .add('gradients with "injectSvg":', () => <GradientStory />);
+  ));
 
 storiesOf('Donut Chart', module)
   .addDecorator(ContainDecorator)
@@ -108,10 +112,7 @@ storiesOf('Labels', module)
     <PieChart
       data={dataMock}
       label
-      labelStyle={{
-        fontSize: '5px',
-        fontFamily: 'sans-serif',
-      }}
+      labelStyle={defaultLabelStyle}
     />
   ))
   .add('outer labels', () => (
@@ -122,19 +123,32 @@ storiesOf('Labels', module)
         fontSize: '5px',
         fontFamily: 'sans-serif',
       }}
-      labelRadius={70}
+      radius={42}
+      labelRadius={48}
     />
   ))
-  .add('show percentage', () => (
+  .add('outer labels II', () => (
+    <PieChart
+      data={dataMock}
+      lineWidth={20}
+      paddingAngle={18}
+      rounded
+      label
+      labelStyle={{
+        fontSize: '5px',
+        fontFamily: 'sans-serif',
+      }}
+      radius={37}
+      labelRadius={46}
+    />
+  ))
+  .add('percentage', () => (
     <PieChart
       data={dataMock}
       label={({ data, dataIndex }) =>
         Math.round(data[dataIndex].percentage) + '%'
       }
-      labelStyle={{
-        fontSize: '5px',
-        fontFamily: 'sans-serif',
-      }}
+      labelStyle={defaultLabelStyle}
     />
   ));
 
@@ -156,4 +170,16 @@ storiesOf('Interaction', module)
   .addDecorator(ContainDecorator)
   .add('custom click/mouseOver/mouseOut callbacks', () => (
     <InteractionStory data={dataMock} />
+  ));
+
+storiesOf('Misc', module)
+  .addDecorator(ContainDecorator)
+  .add('gradients with "injectSvg"', () => <GradientStory />)
+  .add('squared pie', () => (
+    <PieChart
+      data={dataMock}
+      label
+      labelStyle={defaultLabelStyle}
+      radius={75}
+    />
   ));

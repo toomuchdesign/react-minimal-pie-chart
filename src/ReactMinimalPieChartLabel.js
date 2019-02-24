@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { dataPropType } from './propTypes';
 
 export default function ReactMinimalPieChartLabel({
   data,
   dataIndex,
+  color,
   children,
   ...props
 }) {
@@ -12,6 +14,7 @@ export default function ReactMinimalPieChartLabel({
       textAnchor="middle"
       alignmentBaseline="middle"
       className="react-minimal-pie-chart-label"
+      fill={color}
       {...props}
     >
       {children(data, dataIndex, props)}
@@ -22,14 +25,8 @@ export default function ReactMinimalPieChartLabel({
 ReactMinimalPieChartLabel.displayName = 'ReactMinimalPieChartLabel';
 
 ReactMinimalPieChartLabel.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-      value: PropTypes.number.isRequired,
-      key: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-      color: PropTypes.string,
-    })
-  ),
+  data: dataPropType,
   dataIndex: PropTypes.number,
   children: PropTypes.func.isRequired,
+  color: PropTypes.string,
 };

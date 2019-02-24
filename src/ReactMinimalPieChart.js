@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Path from './ReactMinimalPieChartPath';
 import DefaultLabel from './ReactMinimalPieChartLabel';
+import { dataPropType, stylePropType } from './propTypes';
 import { degreesToRadians, evaluateViewBoxSize } from './utils';
 
 const VIEWBOX_SIZE = 100;
@@ -140,7 +141,8 @@ const makeLabels = (data, props) => {
     lastSegmentAngle += lengthAngle + segmentsPaddingAngle;
     const halfAngle = startAngle + lengthAngle / 2;
     const halfAngleRadians = degreesToRadians(halfAngle);
-    // This object is passes as argument to "label" prop
+
+    // This object is passed as props to the "label" component
     const labelProps = {
       key: `label-${dataEntry.key || index}`,
       x: props.cx,
@@ -149,6 +151,7 @@ const makeLabels = (data, props) => {
       dy: Math.sin(halfAngleRadians) * labelRadius,
       data: data,
       dataIndex: index,
+      color: dataEntry.color,
       style: props.labelStyle,
     };
 
@@ -226,25 +229,14 @@ export default class ReactMinimalPieChart extends PureComponent {
 ReactMinimalPieChart.displayName = 'ReactMinimalPieChart';
 
 ReactMinimalPieChart.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-      value: PropTypes.number.isRequired,
-      key: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-      color: PropTypes.string,
-    })
-  ),
+  data: dataPropType,
   cx: PropTypes.number,
   cy: PropTypes.number,
   ratio: PropTypes.number,
   totalValue: PropTypes.number,
   className: PropTypes.string,
-  style: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-  ),
-  segmentsStyle: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-  ),
+  style: stylePropType,
+  segmentsStyle: stylePropType,
   startAngle: PropTypes.number,
   lengthAngle: PropTypes.number,
   paddingAngle: PropTypes.number,
@@ -263,9 +255,7 @@ ReactMinimalPieChart.propTypes = {
     PropTypes.bool,
   ]),
   labelRadius: PropTypes.number,
-  labelStyle: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-  ),
+  labelStyle: stylePropType,
   onMouseOver: PropTypes.func,
   onMouseOut: PropTypes.func,
   onClick: PropTypes.func,
