@@ -112,7 +112,10 @@ storiesOf('Labels', module)
     <PieChart
       data={dataMock}
       label
-      labelStyle={defaultLabelStyle}
+      labelStyle={{
+        ...defaultLabelStyle,
+        textAnchor: 'middle',
+      }}
     />
   ))
   .add('outer labels', () => (
@@ -124,7 +127,7 @@ storiesOf('Labels', module)
         fontFamily: 'sans-serif',
       }}
       radius={42}
-      labelRadius={48}
+      labelPosition={120}
     />
   ))
   .add('outer labels II', () => (
@@ -139,7 +142,7 @@ storiesOf('Labels', module)
         fontFamily: 'sans-serif',
       }}
       radius={37}
-      labelRadius={46}
+      labelPosition={100}
     />
   ))
   .add('percentage', () => (
