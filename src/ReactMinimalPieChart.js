@@ -129,7 +129,7 @@ function renderLabelItem(option, props, value) {
     }
   }
 
-  return <DefaultLabel {...props}>{() => label}</DefaultLabel>;
+  return <DefaultLabel {...props}>{label}</DefaultLabel>;
 }
 
 const makeLabels = (data, props) => {
