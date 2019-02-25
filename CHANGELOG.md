@@ -1,3 +1,7 @@
+# 3.5.0
+
+- Add support for labels with props: `label`, `labelPosition` and `labelStyle`
+
 # 3.4.1
 
 - Fix chart to render `data.title` value as `<title>` inside `<path>` element
