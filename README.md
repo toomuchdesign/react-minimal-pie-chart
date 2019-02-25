@@ -37,7 +37,7 @@ Because [Recharts](https://github.com/recharts/recharts) is awesome, but when yo
 
 - No dependencies (except for [React's prop-types](https://github.com/reactjs/prop-types))
 - Customizable CSS animations with [stroke-dasharray + stroke-dashoffset strategy](https://css-tricks.com/svg-line-animation-works/)
-- Configurable: Pie, Donut, Loading, Completion charts (see [Demo][storybook])
+- Configurable: Pie, Donut, Loading, Completion charts, Labels (see [Demo][storybook])
 
 ## Options
 
@@ -67,6 +67,33 @@ Because [Recharts](https://github.com/recharts/recharts) is awesome, but when yo
 | **onMouseOver**       | _Function_                            | Custom event handler of `onMouseOver` on each sector : `(event, data, dataIndex) => {}`                                                                                                      | -          |
 | **onMouseOut**        | _Function_                            | Custom event handler of `onMouseOut` on each sector : `(event, data, dataIndex) => {}`                                                                                                       | -          |
 
+### `label` prop
+
+When `label` is a **function** or **ReactElement**, the provided entity will be called with the following object respectively **as first argument** or **as props**:
+
+```typescript
+const labelProps = {
+  key: string,
+  x: number,
+  y: number,
+  dx: number,
+  dy: number,
+  textAnchor: string,
+  data: {
+    // props.data array extended with:
+    degrees: number,
+    percentage: number,
+  }[],
+  dataIndex: number,
+  color: string,
+  style: {[key: string]: string | number},
+};
+```
+
+See some examples in the [demo source][demo-label-source].
+
+### Optional `data.key` value
+
 Each **data** entry can also accept an **optional [`key` property](https://reactjs.org/docs/lists-and-keys.html)** just in case items' indexes weren't enough:
 
 ```js
@@ -95,7 +122,9 @@ The main requirement of this library is an accurate rendering of [SVG Stroke pro
 
 ### How svg arc paths work?
 
-http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/
+https://codepen.io/lingtalfi/pen/yaLWJG
+
+<!-- http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/  -->
 
 ## Todo's
 
@@ -104,6 +133,9 @@ http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/
 - Background segment
 - Consider switching `ReactMinimalPieChart` to extend default `React.Component`
 - Consider moving storybook deployment to CI
+- Update to babel 7 along with Storybook
+- Get rid of duplicated looping logic in `makeSegments` and `makeLabels`
+- Configure Babel's "transform-object-rest-spread" with `"useBuiltIns": true`
 
 ## Contributors
 
@@ -122,4 +154,5 @@ Thanks to you all ([emoji key](https://github.com/kentcdodds/all-contributors#em
 [coveralls]: https://coveralls.io/github/toomuchdesign/react-minimal-pie-chart?branch=master
 [storybook]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html
 [demo-interaction]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html?selectedKind=React%20minimal%20pie%20chart&selectedStory=Interaction%20using%20click%2FmouseOver%2FmouseOut&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel
-[demo-interaction-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v3.1.0/stories/index.js#L25
+[demo-interaction-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v3.5.0/stories/InteractionStory.js
+[demo-label-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v3.5.0/stories/index.js#L94
