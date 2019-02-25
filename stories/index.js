@@ -6,18 +6,6 @@ import InteractionStory from './InteractionStory';
 import GradientStory from './GradientStory';
 import LoadingIndicatorStory from './LoadingIndicatorStory';
 
-const ContainDecorator = story => (
-  <div
-    key={Date.now()}
-    style={{
-      maxWidth: '400px',
-      margin: '0 auto',
-    }}
-  >
-    {story()}
-  </div>
-);
-
 const dataMock = [
   { title: 'One', value: 10, color: '#E38627' },
   { title: 'Two', value: 15, color: '#C13C37' },
@@ -30,8 +18,7 @@ const defaultLabelStyle = {
   fill: '#121212',
 };
 
-storiesOf('React minimal pie chart', module)
-  .addDecorator(ContainDecorator)
+storiesOf('Pie Chart', module)
   .add('default', () => <PieChart data={dataMock} />)
   .add('custom size with "style"', () => (
     <PieChart
@@ -41,7 +28,6 @@ storiesOf('React minimal pie chart', module)
   ));
 
 storiesOf('Donut Chart', module)
-  .addDecorator(ContainDecorator)
   .add('custom "lineWidth"', () => <PieChart
     data={dataMock}
     lineWidth={15}
@@ -69,12 +55,11 @@ storiesOf('Donut Chart', module)
     />
   ));
 
-storiesOf('Loading indicator', module)
-  .addDecorator(ContainDecorator)
-  .add('with "reveal"', () => <LoadingIndicatorStory />);
+storiesOf('Loading indicator', module).add('with "reveal"', () => (
+  <LoadingIndicatorStory />
+));
 
 storiesOf('Partial chart', module)
-  .addDecorator(ContainDecorator)
   .add('180° chart with custom "startAngle"/"lengthAngle"', () => (
     <PieChart
       data={dataMock}
@@ -107,7 +92,6 @@ storiesOf('Partial chart', module)
   ));
 
 storiesOf('Labels', module)
-  .addDecorator(ContainDecorator)
   .add('default labels', () => (
     <PieChart
       data={dataMock}
@@ -143,6 +127,19 @@ storiesOf('Labels', module)
       labelPosition={60}
     />
   ))
+  .add('single label', () => (
+    <PieChart
+      data={[{ value: 82, color: '#E38627' }]}
+      totalValue={100}
+      lineWidth={20}
+      label
+      labelStyle={{
+        fontSize: '25px',
+        fontFamily: 'sans-serif',
+      }}
+      labelPosition={0}
+    />
+  ))
   .add('percentage', () => (
     <PieChart
       data={dataMock}
@@ -154,7 +151,6 @@ storiesOf('Labels', module)
   ));
 
 storiesOf('Animation', module)
-  .addDecorator(ContainDecorator)
   .add('on mount with "animate"', () => <PieChart
     data={dataMock}
     animate
@@ -167,14 +163,12 @@ storiesOf('Animation', module)
     />
   ));
 
-storiesOf('Interaction', module)
-  .addDecorator(ContainDecorator)
-  .add('custom click/mouseOver/mouseOut callbacks', () => (
-    <InteractionStory data={dataMock} />
-  ));
+storiesOf('Interaction', module).add(
+  'custom click/mouseOver/mouseOut callbacks',
+  () => <InteractionStory data={dataMock} />
+);
 
 storiesOf('Misc', module)
-  .addDecorator(ContainDecorator)
   .add('gradients with "injectSvg"', () => <GradientStory />)
   .add('squared pie', () => (
     <PieChart
