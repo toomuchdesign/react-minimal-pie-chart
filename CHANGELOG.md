@@ -1,6 +1,7 @@
 # 3.5.0
 
 - Add support for labels with props: `label`, `labelPosition` and `labelStyle`
+- Minor internal refactoring
 
 # 3.4.1
 
