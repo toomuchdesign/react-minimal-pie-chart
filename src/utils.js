@@ -34,3 +34,13 @@ export function evaluateLabelTextAnchor({
   // Overlying label
   return 'middle';
 }
+
+export function valueBetween(value, min, max) {
+  if (value > max) return max;
+  if (value < min) return min;
+  return value;
+}
+
+export function extractPercentage(value, percentage) {
+  return (value * percentage) / 100;
+}

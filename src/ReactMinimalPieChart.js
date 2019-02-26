@@ -7,6 +7,8 @@ import {
   degreesToRadians,
   evaluateViewBoxSize,
   evaluateLabelTextAnchor,
+  extractPercentage,
+  valueBetween,
 } from './utils';
 
 const VIEWBOX_SIZE = 100;
@@ -15,32 +17,19 @@ const VIEWBOX_HALF_SIZE = VIEWBOX_SIZE / 2;
 const sumValues = data =>
   data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);
 
-// @TODO extract padding evaluation
-const evaluateDegreesFromValues = (
-  data,
-  totalAngle,
-  totalValue,
-  paddingAngle
-) => {
+const evaluateDegreesFromValues = (data, totalAngle, totalValue) => {
   const total = totalValue || sumValues(data);
-
-  // Remove segments padding from total degrees
-  const degreesTakenByPadding = paddingAngle * data.length;
-  let totalDegrees = Math.abs(totalAngle) - degreesTakenByPadding;
-
-  if (totalDegrees > 360) totalDegrees = 360;
-  if (totalAngle < 0) totalDegrees = -totalDegrees;
+  const normalizedTotalAngle = valueBetween(totalAngle, -360, 360);
 
   // Append "degrees" and "percentage" into each data entry
-  return data.map(dataEntry =>
-    Object.assign(
-      {
-        degrees: (dataEntry.value / total) * totalDegrees,
-        percentage: (100 * dataEntry.value) / total,
-      },
-      dataEntry
-    )
-  );
+  return data.map(dataEntry => {
+    const valueInPercentage = (dataEntry.value / total) * 100;
+    return {
+      percentage: valueInPercentage,
+      degrees: extractPercentage(normalizedTotalAngle, valueInPercentage),
+      ...dataEntry,
+    };
+  });
 };
 
 const makeSegmentTransitionStyle = (duration, easing, furtherStyles = {}) => {
@@ -60,10 +49,8 @@ const makeSegmentTransitionStyle = (duration, easing, furtherStyles = {}) => {
 const makeSegments = (data, props, hide) => {
   // Keep track of how many degrees have already been taken
   let lastSegmentAngle = props.startAngle;
-  const segmentsPaddingAngle =
-    props.paddingAngle * (props.lengthAngle / Math.abs(props.lengthAngle));
+  const paddingAngle = props.paddingAngle * Math.sign(props.lengthAngle);
   let reveal;
-
   let style = props.segmentsStyle;
 
   if (props.animate) {
@@ -87,7 +74,7 @@ const makeSegments = (data, props, hide) => {
   return data.map((dataEntry, index) => {
     const startAngle = lastSegmentAngle;
     const lengthAngle = dataEntry.degrees;
-    lastSegmentAngle += lengthAngle + segmentsPaddingAngle;
+    lastSegmentAngle += lengthAngle;
 
     return (
       <Path
@@ -95,9 +82,9 @@ const makeSegments = (data, props, hide) => {
         cx={props.cx}
         cy={props.cy}
         startAngle={startAngle}
-        lengthAngle={lengthAngle}
+        lengthAngle={lengthAngle - paddingAngle}
         radius={props.radius}
-        lineWidth={(props.radius / 100) * props.lineWidth}
+        lineWidth={extractPercentage(props.radius, props.lineWidth)}
         reveal={reveal}
         title={dataEntry.title}
         style={style}
@@ -135,15 +122,15 @@ function renderLabelItem(option, props, value) {
 const makeLabels = (data, props) => {
   // Keep track of how many degrees have already been taken
   let lastSegmentAngle = props.startAngle;
-  const segmentsPaddingAngle =
-    props.paddingAngle * (props.lengthAngle / Math.abs(props.lengthAngle));
-  const labelPosition = (props.radius / 100) * props.labelPosition;
+  const paddingAngle = props.paddingAngle * Math.sign(props.lengthAngle);
+  const labelPosition = extractPercentage(props.radius, props.labelPosition);
 
   return data.map((dataEntry, index) => {
     const startAngle = lastSegmentAngle;
     const lengthAngle = dataEntry.degrees;
-    lastSegmentAngle += lengthAngle + segmentsPaddingAngle;
-    const halfAngle = startAngle + lengthAngle / 2;
+    lastSegmentAngle += lengthAngle;
+
+    const halfAngle = startAngle + (lengthAngle - paddingAngle) / 2;
     const halfAngleRadians = degreesToRadians(halfAngle);
     const dx = Math.cos(halfAngleRadians) * labelPosition;
     const dy = Math.sin(halfAngleRadians) * labelPosition;
@@ -212,8 +199,7 @@ export default class ReactMinimalPieChart extends PureComponent {
     const normalizedData = evaluateDegreesFromValues(
       this.props.data,
       this.props.lengthAngle,
-      this.props.totalValue,
-      this.props.paddingAngle
+      this.props.totalValue
     );
 
     return (
