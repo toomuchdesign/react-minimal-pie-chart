@@ -1,6 +1,5 @@
 import React from 'react';
-import { addDecorator, configure } from '@storybook/react';
-import { setOptions as setAddonOptions } from '@storybook/addon-options';
+import { addDecorator, addParameters, configure } from '@storybook/react';
 import {
   setDefaults as setInfoDefaults,
   withInfo,
@@ -20,11 +19,6 @@ function ContainDecorator(story) {
   );
 }
 
-setAddonOptions({
-  name: 'React minimal pie chart',
-  url: 'https://toomuchdesign.github.io/react-minimal-pie-chart/index.html',
-});
-
 setInfoDefaults({
   header: false,
   inline: false,
@@ -33,6 +27,14 @@ setInfoDefaults({
   inline: true,
 });
 
+addParameters({
+  options: {
+    name: 'React minimal pie chart',
+    url: 'https://github.com/toomuchdesign/react-minimal-pie-chart',
+    showPanel: false,
+    panelPosition: 'right',
+  },
+});
 addDecorator((story, context) => withInfo()(story)(context));
 addDecorator(story => (
   <div>
