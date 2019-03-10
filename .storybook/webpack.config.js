@@ -1,13 +1,9 @@
 const path = require('path');
 const ROOT = path.join(process.cwd());
 
-module.exports = (baseConfig, env) => {
+module.exports = ({ config, mode }) => {
   // Manually add "svg-partial-circle" to the paths to be transpiled
-  // if(env !== 'PRODUCTION'){
-  //   return baseConfig;
-  // }
-
-  baseConfig.module.rules.map(rule => {
+  config.module.rules.map(rule => {
     if (rule.test.test('.jsx')) {
       if (Array.isArray(rule.include) === false) {
         rule.include = [];
@@ -17,5 +13,5 @@ module.exports = (baseConfig, env) => {
     }
     return rule;
   });
-  return baseConfig;
+  return config;
 };

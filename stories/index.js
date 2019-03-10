@@ -163,10 +163,11 @@ storiesOf('Animation', module)
     />
   ));
 
-storiesOf('Interaction', module).add(
-  'custom click/mouseOver/mouseOut callbacks',
-  () => <InteractionStory data={dataMock} />
-);
+storiesOf('Interaction', module)
+  .addParameters({ options: { showPanel: true } })
+  .add('custom click/mouseOver/mouseOut callbacks', () => (
+    <InteractionStory data={dataMock} />
+  ));
 
 storiesOf('Misc', module)
   .add('gradients with "injectSvg"', () => <GradientStory />)
