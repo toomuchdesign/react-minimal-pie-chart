@@ -11,7 +11,7 @@ storybook-static
 
 # Trailing dotted files
 !.all-contributorsrc
-!.babelrc
+!.babelrc.js
 !.editorconfig
 !.eslintrc
 !.eslintignore
