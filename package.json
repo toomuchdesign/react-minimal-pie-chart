@@ -66,7 +66,8 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.4.2",
     "coveralls": "^3.0.2",
-    "enzyme": "^2.7.1",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-16": "^1.10.0",
     "eslint": "^3.19.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-react": "^7.10.0",
@@ -74,9 +75,8 @@
     "jest": "^23.4.2",
     "lint-staged": "^7.2.0",
     "prettier": "^1.14.0",
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0",
-    "react-test-renderer": "^15.5.4",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "rollup": "^1.0.0",
     "rollup-plugin-babel": "^4.0.0",
     "rollup-plugin-commonjs": "^9.0.0",
@@ -88,7 +88,11 @@
     "coverageReporters": [
       "text",
       "lcov"
-    ]
+    ],
+    "collectCoverageFrom": [
+      "<rootDir>/src/**"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/jest.setup.js"
   },
   "lint-staged": {
     "*.{js,jsx}": [

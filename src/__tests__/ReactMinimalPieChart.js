@@ -41,7 +41,7 @@ describe('ReactMinimalPieChart component', () => {
   it('Should return null if props.data is undefined', () => {
     const wrapper = shallow(<PieChart />);
 
-    expect(wrapper.getNode()).toEqual(null);
+    expect(wrapper.getElement()).toEqual(null);
   });
 
   it('Should return a Path component for each entry in props.data', () => {
@@ -224,8 +224,6 @@ describe('ReactMinimalPieChart component', () => {
       let firstPath = wrapper.find('ReactMinimalPieChartPath').first();
       expect(firstPath.prop('reveal')).toEqual(0);
 
-      // Manually fire componentDidMount hook
-      wrapper.instance().componentDidMount();
       jest.runAllTimers();
 
       firstPath = wrapper.find('ReactMinimalPieChartPath').first();
@@ -233,6 +231,8 @@ describe('ReactMinimalPieChart component', () => {
     });
 
     it('Should not fire forceUpdate on unmounted component', () => {
+      // Simulate edge case of animation fired after component was unmounted
+      // See: https://github.com/toomuchdesign/react-minimal-pie-chart/issues/8
       const wrapper = shallow(<PieChart
         data={dataMock}
         animate
@@ -241,9 +241,6 @@ describe('ReactMinimalPieChart component', () => {
       const chartInstance = wrapper.instance();
       chartInstance.startAnimation = jest.fn();
 
-      // Simulate edge case of animation fired after component was unmounted
-      // See: https://github.com/toomuchdesign/react-react-minimalm-pie-chart/issues/8
-      chartInstance.componentDidMount();
       wrapper.unmount();
       jest.runAllTimers();
 
