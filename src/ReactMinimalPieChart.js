@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Path from './ReactMinimalPieChartPath';
 import DefaultLabel from './ReactMinimalPieChartLabel';
@@ -157,7 +157,7 @@ const makeLabels = (data, props) => {
   });
 };
 
-export default class ReactMinimalPieChart extends PureComponent {
+export default class ReactMinimalPieChart extends Component {
   constructor(props) {
     super(props);
 
