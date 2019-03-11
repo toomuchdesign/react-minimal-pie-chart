@@ -1,7 +1,9 @@
 # React minimal pie chart
 
-[![Build Status][ci-img]][ci]
+[![Build Status][ci-badge]][ci]
+[![Npm version][npm-version-badge]][npm]
 [![Coveralls][coveralls-badge]][coveralls]
+[![Bundle size][bundlephobia-badge]][bundlephobia]
 
 Lightweight React **SVG pie charts**, with **versatile options** and **CSS animation** included. 👏 &nbsp;[Demo][storybook]&nbsp;👏.
 
@@ -31,7 +33,7 @@ https://unpkg.com/react-minimal-pie-chart/dist/index.js
 
 ## Why?
 
-Because [Recharts](https://github.com/recharts/recharts) is awesome, but when you just need a simple pie/donought chart, a few lines of code are usually enough.
+Because [Recharts](https://github.com/recharts/recharts) is awesome, but when you just need a simple pie/donought chart, **3 kB** of code are usually enough.
 
 ## Features
 
@@ -126,6 +128,10 @@ https://codepen.io/lingtalfi/pen/yaLWJG
 
 <!-- http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/  -->
 
+### Size comparison
+
+3kB
+
 ## Todo's
 
 - Find a better `paddingAngle` implementation
@@ -148,10 +154,14 @@ Thanks to you all ([emoji key](https://github.com/kentcdodds/all-contributors#em
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-[ci-img]: https://travis-ci.org/toomuchdesign/react-minimal-pie-chart.svg?branch=master
+[ci-badge]: https://travis-ci.org/toomuchdesign/react-minimal-pie-chart.svg?branch=master
 [ci]: https://travis-ci.org/toomuchdesign/react-minimal-pie-chart
 [coveralls-badge]: https://coveralls.io/repos/github/toomuchdesign/react-minimal-pie-chart/badge.svg?branch=master
 [coveralls]: https://coveralls.io/github/toomuchdesign/react-minimal-pie-chart?branch=master
+[npm]: https://www.npmjs.com/package/react-minimal-pie-chart
+[npm-version-badge]: https://img.shields.io/npm/v/react-minimal-pie-chart.svg
+[bundlephobia-badge]: https://badgen.net/bundlephobia/minzip/react-minimal-pie-chart
+[bundlephobia]: https://bundlephobia.com/result?p=react-minimal-pie-chart
 [storybook]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html
 [demo-interaction]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html?selectedKind=React%20minimal%20pie%20chart&selectedStory=Interaction%20using%20click%2FmouseOver%2FmouseOut&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel
 [demo-interaction-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v3.5.0/stories/InteractionStory.js
