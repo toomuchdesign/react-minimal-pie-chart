@@ -16,7 +16,7 @@ let plugins = [
   commonjs({
     // https://github.com/reactjs/react-redux/issues/643#issuecomment-285008041
     namedExports: {
-      'node_modules/react/react.js': ['PureComponent'],
+      'node_modules/react/react.js': ['Component'],
     },
   }),
 ];
