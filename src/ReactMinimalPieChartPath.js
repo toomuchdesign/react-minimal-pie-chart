@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import partialCircle from 'svg-partial-circle';
 import { degreesToRadians, extractPercentage, valueBetween } from './utils';
 
-const makePathCommands = (cx, cy, startAngle, lengthAngle, radius) => {
+function makePathCommands(cx, cy, startAngle, lengthAngle, radius) {
   const patchedLengthAngle = valueBetween(lengthAngle, -359.999, 359.999);
 
   return partialCircle(
@@ -15,7 +15,7 @@ const makePathCommands = (cx, cy, startAngle, lengthAngle, radius) => {
   )
     .map(command => command.join(' '))
     .join(' ');
-};
+}
 
 export default function ReactMinimalPieChartPath({
   cx,

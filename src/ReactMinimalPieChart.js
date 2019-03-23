@@ -14,10 +14,11 @@ import {
 const VIEWBOX_SIZE = 100;
 const VIEWBOX_HALF_SIZE = VIEWBOX_SIZE / 2;
 
-const sumValues = data =>
-  data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);
+function sumValues(data) {
+  return data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);
+}
 
-const evaluateDegreesFromValues = (data, totalAngle, totalValue) => {
+function evaluateDegreesFromValues(data, totalAngle, totalValue) {
   const total = totalValue || sumValues(data);
   const normalizedTotalAngle = valueBetween(totalAngle, -360, 360);
 
@@ -30,9 +31,9 @@ const evaluateDegreesFromValues = (data, totalAngle, totalValue) => {
       ...dataEntry,
     };
   });
-};
+}
 
-const makeSegmentTransitionStyle = (duration, easing, furtherStyles = {}) => {
+function makeSegmentTransitionStyle(duration, easing, furtherStyles = {}) {
   // Merge CSS transition necessary for chart animation with the ones provided by "segmentsStyle"
   const transition = [
     `stroke-dashoffset ${duration}ms ${easing}`,
@@ -44,9 +45,9 @@ const makeSegmentTransitionStyle = (duration, easing, furtherStyles = {}) => {
   return {
     transition,
   };
-};
+}
 
-const makeSegments = (data, props, hide) => {
+function makeSegments(data, props, hide) {
   // Keep track of how many degrees have already been taken
   let lastSegmentAngle = props.startAngle;
   const paddingAngle = props.paddingAngle * Math.sign(props.lengthAngle);
@@ -101,7 +102,7 @@ const makeSegments = (data, props, hide) => {
       />
     );
   });
-};
+}
 
 function renderLabelItem(option, props, value) {
   if (React.isValidElement(option)) {
@@ -119,7 +120,7 @@ function renderLabelItem(option, props, value) {
   return <DefaultLabel {...props}>{label}</DefaultLabel>;
 }
 
-const makeLabels = (data, props) => {
+function makeLabels(data, props) {
   // Keep track of how many degrees have already been taken
   let lastSegmentAngle = props.startAngle;
   const paddingAngle = props.paddingAngle * Math.sign(props.lengthAngle);
@@ -155,7 +156,7 @@ const makeLabels = (data, props) => {
 
     return renderLabelItem(props.label, labelProps, dataEntry.value);
   });
-};
+}
 
 export default class ReactMinimalPieChart extends Component {
   constructor(props) {
