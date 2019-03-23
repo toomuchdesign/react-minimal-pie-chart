@@ -64,7 +64,7 @@
     "@storybook/storybook-deployer": "^2.8.1",
     "all-contributors-cli": "^4.11.1",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.4.2",
+    "babel-jest": "^24.0.0",
     "babel-loader": "^7.1.5",
     "coveralls": "^3.0.2",
     "enzyme": "^3.0.0",
@@ -73,7 +73,7 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-react": "^7.10.0",
     "husky": "^0.14.3",
-    "jest": "^23.4.2",
+    "jest": "^24.0.0",
     "lint-staged": "^7.2.0",
     "prettier": "^1.14.0",
     "react": "^16.0.0",
@@ -93,7 +93,9 @@
     "collectCoverageFrom": [
       "<rootDir>/src/**"
     ],
-    "setupTestFrameworkScriptFile": "<rootDir>/jest.setup.js"
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest.setup.js"
+    ]
   },
   "lint-staged": {
     "*.{js,jsx}": [
