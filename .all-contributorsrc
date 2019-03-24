@@ -77,6 +77,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "manosim",
+      "name": "Emmanouil Konstantinidis",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6333409?v=4",
+      "profile": "https://www.manos.im/",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github"
