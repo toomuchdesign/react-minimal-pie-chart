@@ -47,12 +47,66 @@ function makeSegmentTransitionStyle(duration, easing, furtherStyles = {}) {
   };
 }
 
-function makeSegments(data, props, hide) {
+function renderLabelItem(option, props, value) {
+  if (React.isValidElement(option)) {
+    return React.cloneElement(option, props);
+  }
+
+  let label = value;
+  if (typeof option === 'function') {
+    label = option(props);
+    if (React.isValidElement(label)) {
+      return label;
+    }
+  }
+
+  return <DefaultLabel {...props}>{label}</DefaultLabel>;
+}
+
+function renderLabel(
+  data,
+  dataIndex,
+  props,
+  startAngle,
+  labelPosition,
+  paddingAngle
+) {
+  const dataEntry = data[dataIndex];
+  const lengthAngle = dataEntry.degrees;
+  const halfAngle = startAngle + (lengthAngle - paddingAngle) / 2;
+  const halfAngleRadians = degreesToRadians(halfAngle);
+  const dx = Math.cos(halfAngleRadians) * labelPosition;
+  const dy = Math.sin(halfAngleRadians) * labelPosition;
+
+  const labelProps = {
+    key: `label-${dataEntry.key || dataIndex}`,
+    x: props.cx,
+    y: props.cy,
+    dx,
+    dy,
+    textAnchor: evaluateLabelTextAnchor({
+      lineWidth: props.lineWidth,
+      labelPosition: props.labelPosition,
+      labelHorizontalShift: dx,
+    }),
+    data: data,
+    dataIndex,
+    color: dataEntry.color,
+    style: props.labelStyle,
+  };
+
+  return renderLabelItem(props.label, labelProps, dataEntry.value);
+}
+
+function renderSegments(data, props, hide) {
   // Keep track of how many degrees have already been taken
   let lastSegmentAngle = props.startAngle;
   const paddingAngle = props.paddingAngle * Math.sign(props.lengthAngle);
+  const labelPosition = extractPercentage(props.radius, props.labelPosition);
   let reveal;
   let style = props.segmentsStyle;
+  const paths = [];
+  const labels = [];
 
   if (props.animate) {
     const transitionStyle = makeSegmentTransitionStyle(
@@ -72,12 +126,12 @@ function makeSegments(data, props, hide) {
     reveal = 100;
   }
 
-  return data.map((dataEntry, index) => {
+  data.forEach((dataEntry, index) => {
     const startAngle = lastSegmentAngle;
     const lengthAngle = dataEntry.degrees;
     lastSegmentAngle += lengthAngle;
 
-    return (
+    paths.push(
       <Path
         key={dataEntry.key || index}
         cx={props.cx}
@@ -101,61 +155,15 @@ function makeSegments(data, props, hide) {
         onClick={props.onClick && (e => props.onClick(e, props.data, index))}
       />
     );
-  });
-}
 
-function renderLabelItem(option, props, value) {
-  if (React.isValidElement(option)) {
-    return React.cloneElement(option, props);
-  }
-
-  let label = value;
-  if (typeof option === 'function') {
-    label = option(props);
-    if (React.isValidElement(label)) {
-      return label;
+    if (props.label) {
+      labels.push(
+        renderLabel(data, index, props, startAngle, labelPosition, paddingAngle)
+      );
     }
-  }
-
-  return <DefaultLabel {...props}>{label}</DefaultLabel>;
-}
-
-function makeLabels(data, props) {
-  // Keep track of how many degrees have already been taken
-  let lastSegmentAngle = props.startAngle;
-  const paddingAngle = props.paddingAngle * Math.sign(props.lengthAngle);
-  const labelPosition = extractPercentage(props.radius, props.labelPosition);
-
-  return data.map((dataEntry, index) => {
-    const startAngle = lastSegmentAngle;
-    const lengthAngle = dataEntry.degrees;
-    lastSegmentAngle += lengthAngle;
-
-    const halfAngle = startAngle + (lengthAngle - paddingAngle) / 2;
-    const halfAngleRadians = degreesToRadians(halfAngle);
-    const dx = Math.cos(halfAngleRadians) * labelPosition;
-    const dy = Math.sin(halfAngleRadians) * labelPosition;
-
-    // This object is passed as props to the "label" component
-    const labelProps = {
-      key: `label-${dataEntry.key || index}`,
-      x: props.cx,
-      y: props.cy,
-      dx,
-      dy,
-      textAnchor: evaluateLabelTextAnchor({
-        lineWidth: props.lineWidth,
-        labelPosition: props.labelPosition,
-        labelHorizontalShift: dx,
-      }),
-      data: data,
-      dataIndex: index,
-      color: dataEntry.color,
-      style: props.labelStyle,
-    };
-
-    return renderLabelItem(props.label, labelProps, dataEntry.value);
   });
+
+  return [...paths, ...labels];
 }
 
 export default class ReactMinimalPieChart extends Component {
@@ -214,8 +222,7 @@ export default class ReactMinimalPieChart extends Component {
           height="100%"
           style={{ display: 'block' }}
         >
-          {makeSegments(normalizedData, this.props, this.hideSegments)}
-          {this.props.label && makeLabels(normalizedData, this.props)}
+          {renderSegments(normalizedData, this.props, this.hideSegments)}
           {this.props.injectSvg && this.props.injectSvg()}
         </svg>
         {this.props.children}
