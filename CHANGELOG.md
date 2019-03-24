@@ -1,3 +1,21 @@
+# 4.0.0
+
+### Breaking Changes
+
+- `ReactMinimalPieChart` extends `React.Component` instead of `React.PureComponent`
+- Improve `paddingAngle` implementation to respect the proportions between rendered slices
+- Add TypeScript types
+
+### Minor Changes
+
+- Compile with Babel v7
+- Update Storybook demo to v5
+- Add `sideEffect` flag
+
+### Bugfixes
+
+- Replace `export { default } from` syntax not supported by TS
+
 # 3.5.0
 
 - Add support for labels with props: `label`, `labelPosition` and `labelStyle`

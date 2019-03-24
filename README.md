@@ -5,7 +5,7 @@
 [![Coveralls][coveralls-badge]][coveralls]
 [![Bundle size][bundlephobia-badge]][bundlephobia]
 
-Lightweight React **SVG pie charts**, with **versatile options** and **CSS animation** included. 👏 &nbsp;[Demo][storybook]&nbsp;👏.
+Lightweight React **SVG pie charts**, with **versatile options** and **CSS animation** included. **< 3kB** gzipped. 👏[Demo][storybook]&nbsp;👏.
 
 ```js
 import PieChart from 'react-minimal-pie-chart';
@@ -33,13 +33,16 @@ https://unpkg.com/react-minimal-pie-chart/dist/index.js
 
 ## Why?
 
-Because [Recharts](https://github.com/recharts/recharts) is awesome, but when you just need a simple pie/donought chart, **3 kB** of code are usually enough.
+Because [Recharts][recharts-github] is awesome, but when you just need a simple pie/donought chart, **3kB** of code are usually enough.
 
 ## Features
 
-- No dependencies (except for [React's prop-types](https://github.com/reactjs/prop-types))
-- Customizable CSS animations with [stroke-dasharray + stroke-dashoffset strategy](https://css-tricks.com/svg-line-animation-works/)
-- Configurable: Pie, Donut, Loading, Completion charts, Labels (see [Demo][storybook])
+- **< 3kB** gzipped
+- Versatile: **Pie**, **Donut**, **Loading**, **Completion** charts (see [Demo][storybook])
+- Customizable chart **labels**
+- Customizable **CSS animations** with [stroke-dasharray + stroke-dashoffset strategy](https://css-tricks.com/svg-line-animation-works/)
+- **Typescript types** included
+- **No dependencies** (except for [React's prop-types](https://github.com/reactjs/))
 
 ## Options
 
@@ -69,12 +72,12 @@ Because [Recharts](https://github.com/recharts/recharts) is awesome, but when yo
 | **onMouseOver**       | _Function_                            | Custom event handler of `onMouseOver` on each sector : `(event, data, dataIndex) => {}`                                                                                                      | -          |
 | **onMouseOut**        | _Function_                            | Custom event handler of `onMouseOut` on each sector : `(event, data, dataIndex) => {}`                                                                                                       | -          |
 
-### `label` prop
+### Custom labels with `label` prop
 
-When `label` is a **function** or **ReactElement**, the provided entity will be called with the following object respectively **as first argument** or **as props**:
+When `label` is a **function** or **ReactElement**, the provided entity will be called with the following **`labelProps`** object respectively **as argument** or **as props**:
 
 ```typescript
-const labelProps = {
+interface labelProps: {
   key: string,
   x: number,
   y: number,
@@ -82,7 +85,7 @@ const labelProps = {
   dy: number,
   textAnchor: string,
   data: {
-    // props.data array extended with:
+    // props.data entry extended with:
     degrees: number,
     startOffset: number,
     percentage: number,
@@ -91,6 +94,22 @@ const labelProps = {
   color: string,
   style: {[key: string]: string | number},
 };
+```
+
+#### `label` as function
+
+The provided **function** is called with `labelProps` as **argument** and is supposed to **return the string or number** rendered as label content.
+
+```js
+<PieChart label={(labelProps: labelProps) => string | number} />
+```
+
+#### `label` as React element
+
+The provided **React element** will get `labelProps` object as `props`.
+
+```js
+<PieChart label={<CustomLabel />} />
 ```
 
 See some examples in the [demo source][demo-label-source].
@@ -113,13 +132,9 @@ See [demo][demo-interaction] and its [source][demo-interaction-source].
 
 The main requirement of this library is an accurate rendering of [SVG Stroke properties](https://www.w3schools.com/graphics/svg_stroking.asp).
 
-### Not supported
-
-- IE ≤ 10
-
-### Partially supported
-
-- IE 11
+| Not supported | Partially supported |
+| ------------- | ------------------- |
+| IE ≤ 10       | IE 11               |
 
 ## Misc
 
@@ -131,19 +146,20 @@ https://codepen.io/lingtalfi/pen/yaLWJG
 
 ### Size comparison
 
-3kB
+|                                   |                                  size (by Bundlefobia)                                  | size (by [size-limit](https://github.com/ai/size-limit)) |
+| --------------------------------- | :-------------------------------------------------------------------------------------: | :------------------------------------------------------: |
+| react-minimal-pie-chart           |       [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]       |                    2.8 KB _(v4.0.0)_                     |
+| [rechart][recharts-github]        |     [![Bundle size: Recharts][recharts-bundlephobia-badge]][recharts-bundlephobia]      |                     93 KB _(v1.5.0)_                     |
+| [victory-pie][victory-pie-github] | [![Bundle size: Victory pie][victory-pie-bundlephobia-badge]][victory-pie-bundlephobia] |                    54 KB _(v32.2.0)_                     |
+
+Sizes in the third column are calculated with a "real-world" setup: see [source repo](https://github.com/toomuchdesign/react-pie-charts-size). No
 
 ## Todo's
 
-- Find a better `paddingAngle` implementation
 - Make a device/browser compatibility table
 - Background segment
-- Consider switching `ReactMinimalPieChart` to extend default `React.Component`
 - Consider moving storybook deployment to CI
-- Update to babel 7 along with Storybook
-- Get rid of duplicated looping logic in `makeSegments` and `makeLabels`
-- Configure Babel's "transform-object-rest-spread" with `"useBuiltIns": true`
-- Consider migrating source to TypeScript
+- Configure Babel to not inject the `_extend` utility in compiled artifact
 
 ## Contributors
 
@@ -151,8 +167,7 @@ Thanks to you all ([emoji key](https://github.com/kentcdodds/all-contributors#em
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars3.githubusercontent.com/u/4573549?v=4" width="100px;"/><br /><sub><b>Andrea Carraro</b></sub>](http://www.andreacarraro.it)<br />[💻](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=toomuchdesign "Code") [📖](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=toomuchdesign "Documentation") [🚇](#infra-toomuchdesign "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=toomuchdesign "Tests") [👀](#review-toomuchdesign "Reviewed Pull Requests") | [<img src="https://avatars3.githubusercontent.com/u/1128559?v=4" width="100px;"/><br /><sub><b>Stephane Rufer</b></sub>](https://github.com/rufman)<br />[🐛](https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3Arufman "Bug reports") [💻](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=rufman "Code") | [<img src="https://avatars3.githubusercontent.com/u/1413255?v=4" width="100px;"/><br /><sub><b>Jørgen Aaberg</b></sub>](https://github.com/jaaberg)<br />[💻](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=jaaberg "Code") | [<img src="https://avatars3.githubusercontent.com/u/16377119?v=4" width="100px;"/><br /><sub><b>Tobiah Rex</b></sub>](http://www.tobiahrex.com)<br />[🐛](https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3ATobiahRex "Bug reports") | [<img src="https://avatars2.githubusercontent.com/u/11728228?v=4" width="100px;"/><br /><sub><b>Edward Xiao</b></sub>](https://edwardxiao.com)<br />[🐛](https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3Aedwardfhsiao "Bug reports") | [<img src="https://avatars1.githubusercontent.com/u/83857?v=4" width="100px;"/><br /><sub><b>David Konsumer</b></sub>](https://keybase.io/konsumer)<br />[💻](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=konsumer "Code") [📖](https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=konsumer "Documentation") [💡](#example-konsumer "Examples") [🤔](#ideas-konsumer "Ideas, Planning, & Feedback") | [<img src="https://avatars2.githubusercontent.com/u/44398222?v=4" width="100px;"/><br /><sub><b>Ori</b></sub>](https://github.com/nehoraigold)<br />[🤔](#ideas-nehoraigold "Ideas, Planning, & Feedback") |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+<table><tr><td align="center"><a href="http://www.andreacarraro.it"><img src="https://avatars3.githubusercontent.com/u/4573549?v=4" width="100px;" alt="Andrea Carraro"/><br /><sub><b>Andrea Carraro</b></sub></a><br /><a href="https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=toomuchdesign" title="Code">💻</a> <a href="https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=toomuchdesign" title="Documentation">📖</a> <a href="#infra-toomuchdesign" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=toomuchdesign" title="Tests">⚠️</a> <a href="#review-toomuchdesign" title="Reviewed Pull Requests">👀</a></td><td align="center"><a href="https://github.com/rufman"><img src="https://avatars3.githubusercontent.com/u/1128559?v=4" width="100px;" alt="Stephane Rufer"/><br /><sub><b>Stephane Rufer</b></sub></a><br /><a href="https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3Arufman" title="Bug reports">🐛</a> <a href="https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=rufman" title="Code">💻</a></td><td align="center"><a href="https://github.com/jaaberg"><img src="https://avatars3.githubusercontent.com/u/1413255?v=4" width="100px;" alt="Jørgen Aaberg"/><br /><sub><b>Jørgen Aaberg</b></sub></a><br /><a href="https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=jaaberg" title="Code">💻</a></td><td align="center"><a href="http://www.tobiahrex.com"><img src="https://avatars3.githubusercontent.com/u/16377119?v=4" width="100px;" alt="Tobiah Rex"/><br /><sub><b>Tobiah Rex</b></sub></a><br /><a href="https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3ATobiahRex" title="Bug reports">🐛</a></td><td align="center"><a href="https://edwardxiao.com"><img src="https://avatars2.githubusercontent.com/u/11728228?v=4" width="100px;" alt="Edward Xiao"/><br /><sub><b>Edward Xiao</b></sub></a><br /><a href="https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3Aedwardfhsiao" title="Bug reports">🐛</a></td><td align="center"><a href="https://keybase.io/konsumer"><img src="https://avatars1.githubusercontent.com/u/83857?v=4" width="100px;" alt="David Konsumer"/><br /><sub><b>David Konsumer</b></sub></a><br /><a href="https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=konsumer" title="Code">💻</a> <a href="https://github.com/toomuchdesign/react-minimal-pie-chart/commits?author=konsumer" title="Documentation">📖</a> <a href="#example-konsumer" title="Examples">💡</a> <a href="#ideas-konsumer" title="Ideas, Planning, & Feedback">🤔</a></td><td align="center"><a href="https://github.com/nehoraigold"><img src="https://avatars2.githubusercontent.com/u/44398222?v=4" width="100px;" alt="Ori"/><br /><sub><b>Ori</b></sub></a><br /><a href="#ideas-nehoraigold" title="Ideas, Planning, & Feedback">🤔</a></td></tr><tr><td align="center"><a href="https://www.manos.im/"><img src="https://avatars3.githubusercontent.com/u/6333409?v=4" width="100px;" alt="Emmanouil Konstantinidis"/><br /><sub><b>Emmanouil Konstantinidis</b></sub></a><br /><a href="https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3Amanosim" title="Bug reports">🐛</a></td></tr></table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
@@ -164,6 +179,12 @@ Thanks to you all ([emoji key](https://github.com/kentcdodds/all-contributors#em
 [npm-version-badge]: https://img.shields.io/npm/v/react-minimal-pie-chart.svg
 [bundlephobia-badge]: https://badgen.net/bundlephobia/minzip/react-minimal-pie-chart
 [bundlephobia]: https://bundlephobia.com/result?p=react-minimal-pie-chart
+[recharts-bundlephobia-badge]: https://badgen.net/bundlephobia/minzip/recharts
+[recharts-bundlephobia]: https://bundlephobia.com/result?p=recharts
+[recharts-github]: https://github.com/recharts/recharts
+[victory-pie-bundlephobia-badge]: https://badgen.net/bundlephobia/minzip/victory-pie
+[victory-pie-bundlephobia]: https://bundlephobia.com/result?p=victory-pie
+[victory-pie-github]: https://github.com/FormidableLabs/victory
 [storybook]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html
 [demo-interaction]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html?selectedKind=React%20minimal%20pie%20chart&selectedStory=Interaction%20using%20click%2FmouseOver%2FmouseOut&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel
 [demo-interaction-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v3.5.0/stories/InteractionStory.js
