@@ -18,16 +18,33 @@ function sumValues(data) {
   return data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);
 }
 
-function evaluateDegreesFromValues(data, totalAngle, totalValue) {
+// Append "percentage", "degrees" and "startOffset" into each data entry
+function extendData({
+  data,
+  lengthAngle: totalAngle,
+  totalValue,
+  paddingAngle,
+}) {
   const total = totalValue || sumValues(data);
   const normalizedTotalAngle = valueBetween(totalAngle, -360, 360);
+  const numberOfPaddings =
+    Math.abs(normalizedTotalAngle) === 360 ? data.length : data.length - 1;
+  const degreesTakenByPadding =
+    Math.abs(paddingAngle) * numberOfPaddings * Math.sign(normalizedTotalAngle);
+  const singlePaddingDegrees = degreesTakenByPadding / numberOfPaddings;
+  const degreesTakenByPaths = normalizedTotalAngle - degreesTakenByPadding;
+  let lastSegmentEnd = 0;
 
-  // Append "degrees" and "percentage" into each data entry
   return data.map(dataEntry => {
     const valueInPercentage = (dataEntry.value / total) * 100;
+    const degrees = extractPercentage(degreesTakenByPaths, valueInPercentage);
+    const startOffset = lastSegmentEnd;
+    lastSegmentEnd = lastSegmentEnd + degrees + singlePaddingDegrees;
+
     return {
       percentage: valueInPercentage,
-      degrees: extractPercentage(normalizedTotalAngle, valueInPercentage),
+      degrees,
+      startOffset,
       ...dataEntry,
     };
   });
@@ -47,63 +64,6 @@ function makeSegmentTransitionStyle(duration, easing, furtherStyles = {}) {
   };
 }
 
-function makeSegments(data, props, hide) {
-  // Keep track of how many degrees have already been taken
-  let lastSegmentAngle = props.startAngle;
-  const paddingAngle = props.paddingAngle * Math.sign(props.lengthAngle);
-  let reveal;
-  let style = props.segmentsStyle;
-
-  if (props.animate) {
-    const transitionStyle = makeSegmentTransitionStyle(
-      props.animationDuration,
-      props.animationEasing,
-      style
-    );
-    style = Object.assign({}, style, transitionStyle);
-  }
-
-  // Hide/reveal the segment?
-  if (hide === true) {
-    reveal = 0;
-  } else if (typeof props.reveal === 'number') {
-    reveal = props.reveal;
-  } else if (hide === false) {
-    reveal = 100;
-  }
-
-  return data.map((dataEntry, index) => {
-    const startAngle = lastSegmentAngle;
-    const lengthAngle = dataEntry.degrees;
-    lastSegmentAngle += lengthAngle;
-
-    return (
-      <Path
-        key={dataEntry.key || index}
-        cx={props.cx}
-        cy={props.cy}
-        startAngle={startAngle}
-        lengthAngle={lengthAngle - paddingAngle}
-        radius={props.radius}
-        lineWidth={extractPercentage(props.radius, props.lineWidth)}
-        reveal={reveal}
-        title={dataEntry.title}
-        style={style}
-        stroke={dataEntry.color}
-        strokeLinecap={props.rounded ? 'round' : undefined}
-        fill="none"
-        onMouseOver={
-          props.onMouseOver && (e => props.onMouseOver(e, props.data, index))
-        }
-        onMouseOut={
-          props.onMouseOut && (e => props.onMouseOut(e, props.data, index))
-        }
-        onClick={props.onClick && (e => props.onClick(e, props.data, index))}
-      />
-    );
-  });
-}
-
 function renderLabelItem(option, props, value) {
   if (React.isValidElement(option)) {
     return React.cloneElement(option, props);
@@ -120,18 +80,12 @@ function renderLabelItem(option, props, value) {
   return <DefaultLabel {...props}>{label}</DefaultLabel>;
 }
 
-function makeLabels(data, props) {
-  // Keep track of how many degrees have already been taken
-  let lastSegmentAngle = props.startAngle;
-  const paddingAngle = props.paddingAngle * Math.sign(props.lengthAngle);
+function renderLabels(data, props) {
   const labelPosition = extractPercentage(props.radius, props.labelPosition);
 
   return data.map((dataEntry, index) => {
-    const startAngle = lastSegmentAngle;
-    const lengthAngle = dataEntry.degrees;
-    lastSegmentAngle += lengthAngle;
-
-    const halfAngle = startAngle + (lengthAngle - paddingAngle) / 2;
+    const startAngle = props.startAngle + dataEntry.startOffset;
+    const halfAngle = startAngle + dataEntry.degrees / 2;
     const halfAngleRadians = degreesToRadians(halfAngle);
     const dx = Math.cos(halfAngleRadians) * labelPosition;
     const dy = Math.sin(halfAngleRadians) * labelPosition;
@@ -155,6 +109,58 @@ function makeLabels(data, props) {
     };
 
     return renderLabelItem(props.label, labelProps, dataEntry.value);
+  });
+}
+
+function renderSegments(data, props, hide) {
+  let style = props.segmentsStyle;
+  let reveal;
+
+  if (props.animate) {
+    const transitionStyle = makeSegmentTransitionStyle(
+      props.animationDuration,
+      props.animationEasing,
+      style
+    );
+    style = Object.assign({}, style, transitionStyle);
+  }
+
+  // Hide/reveal the segment?
+  if (hide === true) {
+    reveal = 0;
+  } else if (typeof props.reveal === 'number') {
+    reveal = props.reveal;
+  } else if (hide === false) {
+    reveal = 100;
+  }
+
+  return data.map((dataEntry, index) => {
+    const startAngle = props.startAngle + dataEntry.startOffset;
+
+    return (
+      <Path
+        key={dataEntry.key || index}
+        cx={props.cx}
+        cy={props.cy}
+        startAngle={startAngle}
+        lengthAngle={dataEntry.degrees}
+        radius={props.radius}
+        lineWidth={extractPercentage(props.radius, props.lineWidth)}
+        reveal={reveal}
+        title={dataEntry.title}
+        style={style}
+        stroke={dataEntry.color}
+        strokeLinecap={props.rounded ? 'round' : undefined}
+        fill="none"
+        onMouseOver={
+          props.onMouseOver && (e => props.onMouseOver(e, props.data, index))
+        }
+        onMouseOut={
+          props.onMouseOut && (e => props.onMouseOut(e, props.data, index))
+        }
+        onClick={props.onClick && (e => props.onClick(e, props.data, index))}
+      />
+    );
   });
 }
 
@@ -196,12 +202,7 @@ export default class ReactMinimalPieChart extends Component {
     if (this.props.data === undefined) {
       return null;
     }
-
-    const normalizedData = evaluateDegreesFromValues(
-      this.props.data,
-      this.props.lengthAngle,
-      this.props.totalValue
-    );
+    const extendedData = extendData(this.props);
 
     return (
       <div
@@ -214,8 +215,8 @@ export default class ReactMinimalPieChart extends Component {
           height="100%"
           style={{ display: 'block' }}
         >
-          {makeSegments(normalizedData, this.props, this.hideSegments)}
-          {this.props.label && makeLabels(normalizedData, this.props)}
+          {renderSegments(extendedData, this.props, this.hideSegments)}
+          {this.props.label && renderLabels(extendedData, this.props)}
           {this.props.injectSvg && this.props.injectSvg()}
         </svg>
         {this.props.children}

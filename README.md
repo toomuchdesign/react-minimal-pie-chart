@@ -84,6 +84,7 @@ const labelProps = {
   data: {
     // props.data array extended with:
     degrees: number,
+    startOffset: number,
     percentage: number,
   }[],
   dataIndex: number,
