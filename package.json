@@ -6,6 +6,7 @@
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "browser": "dist/index.js",
+  "types": "src/types/index.d.ts",
   "files": [
     "dist",
     "es",
@@ -40,7 +41,8 @@
     "pie",
     "donough",
     "arc",
-    "chart"
+    "chart",
+    "typescript"
   ],
   "repository": {
     "type": "git",
@@ -110,7 +112,7 @@
       "eslint --fix",
       "git add"
     ],
-    "*.{json,md}": [
+    "*.{json,md,ts}": [
       "prettier --write",
       "git add"
     ]
