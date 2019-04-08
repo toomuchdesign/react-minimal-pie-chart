@@ -18,8 +18,9 @@
   "scripts": {
     "test": "jest",
     "test:bundles": "jest --config ./jest/es.config.js && jest --config ./jest/lib.config.js && jest --config ./jest/dist.config.js",
-    "test:source": "npm run lint && npm t -- --coverage",
     "test:size": "size-limit",
+    "test:source": "npm run lint && npm run test:ts && npm t -- --coverage",
+    "test:ts": "typings-tester --config ./src/types/__tests__/tsconfig.json --dir ./src/types/__tests__",
     "clean": "rm -rf lib es dist",
     "compile": "npm run clean && rollup -c",
     "contrib:add": "all-contributors add",
@@ -31,7 +32,7 @@
     "version": "git add package.json",
     "postversion": "git push && git push --tags",
     "prepublish": "npm run test:source && npm run compile && npm run test:bundles && npm run test:size",
-    "precommit": "lint-staged && npm test",
+    "precommit": "lint-staged && npm run test:source",
     "start": "start-storybook -p 9001 -c .storybook",
     "storybook:deploy": "storybook-to-ghpages",
     "storybook:build": "build-storybook"
@@ -65,6 +66,7 @@
     "@storybook/addon-info": "^5.0.1",
     "@storybook/react": "^5.0.1",
     "@storybook/storybook-deployer": "^2.8.1",
+    "@types/react": "^16.8.13",
     "all-contributors-cli": "^4.11.1",
     "babel-jest": "^24.0.0",
     "babel-loader": "^8.0.5",
@@ -85,10 +87,15 @@
     "rollup-plugin-commonjs": "^9.0.0",
     "rollup-plugin-node-resolve": "^4.0.0",
     "size-limit": "^1.0.1",
-    "svg-partial-circle": "0.2.0"
+    "svg-partial-circle": "0.2.0",
+    "typescript": "^3.4.2",
+    "typings-tester": "^0.3.2"
   },
   "jest": {
     "testURL": "http://localhost/",
+    "moduleFileExtensions": [
+      "js"
+    ],
     "coverageReporters": [
       "text",
       "lcov"

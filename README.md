@@ -143,6 +143,7 @@ https://codepen.io/lingtalfi/pen/yaLWJG
 - Update to babel 7 along with Storybook
 - Get rid of duplicated looping logic in `makeSegments` and `makeLabels`
 - Configure Babel's "transform-object-rest-spread" with `"useBuiltIns": true`
+- Consider migrating source to TypeScript
 
 ## Contributors
 
