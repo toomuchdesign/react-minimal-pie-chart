@@ -4,14 +4,14 @@ declare type StyleObject = {
   [key: string]: string | number;
 };
 
-export type DataEntry = {
+export type PieChartData = {
   title: string;
   color: string;
   value: number;
   [key: string]: any;
 };
 
-export type ExtendedDataEntry = DataEntry & {
+export type ExtendedPieChartData = PieChartData & {
   degrees: number;
   startOffset: number;
   percentage: number;
@@ -24,17 +24,28 @@ export type LabelProps = {
   dx: number;
   dy: number;
   textAnchor: string;
-  data: ExtendedDataEntry[];
+  data: ExtendedPieChartData[];
   dataIndex: number;
   color: string;
   style: StyleObject;
 };
 
 declare type LabelPropAsReactElement = React.ReactElement<LabelProps>;
-declare type LabelPropAsFunction = (labelProps: LabelProps) => number | string;
+
+declare type LabelPropAsFunction = (
+  labelProps: LabelProps
+) => number | string | React.ReactElement;
+
+declare type EventHandler = (
+  event: React.MouseEvent,
+  data: PieChartData[],
+  dataIndex: number
+) => any;
 
 declare type ChartProps = {
-  data: DataEntry[];
+  className?: string;
+  style?: StyleObject;
+  data: PieChartData[];
   cx?: number;
   cy?: number;
   ratio?: number;
@@ -50,25 +61,13 @@ declare type ChartProps = {
   animationDuration?: number;
   animationEasing?: string;
   reveal?: number;
-  injectSvg?: () => {};
+  injectSvg?: () => React.ReactElement | void;
   label?: boolean | LabelPropAsReactElement | LabelPropAsFunction;
   labelPosition?: number;
   labelStyle?: StyleObject;
-  onClick?: (
-    event: React.MouseEvent,
-    data: DataEntry[],
-    dataIndex: number
-  ) => {};
-  onMouseOver?: (
-    event: React.MouseEvent,
-    data: DataEntry[],
-    dataIndex: number
-  ) => {};
-  onMouseOut?: (
-    event: React.MouseEvent,
-    data: DataEntry[],
-    dataIndex: number
-  ) => {};
+  onClick?: EventHandler;
+  onMouseOver?: EventHandler;
+  onMouseOut?: EventHandler;
 };
 
-export default class ReactMinimanPieChart extends React.Component<ChartProps> {}
+export default class ReactMinimalPieChart extends React.Component<ChartProps> {}
