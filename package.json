@@ -18,6 +18,7 @@
     "test": "jest",
     "test:bundles": "jest --config ./jest/es.config.js && jest --config ./jest/lib.config.js && jest --config ./jest/dist.config.js",
     "test:source": "npm run lint && npm t -- --coverage",
+    "test:size": "size-limit",
     "clean": "rm -rf lib es dist",
     "compile": "npm run clean && rollup -c",
     "contrib:add": "all-contributors add",
@@ -28,7 +29,7 @@
     "preversion": "npm run prepublish",
     "version": "git add package.json",
     "postversion": "git push && git push --tags",
-    "prepublish": "npm run test:source && npm run compile && npm run test:bundles",
+    "prepublish": "npm run test:source && npm run compile && npm run test:bundles && npm run test:size",
     "precommit": "lint-staged && npm test",
     "start": "start-storybook -p 9001 -c .storybook",
     "storybook:deploy": "storybook-to-ghpages",
@@ -81,6 +82,7 @@
     "rollup-plugin-babel": "^4.0.0",
     "rollup-plugin-commonjs": "^9.0.0",
     "rollup-plugin-node-resolve": "^4.0.0",
+    "size-limit": "^1.0.1",
     "svg-partial-circle": "0.2.0"
   },
   "jest": {
@@ -96,6 +98,12 @@
       "<rootDir>/jest.setup.js"
     ]
   },
+  "size-limit": [
+    {
+      "limit": "3 KB",
+      "path": "./es/index.js"
+    }
+  ],
   "lint-staged": {
     "*.{js,jsx}": [
       "prettier --write",
