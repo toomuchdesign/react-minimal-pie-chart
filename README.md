@@ -98,10 +98,10 @@ interface labelProps: {
 
 #### `label` as function
 
-The provided **function** is called with `labelProps` as **argument** and is supposed to **return the string or number** rendered as label content.
+The provided **function** is called with `labelProps` as **argument** and is supposed to **return the string, number or element** rendered as label content.
 
 ```js
-<PieChart label={(labelProps: labelProps) => string | number} />
+<PieChart label={(labelProps: labelProps) => string | number | ReactElement} />
 ```
 
 #### `label` as React element
