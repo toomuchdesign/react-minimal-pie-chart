@@ -152,7 +152,7 @@ https://codepen.io/lingtalfi/pen/yaLWJG
 | [rechart][recharts-github]        |     [![Bundle size: Recharts][recharts-bundlephobia-badge]][recharts-bundlephobia]      |                     93 KB _(v1.5.0)_                     |
 | [victory-pie][victory-pie-github] | [![Bundle size: Victory pie][victory-pie-bundlephobia-badge]][victory-pie-bundlephobia] |                    54 KB _(v32.2.0)_                     |
 
-Sizes in the third column are calculated with a "real-world" setup: see [source repo](https://github.com/toomuchdesign/react-pie-charts-size). No
+Sizes in the third column are calculated with a "real-world" setup: see [source repo](https://github.com/toomuchdesign/react-pie-charts-size).
 
 ## Todo's
 
