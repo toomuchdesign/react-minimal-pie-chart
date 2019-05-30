@@ -148,7 +148,7 @@ function renderSegments(data, props, hide) {
         lineWidth={extractPercentage(props.radius, props.lineWidth)}
         reveal={reveal}
         title={dataEntry.title}
-        style={style}
+        style={Object.assign({}, style, dataEntry.style)}
         stroke={dataEntry.color}
         strokeLinecap={props.rounded ? 'round' : undefined}
         fill="none"
