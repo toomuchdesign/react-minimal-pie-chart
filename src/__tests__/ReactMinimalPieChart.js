@@ -139,19 +139,30 @@ describe('ReactMinimalPieChart component', () => {
       });
     });
 
-    it('receives "style" prop', () => {
-      const styleMock = {
+    it('receives "segmentsStyle" and "data.style" props', () => {
+      const segmentsStyle = {
         foo: 'bar',
       };
+      const dataStyle = {
+        bar: 'foo',
+      };
+      const dataMockWithStyle = dataMock.map(entry => ({
+        ...entry,
+        ...{ style: dataStyle },
+      }));
+
       const wrapper = shallow(
         <PieChart
-          data={dataMock}
-          segmentsStyle={styleMock}
+          data={dataMockWithStyle}
+          segmentsStyle={segmentsStyle}
         />
       );
 
       wrapper.find('ReactMinimalPieChartPath').forEach(path => {
-        expect(path.prop('style')).toEqual(styleMock);
+        expect(path.prop('style')).toEqual(
+          expect.objectContaining(segmentsStyle)
+        );
+        expect(path.prop('style')).toEqual(expect.objectContaining(dataStyle));
       });
     });
   });

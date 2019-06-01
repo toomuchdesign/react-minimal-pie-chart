@@ -72,6 +72,25 @@ Because [Recharts][recharts-github] is awesome, but when you just need a simple 
 | **onMouseOver**       | _Function_                            | Custom event handler of `onMouseOver` on each sector : `(event, data, dataIndex) => {}`                                                                                                      | -          |
 | **onMouseOut**        | _Function_                            | Custom event handler of `onMouseOut` on each sector : `(event, data, dataIndex) => {}`                                                                                                       | -          |
 
+### About `props.data`
+
+`props.data` expects the following data:
+
+```typescript
+interface dataProps: {
+  title?: string | number,
+  value: number,
+  color: string,
+  key?: string | number,
+  style?: {[key: string]: string | number},
+};
+```
+
+Each **data** entry can **optionally** accept:
+
+- a [**`key`** property](https://reactjs.org/docs/lists-and-keys.html) just in case items' indexes weren't enough
+- a **`style`** property targeting the corresponding chart segment
+
 ### Custom labels with `label` prop
 
 When `label` is a **function** or **ReactElement**, the provided entity will be called with the following **`labelProps`** object respectively **as argument** or **as props**:
@@ -113,14 +132,6 @@ The provided **React element** will get `labelProps` object as `props`.
 ```
 
 See some examples in the [demo source][demo-label-source].
-
-### Optional `data.key` value
-
-Each **data** entry can also accept an **optional [`key` property](https://reactjs.org/docs/lists-and-keys.html)** just in case items' indexes weren't enough:
-
-```js
-{ value: 10, key: 1, color: '#E38627' }
-```
 
 ## How to
 
