@@ -197,6 +197,6 @@ Thanks to you all ([emoji key](https://github.com/kentcdodds/all-contributors#em
 [victory-pie-bundlephobia]: https://bundlephobia.com/result?p=victory-pie
 [victory-pie-github]: https://github.com/FormidableLabs/victory
 [storybook]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html
-[demo-interaction]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html?selectedKind=React%20minimal%20pie%20chart&selectedStory=Interaction%20using%20click%2FmouseOver%2FmouseOut&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel
+[demo-interaction]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html?path=/story/interaction--custom-click-mouseover-mouseout-callbacks
 [demo-interaction-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v3.5.0/stories/InteractionStory.js
 [demo-label-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v3.5.0/stories/index.js#L94

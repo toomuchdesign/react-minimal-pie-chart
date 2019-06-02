@@ -55,7 +55,10 @@ class DemoInteraction extends Component {
   }
 
   onClick(event, propsData, index) {
-    action('CLICK');
+    action('CLICK')(event, propsData, index);
+    // eslint-disable-next-line no-console
+    console.log('CLICK', { event, propsData, index });
+
     const data = propsData.map((entry, i) => {
       return {
         ...entry,
