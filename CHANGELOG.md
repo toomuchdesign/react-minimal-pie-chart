@@ -1,3 +1,9 @@
+# 4.1.0
+
+### New Features
+
+- Provide custom segment style via `props.data[i].style`
+
 # 4.0.0
 
 ### Breaking Changes
