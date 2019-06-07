@@ -95,6 +95,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "luca-esse",
+      "name": "luca-esse ",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/16616566?v=4",
+      "profile": "https://www.linkedin.com/in/luca-schiavone-7270a8138/",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github"

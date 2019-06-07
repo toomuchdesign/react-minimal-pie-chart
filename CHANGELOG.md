@@ -1,3 +1,9 @@
+# 4.1.1
+
+### Bugfixes
+
+- Transpile bundled `svg-partial-circle`
+
 # 4.1.0
 
 ### New Features
