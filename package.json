@@ -17,7 +17,8 @@
   "sideEffects": false,
   "scripts": {
     "test": "jest",
-    "test:bundles": "jest --config ./jest/es.config.js && jest --config ./jest/lib.config.js && jest --config ./jest/dist.config.js",
+    "test:bundles": "jest --config ./jest/es.config.js && jest --config ./jest/lib.config.js && jest --config ./jest/dist.config.js && npm run test:bundles-es5",
+    "test:bundles-es5": "es-check es5 './@(lib|dist)/*.js'",
     "test:size": "size-limit",
     "test:source": "npm run lint && npm run test:ts && npm t -- --coverage",
     "test:ts": "typings-tester --config ./src/types/__tests__/tsconfig.json --dir ./src/types/__tests__",
@@ -73,6 +74,7 @@
     "coveralls": "^3.0.2",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.10.0",
+    "es-check": "^5.0.0",
     "eslint": "^3.19.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-react": "^7.10.0",
