@@ -237,7 +237,7 @@ describe('ReactMinimalPieChart component', () => {
       });
     });
 
-    it('renders twice on mount updating segments "reveal" prop from 0 to 100', () => {
+    it('re-renders on did mount updating segments\' "reveal" prop from 0 to 100', () => {
       const wrapper = shallow(<PieChart data={dataMock} animate />);
       let firstPath = wrapper.find('ReactMinimalPieChartPath').first();
       expect(firstPath.prop('reveal')).toEqual(0);
@@ -248,7 +248,7 @@ describe('ReactMinimalPieChart component', () => {
       expect(firstPath.prop('reveal')).toEqual(100);
     });
 
-    it('does not fire forceUpdate on unmounted component', () => {
+    it('does not re-render when component is unmounted', () => {
       // Simulate edge case of animation fired after component was unmounted
       // See: https://github.com/toomuchdesign/react-minimal-pie-chart/issues/8
       const wrapper = shallow(<PieChart data={dataMock} animate />);
@@ -290,7 +290,7 @@ describe('ReactMinimalPieChart component', () => {
       });
     });
 
-    describe('provided as function', () => {
+    describe('provided as function returning a value', () => {
       it('renders 3 <text> elements with custom content', () => {
         const wrapper = mount(
           <PieChart data={dataMock} label={props => props.dataIndex} />
@@ -313,6 +313,24 @@ describe('ReactMinimalPieChart component', () => {
         };
 
         expect(actual).toEqual(expected);
+      });
+    });
+
+    describe('provided as function returning an element', () => {
+      it('renders returned elements', () => {
+        const wrapper = mount(
+          <PieChart
+            data={dataMock}
+            label={props => (
+              <text key={props.dataIndex}>{props.dataIndex}</text>
+            )}
+          />
+        );
+
+        const labels = wrapper.find('text');
+        labels.forEach((label, index) => {
+          expect(label.text()).toBe(`${index}`);
+        });
       });
     });
 
