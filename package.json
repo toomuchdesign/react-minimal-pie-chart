@@ -20,15 +20,13 @@
     "test:bundles": "jest --config ./jest/es.config.js && jest --config ./jest/lib.config.js && jest --config ./jest/dist.config.js && npm run test:bundles-es5",
     "test:bundles-es5": "es-check es5 './@(lib|dist)/*.js'",
     "test:size": "size-limit",
-    "test:source": "npm run lint && npm run test:ts && npm t -- --coverage",
+    "test:source": "npm run test:ts && npm t -- --coverage",
     "test:ts": "typings-tester --config ./src/types/__tests__/tsconfig.json --dir ./src/types/__tests__",
     "clean": "rm -rf lib es dist",
     "compile": "npm run clean && rollup -c",
     "contrib:add": "all-contributors add",
     "contrib:generate": "all-contributors generate",
-    "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\" && npm run lint:fix",
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "preversion": "npm run prepublish",
     "version": "git add package.json",
     "postversion": "git push && git push --tags",
@@ -75,9 +73,6 @@
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.10.0",
     "es-check": "^5.0.0",
-    "eslint": "^3.19.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-react": "^7.10.0",
     "husky": "^0.14.3",
     "jest": "^24.0.0",
     "lint-staged": "^7.2.0",
@@ -118,7 +113,6 @@
   "lint-staged": {
     "*.{js,jsx}": [
       "prettier --write",
-      "eslint --fix",
       "git add"
     ],
     "*.{json,md,ts}": [

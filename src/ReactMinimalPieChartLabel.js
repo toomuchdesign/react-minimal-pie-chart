@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { dataPropType } from './propTypes';
 
 export default function ReactMinimalPieChartLabel({
-  data, // eslint-disable-line no-unused-vars
-  dataIndex, // eslint-disable-line no-unused-vars
+  data,
+  dataIndex,
   color,
   ...props
 }) {

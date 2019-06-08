@@ -1,4 +1,3 @@
-/* global module */
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import PieChart from '../src/index.js';
@@ -21,30 +20,16 @@ const defaultLabelStyle = {
 storiesOf('Pie Chart', module)
   .add('default', () => <PieChart data={dataMock} />)
   .add('custom size with "style"', () => (
-    <PieChart
-      data={dataMock}
-      style={{ height: '100px' }}
-    />
+    <PieChart data={dataMock} style={{ height: '100px' }} />
   ));
 
 storiesOf('Donut Chart', module)
-  .add('custom "lineWidth"', () => <PieChart
-    data={dataMock}
-    lineWidth={15}
-  />)
+  .add('custom "lineWidth"', () => <PieChart data={dataMock} lineWidth={15} />)
   .add('custom "lineWidth" + "rounded"', () => (
-    <PieChart
-      data={dataMock}
-      lineWidth={15}
-      rounded
-    />
+    <PieChart data={dataMock} lineWidth={15} rounded />
   ))
   .add('custom "lineWidth" + "paddingAngle"', () => (
-    <PieChart
-      data={dataMock}
-      lineWidth={15}
-      paddingAngle={5}
-    />
+    <PieChart data={dataMock} lineWidth={15} paddingAngle={5} />
   ))
   .add('custom "lineWidth" + "paddingAngle" + negative "lengthAngle"', () => (
     <PieChart
@@ -61,18 +46,10 @@ storiesOf('Loading indicator', module).add('with "reveal"', () => (
 
 storiesOf('Partial chart', module)
   .add('180° chart with custom "startAngle"/"lengthAngle"', () => (
-    <PieChart
-      data={dataMock}
-      startAngle={180}
-      lengthAngle={180}
-    />
+    <PieChart data={dataMock} startAngle={180} lengthAngle={180} />
   ))
   .add('180° chart with custom negative "lengthAngle" and svg ratio', () => (
-    <PieChart
-      data={dataMock}
-      lengthAngle={-180}
-      ratio={2}
-    />
+    <PieChart data={dataMock} lengthAngle={-180} ratio={2} />
   ))
   .add('90° chart with custom center + "radius"', () => (
     <PieChart
@@ -85,10 +62,7 @@ storiesOf('Partial chart', module)
     />
   ))
   .add('uncomplete chart with custom "totalValue"', () => (
-    <PieChart
-      data={dataMock}
-      totalValue={60}
-    />
+    <PieChart data={dataMock} totalValue={60} />
   ));
 
 storiesOf('Labels', module)
@@ -151,16 +125,9 @@ storiesOf('Labels', module)
   ));
 
 storiesOf('Animation', module)
-  .add('on mount with "animate"', () => <PieChart
-    data={dataMock}
-    animate
-  />)
+  .add('on mount with "animate"', () => <PieChart data={dataMock} animate />)
   .add('clockwise animation with negative "lengthAngle"', () => (
-    <PieChart
-      data={dataMock}
-      lengthAngle={-360}
-      animate
-    />
+    <PieChart data={dataMock} lengthAngle={-360} animate />
   ));
 
 storiesOf('Interaction', module)

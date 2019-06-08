@@ -205,10 +205,7 @@ export default class ReactMinimalPieChart extends Component {
     const extendedData = extendData(this.props);
 
     return (
-      <div
-        className={this.props.className}
-        style={this.props.style}
-      >
+      <div className={this.props.className} style={this.props.style}>
         <svg
           viewBox={evaluateViewBoxSize(this.props.ratio, VIEWBOX_SIZE)}
           width="100%"
