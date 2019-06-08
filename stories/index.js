@@ -137,7 +137,7 @@ storiesOf('Animation', module)
   ));
 
 storiesOf('Interaction', module)
-  .addParameters({ options: { panelPosition: 'bottom' } })
+  .addParameters({ options: { showPanel: true, panelPosition: 'bottom' } })
   .add('custom click/mouseOver/mouseOut callbacks', () => (
     <InteractionStory data={dataMock} />
   ));
