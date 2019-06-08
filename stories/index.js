@@ -4,6 +4,7 @@ import PieChart from '../src/index.js';
 import InteractionStory from './InteractionStory';
 import GradientStory from './GradientStory';
 import LoadingIndicatorStory from './LoadingIndicatorStory';
+import PartialLoadingIndicatorStory from './PartialLoadingIndicatorStory';
 
 const dataMock = [
   { title: 'One', value: 10, color: '#E38627' },
@@ -40,9 +41,11 @@ storiesOf('Donut Chart', module)
     />
   ));
 
-storiesOf('Loading indicator', module).add('with "reveal"', () => (
-  <LoadingIndicatorStory />
-));
+storiesOf('Loading indicator', module)
+  .add('with "reveal"', () => <LoadingIndicatorStory />)
+  .add('partial chart with "background"', () => (
+    <PartialLoadingIndicatorStory />
+  ));
 
 storiesOf('Partial chart', module)
   .add('180° chart with custom "startAngle"/"lengthAngle"', () => (
@@ -61,8 +64,11 @@ storiesOf('Partial chart', module)
       radius={100}
     />
   ))
-  .add('uncomplete chart with custom "totalValue"', () => (
+  .add('partial chart with custom "totalValue"', () => (
     <PieChart data={dataMock} totalValue={60} />
+  ))
+  .add('partial chart with "background"', () => (
+    <PieChart data={dataMock} totalValue={60} background="#bfbfbf" />
   ));
 
 storiesOf('Labels', module)

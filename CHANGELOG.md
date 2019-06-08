@@ -1,3 +1,9 @@
+# 4.2.0
+
+### New Features
+
+- Add `background` prop to draw segment's background
+
 # 4.1.1
 
 ### Bugfixes

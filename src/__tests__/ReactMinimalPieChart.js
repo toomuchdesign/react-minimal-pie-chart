@@ -169,6 +169,36 @@ describe('ReactMinimalPieChart component', () => {
     });
   });
 
+  describe('"background"', () => {
+    describe('Renders a background segment as long as the whole chart', () => {
+      const wrapper = shallow(
+        <PieChart
+          data={dataMock}
+          startAngle={0}
+          lengthAngle={200}
+          background={'green'}
+        />
+      );
+
+      const backgroundPath = wrapper.find('ReactMinimalPieChartPath').at(0);
+      const segmentsPath = wrapper.find('ReactMinimalPieChartPath').at(1);
+      const expectedProps = {
+        cx: segmentsPath.prop('cx'),
+        cy: segmentsPath.prop('cy'),
+        startAngle: 0,
+        lengthAngle: 200,
+        radius: segmentsPath.prop('radius'),
+        lineWidth: segmentsPath.prop('lineWidth'),
+        stroke: 'green',
+        strokeLinecap: undefined,
+        fill: 'none',
+      };
+
+      expect(backgroundPath.key()).toBe('bg');
+      expect(backgroundPath.props()).toEqual(expectedProps);
+    });
+  });
+
   describe('"animate"', () => {
     describe('Segments "style.transition" prop', () => {
       it('receives "stroke-dashoffset" transition prop with custom duration/easing', () => {
