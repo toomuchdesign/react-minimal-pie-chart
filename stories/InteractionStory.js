@@ -10,7 +10,6 @@ class DemoInteraction extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // eslint-disable-next-line react/prop-types
       data: props.data.map(entry => ({
         ...entry,
         ...{ style: { strokeWidth: NORMAL_WIDTH } },
@@ -23,7 +22,6 @@ class DemoInteraction extends Component {
     this.onClick = this.onClick.bind(this);
   }
 
-  // eslint-disable-next-line no-unused-vars
   onMouseOut(event, propsData, index) {
     const data = propsData.map((entry, i) => {
       return i === index
@@ -56,7 +54,6 @@ class DemoInteraction extends Component {
 
   onClick(event, propsData, index) {
     action('CLICK')(event, propsData, index);
-    // eslint-disable-next-line no-console
     console.log('CLICK', { event, propsData, index });
 
     const data = propsData.map((entry, i) => {

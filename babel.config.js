@@ -1,4 +1,3 @@
-/* global process, module */
 const test = process.env.NODE_ENV === 'test';
 module.exports = api => {
   api.cache(false);

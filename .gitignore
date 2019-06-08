@@ -13,8 +13,6 @@ storybook-static
 !.all-contributorsrc
 !.babelrc.js
 !.editorconfig
-!.eslintrc
-!.eslintignore
 !.github
 !.gitignore
 !.npmignore

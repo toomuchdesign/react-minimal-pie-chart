@@ -31,7 +31,6 @@ const styleMock = {
 jest.useFakeTimers();
 
 beforeAll(() => {
-  // eslint-disable-next-line no-undef
   global.requestAnimationFrame = callback => {
     callback();
     return 'id';
@@ -54,11 +53,7 @@ describe('ReactMinimalPieChart component', () => {
 
   it('passes down className and style props to the wrapping div', () => {
     const wrapper = shallow(
-      <PieChart
-        data={dataMock}
-        className="foo"
-        style={styleMock}
-      />
+      <PieChart data={dataMock} className="foo" style={styleMock} />
     );
 
     expect(wrapper.prop('className')).toBe('foo');
@@ -67,20 +62,14 @@ describe('ReactMinimalPieChart component', () => {
 
   describe('<svg> element', () => {
     it('is horizontal when "ratio" > 1', () => {
-      const wrapper = shallow(<PieChart
-        data={dataMock}
-        ratio={4}
-      />);
+      const wrapper = shallow(<PieChart data={dataMock} ratio={4} />);
 
       const svg = wrapper.find('svg').first();
       expect(svg.prop('viewBox')).toBe('0 0 100 25');
     });
 
     it('is certical when "ratio" < 1', () => {
-      const wrapper = shallow(<PieChart
-        data={dataMock}
-        ratio={1 / 10}
-      />);
+      const wrapper = shallow(<PieChart data={dataMock} ratio={1 / 10} />);
 
       const svg = wrapper.find('svg').first();
       expect(svg.prop('viewBox')).toBe('0 0 10 100');
@@ -93,10 +82,7 @@ describe('ReactMinimalPieChart component', () => {
       let pathsTotalLengthAngle = 0;
 
       const wrapper = shallow(
-        <PieChart
-          data={dataMock}
-          lengthAngle={pieLengthAngle}
-        />
+        <PieChart data={dataMock} lengthAngle={pieLengthAngle} />
       );
 
       const paths = wrapper.find('ReactMinimalPieChartPath');
@@ -112,10 +98,7 @@ describe('ReactMinimalPieChart component', () => {
       let pathsTotalLengthAngle = 0;
 
       const wrapper = shallow(
-        <PieChart
-          data={dataMock}
-          lengthAngle={pieLengthAngle}
-        />
+        <PieChart data={dataMock} lengthAngle={pieLengthAngle} />
       );
 
       const paths = wrapper.find('ReactMinimalPieChartPath');
@@ -129,10 +112,7 @@ describe('ReactMinimalPieChart component', () => {
 
   describe('Rendered Paths', () => {
     it('receives the custom "reveal" prop', () => {
-      const wrapper = shallow(<PieChart
-        data={dataMock}
-        reveal={22}
-      />);
+      const wrapper = shallow(<PieChart data={dataMock} reveal={22} />);
 
       wrapper.find('ReactMinimalPieChartPath').forEach(path => {
         expect(path.prop('reveal')).toBe(22);
@@ -152,10 +132,7 @@ describe('ReactMinimalPieChart component', () => {
       }));
 
       const wrapper = shallow(
-        <PieChart
-          data={dataMockWithStyle}
-          segmentsStyle={segmentsStyle}
-        />
+        <PieChart data={dataMockWithStyle} segmentsStyle={segmentsStyle} />
       );
 
       wrapper.find('ReactMinimalPieChartPath').forEach(path => {
@@ -231,10 +208,7 @@ describe('ReactMinimalPieChart component', () => {
     });
 
     it('renders twice on mount updating segments "reveal" prop from 0 to 100', () => {
-      const wrapper = shallow(<PieChart
-        data={dataMock}
-        animate
-      />);
+      const wrapper = shallow(<PieChart data={dataMock} animate />);
       let firstPath = wrapper.find('ReactMinimalPieChartPath').first();
       expect(firstPath.prop('reveal')).toEqual(0);
 
@@ -247,10 +221,7 @@ describe('ReactMinimalPieChart component', () => {
     it('does not fire forceUpdate on unmounted component', () => {
       // Simulate edge case of animation fired after component was unmounted
       // See: https://github.com/toomuchdesign/react-minimal-pie-chart/issues/8
-      const wrapper = shallow(<PieChart
-        data={dataMock}
-        animate
-      />);
+      const wrapper = shallow(<PieChart data={dataMock} animate />);
 
       const chartInstance = wrapper.instance();
       chartInstance.startAnimation = jest.fn();
@@ -277,10 +248,7 @@ describe('ReactMinimalPieChart component', () => {
   describe('"label"', () => {
     describe('true', () => {
       it('renders 3 <text> elements with expected text and "fill" attribute', () => {
-        const wrapper = mount(<PieChart
-          data={dataMock}
-          label
-        />);
+        const wrapper = mount(<PieChart data={dataMock} label />);
 
         const labels = wrapper.find('text');
         expect(labels.length).toBe(dataMock.length);
@@ -295,10 +263,7 @@ describe('ReactMinimalPieChart component', () => {
     describe('provided as function', () => {
       it('renders 3 <text> elements with custom content', () => {
         const wrapper = mount(
-          <PieChart
-            data={dataMock}
-            label={props => props.dataIndex}
-          />
+          <PieChart data={dataMock} label={props => props.dataIndex} />
         );
 
         const labels = wrapper.find('text');
@@ -309,10 +274,7 @@ describe('ReactMinimalPieChart component', () => {
 
       it('provided function receive expected "props" object', () => {
         const labelMock = jest.fn();
-        mount(<PieChart
-          data={dataMock}
-          label={labelMock}
-        />);
+        mount(<PieChart data={dataMock} label={labelMock} />);
 
         const actual = labelMock.mock.calls[0][0];
         const expected = {
@@ -328,10 +290,7 @@ describe('ReactMinimalPieChart component', () => {
       it('renders with expected props', () => {
         const ComponentMock = jest.fn();
         const wrapper = shallow(
-          <PieChart
-            data={dataMock}
-            label={<ComponentMock />}
-          />
+          <PieChart data={dataMock} label={<ComponentMock />} />
         );
 
         const actual = wrapper
@@ -348,11 +307,7 @@ describe('ReactMinimalPieChart component', () => {
     it('assign provided value to each label as className', () => {
       const styleMock = { foo: 'bar' };
       const wrapper = mount(
-        <PieChart
-          data={dataMock}
-          label
-          labelStyle={styleMock}
-        />
+        <PieChart data={dataMock} label labelStyle={styleMock} />
       );
 
       const labels = wrapper.find('text');
@@ -365,10 +320,7 @@ describe('ReactMinimalPieChart component', () => {
   describe('"injectSvg"', () => {
     it('injects anything into rendered <svg>', () => {
       const wrapper = shallow(
-        <PieChart
-          data={dataMock}
-          injectSvg={() => <defs />}
-        />
+        <PieChart data={dataMock} injectSvg={() => <defs />} />
       );
 
       const svg = wrapper.find('svg').first();
