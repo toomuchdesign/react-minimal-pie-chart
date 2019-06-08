@@ -28,10 +28,22 @@ function testPieChart() {
   new PieChart({
     data: [
       {
+        value: 10,
+        color: 'red',
+      },
+    ],
+  });
+
+  new PieChart({
+    data: [
+      {
         title: 'foo',
         color: '#121212',
         value: 5,
         extraProperty: 'foo',
+        style: {
+          stroke: 'red',
+        },
       },
     ],
   });
@@ -91,6 +103,7 @@ function testPieChart() {
     paddingAngle: 10,
     rounded: true,
     segmentsStyle: { color: 'red' },
+    background: '#121212',
     animate: false,
     animationDuration: 10,
     animationEasing: 'some-easing',

@@ -4,6 +4,10 @@
 
 - Add `background` prop to draw segment's background
 
+### Bugfixes
+
+- Fix `props.data` types
+
 # 4.1.1
 
 ### Bugfixes
