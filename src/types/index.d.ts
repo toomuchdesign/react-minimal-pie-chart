@@ -5,9 +5,11 @@ declare type StyleObject = {
 };
 
 export type PieChartData = {
-  title: string;
+  title?: string | number;
   color: string;
   value: number;
+  key?: string | number;
+  style?: StyleObject;
   [key: string]: any;
 };
 
@@ -18,7 +20,7 @@ export type ExtendedPieChartData = PieChartData & {
 };
 
 export type LabelProps = {
-  key: string;
+  key: string | number;
   x: number;
   y: number;
   dx: number;
@@ -57,6 +59,7 @@ declare type ChartProps = {
   paddingAngle?: number;
   rounded?: boolean;
   segmentsStyle?: StyleObject;
+  background?: string;
   animate?: boolean;
   animationDuration?: number;
   animationEasing?: string;
