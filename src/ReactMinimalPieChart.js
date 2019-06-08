@@ -197,7 +197,8 @@ export default class ReactMinimalPieChart extends Component {
       this.initialAnimationTimerId = setTimeout(() => {
         this.initialAnimationTimerId = null;
         this.initialAnimationRAFId = requestAnimationFrame(() => {
-          (this.initialAnimationRAFId = null), this.startAnimation();
+          this.initialAnimationRAFId = null;
+          this.startAnimation();
         });
       });
     }
