@@ -134,7 +134,7 @@ function renderSegments(data, props, hide) {
     reveal = 100;
   }
 
-  return data.map((dataEntry, index) => {
+  const paths = data.map((dataEntry, index) => {
     const startAngle = props.startAngle + dataEntry.startOffset;
 
     return (
@@ -162,6 +162,25 @@ function renderSegments(data, props, hide) {
       />
     );
   });
+
+  if (props.background) {
+    paths.unshift(
+      <Path
+        key="bg"
+        cx={props.cx}
+        cy={props.cy}
+        startAngle={props.startAngle}
+        lengthAngle={props.lengthAngle}
+        radius={props.radius}
+        lineWidth={extractPercentage(props.radius, props.lineWidth)}
+        stroke={props.background}
+        strokeLinecap={props.rounded ? 'round' : undefined}
+        fill="none"
+      />
+    );
+  }
+
+  return paths;
 }
 
 export default class ReactMinimalPieChart extends Component {
@@ -233,6 +252,7 @@ ReactMinimalPieChart.propTypes = {
   className: PropTypes.string,
   style: stylePropType,
   segmentsStyle: stylePropType,
+  background: PropTypes.string,
   startAngle: PropTypes.number,
   lengthAngle: PropTypes.number,
   paddingAngle: PropTypes.number,

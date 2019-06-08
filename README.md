@@ -60,6 +60,7 @@ Because [Recharts][recharts-github] is awesome, but when you just need a simple 
 | **paddingAngle**      | _Number_                              | The angle between two sectors                                                                                                                                                                | -          |
 | **rounded**           | _Bool_                                | Round line caps of each sector                                                                                                                                                               | false      |
 | **segmentsStyle**     | _Object_                              | Style object assigned each segment                                                                                                                                                           | -          |
+| **background**        | _String_                              | Background color                                                                                                                                                                             | -          |
 | **animate**           | _Bool_                                | Animate sectors on component mount                                                                                                                                                           | false      |
 | **animationDuration** | _Number_                              | Animation duration in ms                                                                                                                                                                     | 500        |
 | **animationEasing**   | _String_                              | Animation CSS easing                                                                                                                                                                         | "ease-out" |
@@ -168,7 +169,6 @@ Sizes in the third column are calculated with a "real-world" setup: see [source 
 ## Todo's
 
 - Make a device/browser compatibility table
-- Background segment
 - Consider moving storybook deployment to CI
 - Configure Babel to not inject the `_extend` utility in compiled artifact
 
