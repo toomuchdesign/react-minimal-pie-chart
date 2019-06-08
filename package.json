@@ -31,7 +31,6 @@
     "version": "git add package.json",
     "postversion": "git push && git push --tags",
     "prepublish": "npm run test:source && npm run compile && npm run test:bundles && npm run test:size",
-    "precommit": "lint-staged && npm run test:source",
     "start": "start-storybook -p 9001 -c .storybook",
     "storybook:deploy": "storybook-to-ghpages",
     "storybook:build": "build-storybook"
@@ -69,14 +68,14 @@
     "all-contributors-cli": "^6.2.0",
     "babel-jest": "^24.0.0",
     "babel-loader": "^8.0.5",
-    "coveralls": "^3.0.2",
+    "coveralls": "^3.0.4",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.10.0",
     "es-check": "^5.0.0",
-    "husky": "^0.14.3",
+    "husky": "^2.4.0",
     "jest": "^24.0.0",
-    "lint-staged": "^7.2.0",
-    "prettier": "^1.14.0",
+    "lint-staged": "^8.2.0",
+    "prettier": "^1.18.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "rollup": "^1.0.0",
@@ -110,12 +109,13 @@
       "path": "./es/index.js"
     }
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run test:source"
+    }
+  },
   "lint-staged": {
-    "*.{js,jsx}": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.{json,md,ts}": [
+    "*.{js,jsx,json,md,ts}": [
       "prettier --write",
       "git add"
     ]
