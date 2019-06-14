@@ -83,7 +83,7 @@
     "rollup-plugin-commonjs": "^9.0.0",
     "rollup-plugin-node-resolve": "^4.0.0",
     "size-limit": "^1.0.1",
-    "svg-partial-circle": "0.2.0",
+    "svg-partial-circle": "1.0.0",
     "typescript": "^3.4.2",
     "typings-tester": "^0.3.2"
   },
