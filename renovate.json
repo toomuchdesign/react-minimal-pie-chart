@@ -1,5 +1,4 @@
 {
   "extends": ["config:base"],
-  "schedule": "on friday",
   "pinVersions": false
 }
