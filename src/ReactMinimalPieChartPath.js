@@ -42,9 +42,9 @@ export default function ReactMinimalPieChartPath({
   // Animate/hide paths with "stroke-dasharray" + "stroke-dashoffset"
   // https://css-tricks.com/svg-line-animation-works/
   if (typeof reveal === 'number') {
-    strokeDasharray = degreesToRadians(actualRadio) * Math.abs(lengthAngle);
-    strokeDashoffset =
-      strokeDasharray + extractPercentage(strokeDasharray, reveal);
+    const pathLength = degreesToRadians(actualRadio) * lengthAngle;
+    strokeDasharray = Math.abs(pathLength);
+    strokeDashoffset = pathLength - extractPercentage(pathLength, reveal);
   }
 
   return (

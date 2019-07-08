@@ -137,8 +137,9 @@ exports[`Dist bundle is unchanged 1`] = `
     // https://css-tricks.com/svg-line-animation-works/
 
     if (typeof reveal === 'number') {
-      strokeDasharray = degreesToRadians(actualRadio) * Math.abs(lengthAngle);
-      strokeDashoffset = strokeDasharray + extractPercentage(strokeDasharray, reveal);
+      var pathLength = degreesToRadians(actualRadio) * lengthAngle;
+      strokeDasharray = Math.abs(pathLength);
+      strokeDashoffset = pathLength - extractPercentage(pathLength, reveal);
     }
 
     return React__default.createElement(\\"path\\", _extends({
