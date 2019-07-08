@@ -11,7 +11,7 @@ export default function ReactMinimalPieChartLabel({
   return (
     <text
       textAnchor="middle"
-      alignmentBaseline="middle"
+      dominantBaseline="middle"
       fill={color}
       {...props}
     />

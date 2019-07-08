@@ -183,7 +183,7 @@ exports[`Dist bundle is unchanged 1`] = `
 
     return React__default.createElement(\\"text\\", _extends({
       textAnchor: \\"middle\\",
-      alignmentBaseline: \\"middle\\",
+      dominantBaseline: \\"middle\\",
       fill: color
     }, props));
   }

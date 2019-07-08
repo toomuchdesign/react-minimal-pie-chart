@@ -25,6 +25,7 @@
     "test:bundles:size": "size-limit",
     "test:source": "npm run test:ts && npm t -- --coverage",
     "test:ts": "typings-tester --config ./src/types/__tests__/tsconfig.json --dir ./src/types/__tests__",
+    "test:update": "npm run compile && npm run test:bundles:snapshot -- -u",
     "clean": "rm -rf lib es dist",
     "compile": "npm run clean && rollup -c",
     "contrib:add": "all-contributors add",
