@@ -29,9 +29,8 @@ function extendData({
   const normalizedTotalAngle = valueBetween(totalAngle, -360, 360);
   const numberOfPaddings =
     Math.abs(normalizedTotalAngle) === 360 ? data.length : data.length - 1;
-  const degreesTakenByPadding =
-    Math.abs(paddingAngle) * numberOfPaddings * Math.sign(normalizedTotalAngle);
-  const singlePaddingDegrees = degreesTakenByPadding / numberOfPaddings;
+  const singlePaddingDegrees = Math.abs(paddingAngle) * Math.sign(totalAngle);
+  const degreesTakenByPadding = singlePaddingDegrees * numberOfPaddings;
   const degreesTakenByPaths = normalizedTotalAngle - degreesTakenByPadding;
   let lastSegmentEnd = 0;
 

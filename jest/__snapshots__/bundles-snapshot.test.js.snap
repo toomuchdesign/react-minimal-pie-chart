@@ -212,8 +212,8 @@ exports[`Dist bundle is unchanged 1`] = `
     var total = totalValue || sumValues(data);
     var normalizedTotalAngle = valueBetween(totalAngle, -360, 360);
     var numberOfPaddings = Math.abs(normalizedTotalAngle) === 360 ? data.length : data.length - 1;
-    var degreesTakenByPadding = Math.abs(paddingAngle) * numberOfPaddings * Math.sign(normalizedTotalAngle);
-    var singlePaddingDegrees = degreesTakenByPadding / numberOfPaddings;
+    var singlePaddingDegrees = Math.abs(paddingAngle) * Math.sign(totalAngle);
+    var degreesTakenByPadding = singlePaddingDegrees * numberOfPaddings;
     var degreesTakenByPaths = normalizedTotalAngle - degreesTakenByPadding;
     var lastSegmentEnd = 0;
     return data.map(function (dataEntry) {
