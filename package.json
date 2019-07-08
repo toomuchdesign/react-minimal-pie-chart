@@ -18,7 +18,7 @@
   "scripts": {
     "test": "jest ./src",
     "test:bundles": "npm run test:bundles:snapshot && npm run test:bundles:unit && npm run test:bundles:es5 && npm run test:bundles:size",
-    "test:bundles:unit": "jest --config ./jest/es.config.js && jest --config ./jest/lib.config.js && jest --config ./jest/dist.config.js",
+    "test:bundles:unit": "jest ./src --config ./jest/es.config.js && jest ./src --config ./jest/lib.config.js && jest ./src --config ./jest/dist.config.js",
     "test:bundles:snapshot": "jest ./jest/bundles-snapshot.test.js",
     "test:bundles:es5": "es-check es5 './@(lib|dist)/*.js'",
     "test:bundles:size": "size-limit",
