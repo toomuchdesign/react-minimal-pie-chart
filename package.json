@@ -20,6 +20,7 @@
     "test:bundles": "npm run test:bundles:snapshot && npm run test:bundles:unit && npm run test:bundles:es5 && npm run test:bundles:size",
     "test:bundles:unit": "jest ./src --config ./jest/es.config.js && jest ./src --config ./jest/lib.config.js && jest ./src --config ./jest/dist.config.js",
     "test:bundles:snapshot": "jest ./jest/bundles-snapshot.test.js",
+    "test:bundles:snapshot:update": "npm run compile && npm run test:bundles:snapshot -- -u",
     "test:bundles:es5": "es-check es5 './@(lib|dist)/*.js'",
     "test:bundles:size": "size-limit",
     "test:source": "npm run test:ts && npm t -- --coverage",
@@ -117,7 +118,12 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,json,md,ts}": [
+    "*.{js,jsx}": [
+      "npm run test:bundles:snapshot:update",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{json,md,ts}": [
       "prettier --write",
       "git add"
     ]
