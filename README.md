@@ -148,6 +148,8 @@ The main requirement of this library is an accurate rendering of [SVG Stroke pro
 | ------------- | ------------------- |
 | IE ≤ 10       | IE 11               |
 
+A [`Math.sign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sign) polyfill is needed to support legacy browsers.
+
 ## Misc
 
 ### How svg arc paths work?
