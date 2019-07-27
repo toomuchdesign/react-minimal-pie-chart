@@ -1,3 +1,10 @@
+# 5.0.0
+
+### Breaking Changes
+
+- `reveal` works same direction as `lengthAngle`
+- Labels vertically aligned using `dominant-baseline` instead of `alignment-baseline`
+
 # 4.2.0
 
 ### New Features
