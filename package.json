@@ -86,7 +86,7 @@
     "rollup-plugin-babel": "^4.0.0",
     "rollup-plugin-commonjs": "^10.0.0",
     "rollup-plugin-node-resolve": "^5.0.0",
-    "size-limit": "^1.0.1",
+    "size-limit": "^2.0.0",
     "svg-partial-circle": "1.0.0",
     "typescript": "^3.4.2",
     "typings-tester": "^0.3.2"
