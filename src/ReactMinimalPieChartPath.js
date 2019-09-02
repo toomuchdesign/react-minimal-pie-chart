@@ -44,7 +44,8 @@ export default function ReactMinimalPieChartPath({
   if (typeof reveal === 'number') {
     const pathLength = degreesToRadians(actualRadio) * lengthAngle;
     strokeDasharray = Math.abs(pathLength);
-    strokeDashoffset = pathLength - extractPercentage(pathLength, reveal);
+    strokeDashoffset =
+      strokeDasharray - extractPercentage(strokeDasharray, reveal);
   }
 
   return (

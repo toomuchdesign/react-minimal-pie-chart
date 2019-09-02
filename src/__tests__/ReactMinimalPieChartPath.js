@@ -45,16 +45,16 @@ describe('ReactMinimalPieChartPath component', () => {
         expect(wrapper.prop('strokeDasharray')).toBe(pathLength);
         expect(wrapper.prop('strokeDashoffset')).toBe(pathLength);
       });
-    });
 
-    describe('with negative "lengthAngle"', () => {
-      it('Renders a path with negative "strokeDashoffset"', () => {
-        const wrapper = shallow(
-          <PieChartPath cx={100} cy={100} lengthAngle={-360} reveal={0} />
-        );
+      describe('with negative "lengthAngle"', () => {
+        it('Renders same "strokeDashoffset" value', () => {
+          const wrapper = shallow(
+            <PieChartPath cx={100} cy={100} lengthAngle={-360} reveal={0} />
+          );
 
-        expect(wrapper.prop('strokeDasharray')).toBe(pathLength);
-        expect(wrapper.prop('strokeDashoffset')).toBe(-pathLength);
+          expect(wrapper.prop('strokeDasharray')).toBe(pathLength);
+          expect(wrapper.prop('strokeDashoffset')).toBe(pathLength);
+        });
       });
     });
   });
