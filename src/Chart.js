@@ -111,9 +111,9 @@ function renderLabels(data, props) {
   });
 }
 
-function renderSegments(data, props, hide) {
+function renderSegments(data, props, forcedReveal, animationEndCallback) {
   let style = props.segmentsStyle;
-  let reveal;
+  const reveal = forcedReveal === undefined ? props.reveal : forcedReveal;
 
   if (props.animate) {
     const transitionStyle = makeSegmentTransitionStyle(
@@ -122,15 +122,6 @@ function renderSegments(data, props, hide) {
       style
     );
     style = Object.assign({}, style, transitionStyle);
-  }
-
-  // Hide/reveal the segment?
-  if (hide === true) {
-    reveal = 0;
-  } else if (typeof props.reveal === 'number') {
-    reveal = props.reveal;
-  } else if (hide === false) {
-    reveal = 100;
   }
 
   const paths = data.map((dataEntry, index) => {
@@ -158,6 +149,7 @@ function renderSegments(data, props, hide) {
           props.onMouseOut && (e => props.onMouseOut(e, props.data, index))
         }
         onClick={props.onClick && (e => props.onClick(e, props.data, index))}
+        onTransitionEnd={index === 0 ? animationEndCallback : undefined}
       />
     );
   });
@@ -185,18 +177,20 @@ function renderSegments(data, props, hide) {
 export default class ReactMinimalPieChart extends Component {
   constructor(props) {
     super(props);
+    this.clearAnimation = this.clearAnimation.bind(this);
 
     if (this.props.animate === true) {
+      this.initialAnimationPending = true;
       this.hideSegments = true;
     }
   }
 
   componentDidMount() {
     if (this.props.animate === true && requestAnimationFrame) {
-      this.initialAnimationTimerId = setTimeout(() => {
-        this.initialAnimationTimerId = null;
-        this.initialAnimationRAFId = requestAnimationFrame(() => {
-          this.initialAnimationRAFId = null;
+      this.animationTimerId = setTimeout(() => {
+        this.animationTimerId = null;
+        this.animationRAFId = requestAnimationFrame(() => {
+          this.animationRAFId = null;
           this.startAnimation();
         });
       });
@@ -204,11 +198,19 @@ export default class ReactMinimalPieChart extends Component {
   }
 
   componentWillUnmount() {
-    if (this.initialAnimationTimerId) {
-      clearTimeout(this.initialAnimationTimerId);
+    if (this.animationTimerId) {
+      clearTimeout(this.animationTimerId);
     }
-    if (this.initialAnimationRAFId) {
-      cancelAnimationFrame(this.initialAnimationRAFId);
+    if (this.animationRAFId) {
+      cancelAnimationFrame(this.animationRAFId);
+    }
+  }
+
+  evaluateForcedReveal() {
+    if (this.initialAnimationPending) {
+      const reveal = this.props.reveal;
+      const animateRevealTo = reveal !== undefined ? reveal : 100;
+      return this.hideSegments ? 0 : animateRevealTo;
     }
   }
 
@@ -217,25 +219,36 @@ export default class ReactMinimalPieChart extends Component {
     this.forceUpdate();
   }
 
+  clearAnimation() {
+    this.initialAnimationPending = false;
+    this.forceUpdate();
+  }
+
   render() {
-    if (this.props.data === undefined) {
+    const props = this.props;
+    if (props.data === undefined) {
       return null;
     }
-    const extendedData = extendData(this.props);
+    const extendedData = extendData(props);
 
     return (
-      <div className={this.props.className} style={this.props.style}>
+      <div className={props.className} style={props.style}>
         <svg
-          viewBox={evaluateViewBoxSize(this.props.ratio, VIEWBOX_SIZE)}
+          viewBox={evaluateViewBoxSize(props.ratio, VIEWBOX_SIZE)}
           width="100%"
           height="100%"
           style={{ display: 'block' }}
         >
-          {renderSegments(extendedData, this.props, this.hideSegments)}
-          {this.props.label && renderLabels(extendedData, this.props)}
-          {this.props.injectSvg && this.props.injectSvg()}
+          {renderSegments(
+            extendedData,
+            props,
+            this.evaluateForcedReveal(),
+            props.animate ? this.clearAnimation : undefined
+          )}
+          {props.label && renderLabels(extendedData, props)}
+          {props.injectSvg && props.injectSvg()}
         </svg>
-        {this.props.children}
+        {props.children}
       </div>
     );
   }

@@ -49,6 +49,14 @@ exports[`Dist bundle is unchanged 1`] = `
     return target;
   }
 
+  function _assertThisInitialized(self) {
+    if (self === void 0) {
+      throw new ReferenceError(\\"this hasn't been initialised - super() hasn't been called\\");
+    }
+
+    return self;
+  }
+
   var partialCircle = function partialCircle(cx, cy, r, start, end) {
     var length = end - start;
     if (length === 0) return [];
@@ -289,22 +297,13 @@ exports[`Dist bundle is unchanged 1`] = `
     });
   }
 
-  function renderSegments(data, props, hide) {
+  function renderSegments(data, props, forcedReveal, animationEndCallback) {
     var style = props.segmentsStyle;
-    var reveal;
+    var reveal = forcedReveal === undefined ? props.reveal : forcedReveal;
 
     if (props.animate) {
       var transitionStyle = makeSegmentTransitionStyle(props.animationDuration, props.animationEasing, style);
       style = Object.assign({}, style, transitionStyle);
-    } // Hide/reveal the segment?
-
-
-    if (hide === true) {
-      reveal = 0;
-    } else if (typeof props.reveal === 'number') {
-      reveal = props.reveal;
-    } else if (hide === false) {
-      reveal = 100;
     }
 
     var paths = data.map(function (dataEntry, index) {
@@ -331,7 +330,8 @@ exports[`Dist bundle is unchanged 1`] = `
         },
         onClick: props.onClick && function (e) {
           return props.onClick(e, props.data, index);
-        }
+        },
+        onTransitionEnd: index === 0 ? animationEndCallback : undefined
       });
     });
 
@@ -362,8 +362,10 @@ exports[`Dist bundle is unchanged 1`] = `
       var _this;
 
       _this = _Component.call(this, props) || this;
+      _this.clearAnimation = _this.clearAnimation.bind(_assertThisInitialized(_this));
 
       if (_this.props.animate === true) {
+        _this.initialAnimationPending = true;
         _this.hideSegments = true;
       }
 
@@ -376,10 +378,10 @@ exports[`Dist bundle is unchanged 1`] = `
       var _this2 = this;
 
       if (this.props.animate === true && requestAnimationFrame) {
-        this.initialAnimationTimerId = setTimeout(function () {
-          _this2.initialAnimationTimerId = null;
-          _this2.initialAnimationRAFId = requestAnimationFrame(function () {
-            _this2.initialAnimationRAFId = null;
+        this.animationTimerId = setTimeout(function () {
+          _this2.animationTimerId = null;
+          _this2.animationRAFId = requestAnimationFrame(function () {
+            _this2.animationRAFId = null;
 
             _this2.startAnimation();
           });
@@ -388,12 +390,20 @@ exports[`Dist bundle is unchanged 1`] = `
     };
 
     _proto.componentWillUnmount = function componentWillUnmount() {
-      if (this.initialAnimationTimerId) {
-        clearTimeout(this.initialAnimationTimerId);
+      if (this.animationTimerId) {
+        clearTimeout(this.animationTimerId);
       }
 
-      if (this.initialAnimationRAFId) {
-        cancelAnimationFrame(this.initialAnimationRAFId);
+      if (this.animationRAFId) {
+        cancelAnimationFrame(this.animationRAFId);
+      }
+    };
+
+    _proto.evaluateForcedReveal = function evaluateForcedReveal() {
+      if (this.initialAnimationPending) {
+        var reveal = this.props.reveal;
+        var animateRevealTo = reveal !== undefined ? reveal : 100;
+        return this.hideSegments ? 0 : animateRevealTo;
       }
     };
 
@@ -402,23 +412,30 @@ exports[`Dist bundle is unchanged 1`] = `
       this.forceUpdate();
     };
 
+    _proto.clearAnimation = function clearAnimation() {
+      this.initialAnimationPending = false;
+      this.forceUpdate();
+    };
+
     _proto.render = function render() {
-      if (this.props.data === undefined) {
+      var props = this.props;
+
+      if (props.data === undefined) {
         return null;
       }
 
-      var extendedData = extendData(this.props);
+      var extendedData = extendData(props);
       return React__default.createElement(\\"div\\", {
-        className: this.props.className,
-        style: this.props.style
+        className: props.className,
+        style: props.style
       }, React__default.createElement(\\"svg\\", {
-        viewBox: evaluateViewBoxSize(this.props.ratio, VIEWBOX_SIZE),
+        viewBox: evaluateViewBoxSize(props.ratio, VIEWBOX_SIZE),
         width: \\"100%\\",
         height: \\"100%\\",
         style: {
           display: 'block'
         }
-      }, renderSegments(extendedData, this.props, this.hideSegments), this.props.label && renderLabels(extendedData, this.props), this.props.injectSvg && this.props.injectSvg()), this.props.children);
+      }, renderSegments(extendedData, props, this.evaluateForcedReveal(), props.animate ? this.clearAnimation : undefined), props.label && renderLabels(extendedData, props), props.injectSvg && props.injectSvg()), props.children);
     };
 
     return ReactMinimalPieChart;

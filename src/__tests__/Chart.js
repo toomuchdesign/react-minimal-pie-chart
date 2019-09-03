@@ -229,17 +229,50 @@ describe('ReactMinimalPieChart', () => {
       });
     });
 
-    it('re-renders on did mount updating segments\' "reveal" prop from 0 to 100', () => {
-      const wrapper = render({
-        animate: true,
+    describe('Initial animation cycle', () => {
+      it(`- 1st render: force segments' "reveal" to 0
+          - 2nd render (didMount): (didMount) force segments\' "reveal" to 100
+          - 3nd render (after initial animation - onTransitionEnd): reset "reveal" to undefined'
+        `, () => {
+        const wrapper = render({
+          animate: true,
+        });
+        let firstPath = wrapper.find('ReactMinimalPieChartPath').first();
+        expect(firstPath.prop('reveal')).toEqual(0);
+
+        jest.runAllTimers();
+
+        firstPath = wrapper.find('ReactMinimalPieChartPath').first();
+        expect(firstPath.prop('reveal')).toEqual(100);
+
+        firstPath.simulate('transitionEnd');
+        firstPath = wrapper.find('ReactMinimalPieChartPath').first();
+        expect(firstPath.prop('reveal')).toBe(undefined);
       });
-      let firstPath = wrapper.find('ReactMinimalPieChartPath').first();
-      expect(firstPath.prop('reveal')).toEqual(0);
 
-      jest.runAllTimers();
+      describe('with reveal', () => {
+        it(`
+        - 1st render: force segments' "reveal" to 0
+        - 2nd render (didMount): render segments\' with provided reveal prop
+        - 3nd render (after initial animation - onTransitionEnd): no changes'
+      `, () => {
+          const wrapper = render({
+            animate: true,
+            reveal: 50,
+          });
+          let firstPath = wrapper.find('ReactMinimalPieChartPath').first();
+          expect(firstPath.prop('reveal')).toEqual(0);
 
-      firstPath = wrapper.find('ReactMinimalPieChartPath').first();
-      expect(firstPath.prop('reveal')).toEqual(100);
+          jest.runAllTimers();
+
+          firstPath = wrapper.find('ReactMinimalPieChartPath').first();
+          expect(firstPath.prop('reveal')).toEqual(50);
+
+          firstPath.simulate('transitionEnd');
+          firstPath = wrapper.find('ReactMinimalPieChartPath').first();
+          expect(firstPath.prop('reveal')).toEqual(50);
+        });
+      });
     });
 
     it('does not re-render when component is unmounted', () => {

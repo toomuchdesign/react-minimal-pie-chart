@@ -173,6 +173,7 @@ Sizes in the third column are calculated with a "real-world" setup: see [source 
 - Make a device/browser compatibility table
 - Consider moving storybook deployment to CI
 - Configure Babel to not inject the `_extend` utility in compiled artifact
+- Cleanup animation stroke properties for non-initial animations
 
 ## Contributors
 
