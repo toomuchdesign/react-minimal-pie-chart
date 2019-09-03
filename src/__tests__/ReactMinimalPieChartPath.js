@@ -3,16 +3,25 @@ import { shallow } from 'enzyme';
 import PieChartPath from '../ReactMinimalPieChartPath';
 import { degreesToRadians } from '../utils';
 
-describe('ReactMinimalPieChartPath component', () => {
-  it('Should return a "path" element with defined "d" prop', () => {
-    const wrapper = shallow(<PieChartPath cx={100} cy={100} />);
+function render(props) {
+  const defaultProps = {
+    cx: 100,
+    cy: 100,
+  };
+  return shallow(<PieChartPath {...defaultProps} {...props} />);
+}
 
+describe('ReactMinimalPieChartPath', () => {
+  it('Should return a "path" element with defined "d" prop', () => {
+    const wrapper = render();
     expect(wrapper.type()).toBe('path');
     expect(typeof wrapper.prop('d')).toBe('string');
   });
 
   it('Should render a path with "strokeWidth" = 5', () => {
-    const wrapper = shallow(<PieChartPath cx={100} cy={100} lineWidth={5} />);
+    const wrapper = render({
+      lineWidth: 5,
+    });
     expect(wrapper.prop('strokeWidth')).toBe(5);
   });
 
@@ -21,15 +30,11 @@ describe('ReactMinimalPieChartPath component', () => {
 
     describe('100', () => {
       it('Renders a fully revealed path with "strokeDasharray" === path length & "strokeDashoffset" === 0', () => {
-        const wrapper = shallow(
-          <PieChartPath
-            cx={100}
-            cy={100}
-            lengthAngle={360}
-            radius={100}
-            reveal={100}
-          />
-        );
+        const wrapper = render({
+          lengthAngle: 360,
+          radius: 100,
+          reveal: 100,
+        });
 
         expect(wrapper.prop('strokeDasharray')).toBe(pathLength);
         expect(wrapper.prop('strokeDashoffset')).toBe(0);
@@ -38,9 +43,10 @@ describe('ReactMinimalPieChartPath component', () => {
 
     describe('0', () => {
       it('Renders a fully hidden path with "strokeDashoffset" === "strokeDasharray"', () => {
-        const wrapper = shallow(
-          <PieChartPath cx={100} cy={100} lengthAngle={360} reveal={0} />
-        );
+        const wrapper = render({
+          lengthAngle: 360,
+          reveal: 0,
+        });
 
         expect(wrapper.prop('strokeDasharray')).toBe(pathLength);
         expect(wrapper.prop('strokeDashoffset')).toBe(pathLength);
@@ -48,9 +54,10 @@ describe('ReactMinimalPieChartPath component', () => {
 
       describe('with negative "lengthAngle"', () => {
         it('Renders same "strokeDashoffset" value', () => {
-          const wrapper = shallow(
-            <PieChartPath cx={100} cy={100} lengthAngle={-360} reveal={0} />
-          );
+          const wrapper = render({
+            lengthAngle: -360,
+            reveal: 0,
+          });
 
           expect(wrapper.prop('strokeDasharray')).toBe(pathLength);
           expect(wrapper.prop('strokeDashoffset')).toBe(pathLength);
