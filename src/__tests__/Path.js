@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import PieChartPath from '../ReactMinimalPieChartPath';
+import PieChartPath from '../Path';
 import { degreesToRadians } from '../utils';
 
 function render(props) {

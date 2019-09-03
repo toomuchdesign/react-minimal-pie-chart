@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Path from './ReactMinimalPieChartPath';
-import DefaultLabel from './ReactMinimalPieChartLabel';
+import Path from './Path';
+import DefaultLabel from './Label';
 import { dataPropType, stylePropType } from './propTypes';
 import {
   degreesToRadians,
