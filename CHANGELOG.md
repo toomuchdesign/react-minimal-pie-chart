@@ -1,3 +1,9 @@
+# 5.0.1
+
+### Bugfixes
+
+- fix `reveal` direction with negative `lengthAngle`
+
 # 5.0.0
 
 ### Breaking Changes
