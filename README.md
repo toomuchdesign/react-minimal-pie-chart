@@ -144,9 +144,10 @@ See [demo][demo-interaction] and its [source][demo-interaction-source].
 
 The main requirement of this library is an accurate rendering of [SVG Stroke properties](https://www.w3schools.com/graphics/svg_stroking.asp).
 
-| Not supported | Partially supported |
-| ------------- | ------------------- |
-| IE ≤ 10       | IE 11               |
+| Not supported | Partially supported                                             |
+| ------------- | --------------------------------------------------------------- |
+| IE ≤ 10       | IE 11                                                           |
+|               | Edge _(Upcoming Blink adoption should make it fully supported)_ |
 
 A [`Math.sign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sign) polyfill is needed to support legacy browsers.
 
