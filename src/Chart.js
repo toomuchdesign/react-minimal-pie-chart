@@ -35,7 +35,7 @@ function extendData({
   let lastSegmentEnd = 0;
 
   return data.map(dataEntry => {
-    const valueInPercentage = (dataEntry.value / total) * 100;
+    const valueInPercentage = (dataEntry.value / (total || 1)) * 100;
     const degrees = extractPercentage(degreesTakenByPaths, valueInPercentage);
     const startOffset = lastSegmentEnd;
     lastSegmentEnd = lastSegmentEnd + degrees + singlePaddingDegrees;
