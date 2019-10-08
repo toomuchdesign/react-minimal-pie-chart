@@ -56,6 +56,16 @@ describe('ReactMinimalPieChart', () => {
     expect(pathElements.length).toEqual(dataMock.length);
   });
 
+  it("doesn't render NaN as SVG path values when data values sum equals 0", () => {
+    const wrapper = render(
+      {
+        data: [{ value: 0 }, { value: 0 }],
+      },
+      mount
+    );
+    expect(wrapper.html()).not.toMatch('NaN');
+  });
+
   it('passes down className and style props to the wrapping div', () => {
     const wrapper = render({
       className: 'foo',
