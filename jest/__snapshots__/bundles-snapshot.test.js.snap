@@ -216,9 +216,10 @@ exports[`Dist bundle is unchanged 1`] = `
     var singlePaddingDegrees = Math.abs(paddingAngle) * Math.sign(totalAngle);
     var degreesTakenByPadding = singlePaddingDegrees * numberOfPaddings;
     var degreesTakenByPaths = normalizedTotalAngle - degreesTakenByPadding;
-    var lastSegmentEnd = 0;
+    var lastSegmentEnd = 0; // @NOTE: Shall we evaluate percentage accordingly to dataEntry.value's sign?
+
     return data.map(function (dataEntry) {
-      var valueInPercentage = dataEntry.value / (total || 1) * 100;
+      var valueInPercentage = total === 0 ? 0 : dataEntry.value / total * 100;
       var degrees = extractPercentage(degreesTakenByPaths, valueInPercentage);
       var startOffset = lastSegmentEnd;
       lastSegmentEnd = lastSegmentEnd + degrees + singlePaddingDegrees;
