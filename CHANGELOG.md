@@ -1,3 +1,9 @@
+# 5.0.2
+
+### Bugfixes
+
+- fix `NaN` being rendered as SVG path attribute when `data.value` sum equals 0 and `totalValue` is undefined
+
 # 5.0.1
 
 ### Bugfixes

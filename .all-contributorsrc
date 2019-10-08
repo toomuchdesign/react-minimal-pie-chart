@@ -104,6 +104,16 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "Osuka42g",
+      "name": "Oscar Mendoza",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/5117006?v=4",
+      "profile": "http://twitter.com/Osuka42",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ],
   "repoType": "github"
