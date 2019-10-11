@@ -155,7 +155,8 @@ A [`Math.sign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Referenc
 
 ### How svg arc paths work?
 
-https://codepen.io/lingtalfi/pen/yaLWJG
+- http://xahlee.info/js/svg_circle_arc.html
+- https://codepen.io/lingtalfi/pen/yaLWJG
 
 <!-- http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/  -->
 
