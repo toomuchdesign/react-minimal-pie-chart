@@ -77,8 +77,6 @@
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.5",
     "coveralls": "^3.0.4",
-    "enzyme": "^3.0.0",
-    "enzyme-adapter-react-16": "^1.10.0",
     "es-check": "^5.0.0",
     "husky": "^3.0.0",
     "jest": "^24.9.0",
