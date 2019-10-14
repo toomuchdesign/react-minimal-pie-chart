@@ -19,42 +19,31 @@ const defaultLabelStyle = {
 };
 
 storiesOf('Pie Chart', module)
-  .add('default', () => <PieChart data={dataMock} />)
-  .add('custom size with "style"', () => (
+  .add('Default', () => <PieChart data={dataMock} />)
+  .add('Custom size', () => (
     <PieChart data={dataMock} style={{ height: '100px' }} />
   ));
 
 storiesOf('Donut Chart', module)
-  .add('custom "lineWidth"', () => <PieChart data={dataMock} lineWidth={15} />)
-  .add('custom "lineWidth" + "rounded"', () => (
+  .add("Custom arcs' width", () => <PieChart data={dataMock} lineWidth={15} />)
+  .add('Rounded arcs', () => (
     <PieChart data={dataMock} lineWidth={15} rounded />
   ))
-  .add('custom "lineWidth" + "paddingAngle"', () => (
+  .add('Padded arcs', () => (
     <PieChart data={dataMock} lineWidth={15} paddingAngle={5} />
-  ))
-  .add('custom "lineWidth" + "paddingAngle" + negative "lengthAngle"', () => (
-    <PieChart
-      data={dataMock}
-      lineWidth={15}
-      paddingAngle={5}
-      lengthAngle={-360}
-    />
   ));
 
 storiesOf('Loading indicator', module)
-  .add('with "reveal"', () => <LoadingIndicatorStory />)
-  .add('partial chart with "background"', () => (
+  .add('360° indicator', () => <LoadingIndicatorStory />)
+  .add('270° indicator with background', () => (
     <PartialLoadingIndicatorStory />
   ));
 
 storiesOf('Partial chart', module)
-  .add('180° chart with custom "startAngle"/"lengthAngle"', () => (
-    <PieChart data={dataMock} startAngle={180} lengthAngle={180} />
+  .add('180° chart', () => (
+    <PieChart data={dataMock} startAngle={180} lengthAngle={180} ratio={2} />
   ))
-  .add('180° chart with custom negative "lengthAngle" and svg ratio', () => (
-    <PieChart data={dataMock} lengthAngle={-180} ratio={2} />
-  ))
-  .add('90° chart with custom center + "radius"', () => (
+  .add('90° chart', () => (
     <PieChart
       data={dataMock}
       cx={100}
@@ -64,15 +53,13 @@ storiesOf('Partial chart', module)
       radius={100}
     />
   ))
-  .add('partial chart with custom "totalValue"', () => (
-    <PieChart data={dataMock} totalValue={60} />
-  ))
-  .add('partial chart with "background"', () => (
+  .add('Missing slice', () => <PieChart data={dataMock} totalValue={60} />)
+  .add('Missing slice with background', () => (
     <PieChart data={dataMock} totalValue={60} background="#bfbfbf" />
   ));
 
 storiesOf('Labels', module)
-  .add('default labels', () => (
+  .add('Default labels', () => (
     <PieChart
       data={dataMock}
       label
@@ -81,7 +68,7 @@ storiesOf('Labels', module)
       }}
     />
   ))
-  .add('outer labels', () => (
+  .add('Outer labels', () => (
     <PieChart
       data={dataMock}
       label
@@ -93,7 +80,7 @@ storiesOf('Labels', module)
       labelPosition={112}
     />
   ))
-  .add('inner labels', () => (
+  .add('Inner labels', () => (
     <PieChart
       data={dataMock}
       lineWidth={20}
@@ -107,7 +94,7 @@ storiesOf('Labels', module)
       labelPosition={60}
     />
   ))
-  .add('single label', () => (
+  .add('Single label', () => (
     <PieChart
       data={[{ value: 82, color: '#E38627' }]}
       totalValue={100}
@@ -120,7 +107,7 @@ storiesOf('Labels', module)
       labelPosition={0}
     />
   ))
-  .add('percentage', () => (
+  .add('Percentage', () => (
     <PieChart
       data={dataMock}
       label={({ data, dataIndex }) =>
@@ -131,20 +118,20 @@ storiesOf('Labels', module)
   ));
 
 storiesOf('Animation', module)
-  .add('on mount with "animate"', () => <PieChart data={dataMock} animate />)
-  .add('clockwise animation with negative "lengthAngle"', () => (
+  .add('On mount clockwise', () => <PieChart data={dataMock} animate />)
+  .add('On mount counterclockwise', () => (
     <PieChart data={dataMock} lengthAngle={-360} animate />
   ));
 
 storiesOf('Interaction', module)
   .addParameters({ options: { showPanel: true, panelPosition: 'bottom' } })
-  .add('custom click/mouseOver/mouseOut callbacks', () => (
+  .add('click, mouseOver, mouseOut callbacks', () => (
     <InteractionStory data={dataMock} />
   ));
 
 storiesOf('Misc', module)
-  .add('gradients with "injectSvg"', () => <GradientStory />)
-  .add('squared pie', () => (
+  .add('Gradients with custom <defs>', () => <GradientStory />)
+  .add('Squared pie', () => (
     <PieChart
       data={dataMock}
       label
