@@ -1,6 +1,5 @@
 {
   "extends": ["config:base"],
-  "pinVersions": false,
   "postUpdateOptions": ["npmDedupe"],
-  "skipInstalls": false
+  "rangeStrategy": "auto"
 }
