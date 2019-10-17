@@ -1,8 +1,9 @@
 {
   "extends": ["config:base"],
+  "schedule": "every weekend",
   "pinVersions": false,
   "postUpdateOptions": ["npmDedupe"],
-    "packageRules": [
+  "packageRules": [
     {
       "packagePatterns": ["^rollup"],
       "groupName": "Update rollup monorepo packages"
