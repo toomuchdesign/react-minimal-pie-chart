@@ -72,7 +72,7 @@
     "@storybook/storybook-deployer": "2.8.1",
     "@testing-library/jest-dom": "4.1.2",
     "@testing-library/react": "9.3.0",
-    "@types/react": "16.8.13",
+    "@types/react": "16.9.9",
     "all-contributors-cli": "6.2.0",
     "babel-jest": "24.9.0",
     "babel-loader": "8.0.6",
