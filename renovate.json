@@ -1,5 +1,36 @@
 {
   "extends": ["config:base"],
+  "pinVersions": false,
   "postUpdateOptions": ["npmDedupe"],
-  "rangeStrategy": "auto"
+    "packageRules": [
+    {
+      "packagePatterns": ["^rollup"],
+      "groupName": "Update rollup monorepo packages"
+    },
+    {
+      "packagePatterns": ["^@storybook/"],
+      "groupName": "Update storybook monorepo packages"
+    },
+    {
+      "packagePatterns": ["^@testing-library/"],
+      "groupName": "Update testing library monorepo packages"
+    },
+    {
+      "packageNames": ["react", "react-dom", "@types/react"],
+      "groupName": "Update react packages"
+    },
+    {
+      "packageNames": ["jest", "babel-jest"],
+      "groupName": "Update jest packages"
+    },
+    {
+      "depTypeList": ["peerDependencies"],
+      "rangeStrategy": "widen"
+    },
+    {
+      "depTypeList": ["devDependencies"],
+      "updateTypes": ["major", "minor"],
+      "rangeStrategy": "bump"
+    }
+  ]
 }
