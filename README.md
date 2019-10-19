@@ -75,19 +75,19 @@ Because [Recharts][recharts-github] is awesome, but when you just need a simple 
 
 ### About `props.data`
 
-`props.data` expects the following data:
+`props.data` expects the following array of entries:
 
 ```typescript
-interface dataProps: {
-  title?: string | number,
+type dataProps = {
   value: number,
   color: string,
+  title?: string | number,
   key?: string | number,
   style?: {[key: string]: string | number},
-};
+}[];
 ```
 
-Each **data** entry can **optionally** accept:
+Each data entry optionally accepts:
 
 - a [**`key`** property](https://reactjs.org/docs/lists-and-keys.html) just in case items' indexes weren't enough
 - a **`style`** property targeting the corresponding chart segment
@@ -97,7 +97,7 @@ Each **data** entry can **optionally** accept:
 When `label` is a **function** or **ReactElement**, the provided entity will be called with the following **`labelProps`** object respectively **as argument** or **as props**:
 
 ```typescript
-interface labelProps: {
+type labelProps = {
   key: string,
   x: number,
   y: number,
