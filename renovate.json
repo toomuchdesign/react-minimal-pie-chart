@@ -1,7 +1,7 @@
 {
   "extends": ["config:base"],
   "schedule": "every weekend",
-  "pinVersions": false,
+  "rangeStrategy": "replace",
   "postUpdateOptions": ["npmDedupe"],
   "packageRules": [
     {
@@ -30,7 +30,6 @@
     },
     {
       "depTypeList": ["devDependencies"],
-      "updateTypes": ["major", "minor"],
       "rangeStrategy": "bump"
     }
   ]
