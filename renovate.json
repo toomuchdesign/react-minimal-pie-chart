@@ -30,7 +30,12 @@
     },
     {
       "depTypeList": ["devDependencies"],
-      "rangeStrategy": "bump"
+      "rangeStrategy": "bump",
+      "automerge": true,
+      "stabilityDays": 3,
+      "major": {
+        "automerge": false
+      }
     }
   ]
 }
