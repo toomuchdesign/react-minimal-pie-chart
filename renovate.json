@@ -1,6 +1,6 @@
 {
   "extends": ["config:base"],
-  "schedule": "every weekend",
+  "schedule": "every month",
   "rangeStrategy": "replace",
   "postUpdateOptions": ["npmDedupe"],
   "packageRules": [
@@ -32,6 +32,7 @@
       "depTypeList": ["devDependencies"],
       "rangeStrategy": "bump",
       "automerge": true,
+      "automergeType": "branch",
       "stabilityDays": 3,
       "major": {
         "automerge": false
