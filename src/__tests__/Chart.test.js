@@ -60,39 +60,26 @@ describe('Chart', () => {
     });
   });
 
-  describe('"ratio"', () => {
-    it('renders horizontal SVG element when > 1', () => {
-      const { container } = render({
-        ratio: 4,
-      });
-      const svg = container.querySelector('svg');
-      expect(svg).toHaveAttribute('viewBox', '0 0 100 25');
-    });
-
-    it('renders vertical SVG element when > 1', () => {
-      const { container } = render({
-        ratio: 1 / 10,
-      });
-      const svg = container.querySelector('svg');
-      expect(svg).toHaveAttribute('viewBox', '0 0 10 100');
-    });
-  });
-
   describe('"viewBoxSize"', () => {
-    test.each([[undefined, 100], [500, 500]])(
+    test.each([
+      [undefined, [100, 100]],
+      [[500, 500], [500, 500]],
+      [[500, 250], [500, 250]],
+    ])(
       'renders full-width chart in a SVG viewBox of given size',
-      (value, expectedViewBoxSize) => {
+      (value, expected) => {
+        const [expectedWidth, expectedHeight] = expected;
         const { container } = render({
           viewBoxSize: value,
         });
         const svg = container.querySelector('svg');
         expect(svg).toHaveAttribute(
           'viewBox',
-          `0 0 ${expectedViewBoxSize} ${expectedViewBoxSize}`
+          `0 0 ${expectedWidth} ${expectedHeight}`
         );
 
         const firstPath = container.querySelector('path');
-        expect(getArcInfo(firstPath).radius).toBe(expectedViewBoxSize / 4);
+        expect(getArcInfo(firstPath).radius).toBe(expectedWidth / 4);
       }
     );
   });

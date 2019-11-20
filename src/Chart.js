@@ -227,7 +227,10 @@ export default class ReactMinimalPieChart extends Component {
     return (
       <div className={this.props.className} style={this.props.style}>
         <svg
-          viewBox={evaluateViewBoxSize(this.props.ratio, VIEWBOX_SIZE)}
+          viewBox={evaluateViewBoxSize(
+            this.props.ratio,
+            this.props.viewBoxSize
+          )}
           width="100%"
           height="100%"
           style={{ display: 'block' }}
@@ -248,6 +251,7 @@ ReactMinimalPieChart.propTypes = {
   data: dataPropType,
   cx: PropTypes.number,
   cy: PropTypes.number,
+  viewBoxSize: PropTypes.arrayOf(PropTypes.number),
   ratio: PropTypes.number,
   totalValue: PropTypes.number,
   className: PropTypes.string,
@@ -281,6 +285,7 @@ ReactMinimalPieChart.propTypes = {
 ReactMinimalPieChart.defaultProps = {
   cx: VIEWBOX_HALF_SIZE,
   cy: VIEWBOX_HALF_SIZE,
+  viewBoxSize: [100, 100],
   ratio: 1,
   startAngle: 0,
   lengthAngle: 360,
