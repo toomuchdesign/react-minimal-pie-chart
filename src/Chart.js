@@ -10,8 +10,14 @@ import {
   valueBetween,
 } from './utils';
 
-const VIEWBOX_SIZE = 100;
-const VIEWBOX_HALF_SIZE = VIEWBOX_SIZE / 2;
+function extractAbsoluteCoordinates(props) {
+  const viewBoxWidth = props.viewBoxSize[0];
+  return {
+    cx: extractPercentage(props.cx, viewBoxWidth),
+    cy: extractPercentage(props.cy, viewBoxWidth),
+    radius: extractPercentage(props.radius, viewBoxWidth),
+  };
+}
 
 function sumValues(data) {
   return data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);
@@ -80,7 +86,8 @@ function renderLabelItem(option, props, value) {
 }
 
 function renderLabels(data, props) {
-  const labelPosition = extractPercentage(props.radius, props.labelPosition);
+  const { cx, cy, radius } = extractAbsoluteCoordinates(props);
+  const labelPosition = extractPercentage(radius, props.labelPosition);
 
   return data.map((dataEntry, index) => {
     const startAngle = props.startAngle + dataEntry.startOffset;
@@ -92,8 +99,8 @@ function renderLabels(data, props) {
     // This object is passed as props to the "label" component
     const labelProps = {
       key: `label-${dataEntry.key || index}`,
-      x: props.cx,
-      y: props.cy,
+      x: cx,
+      y: cy,
       dx,
       dy,
       textAnchor: evaluateLabelTextAnchor({
@@ -113,8 +120,6 @@ function renderLabels(data, props) {
 
 function renderSegments(data, props, hide) {
   let style = props.segmentsStyle;
-  let reveal;
-
   if (props.animate) {
     const transitionStyle = makeSegmentTransitionStyle(
       props.animationDuration,
@@ -125,6 +130,7 @@ function renderSegments(data, props, hide) {
   }
 
   // Hide/reveal the segment?
+  let reveal;
   if (hide === true) {
     reveal = 0;
   } else if (typeof props.reveal === 'number') {
@@ -133,18 +139,20 @@ function renderSegments(data, props, hide) {
     reveal = 100;
   }
 
+  const { cx, cy, radius } = extractAbsoluteCoordinates(props);
+  const lineWidth = extractPercentage(radius, props.lineWidth);
   const paths = data.map((dataEntry, index) => {
     const startAngle = props.startAngle + dataEntry.startOffset;
 
     return (
       <Path
         key={dataEntry.key || index}
-        cx={props.cx}
-        cy={props.cy}
+        cx={cx}
+        cy={cy}
         startAngle={startAngle}
         lengthAngle={dataEntry.degrees}
-        radius={props.radius}
-        lineWidth={extractPercentage(props.radius, props.lineWidth)}
+        radius={radius}
+        lineWidth={lineWidth}
         reveal={reveal}
         title={dataEntry.title}
         style={Object.assign({}, style, dataEntry.style)}
@@ -166,12 +174,12 @@ function renderSegments(data, props, hide) {
     paths.unshift(
       <Path
         key="bg"
-        cx={props.cx}
-        cy={props.cy}
+        cx={cx}
+        cy={cy}
         startAngle={props.startAngle}
         lengthAngle={props.lengthAngle}
-        radius={props.radius}
-        lineWidth={extractPercentage(props.radius, props.lineWidth)}
+        radius={radius}
+        lineWidth={lineWidth}
         stroke={props.background}
         strokeLinecap={props.rounded ? 'round' : undefined}
         fill="none"
@@ -280,14 +288,14 @@ ReactMinimalPieChart.propTypes = {
 };
 
 ReactMinimalPieChart.defaultProps = {
-  cx: VIEWBOX_HALF_SIZE,
-  cy: VIEWBOX_HALF_SIZE,
+  cx: 50,
+  cy: 50,
   viewBoxSize: [100, 100],
   startAngle: 0,
   lengthAngle: 360,
   paddingAngle: 0,
   lineWidth: 100,
-  radius: VIEWBOX_HALF_SIZE,
+  radius: 50,
   rounded: false,
   animate: false,
   animationDuration: 500,
