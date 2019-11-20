@@ -124,6 +124,16 @@
         "bug",
         "ideas"
       ]
+    },
+    {
+      "login": "vibl",
+      "name": "Vianney Stroebel",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/628818?v=4",
+      "profile": "https://www.linkedin.com/in/vianneystroebel/",
+      "contributions": [
+        "bug",
+        "ideas"
+      ]
     }
   ],
   "repoType": "github",
