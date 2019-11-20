@@ -94,7 +94,7 @@ function testPieChart() {
     data: dataMock,
     cx: 10,
     cy: 10,
-    ratio: 1,
+    viewBoxSize: [10, 10],
     startAngle: 90,
     lengthAngle: 200,
     totalValue: 30,

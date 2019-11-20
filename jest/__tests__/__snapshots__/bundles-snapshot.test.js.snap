@@ -67,15 +67,6 @@ exports[`Dist bundle is unchanged 1`] = `
   function degreesToRadians(degrees) {
     return degrees * PI / 180;
   }
-  function evaluateViewBoxSize(ratio, baseSize) {
-    // Wide ratio
-    if (ratio > 1) {
-      return \\"0 0 \\" + baseSize + \\" \\" + baseSize / ratio;
-    } // Narrow/squared ratio
-
-
-    return \\"0 0 \\" + baseSize * ratio + \\" \\" + baseSize;
-  }
   function evaluateLabelTextAnchor(_temp) {
     var _ref = _temp === void 0 ? {} : _temp,
         labelPosition = _ref.labelPosition,
@@ -195,8 +186,14 @@ exports[`Dist bundle is unchanged 1`] = `
     color: PropTypes.string
   };
 
-  var VIEWBOX_SIZE = 100;
-  var VIEWBOX_HALF_SIZE = VIEWBOX_SIZE / 2;
+  function extractAbsoluteCoordinates(props) {
+    var viewBoxWidth = props.viewBoxSize[0];
+    return {
+      cx: extractPercentage(props.cx, viewBoxWidth),
+      cy: extractPercentage(props.cy, viewBoxWidth),
+      radius: extractPercentage(props.radius, viewBoxWidth)
+    };
+  }
 
   function sumValues(data) {
     return data.reduce(function (acc, dataEntry) {
@@ -262,7 +259,12 @@ exports[`Dist bundle is unchanged 1`] = `
   }
 
   function renderLabels(data, props) {
-    var labelPosition = extractPercentage(props.radius, props.labelPosition);
+    var _extractAbsoluteCoord = extractAbsoluteCoordinates(props),
+        cx = _extractAbsoluteCoord.cx,
+        cy = _extractAbsoluteCoord.cy,
+        radius = _extractAbsoluteCoord.radius;
+
+    var labelPosition = extractPercentage(radius, props.labelPosition);
     return data.map(function (dataEntry, index) {
       var startAngle = props.startAngle + dataEntry.startOffset;
       var halfAngle = startAngle + dataEntry.degrees / 2;
@@ -272,8 +274,8 @@ exports[`Dist bundle is unchanged 1`] = `
 
       var labelProps = {
         key: \\"label-\\" + (dataEntry.key || index),
-        x: props.cx,
-        y: props.cy,
+        x: cx,
+        y: cy,
         dx: dx,
         dy: dy,
         textAnchor: evaluateLabelTextAnchor({
@@ -292,13 +294,14 @@ exports[`Dist bundle is unchanged 1`] = `
 
   function renderSegments(data, props, hide) {
     var style = props.segmentsStyle;
-    var reveal;
 
     if (props.animate) {
       var transitionStyle = makeSegmentTransitionStyle(props.animationDuration, props.animationEasing, style);
       style = Object.assign({}, style, transitionStyle);
     } // Hide/reveal the segment?
 
+
+    var reveal;
 
     if (hide === true) {
       reveal = 0;
@@ -308,16 +311,22 @@ exports[`Dist bundle is unchanged 1`] = `
       reveal = 100;
     }
 
+    var _extractAbsoluteCoord2 = extractAbsoluteCoordinates(props),
+        cx = _extractAbsoluteCoord2.cx,
+        cy = _extractAbsoluteCoord2.cy,
+        radius = _extractAbsoluteCoord2.radius;
+
+    var lineWidth = extractPercentage(radius, props.lineWidth);
     var paths = data.map(function (dataEntry, index) {
       var startAngle = props.startAngle + dataEntry.startOffset;
       return React__default.createElement(ReactMinimalPieChartPath, {
         key: dataEntry.key || index,
-        cx: props.cx,
-        cy: props.cy,
+        cx: cx,
+        cy: cy,
         startAngle: startAngle,
         lengthAngle: dataEntry.degrees,
-        radius: props.radius,
-        lineWidth: extractPercentage(props.radius, props.lineWidth),
+        radius: radius,
+        lineWidth: lineWidth,
         reveal: reveal,
         title: dataEntry.title,
         style: Object.assign({}, style, dataEntry.style),
@@ -339,12 +348,12 @@ exports[`Dist bundle is unchanged 1`] = `
     if (props.background) {
       paths.unshift(React__default.createElement(ReactMinimalPieChartPath, {
         key: \\"bg\\",
-        cx: props.cx,
-        cy: props.cy,
+        cx: cx,
+        cy: cy,
         startAngle: props.startAngle,
         lengthAngle: props.lengthAngle,
-        radius: props.radius,
-        lineWidth: extractPercentage(props.radius, props.lineWidth),
+        radius: radius,
+        lineWidth: lineWidth,
         stroke: props.background,
         strokeLinecap: props.rounded ? 'round' : undefined,
         fill: \\"none\\"
@@ -413,7 +422,7 @@ exports[`Dist bundle is unchanged 1`] = `
         className: this.props.className,
         style: this.props.style
       }, React__default.createElement(\\"svg\\", {
-        viewBox: evaluateViewBoxSize(this.props.ratio, VIEWBOX_SIZE),
+        viewBox: \\"0 0 \\" + this.props.viewBoxSize[0] + \\" \\" + this.props.viewBoxSize[1],
         width: \\"100%\\",
         height: \\"100%\\",
         style: {
@@ -429,7 +438,7 @@ exports[`Dist bundle is unchanged 1`] = `
     data: dataPropType,
     cx: PropTypes.number,
     cy: PropTypes.number,
-    ratio: PropTypes.number,
+    viewBoxSize: PropTypes.arrayOf(PropTypes.number),
     totalValue: PropTypes.number,
     className: PropTypes.string,
     style: stylePropType,
@@ -455,14 +464,14 @@ exports[`Dist bundle is unchanged 1`] = `
     onClick: PropTypes.func
   };
   ReactMinimalPieChart.defaultProps = {
-    cx: VIEWBOX_HALF_SIZE,
-    cy: VIEWBOX_HALF_SIZE,
-    ratio: 1,
+    cx: 50,
+    cy: 50,
+    viewBoxSize: [100, 100],
     startAngle: 0,
     lengthAngle: 360,
     paddingAngle: 0,
     lineWidth: 100,
-    radius: VIEWBOX_HALF_SIZE,
+    radius: 50,
     rounded: false,
     animate: false,
     animationDuration: 500,

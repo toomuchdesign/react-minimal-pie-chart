@@ -60,22 +60,28 @@ describe('Chart', () => {
     });
   });
 
-  describe('<svg> element', () => {
-    it('is horizontal when "ratio" > 1', () => {
-      const { container } = render({
-        ratio: 4,
-      });
-      const svg = container.querySelector('svg');
-      expect(svg).toHaveAttribute('viewBox', '0 0 100 25');
-    });
+  describe('"viewBoxSize"', () => {
+    test.each([
+      [undefined, [100, 100]],
+      [[500, 500], [500, 500]],
+      [[500, 250], [500, 250]],
+    ])(
+      'renders full-width chart in a SVG viewBox of given size',
+      (value, expected) => {
+        const [expectedWidth, expectedHeight] = expected;
+        const { container } = render({
+          viewBoxSize: value,
+        });
+        const svg = container.querySelector('svg');
+        expect(svg).toHaveAttribute(
+          'viewBox',
+          `0 0 ${expectedWidth} ${expectedHeight}`
+        );
 
-    it('is vertical when "ratio" < 1', () => {
-      const { container } = render({
-        ratio: 1 / 10,
-      });
-      const svg = container.querySelector('svg');
-      expect(svg).toHaveAttribute('viewBox', '0 0 10 100');
-    });
+        const firstPath = container.querySelector('path');
+        expect(getArcInfo(firstPath).radius).toBe(expectedWidth / 4);
+      }
+    );
   });
 
   describe('Partial circle', () => {
@@ -138,7 +144,7 @@ describe('Chart', () => {
 
       expect(backgroundInfo.startAngle).toBe(0);
       expect(backgroundInfo.lengthAngle).toBe(200);
-      expect(backgroundInfo.radio).toEqual(segmentInfo.radio);
+      expect(backgroundInfo.radius).toEqual(segmentInfo.radius);
       expect(background).toHaveAttribute('fill', 'none');
       expect(background).toHaveAttribute('stroke', 'green');
       expect(background).toHaveAttribute(

@@ -41,7 +41,12 @@ storiesOf('Loading indicator', module)
 
 storiesOf('Partial chart', module)
   .add('180° chart', () => (
-    <PieChart data={dataMock} startAngle={180} lengthAngle={180} ratio={2} />
+    <PieChart
+      data={dataMock}
+      startAngle={180}
+      lengthAngle={180}
+      viewBoxSize={[100, 50]}
+    />
   ))
   .add('90° chart', () => (
     <PieChart

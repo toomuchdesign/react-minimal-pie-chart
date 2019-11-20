@@ -1,3 +1,9 @@
+# 6.0.0
+
+### Breaking Changes
+
+- `ratio` property removed in favour of `viewBoxSize`
+
 # 5.0.2
 
 ### Bugfixes
