@@ -226,26 +226,25 @@ export default class ReactMinimalPieChart extends Component {
   }
 
   render() {
-    if (this.props.data === undefined) {
+    const props = this.props;
+    if (props.data === undefined) {
       return null;
     }
-    const extendedData = extendData(this.props);
+    const extendedData = extendData(props);
 
     return (
-      <div className={this.props.className} style={this.props.style}>
+      <div className={props.className} style={props.style}>
         <svg
-          viewBox={`0 0 ${this.props.viewBoxSize[0]} ${
-            this.props.viewBoxSize[1]
-          }`}
+          viewBox={`0 0 ${props.viewBoxSize[0]} ${props.viewBoxSize[1]}`}
           width="100%"
           height="100%"
           style={{ display: 'block' }}
         >
-          {renderSegments(extendedData, this.props, this.hideSegments)}
-          {this.props.label && renderLabels(extendedData, this.props)}
-          {this.props.injectSvg && this.props.injectSvg()}
+          {renderSegments(extendedData, props, this.hideSegments)}
+          {props.label && renderLabels(extendedData, props)}
+          {props.injectSvg && props.injectSvg()}
         </svg>
-        {this.props.children}
+        {props.children}
       </div>
     );
   }

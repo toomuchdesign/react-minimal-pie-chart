@@ -413,22 +413,24 @@ exports[`Dist bundle is unchanged 1`] = `
     };
 
     _proto.render = function render() {
-      if (this.props.data === undefined) {
+      var props = this.props;
+
+      if (props.data === undefined) {
         return null;
       }
 
-      var extendedData = extendData(this.props);
+      var extendedData = extendData(props);
       return React__default.createElement(\\"div\\", {
-        className: this.props.className,
-        style: this.props.style
+        className: props.className,
+        style: props.style
       }, React__default.createElement(\\"svg\\", {
-        viewBox: \\"0 0 \\" + this.props.viewBoxSize[0] + \\" \\" + this.props.viewBoxSize[1],
+        viewBox: \\"0 0 \\" + props.viewBoxSize[0] + \\" \\" + props.viewBoxSize[1],
         width: \\"100%\\",
         height: \\"100%\\",
         style: {
           display: 'block'
         }
-      }, renderSegments(extendedData, this.props, this.hideSegments), this.props.label && renderLabels(extendedData, this.props), this.props.injectSvg && this.props.injectSvg()), this.props.children);
+      }, renderSegments(extendedData, props, this.hideSegments), props.label && renderLabels(extendedData, props), props.injectSvg && props.injectSvg()), props.children);
     };
 
     return ReactMinimalPieChart;
