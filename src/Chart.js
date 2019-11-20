@@ -5,7 +5,6 @@ import DefaultLabel from './Label';
 import { dataPropType, stylePropType } from './propTypes';
 import {
   degreesToRadians,
-  evaluateViewBoxSize,
   evaluateLabelTextAnchor,
   extractPercentage,
   valueBetween,
@@ -227,10 +226,9 @@ export default class ReactMinimalPieChart extends Component {
     return (
       <div className={this.props.className} style={this.props.style}>
         <svg
-          viewBox={evaluateViewBoxSize(
-            this.props.ratio,
-            this.props.viewBoxSize
-          )}
+          viewBox={`0 0 ${this.props.viewBoxSize[0]} ${
+            this.props.viewBoxSize[1]
+          }`}
           width="100%"
           height="100%"
           style={{ display: 'block' }}
@@ -252,7 +250,6 @@ ReactMinimalPieChart.propTypes = {
   cx: PropTypes.number,
   cy: PropTypes.number,
   viewBoxSize: PropTypes.arrayOf(PropTypes.number),
-  ratio: PropTypes.number,
   totalValue: PropTypes.number,
   className: PropTypes.string,
   style: stylePropType,
@@ -286,7 +283,6 @@ ReactMinimalPieChart.defaultProps = {
   cx: VIEWBOX_HALF_SIZE,
   cy: VIEWBOX_HALF_SIZE,
   viewBoxSize: [100, 100],
-  ratio: 1,
   startAngle: 0,
   lengthAngle: 360,
   paddingAngle: 0,

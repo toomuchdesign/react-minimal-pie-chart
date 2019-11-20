@@ -50,7 +50,7 @@ declare type ChartProps = {
   data: PieChartData[];
   cx?: number;
   cy?: number;
-  ratio?: number;
+  viewBoxSize?: [number, number];
   startAngle?: number;
   lengthAngle?: number;
   totalValue?: number;
