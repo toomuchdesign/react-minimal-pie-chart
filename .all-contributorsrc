@@ -114,7 +114,18 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "damien-git",
+      "name": "damien-git",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/7503971?v=4",
+      "profile": "https://github.com/damien-git",
+      "contributions": [
+        "bug",
+        "ideas"
+      ]
     }
   ],
-  "repoType": "github"
+  "repoType": "github",
+  "commitConvention": "none"
 }
