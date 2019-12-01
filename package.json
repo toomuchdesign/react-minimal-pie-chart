@@ -61,9 +61,9 @@
     "prop-types": "^15.5.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/plugin-transform-react-jsx": "^7.3.0",
-    "@babel/preset-env": "^7.6.3",
+    "@babel/core": "^7.7.4",
+    "@babel/plugin-transform-react-jsx": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
     "@schwingbat/relative-angle": "^1.0.0",
     "@size-limit/preset-small-lib": "^2.1.6",
     "@storybook/addon-actions": "^5.2.5",
