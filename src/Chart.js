@@ -11,10 +11,10 @@ import {
 } from './utils';
 
 function extractAbsoluteCoordinates(props) {
-  const viewBoxWidth = props.viewBoxSize[0];
+  const [viewBoxWidth, viewBoxHeight] = props.viewBoxSize;
   return {
     cx: extractPercentage(props.cx, viewBoxWidth),
-    cy: extractPercentage(props.cy, viewBoxWidth),
+    cy: extractPercentage(props.cy, viewBoxHeight),
     radius: extractPercentage(props.radius, viewBoxWidth),
   };
 }

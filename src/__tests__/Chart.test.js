@@ -67,10 +67,10 @@ describe('Chart', () => {
       [[500, 250], [500, 250]],
     ])(
       'renders full-width chart in a SVG viewBox of given size',
-      (value, expected) => {
+      (viewBoxSize, expected) => {
         const [expectedWidth, expectedHeight] = expected;
         const { container } = render({
-          viewBoxSize: value,
+          viewBoxSize,
         });
         const svg = container.querySelector('svg');
         expect(svg).toHaveAttribute(
@@ -79,7 +79,9 @@ describe('Chart', () => {
         );
 
         const firstPath = container.querySelector('path');
-        expect(getArcInfo(firstPath).radius).toBe(expectedWidth / 4);
+        const firstPathInfo = getArcInfo(firstPath);
+        expect(firstPathInfo.radius).toBe(expectedWidth / 4);
+        expect(firstPathInfo.startPoint.y).toBe(expectedHeight / 2);
       }
     );
   });
