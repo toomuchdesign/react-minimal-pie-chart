@@ -1,3 +1,9 @@
+# 6.0.1
+
+### Bugfixes
+
+- Fix chart `cy` being evaluated from `viewBoxSize` width instead of height
+
 # 6.0.0
 
 ### Breaking Changes

@@ -164,9 +164,9 @@ A [`Math.sign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Referenc
 
 |                                   |                                  size (by Bundlefobia)                                  | size (by [size-limit](https://github.com/ai/size-limit)) |
 | --------------------------------- | :-------------------------------------------------------------------------------------: | :------------------------------------------------------: |
-| react-minimal-pie-chart           |       [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]       |                    2.8 KB _(v4.0.0)_                     |
-| [rechart][recharts-github]        |     [![Bundle size: Recharts][recharts-bundlephobia-badge]][recharts-bundlephobia]      |                     93 KB _(v1.5.0)_                     |
-| [victory-pie][victory-pie-github] | [![Bundle size: Victory pie][victory-pie-bundlephobia-badge]][victory-pie-bundlephobia] |                    54 KB _(v32.2.0)_                     |
+| react-minimal-pie-chart           |       [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]       |                    2.71 KB _(v6.0.0)_                    |
+| [rechart][recharts-github]        |     [![Bundle size: Recharts][recharts-bundlephobia-badge]][recharts-bundlephobia]      |                     93 KB _(v1.8.5)_                     |
+| [victory-pie][victory-pie-github] | [![Bundle size: Victory pie][victory-pie-bundlephobia-badge]][victory-pie-bundlephobia] |                    51 KB _(v33.1.6)_                     |
 
 Sizes in the third column are calculated with a "real-world" setup: see [source repo](https://github.com/toomuchdesign/react-pie-charts-size).
 
