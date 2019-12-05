@@ -187,10 +187,12 @@ exports[`Dist bundle is unchanged 1`] = `
   };
 
   function extractAbsoluteCoordinates(props) {
-    var viewBoxWidth = props.viewBoxSize[0];
+    var _props$viewBoxSize = props.viewBoxSize,
+        viewBoxWidth = _props$viewBoxSize[0],
+        viewBoxHeight = _props$viewBoxSize[1];
     return {
       cx: extractPercentage(props.cx, viewBoxWidth),
-      cy: extractPercentage(props.cy, viewBoxWidth),
+      cy: extractPercentage(props.cy, viewBoxHeight),
       radius: extractPercentage(props.radius, viewBoxWidth)
     };
   }

@@ -12,6 +12,7 @@ export function getArcInfo(element) {
 
 export function getArcPathInfo(d) {
   const [moveto, arc] = parseSVG(d);
+
   if (arc.rx !== arc.ry) {
     throw new Error('Provided path is not the section of a circumference');
   }
@@ -27,6 +28,10 @@ export function getArcPathInfo(d) {
   }
 
   return {
+    startPoint: {
+      x: moveto.x,
+      y: moveto.y,
+    },
     startAngle: getDegrees(CENTER, moveto),
     lengthAngle: degrees,
     radius: arc.rx,
