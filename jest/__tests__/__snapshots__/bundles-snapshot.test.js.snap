@@ -66,9 +66,8 @@ exports[`Dist bundle is unchanged 1`] = `
   function degreesToRadians(degrees) {
     return degrees * Math.PI / 180;
   }
-  function evaluateLabelTextAnchor(_temp) {
-    var _ref = _temp === void 0 ? {} : _temp,
-        labelPosition = _ref.labelPosition,
+  function evaluateLabelTextAnchor(_ref) {
+    var labelPosition = _ref.labelPosition,
         lineWidth = _ref.lineWidth,
         labelHorizontalShift = _ref.labelHorizontalShift;
 
@@ -112,10 +111,14 @@ exports[`Dist bundle is unchanged 1`] = `
   function ReactMinimalPieChartPath(_ref) {
     var cx = _ref.cx,
         cy = _ref.cy,
-        startAngle = _ref.startAngle,
-        lengthAngle = _ref.lengthAngle,
-        radius = _ref.radius,
-        lineWidth = _ref.lineWidth,
+        _ref$startAngle = _ref.startAngle,
+        startAngle = _ref$startAngle === void 0 ? 0 : _ref$startAngle,
+        _ref$lengthAngle = _ref.lengthAngle,
+        lengthAngle = _ref$lengthAngle === void 0 ? 0 : _ref$lengthAngle,
+        _ref$radius = _ref.radius,
+        radius = _ref$radius === void 0 ? 100 : _ref$radius,
+        _ref$lineWidth = _ref.lineWidth,
+        lineWidth = _ref$lineWidth === void 0 ? 100 : _ref$lineWidth,
         reveal = _ref.reveal,
         title = _ref.title,
         props = _objectWithoutPropertiesLoose(_ref, [\\"cx\\", \\"cy\\", \\"startAngle\\", \\"lengthAngle\\", \\"radius\\", \\"lineWidth\\", \\"reveal\\", \\"title\\"]);
@@ -241,22 +244,22 @@ exports[`Dist bundle is unchanged 1`] = `
     };
   }
 
-  function renderLabelItem(option, props, value) {
+  function renderLabelItem(option, labelProps, value) {
     if (React__default.isValidElement(option)) {
-      return React__default.cloneElement(option, props);
+      return React__default.cloneElement(option, labelProps);
     }
 
     var label = value;
 
     if (typeof option === 'function') {
-      label = option(props);
+      label = option(labelProps);
 
       if (React__default.isValidElement(label)) {
         return label;
       }
     }
 
-    return React__default.createElement(ReactMinimalPieChartLabel, props, label);
+    return React__default.createElement(ReactMinimalPieChartLabel, labelProps, label);
   }
 
   function renderLabels(data, props) {
@@ -334,13 +337,16 @@ exports[`Dist bundle is unchanged 1`] = `
         stroke: dataEntry.color,
         strokeLinecap: props.rounded ? 'round' : undefined,
         fill: \\"none\\",
-        onMouseOver: props.onMouseOver && function (e) {
+        onMouseOver: props.onMouseOver && // @ts-ignore
+        function (e) {
           return props.onMouseOver(e, props.data, index);
         },
-        onMouseOut: props.onMouseOut && function (e) {
+        onMouseOut: props.onMouseOut && // @ts-ignore
+        function (e) {
           return props.onMouseOut(e, props.data, index);
         },
-        onClick: props.onClick && function (e) {
+        onClick: props.onClick && // @ts-ignore
+        function (e) {
           return props.onClick(e, props.data, index);
         }
       });
@@ -373,6 +379,9 @@ exports[`Dist bundle is unchanged 1`] = `
       var _this;
 
       _this = _Component.call(this, props) || this;
+      _this.hideSegments = void 0;
+      _this.initialAnimationTimerId = void 0;
+      _this.initialAnimationRAFId = void 0;
 
       if (props.animate === true) {
         _this.hideSegments = true;
@@ -436,7 +445,27 @@ exports[`Dist bundle is unchanged 1`] = `
 
     return ReactMinimalPieChart;
   }(React.Component);
+
   ReactMinimalPieChart.displayName = 'ReactMinimalPieChart';
+  ReactMinimalPieChart.defaultProps = {
+    cx: 50,
+    cy: 50,
+    viewBoxSize: [100, 100],
+    startAngle: 0,
+    lengthAngle: 360,
+    paddingAngle: 0,
+    lineWidth: 100,
+    radius: 50,
+    rounded: false,
+    animate: false,
+    animationDuration: 500,
+    animationEasing: 'ease-out',
+    label: false,
+    labelPosition: 50,
+    onMouseOver: undefined,
+    onMouseOut: undefined,
+    onClick: undefined
+  };
   ReactMinimalPieChart.propTypes = {
     data: dataPropType,
     cx: PropTypes.number,
@@ -465,25 +494,6 @@ exports[`Dist bundle is unchanged 1`] = `
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func,
     onClick: PropTypes.func
-  };
-  ReactMinimalPieChart.defaultProps = {
-    cx: 50,
-    cy: 50,
-    viewBoxSize: [100, 100],
-    startAngle: 0,
-    lengthAngle: 360,
-    paddingAngle: 0,
-    lineWidth: 100,
-    radius: 50,
-    rounded: false,
-    animate: false,
-    animationDuration: 500,
-    animationEasing: 'ease-out',
-    label: false,
-    labelPosition: 50,
-    onMouseOver: undefined,
-    onMouseOut: undefined,
-    onClick: undefined
   };
 
   exports.default = ReactMinimalPieChart;

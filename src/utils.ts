@@ -1,4 +1,4 @@
-export function degreesToRadians(degrees) {
+export function degreesToRadians(degrees: number) {
   return (degrees * Math.PI) / 180;
 }
 
@@ -6,7 +6,11 @@ export function evaluateLabelTextAnchor({
   labelPosition,
   lineWidth,
   labelHorizontalShift,
-} = {}) {
+}: {
+  labelPosition: number;
+  lineWidth: number;
+  labelHorizontalShift: number;
+}) {
   // Label in the vertical center
   if (labelHorizontalShift === 0) {
     return 'middle';
@@ -24,12 +28,12 @@ export function evaluateLabelTextAnchor({
   return 'middle';
 }
 
-export function valueBetween(value, min, max) {
+export function valueBetween(value: number, min: number, max: number) {
   if (value > max) return max;
   if (value < min) return min;
   return value;
 }
 
-export function extractPercentage(value, percentage) {
+export function extractPercentage(value: number, percentage: number) {
   return (value * percentage) / 100;
 }

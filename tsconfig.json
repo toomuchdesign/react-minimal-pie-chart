@@ -7,7 +7,11 @@
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "esModuleInterop": true,
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "*": ["@types/*"]
+    }
   },
   "exclude": ["node_modules", "__tests__"]
 }
