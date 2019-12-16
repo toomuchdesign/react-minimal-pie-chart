@@ -23,7 +23,7 @@
     "test:bundles:es5": "es-check es5 './@(lib|dist)/*.js'",
     "test:bundles:size": "size-limit",
     "test:source": "npm run test:ts && npm t -- --coverage",
-    "test:ts": "typings-tester --config ./src/types/__tests__/tsconfig.json --dir ./src/types/__tests__",
+    "test:ts": "tsc --noEmit",
     "test:update": "npm run compile && npm run test:bundles:snapshot -- -u",
     "clean": "rm -rf lib es dist",
     "compile": "npm run clean && rollup -c",
@@ -91,16 +91,11 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "svg-partial-circle": "1.0.0",
     "svg-path-parser": "^1.1.0",
-    "typescript": "^3.7.3",
-    "typings-tester": "^0.3.2"
+    "typescript": "^3.7.3"
   },
   "jest": {
     "testRegex": "/__tests__/.*\\.test\\.[jt]sx?$",
     "testURL": "http://localhost/",
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/types/"
-    ],
     "coverageReporters": [
       "text",
       "lcov"
