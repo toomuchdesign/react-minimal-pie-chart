@@ -1,7 +1,5 @@
-const PI = Math.PI;
-
 export function degreesToRadians(degrees) {
-  return (degrees * PI) / 180;
+  return (degrees * Math.PI) / 180;
 }
 
 export function evaluateLabelTextAnchor({

@@ -194,7 +194,7 @@ export default class ReactMinimalPieChart extends Component {
   constructor(props) {
     super(props);
 
-    if (this.props.animate === true) {
+    if (props.animate === true) {
       this.hideSegments = true;
     }
   }
