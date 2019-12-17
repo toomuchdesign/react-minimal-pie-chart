@@ -6,13 +6,12 @@
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "browser": "dist/index.js",
-  "types": "src/types/index.d.ts",
+  "types": "types/index.d.ts",
   "files": [
     "dist",
     "es",
     "lib",
-    "src",
-    "!__tests__"
+    "types"
   ],
   "sideEffects": false,
   "scripts": {
@@ -25,8 +24,9 @@
     "test:source": "npm run test:ts && npm t -- --coverage",
     "test:ts": "tsc --noEmit",
     "test:update": "npm run compile && npm run test:bundles:snapshot -- -u",
-    "clean": "rm -rf lib es dist",
-    "compile": "npm run clean && rollup -c",
+    "clean": "rm -rf lib es dist types",
+    "compile": "npm run clean && npm run compile:types && rollup -c",
+    "compile:types": "tsc --emitDeclarationOnly",
     "contrib:add": "all-contributors add",
     "contrib:generate": "all-contributors generate",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
@@ -103,9 +103,6 @@
     "collectCoverageFrom": [
       "<rootDir>/src/**",
       "!**/__tests__/**"
-    ],
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/src/types"
     ],
     "setupFilesAfterEnv": [
       "<rootDir>/jest.setup.js"

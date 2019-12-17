@@ -8,11 +8,13 @@
     "strictFunctionTypes": true,
     "esModuleInterop": true,
     "jsx": "react",
+    "declaration": true,
+    "declarationDir": "./types",
     "baseUrl": "./",
     "paths": {
       "*": ["@types/*"]
     }
   },
-  "files": ["./src/index.ts"],
+  "include": ["./src/index.ts"],
   "exclude": ["node_modules", "__tests__"]
 }
