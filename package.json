@@ -30,10 +30,10 @@
     "contrib:add": "all-contributors add",
     "contrib:generate": "all-contributors generate",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "preversion": "npm run prepublish",
+    "preversion": "npm run prepare",
     "version": "git add package.json",
     "postversion": "git push && git push --tags",
-    "prepublish": "npm run test:source && npm run compile && npm run test:bundles",
+    "prepare": "npm run test:source && npm run compile && npm run test:bundles",
     "start": "start-storybook -p 9001 -c .storybook",
     "storybook:deploy": "storybook-to-ghpages",
     "storybook:build": "build-storybook"
