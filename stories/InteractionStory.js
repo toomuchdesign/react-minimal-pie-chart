@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { action } from '@storybook/addon-actions';
-import PieChart from '../src/index.js';
+import PieChart from '../src';
 import { dataPropType } from '../src/propTypes';
 
 const FULL_WIDTH = 35;

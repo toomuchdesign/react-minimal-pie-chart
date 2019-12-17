@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import PieChart from '../src/index.js';
+import PieChart from '../src';
 import InteractionStory from './InteractionStory';
 import LoadingIndicatorStory from './LoadingIndicatorStory';
 import PartialLoadingIndicatorStory from './PartialLoadingIndicatorStory';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PieChart from '../src/index.js';
+import PieChart from '../src';
 
 class PartialLoadingIndicatorStory extends Component {
   constructor(props) {
