@@ -63,9 +63,8 @@ exports[`Dist bundle is unchanged 1`] = `
 
   var svgPartialCircle = partialCircle;
 
-  var PI = Math.PI;
   function degreesToRadians(degrees) {
-    return degrees * PI / 180;
+    return degrees * Math.PI / 180;
   }
   function evaluateLabelTextAnchor(_temp) {
     var _ref = _temp === void 0 ? {} : _temp,
@@ -375,7 +374,7 @@ exports[`Dist bundle is unchanged 1`] = `
 
       _this = _Component.call(this, props) || this;
 
-      if (_this.props.animate === true) {
+      if (props.animate === true) {
         _this.hideSegments = true;
       }
 
