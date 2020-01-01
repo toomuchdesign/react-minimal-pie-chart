@@ -75,7 +75,7 @@
     "all-contributors-cli": "^6.11.2",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
-    "coveralls": "^3.0.7",
+    "coveralls": "^3.0.9",
     "es-check": "^5.0.0",
     "husky": "^3.0.9",
     "jest": "^24.9.0",
