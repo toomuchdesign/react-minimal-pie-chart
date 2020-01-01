@@ -72,7 +72,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@types/react": "^16.9.17",
-    "all-contributors-cli": "^6.9.3",
+    "all-contributors-cli": "^6.11.2",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "coveralls": "^3.0.7",
