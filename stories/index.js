@@ -2,7 +2,6 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import PieChart from '../src/index.js';
 import InteractionStory from './InteractionStory';
-import GradientStory from './GradientStory';
 import LoadingIndicatorStory from './LoadingIndicatorStory';
 import PartialLoadingIndicatorStory from './PartialLoadingIndicatorStory';
 
@@ -45,6 +44,7 @@ storiesOf('Partial chart', module)
       data={dataMock}
       startAngle={180}
       lengthAngle={180}
+      cy={100}
       viewBoxSize={[100, 50]}
     />
   ))
@@ -135,7 +135,26 @@ storiesOf('Interaction', module)
   ));
 
 storiesOf('Misc', module)
-  .add('Gradients with custom <defs>', () => <GradientStory />)
+  .add('Single gradient', () => (
+    <PieChart
+      data={[{ value: 10, color: 'url(#gradient1)' }]}
+      startAngle={-180}
+      lengthAngle={180}
+      lineWidth={20}
+      cy={100}
+      viewBoxSize={[100, 50]}
+      injectSvg={() => (
+        <defs>
+          <linearGradient id="gradient1">
+            <stop offset="0%" stopColor="#4CAF50" />
+            <stop offset="45%" stopColor="#ffb961" />
+            <stop offset="55%" stopColor="#ffb961" />
+            <stop offset="100%" stopColor="#C13C37" />
+          </linearGradient>
+        </defs>
+      )}
+    />
+  ))
   .add('Squared pie', () => (
     <PieChart
       data={dataMock}
