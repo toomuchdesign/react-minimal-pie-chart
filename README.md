@@ -35,6 +35,16 @@ https://unpkg.com/react-minimal-pie-chart/dist/index.js
 
 Because [Recharts][recharts-github] is awesome, but when you just need a simple pie/donought chart, **3kB** of code are usually enough.
 
+|                                            |                                 Size<br>by Bundlefobia                                  |  Size   | Loading time<br>on a slow 3g | Running time<br>on Snapdragon 410 |
+| :----------------------------------------: | :-------------------------------------------------------------------------------------: | :-----: | :--------------------------: | :-------------------------------: |
+|    react-minimal-pie-chart<br>_v6.0.1_     |       [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]       | 2.71 KB |            56 ms             |              170 ms               |
+|   [rechart][recharts-github]<br>_v1.8.5_   |     [![Bundle size: Recharts][recharts-bundlephobia-badge]][recharts-bundlephobia]      |  93 KB  |           1900 ms            |              572 ms               |
+| [victory-pie][victory-pie-github]<br>_v34_ | [![Bundle size: Victory pie][victory-pie-bundlephobia-badge]][victory-pie-bundlephobia] |  51 KB  |           1100 ms            |              500 ms               |
+
+Benchmark carried out with [size-limit](https://github.com/ai/size-limit) with a "real-world" setup: see [benchmark repo](https://github.com/toomuchdesign/react-pie-charts-size).
+
+Note: what matter here are not absolute values but the relation between magnitudes.
+
 ## Features
 
 - **< 3kB** gzipped
@@ -159,16 +169,6 @@ A [`Math.sign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Referenc
 - https://codepen.io/lingtalfi/pen/yaLWJG
 
 <!-- http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/  -->
-
-### Size comparison
-
-|                                   |                                  size (by Bundlefobia)                                  | size (by [size-limit](https://github.com/ai/size-limit)) |
-| --------------------------------- | :-------------------------------------------------------------------------------------: | :------------------------------------------------------: |
-| react-minimal-pie-chart           |       [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]       |                    2.71 KB _(v6.0.0)_                    |
-| [rechart][recharts-github]        |     [![Bundle size: Recharts][recharts-bundlephobia-badge]][recharts-bundlephobia]      |                     93 KB _(v1.8.5)_                     |
-| [victory-pie][victory-pie-github] | [![Bundle size: Victory pie][victory-pie-bundlephobia-badge]][victory-pie-bundlephobia] |                    51 KB _(v33.1.6)_                     |
-
-Sizes in the third column are calculated with a "real-world" setup: see [source repo](https://github.com/toomuchdesign/react-pie-charts-size).
 
 ## Todo's
 
