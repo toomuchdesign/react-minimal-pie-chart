@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { dataPropType } from './propTypes';
 import { ExtendedData, StyleObject } from './commonTypes';
 
 export type Props = {
@@ -33,9 +31,3 @@ export default function ReactMinimalPieChartLabel({
 }
 
 ReactMinimalPieChartLabel.displayName = 'ReactMinimalPieChartLabel';
-
-ReactMinimalPieChartLabel.propTypes = {
-  data: dataPropType,
-  dataIndex: PropTypes.number,
-  color: PropTypes.string,
-};

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import partialCircle from 'svg-partial-circle';
 import { degreesToRadians, extractPercentage, valueBetween } from './utils';
 
@@ -80,21 +79,3 @@ export default function ReactMinimalPieChartPath({
 }
 
 ReactMinimalPieChartPath.displayName = 'ReactMinimalPieChartPath';
-
-ReactMinimalPieChartPath.propTypes = {
-  cx: PropTypes.number.isRequired,
-  cy: PropTypes.number.isRequired,
-  startAngle: PropTypes.number,
-  lengthAngle: PropTypes.number,
-  radius: PropTypes.number,
-  lineWidth: PropTypes.number,
-  reveal: PropTypes.number,
-  title: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-};
-
-ReactMinimalPieChartPath.defaultProps = {
-  startAngle: 0,
-  lengthAngle: 0,
-  lineWidth: 100,
-  radius: 100,
-};

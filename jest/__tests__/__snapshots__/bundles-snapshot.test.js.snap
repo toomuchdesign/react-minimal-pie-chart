@@ -143,31 +143,6 @@ exports[`Dist bundle is unchanged 1`] = `
     }, props), title && React__default.createElement(\\"title\\", null, title));
   }
   ReactMinimalPieChartPath.displayName = 'ReactMinimalPieChartPath';
-  ReactMinimalPieChartPath.propTypes = {
-    cx: PropTypes.number.isRequired,
-    cy: PropTypes.number.isRequired,
-    startAngle: PropTypes.number,
-    lengthAngle: PropTypes.number,
-    radius: PropTypes.number,
-    lineWidth: PropTypes.number,
-    reveal: PropTypes.number,
-    title: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-  };
-  ReactMinimalPieChartPath.defaultProps = {
-    startAngle: 0,
-    lengthAngle: 0,
-    lineWidth: 100,
-    radius: 100
-  };
-
-  var stylePropType = PropTypes.objectOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string]));
-  var dataPropType = PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    value: PropTypes.number.isRequired,
-    color: PropTypes.string,
-    key: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    style: stylePropType
-  }));
 
   function ReactMinimalPieChartLabel(_ref) {
     var data = _ref.data,
@@ -182,11 +157,15 @@ exports[`Dist bundle is unchanged 1`] = `
     }, props));
   }
   ReactMinimalPieChartLabel.displayName = 'ReactMinimalPieChartLabel';
-  ReactMinimalPieChartLabel.propTypes = {
-    data: dataPropType,
-    dataIndex: PropTypes.number,
-    color: PropTypes.string
-  };
+
+  var stylePropType = PropTypes.objectOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string]));
+  var dataPropType = PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    value: PropTypes.number.isRequired,
+    color: PropTypes.string,
+    key: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    style: stylePropType
+  }));
 
   function extractAbsoluteCoordinates(props) {
     var _props$viewBoxSize = props.viewBoxSize,
@@ -448,52 +427,52 @@ exports[`Dist bundle is unchanged 1`] = `
 
   ReactMinimalPieChart.displayName = 'ReactMinimalPieChart';
   ReactMinimalPieChart.defaultProps = {
-    cx: 50,
-    cy: 50,
-    viewBoxSize: [100, 100],
-    startAngle: 0,
-    lengthAngle: 360,
-    paddingAngle: 0,
-    lineWidth: 100,
-    radius: 50,
-    rounded: false,
     animate: false,
     animationDuration: 500,
     animationEasing: 'ease-out',
+    cx: 50,
+    cy: 50,
     label: false,
     labelPosition: 50,
+    lengthAngle: 360,
+    lineWidth: 100,
     onMouseOver: undefined,
     onMouseOut: undefined,
-    onClick: undefined
+    onClick: undefined,
+    paddingAngle: 0,
+    radius: 50,
+    rounded: false,
+    startAngle: 0,
+    viewBoxSize: [100, 100]
   };
   ReactMinimalPieChart.propTypes = {
-    data: dataPropType,
-    cx: PropTypes.number,
-    cy: PropTypes.number,
-    viewBoxSize: PropTypes.arrayOf(PropTypes.number),
-    totalValue: PropTypes.number,
-    className: PropTypes.string,
-    style: stylePropType,
-    segmentsStyle: stylePropType,
-    background: PropTypes.string,
-    startAngle: PropTypes.number,
-    lengthAngle: PropTypes.number,
-    paddingAngle: PropTypes.number,
-    lineWidth: PropTypes.number,
-    radius: PropTypes.number,
-    rounded: PropTypes.bool,
     animate: PropTypes.bool,
     animationDuration: PropTypes.number,
     animationEasing: PropTypes.string,
-    reveal: PropTypes.number,
+    background: PropTypes.string,
     children: PropTypes.node,
+    className: PropTypes.string,
+    cx: PropTypes.number,
+    cy: PropTypes.number,
+    data: dataPropType,
     injectSvg: PropTypes.func,
     label: PropTypes.oneOfType([PropTypes.func, PropTypes.element, PropTypes.bool]),
     labelPosition: PropTypes.number,
     labelStyle: stylePropType,
-    onMouseOver: PropTypes.func,
+    lengthAngle: PropTypes.number,
+    lineWidth: PropTypes.number,
+    onClick: PropTypes.func,
     onMouseOut: PropTypes.func,
-    onClick: PropTypes.func
+    onMouseOver: PropTypes.func,
+    paddingAngle: PropTypes.number,
+    radius: PropTypes.number,
+    reveal: PropTypes.number,
+    rounded: PropTypes.bool,
+    segmentsStyle: stylePropType,
+    startAngle: PropTypes.number,
+    style: stylePropType,
+    totalValue: PropTypes.number,
+    viewBoxSize: PropTypes.arrayOf(PropTypes.number)
   };
 
   exports.default = ReactMinimalPieChart;

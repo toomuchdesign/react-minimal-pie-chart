@@ -176,6 +176,7 @@ A [`Math.sign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Referenc
 - Consider moving storybook deployment to CI
 - Configure Babel to not inject the `_extend` utility in compiled artifact
 - Add `.browserslistrc` to get rid of some Babel helpers
+- Handle prop-types / TS types duplication
 
 ## Contributors
 

@@ -9,7 +9,13 @@ import {
   valueBetween,
 } from './utils';
 import { dataPropType, stylePropType } from './propTypes';
-import { Data, ExtendedData, StyleObject } from './commonTypes';
+import {
+  Data,
+  ExtendedData,
+  EventHandler,
+  LabelProp,
+  StyleObject,
+} from './commonTypes';
 
 function extractAbsoluteCoordinates(props: Props) {
   const [viewBoxWidth, viewBoxHeight] = props.viewBoxSize;
@@ -207,94 +213,66 @@ function renderSegments(data: ExtendedData, props: Props, hide: Boolean) {
   return paths;
 }
 
-declare type LabelPropAsReactElement = React.ReactElement<LabelProps>;
-
-declare type LabelPropAsFunction = (
-  labelProps: LabelProps
-) => number | string | React.ReactElement;
-
-declare type EventHandler = (
-  event: React.MouseEvent,
-  data: Data,
-  dataIndex: number
-) => any;
-
-declare type LabelProp =
-  | boolean
-  | LabelPropAsReactElement
-  | LabelPropAsFunction;
-
 type Props = typeof ReactMinimalPieChart.defaultProps & {
-  className?: string;
-  style?: StyleObject;
-  data: Data;
-  cx?: number;
-  cy?: number;
-  viewBoxSize?: [number, number];
-  startAngle?: number;
-  lengthAngle?: number;
-  totalValue?: number;
-  radius?: number;
-  lineWidth?: number;
-  paddingAngle?: number;
-  rounded?: boolean;
-  segmentsStyle?: StyleObject;
-  background?: string;
   animate?: boolean;
   animationDuration?: number;
   animationEasing?: string;
-  reveal?: number;
+  background?: string;
+  className?: string;
+  cx?: number;
+  cy?: number;
+  data: Data;
+  lengthAngle?: number;
+  lineWidth?: number;
   injectSvg?: () => React.ReactElement | void;
-  label?: boolean | LabelPropAsReactElement | LabelPropAsFunction;
+  label?: LabelProp;
   labelPosition?: number;
   labelStyle?: StyleObject;
   onClick?: EventHandler;
-  onMouseOver?: EventHandler;
   onMouseOut?: EventHandler;
+  onMouseOver?: EventHandler;
+  paddingAngle?: number;
+  radius?: number;
+  reveal?: number;
+  rounded?: boolean;
+  segmentsStyle?: StyleObject;
+  startAngle?: number;
+  style?: StyleObject;
+  totalValue?: number;
+  viewBoxSize?: [number, number];
 };
 
 export default class ReactMinimalPieChart extends Component<Props> {
   static displayName = 'ReactMinimalPieChart';
   static defaultProps = {
-    cx: 50,
-    cy: 50,
-    viewBoxSize: [100, 100],
-    startAngle: 0,
-    lengthAngle: 360,
-    paddingAngle: 0,
-    lineWidth: 100,
-    radius: 50,
-    rounded: false,
     animate: false,
     animationDuration: 500,
     animationEasing: 'ease-out',
+    cx: 50,
+    cy: 50,
     label: false,
     labelPosition: 50,
+    lengthAngle: 360,
+    lineWidth: 100,
     onMouseOver: undefined,
     onMouseOut: undefined,
     onClick: undefined,
+    paddingAngle: 0,
+    radius: 50,
+    rounded: false,
+    startAngle: 0,
+    viewBoxSize: [100, 100],
   };
   static propTypes = {
-    data: dataPropType,
-    cx: PropTypes.number,
-    cy: PropTypes.number,
-    viewBoxSize: PropTypes.arrayOf(PropTypes.number),
-    totalValue: PropTypes.number,
-    className: PropTypes.string,
-    style: stylePropType,
-    segmentsStyle: stylePropType,
-    background: PropTypes.string,
-    startAngle: PropTypes.number,
-    lengthAngle: PropTypes.number,
-    paddingAngle: PropTypes.number,
-    lineWidth: PropTypes.number,
-    radius: PropTypes.number,
-    rounded: PropTypes.bool,
     animate: PropTypes.bool,
     animationDuration: PropTypes.number,
     animationEasing: PropTypes.string,
-    reveal: PropTypes.number,
+    background: PropTypes.string,
     children: PropTypes.node,
+    className: PropTypes.string,
+    cx: PropTypes.number,
+    cy: PropTypes.number,
+    data: dataPropType,
     injectSvg: PropTypes.func,
     label: PropTypes.oneOfType([
       PropTypes.func,
@@ -303,9 +281,20 @@ export default class ReactMinimalPieChart extends Component<Props> {
     ]),
     labelPosition: PropTypes.number,
     labelStyle: stylePropType,
-    onMouseOver: PropTypes.func,
-    onMouseOut: PropTypes.func,
+    lengthAngle: PropTypes.number,
+    lineWidth: PropTypes.number,
     onClick: PropTypes.func,
+    onMouseOut: PropTypes.func,
+    onMouseOver: PropTypes.func,
+    paddingAngle: PropTypes.number,
+    radius: PropTypes.number,
+    reveal: PropTypes.number,
+    rounded: PropTypes.bool,
+    segmentsStyle: stylePropType,
+    startAngle: PropTypes.number,
+    style: stylePropType,
+    totalValue: PropTypes.number,
+    viewBoxSize: PropTypes.arrayOf(PropTypes.number),
   };
 
   hideSegments: boolean;
