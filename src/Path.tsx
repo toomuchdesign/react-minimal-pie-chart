@@ -1,9 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import partialCircle from 'svg-partial-circle';
 import { degreesToRadians, extractPercentage, valueBetween } from './utils';
 
-function makePathCommands(cx, cy, startAngle, lengthAngle, radius) {
+function makePathCommands(
+  cx: number,
+  cy: number,
+  startAngle: number,
+  lengthAngle: number,
+  radius: number
+) {
   const patchedLengthAngle = valueBetween(lengthAngle, -359.999, 359.999);
 
   return partialCircle(
@@ -17,17 +22,29 @@ function makePathCommands(cx, cy, startAngle, lengthAngle, radius) {
     .join(' ');
 }
 
+type Props = {
+  cx: number;
+  cy: number;
+  startAngle: number;
+  lengthAngle: number;
+  radius: number;
+  lineWidth: number;
+  reveal?: number;
+  title?: string | number;
+  [key: string]: any;
+};
+
 export default function ReactMinimalPieChartPath({
   cx,
   cy,
-  startAngle,
-  lengthAngle,
-  radius,
-  lineWidth,
+  startAngle = 0,
+  lengthAngle = 0,
+  radius = 100,
+  lineWidth = 100,
   reveal,
   title,
   ...props
-}) {
+}: Props) {
   const actualRadio = radius - lineWidth / 2;
   const pathCommands = makePathCommands(
     cx,
@@ -62,21 +79,3 @@ export default function ReactMinimalPieChartPath({
 }
 
 ReactMinimalPieChartPath.displayName = 'ReactMinimalPieChartPath';
-
-ReactMinimalPieChartPath.propTypes = {
-  cx: PropTypes.number.isRequired,
-  cy: PropTypes.number.isRequired,
-  startAngle: PropTypes.number,
-  lengthAngle: PropTypes.number,
-  radius: PropTypes.number,
-  lineWidth: PropTypes.number,
-  reveal: PropTypes.number,
-  title: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-};
-
-ReactMinimalPieChartPath.defaultProps = {
-  startAngle: 0,
-  lengthAngle: 0,
-  lineWidth: 100,
-  radius: 100,
-};

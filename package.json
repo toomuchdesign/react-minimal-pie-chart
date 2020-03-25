@@ -6,13 +6,12 @@
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "browser": "dist/index.js",
-  "types": "src/types/index.d.ts",
+  "types": "types/index.d.ts",
   "files": [
     "dist",
     "es",
     "lib",
-    "src",
-    "!__tests__"
+    "types"
   ],
   "sideEffects": false,
   "scripts": {
@@ -23,10 +22,11 @@
     "test:bundles:es5": "es-check es5 './@(lib|dist)/*.js'",
     "test:bundles:size": "size-limit",
     "test:source": "npm run test:ts && npm t -- --coverage",
-    "test:ts": "typings-tester --config ./src/types/__tests__/tsconfig.json --dir ./src/types/__tests__",
+    "test:ts": "tsc --noEmit",
     "test:update": "npm run compile && npm run test:bundles:snapshot -- -u",
-    "clean": "rm -rf lib es dist",
-    "compile": "npm run clean && rollup -c",
+    "clean": "rm -rf lib es dist types",
+    "compile": "npm run clean && npm run compile:types && rollup -c",
+    "compile:types": "tsc --emitDeclarationOnly",
     "contrib:add": "all-contributors add",
     "contrib:generate": "all-contributors generate",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
@@ -57,12 +57,14 @@
     "react-dom": "^15.0.0 || ^16.0.0"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
     "prop-types": "^15.5.7"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/plugin-transform-react-jsx": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
+    "@babel/preset-typescript": "^7.7.7",
     "@schwingbat/relative-angle": "^1.0.0",
     "@size-limit/preset-small-lib": "^2.2.4",
     "@storybook/addon-actions": "^5.3.9",
@@ -89,15 +91,11 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "svg-partial-circle": "1.0.0",
     "svg-path-parser": "^1.1.0",
-    "typescript": "^3.6.4",
-    "typings-tester": "^0.3.2"
+    "typescript": "^3.7.3"
   },
   "jest": {
-    "testRegex": "/__tests__/.*\\.test\\.jsx?$",
+    "testRegex": "/__tests__/.*\\.test\\.[jt]sx?$",
     "testURL": "http://localhost/",
-    "moduleFileExtensions": [
-      "js"
-    ],
     "coverageReporters": [
       "text",
       "lcov"
@@ -123,7 +121,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx}": [
+    "*.{js,ts,tsx}": [
       "npm run test:update",
       "prettier --write",
       "git add"

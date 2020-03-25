@@ -10,7 +10,22 @@ module.exports = api => {
           loose: true,
         },
       ],
+      [
+        '@babel/preset-typescript',
+        {
+          isTSX: true,
+          allExtensions: true,
+        },
+      ],
     ],
-    plugins: ['@babel/plugin-transform-react-jsx'],
+    plugins: [
+      '@babel/plugin-transform-react-jsx',
+      [
+        '@babel/plugin-proposal-class-properties',
+        {
+          loose: true,
+        },
+      ],
+    ],
   };
 };

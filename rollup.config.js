@@ -7,10 +7,15 @@ let pkg = require('./package.json');
 let external = []
   // Mark dependencies and peerDependencies as external
   .concat(Object.keys(pkg.dependencies), Object.keys(pkg.peerDependencies));
+const extensions = ['.js', '.ts', '.tsx'];
 
 let plugins = [
-  resolve(),
-  babel(),
+  resolve({
+    extensions,
+  }),
+  babel({
+    extensions,
+  }),
   commonjs({
     // https://github.com/reactjs/react-redux/issues/643#issuecomment-285008041
     namedExports: {
@@ -20,7 +25,7 @@ let plugins = [
 ];
 
 export default {
-  input: 'src/index.js',
+  input: 'src/index.ts',
   plugins: plugins,
   external: external,
   output: [
