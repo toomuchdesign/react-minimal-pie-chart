@@ -37,10 +37,10 @@ type Props = {
 export default function ReactMinimalPieChartPath({
   cx,
   cy,
-  startAngle = 0,
-  lengthAngle = 0,
-  radius = 100,
-  lineWidth = 100,
+  startAngle,
+  lengthAngle,
+  radius,
+  lineWidth,
   reveal,
   title,
   ...props
