@@ -49,19 +49,14 @@ exports[`Dist bundle is unchanged 1`] = `
     return target;
   }
 
-  var partialCircle = function partialCircle(cx, cy, r, start, end) {
-    var length = end - start;
-    if (length === 0) return [];
-    var fromX = r * Math.cos(start) + cx;
-    var fromY = r * Math.sin(start) + cy;
-    var toX = r * Math.cos(end) + cx;
-    var toY = r * Math.sin(end) + cy;
-    var large = Math.abs(length) <= Math.PI ? '0' : '1';
-    var sweep = length < 0 ? '0' : '1';
-    return [['M', fromX, fromY], ['A', r, r, 0, large, sweep, toX, toY]];
-  };
-
-  var svgPartialCircle = partialCircle;
+  var stylePropType = PropTypes.objectOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string]));
+  var dataPropType = PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    value: PropTypes.number.isRequired,
+    color: PropTypes.string,
+    key: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    style: stylePropType
+  }));
 
   function degreesToRadians(degrees) {
     return degrees * Math.PI / 180;
@@ -99,74 +94,6 @@ exports[`Dist bundle is unchanged 1`] = `
   function extractPercentage(value, percentage) {
     return value * percentage / 100;
   }
-
-  function makePathCommands(cx, cy, startAngle, lengthAngle, radius) {
-    var patchedLengthAngle = valueBetween(lengthAngle, -359.999, 359.999);
-    return svgPartialCircle(cx, cy, // center X and Y
-    radius, degreesToRadians(startAngle), degreesToRadians(startAngle + patchedLengthAngle)).map(function (command) {
-      return command.join(' ');
-    }).join(' ');
-  }
-
-  function ReactMinimalPieChartPath(_ref) {
-    var cx = _ref.cx,
-        cy = _ref.cy,
-        _ref$startAngle = _ref.startAngle,
-        startAngle = _ref$startAngle === void 0 ? 0 : _ref$startAngle,
-        _ref$lengthAngle = _ref.lengthAngle,
-        lengthAngle = _ref$lengthAngle === void 0 ? 0 : _ref$lengthAngle,
-        _ref$radius = _ref.radius,
-        radius = _ref$radius === void 0 ? 100 : _ref$radius,
-        _ref$lineWidth = _ref.lineWidth,
-        lineWidth = _ref$lineWidth === void 0 ? 100 : _ref$lineWidth,
-        reveal = _ref.reveal,
-        title = _ref.title,
-        props = _objectWithoutPropertiesLoose(_ref, [\\"cx\\", \\"cy\\", \\"startAngle\\", \\"lengthAngle\\", \\"radius\\", \\"lineWidth\\", \\"reveal\\", \\"title\\"]);
-
-    var actualRadio = radius - lineWidth / 2;
-    var pathCommands = makePathCommands(cx, cy, startAngle, lengthAngle, actualRadio);
-    var strokeDasharray;
-    var strokeDashoffset; // Animate/hide paths with \\"stroke-dasharray\\" + \\"stroke-dashoffset\\"
-    // https://css-tricks.com/svg-line-animation-works/
-
-    if (typeof reveal === 'number') {
-      var pathLength = degreesToRadians(actualRadio) * lengthAngle;
-      strokeDasharray = Math.abs(pathLength);
-      strokeDashoffset = strokeDasharray - extractPercentage(strokeDasharray, reveal);
-    }
-
-    return React__default.createElement(\\"path\\", _extends({
-      d: pathCommands,
-      strokeWidth: lineWidth,
-      strokeDasharray: strokeDasharray,
-      strokeDashoffset: strokeDashoffset
-    }, props), title && React__default.createElement(\\"title\\", null, title));
-  }
-  ReactMinimalPieChartPath.displayName = 'ReactMinimalPieChartPath';
-
-  function ReactMinimalPieChartLabel(_ref) {
-    var data = _ref.data,
-        dataIndex = _ref.dataIndex,
-        color = _ref.color,
-        props = _objectWithoutPropertiesLoose(_ref, [\\"data\\", \\"dataIndex\\", \\"color\\"]);
-
-    return React__default.createElement(\\"text\\", _extends({
-      textAnchor: \\"middle\\",
-      dominantBaseline: \\"middle\\",
-      fill: color
-    }, props));
-  }
-  ReactMinimalPieChartLabel.displayName = 'ReactMinimalPieChartLabel';
-
-  var stylePropType = PropTypes.objectOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string]));
-  var dataPropType = PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    value: PropTypes.number.isRequired,
-    color: PropTypes.string,
-    key: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    style: stylePropType
-  }));
-
   function extractAbsoluteCoordinates(props) {
     var _props$viewBoxSize = props.viewBoxSize,
         viewBoxWidth = _props$viewBoxSize[0],
@@ -211,17 +138,19 @@ exports[`Dist bundle is unchanged 1`] = `
     });
   }
 
-  function makeSegmentTransitionStyle(duration, easing, furtherStyles) {
-    if (furtherStyles === void 0) {
-      furtherStyles = {};
-    }
+  function ReactMinimalPieChartLabel(_ref) {
+    var data = _ref.data,
+        dataIndex = _ref.dataIndex,
+        color = _ref.color,
+        props = _objectWithoutPropertiesLoose(_ref, [\\"data\\", \\"dataIndex\\", \\"color\\"]);
 
-    // Merge CSS transition necessary for chart animation with the ones provided by \\"segmentsStyle\\"
-    var transition = [\\"stroke-dashoffset \\" + duration + \\"ms \\" + easing, furtherStyles.transition].filter(Boolean).join(',');
-    return {
-      transition: transition
-    };
+    return React__default.createElement(\\"text\\", _extends({
+      textAnchor: \\"middle\\",
+      dominantBaseline: \\"middle\\",
+      fill: color
+    }, props));
   }
+  ReactMinimalPieChartLabel.displayName = 'ReactMinimalPieChartLabel';
 
   function renderLabelItem(option, labelProps, value) {
     if (React__default.isValidElement(option)) {
@@ -275,6 +204,76 @@ exports[`Dist bundle is unchanged 1`] = `
     });
   }
 
+  var partialCircle = function partialCircle(cx, cy, r, start, end) {
+    var length = end - start;
+    if (length === 0) return [];
+    var fromX = r * Math.cos(start) + cx;
+    var fromY = r * Math.sin(start) + cy;
+    var toX = r * Math.cos(end) + cx;
+    var toY = r * Math.sin(end) + cy;
+    var large = Math.abs(length) <= Math.PI ? '0' : '1';
+    var sweep = length < 0 ? '0' : '1';
+    return [['M', fromX, fromY], ['A', r, r, 0, large, sweep, toX, toY]];
+  };
+
+  var svgPartialCircle = partialCircle;
+
+  function makePathCommands(cx, cy, startAngle, lengthAngle, radius) {
+    var patchedLengthAngle = valueBetween(lengthAngle, -359.999, 359.999);
+    return svgPartialCircle(cx, cy, // center X and Y
+    radius, degreesToRadians(startAngle), degreesToRadians(startAngle + patchedLengthAngle)).map(function (command) {
+      return command.join(' ');
+    }).join(' ');
+  }
+
+  function ReactMinimalPieChartPath(_ref) {
+    var cx = _ref.cx,
+        cy = _ref.cy,
+        _ref$startAngle = _ref.startAngle,
+        startAngle = _ref$startAngle === void 0 ? 0 : _ref$startAngle,
+        _ref$lengthAngle = _ref.lengthAngle,
+        lengthAngle = _ref$lengthAngle === void 0 ? 0 : _ref$lengthAngle,
+        _ref$radius = _ref.radius,
+        radius = _ref$radius === void 0 ? 100 : _ref$radius,
+        _ref$lineWidth = _ref.lineWidth,
+        lineWidth = _ref$lineWidth === void 0 ? 100 : _ref$lineWidth,
+        reveal = _ref.reveal,
+        title = _ref.title,
+        props = _objectWithoutPropertiesLoose(_ref, [\\"cx\\", \\"cy\\", \\"startAngle\\", \\"lengthAngle\\", \\"radius\\", \\"lineWidth\\", \\"reveal\\", \\"title\\"]);
+
+    var actualRadio = radius - lineWidth / 2;
+    var pathCommands = makePathCommands(cx, cy, startAngle, lengthAngle, actualRadio);
+    var strokeDasharray;
+    var strokeDashoffset; // Animate/hide paths with \\"stroke-dasharray\\" + \\"stroke-dashoffset\\"
+    // https://css-tricks.com/svg-line-animation-works/
+
+    if (typeof reveal === 'number') {
+      var pathLength = degreesToRadians(actualRadio) * lengthAngle;
+      strokeDasharray = Math.abs(pathLength);
+      strokeDashoffset = strokeDasharray - extractPercentage(strokeDasharray, reveal);
+    }
+
+    return React__default.createElement(\\"path\\", _extends({
+      d: pathCommands,
+      strokeWidth: lineWidth,
+      strokeDasharray: strokeDasharray,
+      strokeDashoffset: strokeDashoffset
+    }, props), title && React__default.createElement(\\"title\\", null, title));
+  }
+  ReactMinimalPieChartPath.displayName = 'ReactMinimalPieChartPath';
+
+  function makeSegmentTransitionStyle(duration, easing, furtherStyles) {
+    if (furtherStyles === void 0) {
+      furtherStyles = {};
+    }
+
+    // Merge CSS transition necessary for chart animation with the ones provided by \\"segmentsStyle\\"
+    var transition = [\\"stroke-dashoffset \\" + duration + \\"ms \\" + easing, furtherStyles.transition].filter(Boolean).join(',');
+    return {
+      transition: transition
+    };
+  }
+
   function renderSegments(data, props, hide) {
     var style = props.segmentsStyle;
 
@@ -294,10 +293,10 @@ exports[`Dist bundle is unchanged 1`] = `
       reveal = 100;
     }
 
-    var _extractAbsoluteCoord2 = extractAbsoluteCoordinates(props),
-        cx = _extractAbsoluteCoord2.cx,
-        cy = _extractAbsoluteCoord2.cy,
-        radius = _extractAbsoluteCoord2.radius;
+    var _extractAbsoluteCoord = extractAbsoluteCoordinates(props),
+        cx = _extractAbsoluteCoord.cx,
+        cy = _extractAbsoluteCoord.cy,
+        radius = _extractAbsoluteCoord.radius;
 
     var lineWidth = extractPercentage(radius, props.lineWidth);
     var paths = data.map(function (dataEntry, index) {

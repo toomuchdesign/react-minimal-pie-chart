@@ -1,3 +1,5 @@
+import { Props as ChartProps } from './Chart';
+
 export function degreesToRadians(degrees: number) {
   return (degrees * Math.PI) / 180;
 }
@@ -36,4 +38,13 @@ export function valueBetween(value: number, min: number, max: number) {
 
 export function extractPercentage(value: number, percentage: number) {
   return (value * percentage) / 100;
+}
+
+export function extractAbsoluteCoordinates(props: ChartProps) {
+  const [viewBoxWidth, viewBoxHeight] = props.viewBoxSize;
+  return {
+    cx: extractPercentage(props.cx, viewBoxWidth),
+    cy: extractPercentage(props.cy, viewBoxHeight),
+    radius: extractPercentage(props.radius, viewBoxWidth),
+  };
 }
