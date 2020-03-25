@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Path from './Path';
-import { default as DefaultLabel, Props as LabelProps } from './Label';
+import Path from '../Path';
+import { default as DefaultLabel, Props as LabelProps } from '../Label';
 import {
   degreesToRadians,
   evaluateLabelTextAnchor,
   extractPercentage,
   valueBetween,
-} from './utils';
-import { dataPropType, stylePropType } from './propTypes';
+} from '../utils';
+import { dataPropType, stylePropType } from '../propTypes';
 import {
   Data,
   ExtendedData,
   EventHandler,
   LabelProp,
   StyleObject,
-} from './commonTypes';
+} from '../commonTypes';
 
 function extractAbsoluteCoordinates(props: Props) {
   const [viewBoxWidth, viewBoxHeight] = props.viewBoxSize;
