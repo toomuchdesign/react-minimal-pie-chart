@@ -6,15 +6,19 @@
   "packageRules": [
     {
       "packagePatterns": ["^rollup"],
-      "groupName": "Update rollup monorepo packages"
+      "groupName": "Update rollup packages"
+    },
+    {
+      "packagePatterns": ["^@babel/"],
+      "groupName": "Update babel packages"
     },
     {
       "packagePatterns": ["^@storybook/"],
-      "groupName": "Update storybook monorepo packages"
+      "groupName": "Update storybook packages"
     },
     {
       "packagePatterns": ["^@testing-library/"],
-      "groupName": "Update testing library monorepo packages"
+      "groupName": "Update testing library packages"
     },
     {
       "packageNames": ["react", "react-dom", "@types/react"],
