@@ -57,11 +57,11 @@
     "react-dom": "^15.0.0 || ^16.0.0"
   },
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.7.4",
     "prop-types": "^15.5.7"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-transform-react-jsx": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-typescript": "^7.7.7",
@@ -112,7 +112,10 @@
     {
       "limit": "3 KB",
       "path": "./es/index.js",
-      "ignore": ["react", "prop-types"]
+      "ignore": [
+        "react",
+        "prop-types"
+      ]
     }
   ],
   "husky": {
