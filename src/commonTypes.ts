@@ -9,7 +9,7 @@ export type EventHandler = (
   event: React.MouseEvent,
   data: Data,
   dataIndex: number
-) => any;
+) => void;
 
 type LabelPropAsReactElement = React.ReactElement<LabelProps>;
 type LabelPropAsFunction = (
