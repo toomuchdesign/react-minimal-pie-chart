@@ -35,13 +35,13 @@ https://unpkg.com/react-minimal-pie-chart/dist/index.js
 
 Because [Recharts][recharts-github] is awesome, but when you just need a simple pie/donought chart, **3kB** of code are usually enough.
 
-|                                            |                                 Size<br>by Bundlefobia                                  |  Size   | Loading time<br>on a slow 3g | Running time<br>on Snapdragon 410 |
-| :----------------------------------------: | :-------------------------------------------------------------------------------------: | :-----: | :--------------------------: | :-------------------------------: |
-|    react-minimal-pie-chart<br>_v6.0.1_     |       [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]       | 2.71 KB |            56 ms             |              170 ms               |
-|   [rechart][recharts-github]<br>_v1.8.5_   |     [![Bundle size: Recharts][recharts-bundlephobia-badge]][recharts-bundlephobia]      |  93 KB  |           1900 ms            |              572 ms               |
-| [victory-pie][victory-pie-github]<br>_v34_ | [![Bundle size: Victory pie][victory-pie-bundlephobia-badge]][victory-pie-bundlephobia] |  51 KB  |           1100 ms            |              500 ms               |
+|                                            |                                 Size<br>by Bundlefobia                                  | Benchmark Size \* | Loading time<br>on a slow 3g \* |
+| :----------------------------------------: | :-------------------------------------------------------------------------------------: | :---------------: | :-----------------------------: |
+|    react-minimal-pie-chart<br>_v7.0.0_     |       [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]       |      2.3 KB       |              46 ms              |
+|   [rechart][recharts-github]<br>_v1.8.5_   |     [![Bundle size: Recharts][recharts-bundlephobia-badge]][recharts-bundlephobia]      |      92.6 KB      |             1900 ms             |
+| [victory-pie][victory-pie-github]<br>_v34_ | [![Bundle size: Victory pie][victory-pie-bundlephobia-badge]][victory-pie-bundlephobia] |      50.5 KB      |             1100 ms             |
 
-Benchmark carried out with [size-limit](https://github.com/ai/size-limit) with a "real-world" setup: see [benchmark repo](https://github.com/toomuchdesign/react-pie-charts-size).
+\* Benchmark carried out with [size-limit](https://github.com/ai/size-limit) with a "real-world" setup: see [benchmark repo](https://github.com/toomuchdesign/react-pie-charts-size).
 
 Note: what matter here are not absolute values but the relation between magnitudes.
 
