@@ -3,6 +3,7 @@
 ### Breaking Changes
 
 - Remove `src` from distribution
+- `EventHandler` expects `void` as return type
 
 ### Minor Changes
 
