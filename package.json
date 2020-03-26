@@ -127,7 +127,7 @@
     "*.{js,ts,tsx}": [
       "npm run test:update",
       "prettier --write",
-      "git add"
+      "git add ./jest/__tests__/__snapshots__"
     ],
     "*.{json,md,ts}": [
       "prettier --write",
