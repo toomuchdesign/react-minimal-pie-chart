@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { evaluateLabelTextAnchor } from '../../src/utils';
 
 describe('evaluateLabelTextAnchor util', () => {
