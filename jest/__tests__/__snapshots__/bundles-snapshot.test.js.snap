@@ -297,6 +297,11 @@ exports[`Dist bundle is unchanged 1`] = `
     var lineWidth = extractPercentage(radius, props.lineWidth);
     var paths = data.map(function (dataEntry, index) {
       var startAngle = props.startAngle + dataEntry.startOffset;
+
+      if (props.filterSegments(_extends({}, dataEntry), index) === true) {
+        return null;
+      }
+
       return React__default.createElement(ReactMinimalPieChartPath, {
         key: dataEntry.key || index,
         cx: cx,
@@ -427,6 +432,9 @@ exports[`Dist bundle is unchanged 1`] = `
     animationEasing: 'ease-out',
     cx: 50,
     cy: 50,
+    filterSegments: function filterSegments() {
+      return false;
+    },
     label: false,
     labelPosition: 50,
     lengthAngle: 360,

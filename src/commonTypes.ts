@@ -35,3 +35,8 @@ type ExtendedDataEntry = DataEntry & {
 
 export type Data = DataEntry[];
 export type ExtendedData = ExtendedDataEntry[];
+
+export type FilterSegmentsProp = (
+  dataEntry: ExtendedDataEntry,
+  index: number
+) => boolean;

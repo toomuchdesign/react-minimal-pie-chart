@@ -52,6 +52,10 @@ export default function renderSegments(
   const paths = data.map((dataEntry, index) => {
     const startAngle = props.startAngle + dataEntry.startOffset;
 
+    if (props.filterSegments({ ...dataEntry }, index) === true) {
+      return null;
+    }
+
     return (
       <Path
         key={dataEntry.key || index}

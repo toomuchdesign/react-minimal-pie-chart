@@ -128,6 +128,15 @@ storiesOf('Animation', module)
     <PieChart data={dataMock} lengthAngle={-360} animate />
   ));
 
+storiesOf('Filtering Segments', module).add('Ignore orange Segment', () => (
+  <PieChart
+    data={dataMock}
+    filterSegments={(dataEntry, index) => {
+      return dataEntry.color === '#E38627';
+    }}
+  />
+));
+
 storiesOf('Interaction', module)
   .addParameters({ options: { showPanel: true, panelPosition: 'bottom' } })
   .add('click, mouseOver, mouseOut callbacks', () => (
