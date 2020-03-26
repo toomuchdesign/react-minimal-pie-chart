@@ -19,18 +19,6 @@ import PieChart from 'react-minimal-pie-chart';
 />;
 ```
 
-## Installation
-
-```console
-npm install react-minimal-pie-chart
-```
-
-If you don't use a package manager, `react-minimal-pie-chart` exposes also an `UMD` module ready for the browser.
-
-```
-https://unpkg.com/react-minimal-pie-chart/dist/index.js
-```
-
 ## Why?
 
 Because [Recharts][recharts-github] is awesome, but when you just need a simple pie/donought chart, **3kB** of code are usually enough.
@@ -50,38 +38,50 @@ Note: what matter here are not absolute values but the relation between magnitud
 - **< 3kB** gzipped
 - Versatile: **Pie**, **Donut**, **Loading**, **Completion** charts (see [Demo][storybook])
 - Customizable chart **labels**
-- Customizable **CSS animations** with [stroke-dasharray + stroke-dashoffset strategy](https://css-tricks.com/svg-line-animation-works/)
+- Customizable **CSS animations**
 - **Typescript types** included
 - **No dependencies** (except for [React's prop-types](https://github.com/reactjs/))
 
+## Installation
+
+```console
+npm install react-minimal-pie-chart
+```
+
+If you don't use a package manager, `react-minimal-pie-chart` exposes also an `UMD` module ready for the browser.
+
+```
+https://unpkg.com/react-minimal-pie-chart/dist/index.js
+```
+
 ## Options
 
-| Property              | Type                                  | Description                                                                                                                                                                                  | Default    |
-| --------------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| **data** _(required)_ | _Array_                               | The source data which each element is a segment.                                                                                                                                             | -          |
-| **cx**                | _Number_                              | The x-coordinate of center. The value is the percentage of the component width                                                                                                               | 50         |
-| **cy**                | _Number_                              | The y-coordinate of center. The value is the percentage of the component height                                                                                                              | 50         |
-| **viewBoxSize**       | _Array of Numbers_                    | Width and Height of SVG `viewBox` attribute                                                                                                                                                  | [100, 100] |
-| **startAngle**        | _Number_                              | The start angle of first sector                                                                                                                                                              | 0          |
-| **lengthAngle**       | _Number_                              | The total angle taken by the chart _(can be negative to make the chart clockwise!)_                                                                                                          | 360        |
-| **totalValue**        | _Number_                              | The total value represented by the full chart                                                                                                                                                | -          |
-| **radius**            | _Number_                              | The radius of the pie. The value is the percentage of the component's width                                                                                                                  | 50         |
-| **lineWidth**         | _Number_                              | The width of the line representing each sector. The value is the percentage of chart's radio _(100 === full pie)_                                                                            | 100        |
-| **paddingAngle**      | _Number_                              | The angle between two sectors                                                                                                                                                                | -          |
-| **rounded**           | _Bool_                                | Round line caps of each sector                                                                                                                                                               | false      |
-| **segmentsStyle**     | _Object_                              | Style object assigned each segment                                                                                                                                                           | -          |
-| **background**        | _String_                              | Segments' background color                                                                                                                                                                   | -          |
-| **animate**           | _Bool_                                | Animate sectors on component mount                                                                                                                                                           | false      |
-| **animationDuration** | _Number_                              | Animation duration in ms                                                                                                                                                                     | 500        |
-| **animationEasing**   | _String_                              | Animation CSS easing                                                                                                                                                                         | "ease-out" |
-| **reveal**            | _Number_                              | Turn on CSS animation and reveal just a percentage of each segment                                                                                                                           | -          |
-| **injectSvg**         | _Function_                            | Inject `<svg>` element with the output of the provided function (eg. gradients)                                                                                                              | -          |
-| **label**             | _Boolean_, _ReactElement_, _Function_ | If true set, labels will be drawn automatically. If ReactElement set, the option can be the custom label element. If set a function, the function will be called to render customized label. | false      |
-| **labelPosition**     | _Number_                              | Label position from origin. The value is the percentage of chart's radio _(50 === middle point)_                                                                                             | 50         |
-| **labelStyle**        | _Object_                              | Style object assigned by default to each label                                                                                                                                               | -          |
-| **onClick**           | _Function_                            | Custom event handler of `onClick` on each sector : `(event, data, dataIndex) => {}`                                                                                                          | -          |
-| **onMouseOver**       | _Function_                            | Custom event handler of `onMouseOver` on each sector : `(event, data, dataIndex) => {}`                                                                                                      | -          |
-| **onMouseOut**        | _Function_                            | Custom event handler of `onMouseOut` on each sector : `(event, data, dataIndex) => {}`                                                                                                       | -          |
+| Property              | Type                                  | Description                                                                                                                                                                                        | Default    |
+| --------------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **data** _(required)_ | _Array_                               | The source data which each element is a segment.                                                                                                                                                   | -          |
+| **cx**                | _Number_                              | The x-coordinate of center. The value is the percentage of the component width                                                                                                                     | 50         |
+| **cy**                | _Number_                              | The y-coordinate of center. The value is the percentage of the component height                                                                                                                    | 50         |
+| **viewBoxSize**       | _Array of Numbers_                    | Width and Height of SVG `viewBox` attribute                                                                                                                                                        | [100, 100] |
+| **startAngle**        | _Number_                              | The start angle of first segment                                                                                                                                                                   | 0          |
+| **lengthAngle**       | _Number_                              | The total angle taken by the chart _(can be negative to make the chart clockwise!)_                                                                                                                | 360        |
+| **totalValue**        | _Number_                              | The total value represented by the full chart                                                                                                                                                      | -          |
+| **radius**            | _Number_                              | The radius of the pie. The value is the percentage of the component's width                                                                                                                        | 50         |
+| **lineWidth**         | _Number_                              | The width of the line representing each segment. The value is the percentage of chart's radio _(100 === full pie)_                                                                                 | 100        |
+| **paddingAngle**      | _Number_                              | The angle between two segments                                                                                                                                                                     | -          |
+| **rounded**           | _Bool_                                | Round line caps of each segment                                                                                                                                                                    | false      |
+| **segmentsStyle**     | _Object_                              | Style object assigned each segment                                                                                                                                                                 | -          |
+| **background**        | _String_                              | Segments' background color                                                                                                                                                                         | -          |
+| **animate**           | _Bool_                                | Animate segments on component mount                                                                                                                                                                | false      |
+| **animationDuration** | _Number_                              | Animation duration in ms                                                                                                                                                                           | 500        |
+| **animationEasing**   | _String_                              | A [CSS easing function](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function)                                                                                               | "ease-out" |
+| **reveal**            | _Number_                              | Turn on CSS animation and reveal just a percentage of each segment                                                                                                                                 | -          |
+| **injectSvg**         | _Function_                            | Inject `<svg>` element with the output of the provided function (eg. gradients)                                                                                                                    | -          |
+| **label**             | _Boolean_, _ReactElement_, _Function_ | If `true` set, labels will be drawn automatically. If `ReactElement` set, the option can be the custom label element. If set a `function`, the function will be called to render customized label. | false      |
+| **labelPosition**     | _Number_                              | Label position from origin. The value is the percentage of chart's radio _(50 === middle point)_                                                                                                   | 50         |
+| **labelStyle**        | _Object_                              | Style object assigned to each label                                                                                                                                                                | -          |
+| **onClick**           | _Function_                            | `onClick` event handler for each segment: `(event, data, dataIndex) => void`                                                                                                                       | -          |
+| **onMouseOver**       | _Function_                            | `onMouseOver` event handler for each segment: `(event, data, dataIndex) => void`                                                                                                                   | -          |
+| **onMouseOut**        | _Function_                            | `onMouseOut` event handler for each segment: `(event, data, dataIndex) => void`                                                                                                                    | -          |
 
 ### About `props.data`
 
@@ -166,6 +166,10 @@ Please consider that a [`Math.sign`](https://developer.mozilla.org/en-US/docs/We
 - https://codepen.io/lingtalfi/pen/yaLWJG
 
 <!-- http://users.ecs.soton.ac.uk/rfp07r/interactive-svg-examples/  -->
+
+### How SVG animations work?
+
+This library uses the `stroke-dasharray` + `stroke-dashoffset` animation strategy [described here](https://css-tricks.com/svg-line-animation-works/).
 
 ## Todo's
 
