@@ -271,6 +271,10 @@ exports[`Dist bundle is unchanged 1`] = `
   }
 
   function renderSegments(data, props, hide) {
+    if (hide === void 0) {
+      hide = false;
+    }
+
     var style = props.segmentsStyle;
 
     if (props.animate) {
@@ -365,7 +369,7 @@ exports[`Dist bundle is unchanged 1`] = `
       var _this;
 
       _this = _Component.call(this, props) || this;
-      _this.hideSegments = void 0;
+      _this.hideSegments = false;
       _this.initialAnimationTimerId = void 0;
       _this.initialAnimationRAFId = void 0;
 

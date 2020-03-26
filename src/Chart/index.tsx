@@ -94,9 +94,9 @@ export default class ReactMinimalPieChart extends Component<Props> {
     viewBoxSize: PropTypes.arrayOf(PropTypes.number),
   };
 
-  hideSegments: boolean;
-  initialAnimationTimerId: null | number;
-  initialAnimationRAFId: null | number;
+  hideSegments: boolean = false;
+  initialAnimationTimerId?: null | number;
+  initialAnimationRAFId?: null | number;
 
   constructor(props: Props) {
     super(props);

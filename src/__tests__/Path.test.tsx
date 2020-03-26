@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { degreesToRadians } from '../utils';
 import { render, dataMock } from './Chart.test';
 

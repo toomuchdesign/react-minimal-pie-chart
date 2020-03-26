@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { render as TLRender, fireEvent } from '@testing-library/react';
 import PieChart from '../../src/index';

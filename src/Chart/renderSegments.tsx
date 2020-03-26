@@ -25,7 +25,7 @@ function makeSegmentTransitionStyle(
 export default function renderSegments(
   data: ExtendedData,
   props: ChartProps,
-  hide: Boolean
+  hide: Boolean = false
 ) {
   let style = props.segmentsStyle;
   if (props.animate) {
