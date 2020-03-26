@@ -27,7 +27,7 @@ export type DataEntry = {
   [key: string]: any;
 };
 
-type ExtendedDataEntry = DataEntry & {
+export type ExtendedDataEntry = DataEntry & {
   degrees: number;
   startOffset: number;
   percentage: number;
@@ -35,8 +35,3 @@ type ExtendedDataEntry = DataEntry & {
 
 export type Data = DataEntry[];
 export type ExtendedData = ExtendedDataEntry[];
-
-export type FilterSegmentsProp = (
-  dataEntry: ExtendedDataEntry,
-  index: number
-) => boolean;

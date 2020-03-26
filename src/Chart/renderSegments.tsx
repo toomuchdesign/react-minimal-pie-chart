@@ -1,7 +1,7 @@
 import React from 'react';
 import Path from '../Path';
 import { extractPercentage, extractAbsoluteCoordinates } from '../utils';
-import { ExtendedData, StyleObject } from '../commonTypes';
+import { ExtendedData, ExtendedDataEntry, StyleObject } from '../commonTypes';
 import { Props as ChartProps } from './index';
 
 function makeSegmentTransitionStyle(
@@ -49,12 +49,23 @@ export default function renderSegments(
 
   const { cx, cy, radius } = extractAbsoluteCoordinates(props);
   const lineWidth = extractPercentage(radius, props.lineWidth);
-  const paths = data.map((dataEntry, index) => {
-    const startAngle = props.startAngle + dataEntry.startOffset;
 
-    if (props.filterSegments({ ...dataEntry }, index) === true) {
-      return null;
-    }
+  let filteredData: ExtendedData = data;
+  if (typeof props.filterSegments === 'function') {
+    filteredData = data.reduce(
+      (acc: ExtendedData, dataEntry: ExtendedDataEntry, index: number) => {
+        if (props.filterSegments({ ...dataEntry }, index) === true) {
+          return acc;
+        }
+
+        return [...acc, dataEntry];
+      },
+      []
+    );
+  }
+
+  const paths = filteredData.map((dataEntry, index) => {
+    const startAngle = props.startAngle + dataEntry.startOffset;
 
     return (
       <Path

@@ -6,7 +6,7 @@ import {
   EventHandler,
   LabelProp,
   StyleObject,
-  FilterSegmentsProp,
+  ExtendedDataEntry,
 } from '../commonTypes';
 import extendData from './extendData';
 import renderLabels from './renderLabels';
@@ -21,7 +21,7 @@ export type Props = typeof ReactMinimalPieChart.defaultProps & {
   cx?: number;
   cy?: number;
   data: Data;
-  filterSegments: FilterSegmentsProp;
+  filterSegments: (dataEntry: ExtendedDataEntry, index: number) => boolean;
   lengthAngle?: number;
   lineWidth?: number;
   injectSvg?: () => React.ReactElement | void;
@@ -50,7 +50,6 @@ export default class ReactMinimalPieChart extends Component<Props> {
     animationEasing: 'ease-out',
     cx: 50,
     cy: 50,
-    filterSegments: () => false,
     label: false,
     labelPosition: 50,
     lengthAngle: 360,

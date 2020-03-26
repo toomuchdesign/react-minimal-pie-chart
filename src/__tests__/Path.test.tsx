@@ -47,21 +47,6 @@ describe('Path', () => {
     });
   });
 
-  it('Render all segments by default', () => {
-    const { container } = render({});
-    const paths = container.querySelectorAll('path');
-    expect(paths).toHaveLength(dataMock.length);
-  });
-
-  it('Do not render a segment', () => {
-    const firstDataEntry = dataMock[0];
-    const { container } = render({
-      filterSegments: dataEntry => dataEntry.value === firstDataEntry.value,
-    });
-    const paths = container.querySelectorAll('path');
-    expect(paths).toHaveLength(dataMock.length - 1);
-  });
-
   it('render path with "stroke-width" equal to the half of "lineWidth" prop', () => {
     const { container } = render({
       lineWidth: 5,

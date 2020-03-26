@@ -355,4 +355,15 @@ describe('Chart', () => {
       });
     });
   });
+
+  describe('filterSegments', () => {
+    it('Do not render a segment', () => {
+      const firstDataEntry = dataMock[0];
+      const { container } = render({
+        filterSegments: dataEntry => dataEntry.value === firstDataEntry.value,
+      });
+      const paths = container.querySelectorAll('path');
+      expect(paths).toHaveLength(dataMock.length - 1);
+    });
+  });
 });
