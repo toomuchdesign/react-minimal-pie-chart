@@ -229,14 +229,10 @@ exports[`Dist bundle is unchanged 1`] = `
   function ReactMinimalPieChartPath(_ref) {
     var cx = _ref.cx,
         cy = _ref.cy,
-        _ref$startAngle = _ref.startAngle,
-        startAngle = _ref$startAngle === void 0 ? 0 : _ref$startAngle,
-        _ref$lengthAngle = _ref.lengthAngle,
-        lengthAngle = _ref$lengthAngle === void 0 ? 0 : _ref$lengthAngle,
-        _ref$radius = _ref.radius,
-        radius = _ref$radius === void 0 ? 100 : _ref$radius,
-        _ref$lineWidth = _ref.lineWidth,
-        lineWidth = _ref$lineWidth === void 0 ? 100 : _ref$lineWidth,
+        startAngle = _ref.startAngle,
+        lengthAngle = _ref.lengthAngle,
+        radius = _ref.radius,
+        lineWidth = _ref.lineWidth,
         reveal = _ref.reveal,
         title = _ref.title,
         props = _objectWithoutPropertiesLoose(_ref, [\\"cx\\", \\"cy\\", \\"startAngle\\", \\"lengthAngle\\", \\"radius\\", \\"lineWidth\\", \\"reveal\\", \\"title\\"]);
@@ -275,6 +271,10 @@ exports[`Dist bundle is unchanged 1`] = `
   }
 
   function renderSegments(data, props, hide) {
+    if (hide === void 0) {
+      hide = false;
+    }
+
     var style = props.segmentsStyle;
 
     if (props.animate) {
@@ -357,7 +357,7 @@ exports[`Dist bundle is unchanged 1`] = `
       var _this;
 
       _this = _Component.call(this, props) || this;
-      _this.hideSegments = void 0;
+      _this.hideSegments = false;
       _this.initialAnimationTimerId = void 0;
       _this.initialAnimationRAFId = void 0;
 
@@ -435,9 +435,6 @@ exports[`Dist bundle is unchanged 1`] = `
     labelPosition: 50,
     lengthAngle: 360,
     lineWidth: 100,
-    onMouseOver: undefined,
-    onMouseOut: undefined,
-    onClick: undefined,
     paddingAngle: 0,
     radius: 50,
     rounded: false,
