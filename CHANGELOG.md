@@ -1,3 +1,15 @@
+# 7.0.0
+
+### Breaking Changes
+
+- Remove `src` from distribution
+- `EventHandler` expects `void` as return type
+
+### Minor Changes
+
+- Introduce Typescript natively
+- Remove `prop-types` from private components
+
 # 6.0.1
 
 ### Bugfixes
