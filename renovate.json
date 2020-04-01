@@ -13,7 +13,7 @@
       "groupName": "Update babel packages"
     },
     {
-      "packagePatterns": ["^@storybook/"],
+      "packagePatterns": ["^@storybook/", "babel-loader"],
       "groupName": "Update storybook packages"
     },
     {
