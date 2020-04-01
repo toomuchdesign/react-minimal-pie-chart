@@ -144,7 +144,7 @@ exports[`Dist bundle is unchanged 1`] = `
         color = _ref.color,
         props = _objectWithoutPropertiesLoose(_ref, [\\"data\\", \\"dataIndex\\", \\"color\\"]);
 
-    return React__default.createElement(\\"text\\", _extends({
+    return /*#__PURE__*/React__default.createElement(\\"text\\", _extends({
       textAnchor: \\"middle\\",
       dominantBaseline: \\"middle\\",
       fill: color
@@ -167,7 +167,7 @@ exports[`Dist bundle is unchanged 1`] = `
       }
     }
 
-    return React__default.createElement(ReactMinimalPieChartLabel, labelProps, label);
+    return /*#__PURE__*/React__default.createElement(ReactMinimalPieChartLabel, labelProps, label);
   }
 
   function renderLabels(data, props) {
@@ -249,12 +249,12 @@ exports[`Dist bundle is unchanged 1`] = `
       strokeDashoffset = strokeDasharray - extractPercentage(strokeDasharray, reveal);
     }
 
-    return React__default.createElement(\\"path\\", _extends({
+    return /*#__PURE__*/React__default.createElement(\\"path\\", _extends({
       d: pathCommands,
       strokeWidth: lineWidth,
       strokeDasharray: strokeDasharray,
       strokeDashoffset: strokeDashoffset
-    }, props), title && React__default.createElement(\\"title\\", null, title));
+    }, props), title && /*#__PURE__*/React__default.createElement(\\"title\\", null, title));
   }
   ReactMinimalPieChartPath.displayName = 'ReactMinimalPieChartPath';
 
@@ -301,7 +301,7 @@ exports[`Dist bundle is unchanged 1`] = `
     var lineWidth = extractPercentage(radius, props.lineWidth);
     var paths = data.map(function (dataEntry, index) {
       var startAngle = props.startAngle + dataEntry.startOffset;
-      return React__default.createElement(ReactMinimalPieChartPath, {
+      return /*#__PURE__*/React__default.createElement(ReactMinimalPieChartPath, {
         key: dataEntry.key || index,
         cx: cx,
         cy: cy,
@@ -331,7 +331,7 @@ exports[`Dist bundle is unchanged 1`] = `
     });
 
     if (props.background) {
-      paths.unshift(React__default.createElement(ReactMinimalPieChartPath, {
+      paths.unshift( /*#__PURE__*/React__default.createElement(ReactMinimalPieChartPath, {
         key: \\"bg\\",
         cx: cx,
         cy: cy,
@@ -348,9 +348,7 @@ exports[`Dist bundle is unchanged 1`] = `
     return paths;
   }
 
-  var ReactMinimalPieChart =
-  /*#__PURE__*/
-  function (_Component) {
+  var ReactMinimalPieChart = /*#__PURE__*/function (_Component) {
     _inheritsLoose(ReactMinimalPieChart, _Component);
 
     function ReactMinimalPieChart(props) {
@@ -408,10 +406,10 @@ exports[`Dist bundle is unchanged 1`] = `
       }
 
       var extendedData = extendData(props);
-      return React__default.createElement(\\"div\\", {
+      return /*#__PURE__*/React__default.createElement(\\"div\\", {
         className: props.className,
         style: props.style
-      }, React__default.createElement(\\"svg\\", {
+      }, /*#__PURE__*/React__default.createElement(\\"svg\\", {
         viewBox: \\"0 0 \\" + props.viewBoxSize[0] + \\" \\" + props.viewBoxSize[1],
         width: \\"100%\\",
         height: \\"100%\\",
