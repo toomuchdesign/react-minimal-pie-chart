@@ -76,7 +76,7 @@
     "@types/react": "^16.9.23",
     "all-contributors-cli": "^6.13.0",
     "babel-jest": "^24.9.0",
-    "babel-loader": "^8.0.6",
+    "babel-loader": "^8.1.0",
     "coveralls": "^3.0.9",
     "es-check": "^5.0.0",
     "husky": "^3.0.9",
