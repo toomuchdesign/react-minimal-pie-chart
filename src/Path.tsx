@@ -18,7 +18,7 @@ function makePathCommands(
     degreesToRadians(startAngle),
     degreesToRadians(startAngle + patchedLengthAngle)
   )
-    .map(command => command.join(' '))
+    .map((command) => command.join(' '))
     .join(' ');
 }
 

@@ -1,5 +1,5 @@
 const test = process.env.NODE_ENV === 'test';
-module.exports = api => {
+module.exports = (api) => {
   api.cache(false);
   return {
     presets: [

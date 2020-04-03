@@ -7,7 +7,7 @@ describe('Path', () => {
     const { container } = render();
     const paths = container.querySelectorAll('path');
     expect(paths.length).toEqual(dataMock.length);
-    paths.forEach(path => {
+    paths.forEach((path) => {
       expect(path).toHaveAttribute('d', expect.any(String));
     });
   });
@@ -18,13 +18,13 @@ describe('Path', () => {
     });
     const paths = container.querySelectorAll('path');
     expect(paths.length).toEqual(2);
-    paths.forEach(path => {
+    paths.forEach((path) => {
       expect(path).toHaveAttribute('d', '');
     });
   });
 
   it('receive "segmentsStyle", "rounded", "data.color" and "data.style" props', () => {
-    const dataMockWithStyle = dataMock.map(entry => ({
+    const dataMockWithStyle = dataMock.map((entry) => ({
       ...entry,
       ...{
         color: 'black',
@@ -38,7 +38,7 @@ describe('Path', () => {
     });
     const paths = container.querySelectorAll('path');
 
-    paths.forEach(path => {
+    paths.forEach((path) => {
       expect(path).toHaveAttribute('stroke', 'black');
       expect(path).toHaveAttribute('stroke-linecap', 'round');
       expect(path).toHaveStyle(`

@@ -17,7 +17,7 @@ const expectedNormalizedDataMock = {
   dx: expect.any(Number),
   dy: expect.any(Number),
   textAnchor: expect.any(String),
-  data: dataMock.map(entry => ({
+  data: dataMock.map((entry) => ({
     ...entry,
     degrees: expect.any(Number),
     startOffset: expect.any(Number),
@@ -30,7 +30,7 @@ const expectedNormalizedDataMock = {
 jest.useFakeTimers();
 
 beforeAll(() => {
-  global.requestAnimationFrame = callback => {
+  global.requestAnimationFrame = (callback) => {
     callback();
     return 'id';
   };
@@ -64,8 +64,14 @@ describe('Chart', () => {
   describe('"viewBoxSize"', () => {
     test.each([
       [undefined, [100, 100]],
-      [[500, 500], [500, 500]],
-      [[500, 250], [500, 250]],
+      [
+        [500, 500],
+        [500, 500],
+      ],
+      [
+        [500, 250],
+        [500, 250],
+      ],
     ])(
       'renders full-width chart in a SVG viewBox of given size',
       (viewBoxSize, expected) => {
@@ -95,7 +101,7 @@ describe('Chart', () => {
       const { container } = render({
         lengthAngle: pieLengthAngle,
       });
-      container.querySelectorAll('path').forEach(path => {
+      container.querySelectorAll('path').forEach((path) => {
         pathsTotalLengthAngle += getArcInfo(path).lengthAngle;
       });
       expect(pathsTotalLengthAngle).toEqual(pieLengthAngle);
@@ -108,7 +114,7 @@ describe('Chart', () => {
       const { container } = render({
         lengthAngle: pieLengthAngle,
       });
-      container.querySelectorAll('path').forEach(path => {
+      container.querySelectorAll('path').forEach((path) => {
         pathsTotalLengthAngle += getArcInfo(path).lengthAngle;
       });
       expect(pathsTotalLengthAngle).toEqual(pieLengthAngle);
@@ -125,7 +131,7 @@ describe('Chart', () => {
         lengthAngle: pieLengthAngle,
         paddingAngle: 10,
       });
-      container.querySelectorAll('path').forEach(path => {
+      container.querySelectorAll('path').forEach((path) => {
         pathsTotalLengthAngle += getArcInfo(path).lengthAngle;
       });
       expect(pieLengthAngle).toEqual(
@@ -254,7 +260,7 @@ describe('Chart', () => {
     describe('provided as function returning a value', () => {
       it('renders 3 <text> elements with custom content', () => {
         const { container } = render({
-          label: props => props.dataIndex,
+          label: (props) => props.dataIndex,
         });
 
         container.querySelectorAll('text').forEach((label, index) => {
@@ -280,7 +286,9 @@ describe('Chart', () => {
     describe('provided as function returning an element', () => {
       it('render returned elements', () => {
         const { container } = render({
-          label: props => <text key={props.dataIndex}>{props.dataIndex}</text>,
+          label: (props) => (
+            <text key={props.dataIndex}>{props.dataIndex}</text>
+          ),
         });
 
         container.querySelectorAll('text').forEach((label, index) => {
@@ -312,7 +320,7 @@ describe('Chart', () => {
         labelStyle: { pointerEvents: 'none' },
       });
 
-      container.querySelectorAll('text').forEach(label => {
+      container.querySelectorAll('text').forEach((label) => {
         expect(label).toHaveStyle('pointer-events: none');
       });
     });
@@ -336,7 +344,7 @@ describe('Chart', () => {
       ['mouseout', fireEvent.mouseOut],
     ])('%s', (eventName, event) => {
       it('fire callback with expected arguments', () => {
-        const eventCallbackMock = jest.fn(e => e.persist());
+        const eventCallbackMock = jest.fn((e) => e.persist());
         const { container } = render({
           onClick: eventCallbackMock,
           onMouseOver: eventCallbackMock,
