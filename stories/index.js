@@ -22,7 +22,28 @@ storiesOf('Pie Chart', module)
   .add('Default', () => <PieChart data={dataMock} />)
   .add('Custom size', () => (
     <PieChart data={dataMock} style={{ height: '100px' }} />
-  ));
+  ))
+  .add('Spaced', () => (
+    <PieChart data={dataMock} segmentsShift={0.5} radius={50 - 0.5} />
+  ))
+  .add('Exploded', () => {
+    const shiftSize = 7;
+    const extendedDataMock = dataMock.map((entry, index) =>
+      index === 0 ? { ...entry, shift: shiftSize } : entry
+    );
+    return (
+      <PieChart
+        data={extendedDataMock}
+        radius={50 - shiftSize}
+        segmentsShift={0.5}
+        label
+        // viewBoxSize={[300, 300]}
+        labelStyle={{
+          ...defaultLabelStyle,
+        }}
+      />
+    );
+  });
 
 storiesOf('Donut Chart', module)
   .add("Custom arcs' width", () => <PieChart data={dataMock} lineWidth={15} />)

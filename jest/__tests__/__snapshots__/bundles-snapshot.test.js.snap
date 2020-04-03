@@ -63,7 +63,6 @@ exports[`Dist bundle is unchanged 1`] = `
 
     return Math.round((number + Number.EPSILON) * divisor) / divisor;
   }
-
   function degreesToRadians(degrees) {
     return degrees * Math.PI / 180;
   }
@@ -104,10 +103,22 @@ exports[`Dist bundle is unchanged 1`] = `
     var _props$viewBoxSize = props.viewBoxSize,
         viewBoxWidth = _props$viewBoxSize[0],
         viewBoxHeight = _props$viewBoxSize[1];
+    var radius = extractPercentage(props.radius, viewBoxWidth);
     return {
       cx: extractPercentage(props.cx, viewBoxWidth),
       cy: extractPercentage(props.cy, viewBoxHeight),
-      radius: extractPercentage(props.radius, viewBoxWidth)
+      radius: radius,
+      segmentsShift: extractPercentage(props.segmentsShift, radius)
+    };
+  }
+  function bisectorAngle(startAngle, lengthAngle) {
+    return startAngle + lengthAngle / 2;
+  }
+  function shiftVectorAlongAngle(angle, distance) {
+    var angleRadians = degreesToRadians(angle);
+    return {
+      dx: distance * Math.cos(angleRadians),
+      dy: distance * Math.sin(angleRadians)
     };
   }
   function isNumber(value) {
@@ -183,15 +194,19 @@ exports[`Dist bundle is unchanged 1`] = `
     var _extractAbsoluteCoord = extractAbsoluteCoordinates(props),
         cx = _extractAbsoluteCoord.cx,
         cy = _extractAbsoluteCoord.cy,
-        radius = _extractAbsoluteCoord.radius;
+        radius = _extractAbsoluteCoord.radius,
+        segmentsShift = _extractAbsoluteCoord.segmentsShift;
 
-    var labelPosition = extractPercentage(radius, props.labelPosition);
     return data.map(function (dataEntry, index) {
+      var segmentShift = dataEntry.shift === undefined ? segmentsShift : extractPercentage(radius, dataEntry.shift);
+      var labelPosition = extractPercentage(radius, props.labelPosition) + segmentShift;
       var startAngle = props.startAngle + dataEntry.startOffset;
-      var halfAngle = startAngle + dataEntry.degrees / 2;
-      var halfAngleRadians = degreesToRadians(halfAngle);
-      var dx = Math.cos(halfAngleRadians) * labelPosition;
-      var dy = Math.sin(halfAngleRadians) * labelPosition; // This object is passed as props to the \\"label\\" component
+      var segmentBisector = bisectorAngle(startAngle, dataEntry.degrees);
+
+      var _shiftVectorAlongAngl = shiftVectorAlongAngle(segmentBisector, labelPosition),
+          dx = _shiftVectorAlongAngl.dx,
+          dy = _shiftVectorAlongAngl.dy; // This object is passed as props to the \\"label\\" component
+
 
       var labelProps = {
         key: \\"label-\\" + (dataEntry.key || index),
@@ -200,8 +215,8 @@ exports[`Dist bundle is unchanged 1`] = `
         dx: dx,
         dy: dy,
         textAnchor: evaluateLabelTextAnchor({
-          lineWidth: props.lineWidth,
           labelPosition: props.labelPosition,
+          lineWidth: props.lineWidth,
           labelHorizontalShift: dx
         }),
         data: data,
@@ -237,22 +252,29 @@ exports[`Dist bundle is unchanged 1`] = `
   function ReactMinimalPieChartPath(_ref) {
     var cx = _ref.cx,
         cy = _ref.cy,
-        startAngle = _ref.startAngle,
         lengthAngle = _ref.lengthAngle,
-        radius = _ref.radius,
         lineWidth = _ref.lineWidth,
+        radius = _ref.radius,
+        _ref$shift = _ref.shift,
+        shift = _ref$shift === void 0 ? 0 : _ref$shift,
         reveal = _ref.reveal,
+        startAngle = _ref.startAngle,
         title = _ref.title,
-        props = _objectWithoutPropertiesLoose(_ref, [\\"cx\\", \\"cy\\", \\"startAngle\\", \\"lengthAngle\\", \\"radius\\", \\"lineWidth\\", \\"reveal\\", \\"title\\"]);
+        props = _objectWithoutPropertiesLoose(_ref, [\\"cx\\", \\"cy\\", \\"lengthAngle\\", \\"lineWidth\\", \\"radius\\", \\"shift\\", \\"reveal\\", \\"startAngle\\", \\"title\\"]);
 
-    var actualRadio = radius - lineWidth / 2;
-    var pathCommands = makePathCommands(cx, cy, startAngle, lengthAngle, actualRadio);
+    var pathRadius = radius - lineWidth / 2;
+
+    var _shiftVectorAlongAngl = shiftVectorAlongAngle(bisectorAngle(startAngle, lengthAngle), shift),
+        dx = _shiftVectorAlongAngl.dx,
+        dy = _shiftVectorAlongAngl.dy;
+
+    var pathCommands = makePathCommands(cx + dx, cy + dy, startAngle, lengthAngle, pathRadius);
     var strokeDasharray;
     var strokeDashoffset; // Animate/hide paths with \\"stroke-dasharray\\" + \\"stroke-dashoffset\\"
     // https://css-tricks.com/svg-line-animation-works/
 
     if (isNumber(reveal)) {
-      var pathLength = degreesToRadians(actualRadio) * lengthAngle;
+      var pathLength = degreesToRadians(pathRadius) * lengthAngle;
       strokeDasharray = Math.abs(pathLength);
       strokeDashoffset = strokeDasharray - extractPercentage(strokeDasharray, reveal);
     }
@@ -296,10 +318,12 @@ exports[`Dist bundle is unchanged 1`] = `
     var _extractAbsoluteCoord = extractAbsoluteCoordinates(props),
         cx = _extractAbsoluteCoord.cx,
         cy = _extractAbsoluteCoord.cy,
-        radius = _extractAbsoluteCoord.radius;
+        radius = _extractAbsoluteCoord.radius,
+        segmentsShift = _extractAbsoluteCoord.segmentsShift;
 
     var lineWidth = extractPercentage(radius, props.lineWidth);
     var paths = data.map(function (dataEntry, index) {
+      var shift = dataEntry.shift === undefined ? segmentsShift : extractPercentage(dataEntry.shift, radius);
       return /*#__PURE__*/React__default.createElement(ReactMinimalPieChartPath, {
         key: dataEntry.key || index,
         cx: cx,
@@ -309,6 +333,7 @@ exports[`Dist bundle is unchanged 1`] = `
         radius: radius,
         lineWidth: lineWidth,
         reveal: reveal,
+        shift: shift,
         title: dataEntry.title,
         style: Object.assign({}, props.segmentsStyle, segmentTransitionsCombined, dataEntry.style),
         stroke: dataEntry.color,
@@ -448,6 +473,7 @@ exports[`Dist bundle is unchanged 1`] = `
     paddingAngle: 0,
     radius: 50,
     rounded: false,
+    segmentsShift: 0,
     startAngle: 0,
     viewBoxSize: [100, 100]
   };
@@ -477,6 +503,7 @@ exports[`Dist bundle is unchanged 1`] = `
     radius: PropTypes.number,
     reveal: PropTypes.number,
     rounded: PropTypes.bool,
+    segmentsShift: PropTypes.number,
     segmentsStyle: stylePropType,
     segmentsTabIndex: PropTypes.number,
     startAngle: PropTypes.number,

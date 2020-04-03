@@ -46,9 +46,14 @@ export default function renderSegments(
       props.segmentsStyle
     );
 
-  const { cx, cy, radius } = extractAbsoluteCoordinates(props);
+  const { cx, cy, radius, segmentsShift } = extractAbsoluteCoordinates(props);
   const lineWidth = extractPercentage(radius, props.lineWidth);
   const paths = data.map((dataEntry, index) => {
+    const shift =
+      dataEntry.shift === undefined
+        ? segmentsShift
+        : extractPercentage(dataEntry.shift, radius);
+
     return (
       <Path
         key={dataEntry.key || index}
@@ -59,6 +64,7 @@ export default function renderSegments(
         radius={radius}
         lineWidth={lineWidth}
         reveal={reveal}
+        shift={shift}
         title={dataEntry.title}
         style={Object.assign(
           {},

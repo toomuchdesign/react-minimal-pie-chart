@@ -1,7 +1,12 @@
 // @ts-nocheck
 import { fireEvent } from '@testing-library/react';
-import { render, dataMock } from './testUtils';
-import { degreesToRadians } from '../utils';
+import { render, dataMock, getArcInfo, PieChart } from './testUtils';
+import {
+  degreesToRadians,
+  extractPercentage,
+  bisectorAngle,
+  shiftVectorAlongAngle,
+} from '../utils';
 
 describe('Path', () => {
   it('render one path for each entry in props.data', () => {
@@ -48,11 +53,86 @@ describe('Path', () => {
     });
   });
 
+  describe('"segmentsShift"', () => {
+    /*
+     * 1- Render both shifted and non-shifted segments
+     * 2- Evaluate expected absolute segment's shift
+     * 3- Compare shifted and non-shifted segments info
+     */
+    const segmentsShift = 1;
+    const absoluteShift = extractPercentage(
+      PieChart.defaultProps.radius,
+      segmentsShift
+    );
+
+    it('renders segments translated radially', () => {
+      const { container: originalPie } = render();
+      const { container: shiftedPie } = render({
+        segmentsShift,
+      });
+      const originalPaths = originalPie.querySelectorAll('path');
+      const shiftedPaths = shiftedPie.querySelectorAll('path');
+
+      originalPaths.forEach((path, index) => {
+        const {
+          startPoint,
+          startAngle,
+          lengthAngle,
+          radius,
+          center,
+        } = getArcInfo(path);
+        const shiftedPathInfo = getArcInfo(shiftedPaths[index]);
+        const { dx, dy } = shiftVectorAlongAngle(
+          bisectorAngle(startAngle, lengthAngle),
+          absoluteShift
+        );
+
+        const expected = {
+          startPoint: {
+            x: expect.toEqualWithRoundingError(startPoint.x + dx),
+            y: startPoint.y + dy,
+          },
+          startAngle: startAngle,
+          lengthAngle: lengthAngle,
+          radius: radius,
+          center: {
+            x: center.x + dx,
+            y: center.y + dy,
+          },
+        };
+
+        expect(shiftedPathInfo).toEqual(expected);
+      });
+    });
+
+    it('renders labels translated radially', () => {
+      const { container, getAllByText } = render({
+        segmentsShift,
+        label: () => 'label',
+        labelPosition: 0, // Render labels at the segments' origin
+      });
+      const paths = container.querySelectorAll('path');
+      const shiftedLabels = getAllByText('label');
+
+      shiftedLabels.forEach((label, index) => {
+        const { startAngle, lengthAngle } = getArcInfo(paths[index]);
+        const { dx, dy } = shiftVectorAlongAngle(
+          bisectorAngle(startAngle, lengthAngle),
+          absoluteShift
+        );
+
+        expect(label.getAttribute('dx')).toEqualWithRoundingError(dx);
+        expect(label.getAttribute('dy')).toEqualWithRoundingError(dy);
+      });
+    });
+  });
+
   describe('lineWidth prop', () => {
     it('render path with "stroke-width" equal to the half of "lineWidth" prop', () => {
       const { container } = render({
         lineWidth: 5,
       });
+
       const path = container.querySelector('path');
       expect(path).toHaveAttribute('stroke-width', `${5 / 2}`);
     });

@@ -1,10 +1,11 @@
 import React from 'react';
 import DefaultLabel from '../Label';
 import {
-  degreesToRadians,
   evaluateLabelTextAnchor,
   extractPercentage,
   extractAbsoluteCoordinates,
+  bisectorAngle,
+  shiftVectorAlongAngle,
 } from '../utils';
 import type { Props as LabelProps } from '../Label';
 import type { ExtendedData, LabelProp } from '../commonTypes';
@@ -31,15 +32,17 @@ function renderLabelItem(
 }
 
 export default function renderLabels(data: ExtendedData, props: ChartProps) {
-  const { cx, cy, radius } = extractAbsoluteCoordinates(props);
-  const labelPosition = extractPercentage(radius, props.labelPosition);
-
+  const { cx, cy, radius, segmentsShift } = extractAbsoluteCoordinates(props);
   return data.map((dataEntry, index) => {
+    const segmentShift =
+      dataEntry.shift === undefined
+        ? segmentsShift
+        : extractPercentage(radius, dataEntry.shift);
+    const labelPosition =
+      extractPercentage(radius, props.labelPosition) + segmentShift;
     const startAngle = props.startAngle + dataEntry.startOffset;
-    const halfAngle = startAngle + dataEntry.degrees / 2;
-    const halfAngleRadians = degreesToRadians(halfAngle);
-    const dx = Math.cos(halfAngleRadians) * labelPosition;
-    const dy = Math.sin(halfAngleRadians) * labelPosition;
+    const segmentBisector = bisectorAngle(startAngle, dataEntry.degrees);
+    const { dx, dy } = shiftVectorAlongAngle(segmentBisector, labelPosition);
 
     // This object is passed as props to the "label" component
     const labelProps = {
@@ -49,8 +52,8 @@ export default function renderLabels(data: ExtendedData, props: ChartProps) {
       dx,
       dy,
       textAnchor: evaluateLabelTextAnchor({
-        lineWidth: props.lineWidth,
         labelPosition: props.labelPosition,
+        lineWidth: props.lineWidth,
         labelHorizontalShift: dx,
       }),
       data: data,

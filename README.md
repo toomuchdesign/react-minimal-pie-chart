@@ -65,6 +65,7 @@ https://unpkg.com/react-minimal-pie-chart/dist/index.js
 | **totalValue**        | _Number_                              | Total value represented by the full chart                                                                                                                                                         | -          |
 | **paddingAngle**      | _Number_                              | Angle between two segments                                                                                                                                                                        | -          |
 | **rounded**           | _Bool_                                | Round line caps of each segment                                                                                                                                                                   | false      |
+| **segmentsShift**     | _Number_ (%)                          | Translates segments radially. Percentage of chart's radio (`props.radius` value might need to be adjusted accordingly to prevent segments from overflowing chart's boundaries)                    | 0          |
 | **segmentsStyle**     | _Object_                              | Style object assigned to each segment                                                                                                                                                             | -          |
 | **segmentsTabIndex**  | _Number_                              | [`tabindex` attribute](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/tabindex) assigned to segments                                                                                  | -          |
 | **label**             | _Boolean_, _ReactElement_, _Function_ | If `true` set, labels will be drawn automatically. If `ReactElement` set, the option can be the custom label element. If set a `function`, the function will be called to render customized label | false      |
@@ -95,16 +96,18 @@ https://unpkg.com/react-minimal-pie-chart/dist/index.js
 type dataProps = {
   value: number;
   color: string;
-  title?: string | number;
   key?: string | number;
+  shift?: number;
   style?: { [key: string]: string | number };
+  title?: string | number;
 }[];
 ```
 
-Each data entry optionally accepts:
+Each data entry accepts the following **optional props**:
 
-- a [**`key`** property](https://reactjs.org/docs/lists-and-keys.html) just in case items' indexes weren't enough
-- a **`style`** property targeting the corresponding chart segment
+- [**`key`**](https://reactjs.org/docs/lists-and-keys.html): in case items' indexes weren't enough
+- **`shift`**: explode the corresponding chart segment
+- **`style`**: style object assigned to the corresponding chart segment
 
 ### Custom labels with `label` prop
 

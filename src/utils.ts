@@ -48,10 +48,24 @@ export function extractPercentage(value: number, percentage: number) {
 
 export function extractAbsoluteCoordinates(props: ChartProps) {
   const [viewBoxWidth, viewBoxHeight] = props.viewBoxSize;
+  const radius = extractPercentage(props.radius, viewBoxWidth);
   return {
     cx: extractPercentage(props.cx, viewBoxWidth),
     cy: extractPercentage(props.cy, viewBoxHeight),
-    radius: extractPercentage(props.radius, viewBoxWidth),
+    radius,
+    segmentsShift: extractPercentage(props.segmentsShift, radius),
+  };
+}
+
+export function bisectorAngle(startAngle: number, lengthAngle: number) {
+  return startAngle + lengthAngle / 2;
+}
+
+export function shiftVectorAlongAngle(angle: number, distance: number) {
+  const angleRadians = degreesToRadians(angle);
+  return {
+    dx: distance * Math.cos(angleRadians),
+    dy: distance * Math.sin(angleRadians),
   };
 }
 
