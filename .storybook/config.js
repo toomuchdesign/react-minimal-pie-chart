@@ -22,7 +22,7 @@ addDecorator(
     inline: true,
   })
 );
-addDecorator(story => (
+addDecorator((story) => (
   <div>
     {story()}
     <p
@@ -40,7 +40,7 @@ addDecorator(story => (
     </p>
   </div>
 ));
-addDecorator(story => (
+addDecorator((story) => (
   <div
     style={{
       maxWidth: '400px',

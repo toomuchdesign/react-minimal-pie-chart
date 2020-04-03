@@ -4,6 +4,7 @@ coverage/
 dist/
 es/
 lib/
+types/
 package.json
 package-lock.json
 storybook-static

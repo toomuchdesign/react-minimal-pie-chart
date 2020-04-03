@@ -10,7 +10,7 @@ class DemoInteraction extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: props.data.map(entry => ({
+      data: props.data.map((entry) => ({
         ...entry,
         ...{ style: { strokeWidth: NORMAL_WIDTH } },
       })),
