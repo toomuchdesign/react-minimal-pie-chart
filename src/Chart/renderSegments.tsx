@@ -69,18 +69,24 @@ export default function renderSegments(
         fill="none"
         onMouseOver={
           props.onMouseOver &&
-          // @ts-ignore
-          ((e: React.MouseEvent) => props.onMouseOver(e, props.data, index))
+          ((e: React.MouseEvent) => {
+            // @ts-ignore
+            props.onMouseOver(e, props.data, index);
+          })
         }
         onMouseOut={
           props.onMouseOut &&
-          // @ts-ignore
-          ((e: React.MouseEvent) => props.onMouseOut(e, props.data, index))
+          ((e: React.MouseEvent) => {
+            // @ts-ignore
+            props.onMouseOut(e, props.data, index);
+          })
         }
         onClick={
           props.onClick &&
-          // @ts-ignore
-          ((e: React.MouseEvent) => props.onClick(e, props.data, index))
+          ((e: React.MouseEvent) => {
+            // @ts-ignore
+            props.onClick(e, props.data, index);
+          })
         }
       />
     );

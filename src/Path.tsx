@@ -1,6 +1,7 @@
 import React from 'react';
 import partialCircle from 'svg-partial-circle';
 import { degreesToRadians, extractPercentage, valueBetween } from './utils';
+import { StyleObject } from './commonTypes';
 
 function makePathCommands(
   cx: number,
@@ -25,13 +26,20 @@ function makePathCommands(
 type Props = {
   cx: number;
   cy: number;
-  startAngle: number;
+  fill?: string;
   lengthAngle: number;
-  radius: number;
   lineWidth: number;
+  key?: number | string;
+  onMouseOver?: (event: React.MouseEvent) => void;
+  onMouseOut?: (event: React.MouseEvent) => void;
+  onClick?: (event: React.MouseEvent) => void;
+  radius: number;
   reveal?: number;
+  startAngle: number;
+  stroke?: string;
+  strokeLinecap?: 'butt' | 'round' | 'square' | 'inherit';
+  style?: StyleObject;
   title?: string | number;
-  [key: string]: any;
 };
 
 export default function ReactMinimalPieChartPath({

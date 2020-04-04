@@ -315,17 +315,17 @@ exports[`Dist bundle is unchanged 1`] = `
         stroke: dataEntry.color,
         strokeLinecap: props.rounded ? 'round' : undefined,
         fill: \\"none\\",
-        onMouseOver: props.onMouseOver && // @ts-ignore
-        function (e) {
-          return props.onMouseOver(e, props.data, index);
+        onMouseOver: props.onMouseOver && function (e) {
+          // @ts-ignore
+          props.onMouseOver(e, props.data, index);
         },
-        onMouseOut: props.onMouseOut && // @ts-ignore
-        function (e) {
-          return props.onMouseOut(e, props.data, index);
+        onMouseOut: props.onMouseOut && function (e) {
+          // @ts-ignore
+          props.onMouseOut(e, props.data, index);
         },
-        onClick: props.onClick && // @ts-ignore
-        function (e) {
-          return props.onClick(e, props.data, index);
+        onClick: props.onClick && function (e) {
+          // @ts-ignore
+          props.onClick(e, props.data, index);
         }
       });
     });
