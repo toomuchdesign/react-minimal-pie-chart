@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import PieChart from '../src';
 import InteractionStory from './InteractionStory';
+import InteractionTabStory from './InteractionTabStory';
 import LoadingIndicatorStory from './LoadingIndicatorStory';
 import PartialLoadingIndicatorStory from './PartialLoadingIndicatorStory';
 
@@ -132,7 +133,8 @@ storiesOf('Interaction', module)
   .addParameters({ options: { showPanel: true, panelPosition: 'bottom' } })
   .add('click, mouseOver, mouseOut callbacks', () => (
     <InteractionStory data={dataMock} />
-  ));
+  ))
+  .add('Tab + Enter key press', () => <InteractionTabStory data={dataMock} />);
 
 storiesOf('Misc', module)
   .add('Single gradient', () => (
