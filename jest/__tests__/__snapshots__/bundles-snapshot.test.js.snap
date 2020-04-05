@@ -314,6 +314,7 @@ exports[`Dist bundle is unchanged 1`] = `
         style: Object.assign({}, style, dataEntry.style),
         stroke: dataEntry.color,
         strokeLinecap: props.rounded ? 'round' : undefined,
+        tabIndex: props.segmentsTabIndex,
         fill: \\"none\\",
         onMouseOver: props.onMouseOver && function (e) {
           // @ts-ignore
@@ -463,6 +464,7 @@ exports[`Dist bundle is unchanged 1`] = `
     reveal: PropTypes.number,
     rounded: PropTypes.bool,
     segmentsStyle: stylePropType,
+    segmentsTabIndex: PropTypes.number,
     startAngle: PropTypes.number,
     style: stylePropType,
     totalValue: PropTypes.number,

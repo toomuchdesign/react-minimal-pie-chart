@@ -66,6 +66,7 @@ export default function renderSegments(
         style={Object.assign({}, style, dataEntry.style)}
         stroke={dataEntry.color}
         strokeLinecap={props.rounded ? 'round' : undefined}
+        tabIndex={props.segmentsTabIndex}
         fill="none"
         onMouseOver={
           props.onMouseOver &&
