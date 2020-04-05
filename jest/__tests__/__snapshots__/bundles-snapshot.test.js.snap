@@ -316,6 +316,22 @@ exports[`Dist bundle is unchanged 1`] = `
         strokeLinecap: props.rounded ? 'round' : undefined,
         tabIndex: props.segmentsTabIndex,
         fill: \\"none\\",
+        onBlur: props.onBlur && function (e) {
+          // @ts-ignore
+          props.onBlur(e, props.data, index);
+        },
+        onClick: props.onClick && function (e) {
+          // @ts-ignore
+          props.onClick(e, props.data, index);
+        },
+        onFocus: props.onFocus && function (e) {
+          // @ts-ignore
+          props.onFocus(e, props.data, index);
+        },
+        onKeyDown: props.onKeyDown && function (e) {
+          // @ts-ignore
+          props.onKeyDown(e, props.data, index);
+        },
         onMouseOver: props.onMouseOver && function (e) {
           // @ts-ignore
           props.onMouseOver(e, props.data, index);
@@ -323,10 +339,6 @@ exports[`Dist bundle is unchanged 1`] = `
         onMouseOut: props.onMouseOut && function (e) {
           // @ts-ignore
           props.onMouseOut(e, props.data, index);
-        },
-        onClick: props.onClick && function (e) {
-          // @ts-ignore
-          props.onClick(e, props.data, index);
         }
       });
     });
@@ -456,7 +468,10 @@ exports[`Dist bundle is unchanged 1`] = `
     labelStyle: stylePropType,
     lengthAngle: PropTypes.number,
     lineWidth: PropTypes.number,
+    onBlur: PropTypes.func,
     onClick: PropTypes.func,
+    onFocus: PropTypes.func,
+    onKeyDown: PropTypes.func,
     onMouseOut: PropTypes.func,
     onMouseOver: PropTypes.func,
     paddingAngle: PropTypes.number,

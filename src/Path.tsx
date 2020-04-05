@@ -30,9 +30,12 @@ type Props = {
   lengthAngle: number;
   lineWidth: number;
   key?: number | string;
-  onMouseOver?: (event: React.MouseEvent) => void;
-  onMouseOut?: (event: React.MouseEvent) => void;
+  onBlur?: (event: React.FocusEvent) => void;
   onClick?: (event: React.MouseEvent) => void;
+  onFocus?: (event: React.FocusEvent) => void;
+  onKeyDown?: (event: React.KeyboardEvent) => void;
+  onMouseOut?: (event: React.MouseEvent) => void;
+  onMouseOver?: (event: React.MouseEvent) => void;
   radius: number;
   reveal?: number;
   startAngle: number;

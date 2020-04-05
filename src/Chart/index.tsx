@@ -21,7 +21,10 @@ export type Props = typeof ReactMinimalPieChart.defaultProps & {
   label?: LabelProp;
   labelPosition?: number;
   labelStyle?: StyleObject;
+  onBlur?: EventHandler;
   onClick?: EventHandler;
+  onFocus?: EventHandler;
+  onKeyDown?: EventHandler;
   onMouseOut?: EventHandler;
   onMouseOver?: EventHandler;
   paddingAngle?: number;
@@ -74,7 +77,10 @@ export default class ReactMinimalPieChart extends Component<Props> {
     labelStyle: stylePropType,
     lengthAngle: PropTypes.number,
     lineWidth: PropTypes.number,
+    onBlur: PropTypes.func,
     onClick: PropTypes.func,
+    onFocus: PropTypes.func,
+    onKeyDown: PropTypes.func,
     onMouseOut: PropTypes.func,
     onMouseOver: PropTypes.func,
     paddingAngle: PropTypes.number,

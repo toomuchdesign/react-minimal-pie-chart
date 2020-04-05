@@ -68,6 +68,34 @@ export default function renderSegments(
         strokeLinecap={props.rounded ? 'round' : undefined}
         tabIndex={props.segmentsTabIndex}
         fill="none"
+        onBlur={
+          props.onBlur &&
+          ((e: React.FocusEvent) => {
+            // @ts-ignore
+            props.onBlur(e, props.data, index);
+          })
+        }
+        onClick={
+          props.onClick &&
+          ((e: React.MouseEvent) => {
+            // @ts-ignore
+            props.onClick(e, props.data, index);
+          })
+        }
+        onFocus={
+          props.onFocus &&
+          ((e: React.FocusEvent) => {
+            // @ts-ignore
+            props.onFocus(e, props.data, index);
+          })
+        }
+        onKeyDown={
+          props.onKeyDown &&
+          ((e: React.KeyboardEvent) => {
+            // @ts-ignore
+            props.onKeyDown(e, props.data, index);
+          })
+        }
         onMouseOver={
           props.onMouseOver &&
           ((e: React.MouseEvent) => {
@@ -80,13 +108,6 @@ export default function renderSegments(
           ((e: React.MouseEvent) => {
             // @ts-ignore
             props.onMouseOut(e, props.data, index);
-          })
-        }
-        onClick={
-          props.onClick &&
-          ((e: React.MouseEvent) => {
-            // @ts-ignore
-            props.onClick(e, props.data, index);
           })
         }
       />
