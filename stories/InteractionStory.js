@@ -1,90 +1,57 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { action } from '@storybook/addon-actions';
 import PieChart from '../src';
 import { dataPropType } from '../src/propTypes';
 
-const FULL_WIDTH = 35;
-const NORMAL_WIDTH = 32;
+function DemoInteraction(props) {
+  const [selected, setSelected] = useState(undefined);
+  const [hovered, setHovered] = useState(undefined);
 
-class DemoInteraction extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: props.data.map((entry) => ({
-        ...entry,
-        ...{ style: { strokeWidth: NORMAL_WIDTH } },
-      })),
-      selected: undefined,
-    };
+  const onMouseOverHandler = (_, __, index) => {
+    setHovered(index);
+  };
 
-    this.onMouseOut = this.onMouseOut.bind(this);
-    this.onMouseOver = this.onMouseOver.bind(this);
-    this.onClick = this.onClick.bind(this);
-  }
+  const onMouseOutHandler = () => {
+    setHovered(undefined);
+  };
 
-  onMouseOut(event, propsData, index) {
-    const data = propsData.map((entry, i) => {
-      return i === index
-        ? {
-            ...entry,
-            color: this.props.data[index].color,
-          }
-        : entry;
-    });
-
-    this.setState({
-      data,
-    });
-  }
-
-  onMouseOver(event, propsData, index) {
-    const data = propsData.map((entry, i) => {
-      return i === index
-        ? {
-            ...entry,
-            color: 'grey',
-          }
-        : entry;
-    });
-
-    this.setState({
-      data,
-    });
-  }
-
-  onClick(event, propsData, index) {
+  const onClickHandler = (event, propsData, index) => {
     action('CLICK')(event, propsData, index);
     console.log('CLICK', { event, propsData, index });
+    setSelected(index);
+  };
 
-    const data = propsData.map((entry, i) => {
-      return {
-        ...entry,
-        ...{
-          style: {
-            ...entry.style,
-            strokeWidth: i === index ? FULL_WIDTH : NORMAL_WIDTH,
-          },
-        },
-      };
+  const data = props.data
+    .map((entry, i) => {
+      if (hovered === i) {
+        return {
+          ...entry,
+          color: 'grey',
+        };
+      }
+      return entry;
+    })
+    .map((entry, i) => {
+      if (selected === i) {
+        return {
+          ...entry,
+          ...{ style: { strokeWidth: 35 } },
+        };
+      }
+      return entry;
     });
 
-    this.setState({
-      data,
-    });
-  }
-
-  render() {
-    return (
-      <PieChart
-        data={this.state.data}
-        segmentsStyle={{ transition: 'stroke .3s' }}
-        onClick={this.onClick}
-        onMouseOver={this.onMouseOver}
-        onMouseOut={this.onMouseOut}
-        animate
-      />
-    );
-  }
+  return (
+    <PieChart
+      data={data}
+      radius={40}
+      lineWidth={75}
+      segmentsStyle={{ transition: 'stroke .3s' }}
+      onClick={onClickHandler}
+      onMouseOver={onMouseOverHandler}
+      onMouseOut={onMouseOutHandler}
+    />
+  );
 }
 
 DemoInteraction.propTypes = {
