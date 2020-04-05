@@ -39,6 +39,7 @@ type Props = {
   stroke?: string;
   strokeLinecap?: 'butt' | 'round' | 'square' | 'inherit';
   style?: StyleObject;
+  tabIndex?: number;
   title?: string | number;
 };
 

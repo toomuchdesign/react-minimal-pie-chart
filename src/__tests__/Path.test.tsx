@@ -23,7 +23,7 @@ describe('Path', () => {
     });
   });
 
-  it('receive "segmentsStyle", "rounded", "data.color" and "data.style" props', () => {
+  it('receive "segmentsStyle", "segmentsTabIndex", "rounded", "data[].color" and "data[].style" props', () => {
     const dataMockWithStyle = dataMock.map((entry) => ({
       ...entry,
       ...{
@@ -34,12 +34,14 @@ describe('Path', () => {
     const { container } = render({
       data: dataMockWithStyle,
       segmentsStyle: { opacity: '.5' },
+      segmentsTabIndex: 2,
       rounded: true,
     });
     const paths = container.querySelectorAll('path');
 
     paths.forEach((path) => {
       expect(path).toHaveAttribute('stroke', 'black');
+      expect(path).toHaveAttribute('tabindex', '2');
       expect(path).toHaveAttribute('stroke-linecap', 'round');
       expect(path).toHaveStyle(`
         opacity: .5;
