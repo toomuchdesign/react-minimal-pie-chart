@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import { render as TLRender, fireEvent } from '@testing-library/react';
+import { render as TLRender } from '@testing-library/react';
 import PieChart from '../../src/index';
 import { degreesToRadians } from '../utils';
 import { getArcInfo } from './testUtils';
@@ -334,34 +334,6 @@ describe('Chart', () => {
 
       const injectedElement = container.querySelector('svg > defs');
       expect(injectedElement).toBeInTheDocument();
-    });
-  });
-
-  describe('Mouse interactions', () => {
-    describe.each([
-      ['click', fireEvent.click],
-      ['mouseover', fireEvent.mouseOver],
-      ['mouseout', fireEvent.mouseOut],
-    ])('%s', (eventName, event) => {
-      it('fire callback with expected arguments', () => {
-        const eventCallbackMock = jest.fn((e) => e.persist());
-        const { container } = render({
-          onClick: eventCallbackMock,
-          onMouseOver: eventCallbackMock,
-          onMouseOut: eventCallbackMock,
-        });
-        const segment = container.querySelector('path');
-        event(segment);
-
-        expect(eventCallbackMock).toHaveBeenCalledTimes(1);
-        expect(eventCallbackMock).toHaveBeenLastCalledWith(
-          expect.objectContaining({
-            type: eventName,
-          }),
-          dataMock,
-          0
-        );
-      });
     });
   });
 });

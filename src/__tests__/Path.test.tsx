@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { fireEvent } from '@testing-library/react';
 import { degreesToRadians } from '../utils';
 import { render, dataMock } from './Chart.test';
 
@@ -99,6 +100,35 @@ describe('Path', () => {
           expect(path).toHaveAttribute('stroke-dasharray', `${pathLength}`);
           expect(path).toHaveAttribute('stroke-dashoffset', `${pathLength}`);
         });
+      });
+    });
+  });
+
+  describe('Event handlers', () => {
+    describe.each([
+      ['blur', 'onBlur', fireEvent.blur],
+      ['click', 'onClick', fireEvent.click],
+      ['focus', 'onFocus', fireEvent.focus],
+      ['keydown', 'onKeyDown', fireEvent.keyDown],
+      ['mouseout', 'onMouseOut', fireEvent.mouseOut],
+      ['mouseover', 'onMouseOver', fireEvent.mouseOver],
+    ])('%s', (eventName, propName, event) => {
+      it('fire callback with expected arguments', () => {
+        const eventCallbackMock = jest.fn((e) => e.persist());
+        const { container } = render({
+          [propName]: eventCallbackMock,
+        });
+        const segment = container.querySelector('path');
+        event(segment);
+
+        expect(eventCallbackMock).toHaveBeenCalledTimes(1);
+        expect(eventCallbackMock).toHaveBeenLastCalledWith(
+          expect.objectContaining({
+            type: eventName,
+          }),
+          dataMock,
+          0
+        );
       });
     });
   });
