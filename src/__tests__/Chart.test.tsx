@@ -193,26 +193,41 @@ describe('Chart', () => {
       });
     });
 
-    it('re-render on did mount updating segments\' "reveal" prop from 0 to 100', () => {
-      const pathLength = degreesToRadians(25) * 360;
-      const singleEntryDataMock = [...dataMock[0]];
-      const { container } = render({
-        data: singleEntryDataMock,
-        animate: true,
+    describe.each([
+      [undefined, 360],
+      [50, 180],
+    ])('"reveal === %s"', (reveal, expectedRevealedDegrees) => {
+      it('re-render on did mount revealing the expected portion of segment', () => {
+        const segmentRadius = 25;
+        const lengthAngle = 360;
+        const fullPathLength = degreesToRadians(segmentRadius) * lengthAngle;
+
+        const singleEntryDataMock = [...dataMock[0]];
+        const { container } = render({
+          data: singleEntryDataMock,
+          animate: true,
+          lengthAngle,
+          reveal,
+        });
+
+        const path = container.querySelector('path');
+
+        // Path hidden
+        expect(path).toHaveAttribute('stroke-dasharray', `${fullPathLength}`);
+        expect(path).toHaveAttribute('stroke-dashoffset', `${fullPathLength}`);
+
+        // Complete componentDidMount callback execution
+        jest.runAllTimers();
+
+        const expectedRevealedPathLength =
+          (fullPathLength / lengthAngle) * expectedRevealedDegrees;
+
+        expect(path).toHaveAttribute('stroke-dasharray', `${fullPathLength}`);
+        expect(path).toHaveAttribute(
+          'stroke-dashoffset',
+          `${fullPathLength - expectedRevealedPathLength}`
+        );
       });
-
-      const path = container.querySelector('path');
-
-      // Path hidden
-      expect(path).toHaveAttribute('stroke-dasharray', `${pathLength}`);
-      expect(path).toHaveAttribute('stroke-dashoffset', `${pathLength}`);
-
-      // Complete componentDidMount callback execution
-      jest.runAllTimers();
-
-      // Path fully revealed
-      expect(path).toHaveAttribute('stroke-dasharray', `${pathLength}`);
-      expect(path).toHaveAttribute('stroke-dashoffset', '0');
     });
 
     it("don't re-render when component is unmounted", () => {

@@ -25,7 +25,7 @@ function makeSegmentTransitionStyle(
 export default function renderSegments(
   data: ExtendedData,
   props: ChartProps,
-  hide: Boolean = false
+  forcedReveal?: number
 ) {
   let style = props.segmentsStyle;
   if (props.animate) {
@@ -35,16 +35,6 @@ export default function renderSegments(
       style
     );
     style = Object.assign({}, style, transitionStyle);
-  }
-
-  // Hide/reveal the segment?
-  let reveal: number;
-  if (hide === true) {
-    reveal = 0;
-  } else if (typeof props.reveal === 'number') {
-    reveal = props.reveal;
-  } else if (hide === false) {
-    reveal = 100;
   }
 
   const { cx, cy, radius } = extractAbsoluteCoordinates(props);
@@ -61,7 +51,7 @@ export default function renderSegments(
         lengthAngle={dataEntry.degrees}
         radius={radius}
         lineWidth={lineWidth}
-        reveal={reveal}
+        reveal={forcedReveal ?? props.reveal}
         title={dataEntry.title}
         style={Object.assign({}, style, dataEntry.style)}
         stroke={dataEntry.color}

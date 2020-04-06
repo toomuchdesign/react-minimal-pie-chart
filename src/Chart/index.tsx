@@ -95,7 +95,7 @@ export default class ReactMinimalPieChart extends Component<Props> {
     viewBoxSize: PropTypes.arrayOf(PropTypes.number),
   };
 
-  hideSegments: boolean = false;
+  forcedSegmentsReveal?: number | undefined;
   initialAnimationTimerId?: null | number;
   initialAnimationRAFId?: null | number;
 
@@ -103,7 +103,7 @@ export default class ReactMinimalPieChart extends Component<Props> {
     super(props);
 
     if (props.animate === true) {
-      this.hideSegments = true;
+      this.forcedSegmentsReveal = 0;
     }
   }
 
@@ -129,7 +129,7 @@ export default class ReactMinimalPieChart extends Component<Props> {
   }
 
   startAnimation() {
-    this.hideSegments = false;
+    this.forcedSegmentsReveal = this.props.reveal ?? 100;
     this.forceUpdate();
   }
 
@@ -148,7 +148,7 @@ export default class ReactMinimalPieChart extends Component<Props> {
           height="100%"
           style={{ display: 'block' }}
         >
-          {renderSegments(extendedData, props, this.hideSegments)}
+          {renderSegments(extendedData, props, this.forcedSegmentsReveal)}
           {props.label && renderLabels(extendedData, props)}
           {props.injectSvg && props.injectSvg()}
         </svg>
