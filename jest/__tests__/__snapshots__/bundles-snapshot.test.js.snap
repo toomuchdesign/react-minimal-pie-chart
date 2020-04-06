@@ -270,27 +270,12 @@ exports[`Dist bundle is unchanged 1`] = `
     };
   }
 
-  function renderSegments(data, props, hide) {
-    if (hide === void 0) {
-      hide = false;
-    }
-
+  function renderSegments(data, props, forcedReveal) {
     var style = props.segmentsStyle;
 
     if (props.animate) {
       var transitionStyle = makeSegmentTransitionStyle(props.animationDuration, props.animationEasing, style);
       style = Object.assign({}, style, transitionStyle);
-    } // Hide/reveal the segment?
-
-
-    var reveal;
-
-    if (hide === true) {
-      reveal = 0;
-    } else if (typeof props.reveal === 'number') {
-      reveal = props.reveal;
-    } else if (hide === false) {
-      reveal = 100;
     }
 
     var _extractAbsoluteCoord = extractAbsoluteCoordinates(props),
@@ -309,7 +294,7 @@ exports[`Dist bundle is unchanged 1`] = `
         lengthAngle: dataEntry.degrees,
         radius: radius,
         lineWidth: lineWidth,
-        reveal: reveal,
+        reveal: forcedReveal != null ? forcedReveal : props.reveal,
         title: dataEntry.title,
         style: Object.assign({}, style, dataEntry.style),
         stroke: dataEntry.color,
@@ -368,12 +353,12 @@ exports[`Dist bundle is unchanged 1`] = `
       var _this;
 
       _this = _Component.call(this, props) || this;
-      _this.hideSegments = false;
+      _this.forcedSegmentsReveal = void 0;
       _this.initialAnimationTimerId = void 0;
       _this.initialAnimationRAFId = void 0;
 
       if (props.animate === true) {
-        _this.hideSegments = true;
+        _this.forcedSegmentsReveal = 0;
       }
 
       return _this;
@@ -407,7 +392,9 @@ exports[`Dist bundle is unchanged 1`] = `
     };
 
     _proto.startAnimation = function startAnimation() {
-      this.hideSegments = false;
+      var _this$props$reveal;
+
+      this.forcedSegmentsReveal = (_this$props$reveal = this.props.reveal) != null ? _this$props$reveal : 100;
       this.forceUpdate();
     };
 
@@ -429,7 +416,7 @@ exports[`Dist bundle is unchanged 1`] = `
         style: {
           display: 'block'
         }
-      }, renderSegments(extendedData, props, this.hideSegments), props.label && renderLabels(extendedData, props), props.injectSvg && props.injectSvg()), props.children);
+      }, renderSegments(extendedData, props, this.forcedSegmentsReveal), props.label && renderLabels(extendedData, props), props.injectSvg && props.injectSvg()), props.children);
     };
 
     return ReactMinimalPieChart;

@@ -63,6 +63,18 @@ describe('Path', () => {
     const pathLength = degreesToRadians(25) * 360;
     const singleEntryDataMock = [...dataMock[0]];
 
+    describe('undefined', () => {
+      it('render a fully revealed path without "strokeDasharray" nor "strokeDashoffset"', () => {
+        const { container } = render({
+          data: singleEntryDataMock,
+        });
+
+        const path = container.querySelector('path');
+        expect(path).not.toHaveAttribute('stroke-dasharray');
+        expect(path).not.toHaveAttribute('stroke-dashoffset');
+      });
+    });
+
     describe('100', () => {
       it('render a fully revealed path with "strokeDasharray" === path length & "strokeDashoffset" === 0', () => {
         const { container } = render({
