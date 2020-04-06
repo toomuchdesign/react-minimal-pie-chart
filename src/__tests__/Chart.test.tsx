@@ -1,31 +1,7 @@
 // @ts-nocheck
 import React from 'react';
-import { render as TLRender } from '@testing-library/react';
-import PieChart from '../../src/index';
+import { render, dataMock, getArcInfo } from './testUtils';
 import { degreesToRadians } from '../utils';
-import { getArcInfo } from './testUtils';
-
-export const dataMock = [
-  { value: 10, color: 'blue' },
-  { value: 15, color: 'orange' },
-  { value: 20, color: 'green' },
-];
-
-const expectedNormalizedDataMock = {
-  x: expect.any(Number),
-  y: expect.any(Number),
-  dx: expect.any(Number),
-  dy: expect.any(Number),
-  textAnchor: expect.any(String),
-  data: dataMock.map((entry) => ({
-    ...entry,
-    degrees: expect.any(Number),
-    startOffset: expect.any(Number),
-    percentage: expect.any(Number),
-  })),
-  dataIndex: expect.any(Number),
-  color: expect.any(String),
-};
 
 jest.useFakeTimers();
 
@@ -35,11 +11,6 @@ beforeAll(() => {
     return 'id';
   };
 });
-
-export function render(props) {
-  const defaultProps = { data: dataMock };
-  return TLRender(<PieChart {...defaultProps} {...props} />);
-}
 
 describe('Chart', () => {
   it('return null if props.data is undefined', () => {
@@ -255,89 +226,6 @@ describe('Chart', () => {
 
       const title = container.querySelector('title');
       expect(title).toHaveTextContent('title-value');
-    });
-  });
-
-  describe('"label"', () => {
-    describe('true', () => {
-      it('renders 3 <text> elements with expected text and "fill" attribute', () => {
-        const { container } = render({ label: true });
-        const labels = container.querySelectorAll('text');
-
-        expect(labels.length).toBe(dataMock.length);
-        labels.forEach((label, index) => {
-          expect(label).toHaveTextContent(`${dataMock[index].value}`);
-          expect(label).toHaveAttribute('fill', dataMock[index].color);
-        });
-      });
-    });
-
-    describe('provided as function returning a value', () => {
-      it('renders 3 <text> elements with custom content', () => {
-        const { container } = render({
-          label: (props) => props.dataIndex,
-        });
-
-        container.querySelectorAll('text').forEach((label, index) => {
-          expect(label).toHaveTextContent(index);
-        });
-      });
-
-      it('provided function receive expected "props" object', () => {
-        const labelMock = jest.fn();
-        render({
-          label: labelMock,
-        });
-
-        const expected = {
-          key: expect.any(String),
-          ...expectedNormalizedDataMock,
-        };
-        expect(labelMock).toHaveBeenCalledTimes(dataMock.length);
-        expect(labelMock).toHaveBeenCalledWith(expected);
-      });
-    });
-
-    describe('provided as function returning an element', () => {
-      it('render returned elements', () => {
-        const { container } = render({
-          label: (props) => (
-            <text key={props.dataIndex}>{props.dataIndex}</text>
-          ),
-        });
-
-        container.querySelectorAll('text').forEach((label, index) => {
-          expect(label).toHaveTextContent(index);
-        });
-      });
-    });
-
-    describe('provided as element', () => {
-      it('renders with expected props', () => {
-        const ComponentMock = jest.fn(() => null);
-        render({
-          label: <ComponentMock />,
-        });
-
-        expect(ComponentMock).toHaveBeenCalledTimes(dataMock.length);
-        expect(ComponentMock).toHaveBeenCalledWith(
-          expectedNormalizedDataMock,
-          {}
-        );
-      });
-    });
-  });
-
-  describe('"labelStyle"', () => {
-    it('assign provided value to each label as className', () => {
-      const { container } = render({
-        label: true,
-        labelStyle: { pointerEvents: 'none' },
-      });
-
-      container.querySelectorAll('text').forEach((label) => {
-        expect(label).toHaveStyle('pointer-events: none');
-      });
     });
   });
 
