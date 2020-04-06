@@ -1,4 +1,19 @@
+# 7.1.0
+
+### New Features
+
+- Add `onBlur`, `onFocus`, `onKeyDown` callbacks
+- Add `segmentsTabIndex` to append a `tabindex` prop to segment paths
+
+### Bugfixes
+
+- Fix regression bug consisting of `stroke-dasharray` and `stroke-dashoffset` attributes being evaluated and appended even when there is no animation
+
 # 7.0.0
+
+### Warning
+
+This release introduced a regression bug. Please upgrade to `V7.1.0`
 
 ### Breaking Changes
 
