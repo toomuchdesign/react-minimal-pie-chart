@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { fireEvent } from '@testing-library/react';
+import { render, dataMock } from './testUtils';
 import { degreesToRadians } from '../utils';
-import { render, dataMock } from './Chart.test';
 
 describe('Path', () => {
   it('render one path for each entry in props.data', () => {
