@@ -18,7 +18,7 @@ describe('Label', () => {
     });
 
     describe('provided as function returning a value', () => {
-      it('renders 3 <text> elements with custom content', () => {
+      it('renders 3 <text> elements with expected content', () => {
         const { container } = render({
           label: (props) => props.dataIndex,
         });
@@ -28,7 +28,7 @@ describe('Label', () => {
         });
       });
 
-      it('provided function receive expected "props" object', () => {
+      it('receives expected "props" object', () => {
         const labelMock = jest.fn();
         render({
           label: labelMock,
@@ -84,5 +84,62 @@ describe('Label', () => {
         expect(label).toHaveStyle('pointer-events: none');
       });
     });
+  });
+
+  describe('text-anchor alignment', () => {
+    it('assign provided value to each label as className', () => {
+      const { container } = render({
+        label: true,
+        labelStyle: { pointerEvents: 'none' },
+      });
+
+      container.querySelectorAll('text').forEach((label) => {
+        expect(label).toHaveStyle('pointer-events: none');
+      });
+    });
+  });
+
+  describe('text-alignment and position', () => {
+    // @TODO label positioning tests
+    const lineWidth = 50;
+    const lengthAngle = 90;
+    const orientation = {
+      bottom: lengthAngle / 2,
+      left: 90 + lengthAngle / 2,
+      top: 180 + lengthAngle / 2,
+      right: 270 + lengthAngle / 2,
+    };
+    const labelPosition = {
+      inside: 25,
+      outside: 125,
+      over: 75,
+    };
+
+    it.each`
+      description                  | labelPosition            | startAngle            | expectedAlignment
+      ${'outwards on the left'}    | ${labelPosition.outside} | ${orientation.left}   | ${'end'}
+      ${'outwards on the right'}   | ${labelPosition.outside} | ${orientation.right}  | ${'start'}
+      ${'outwards on the bottom'}  | ${labelPosition.outside} | ${orientation.bottom} | ${'middle'}
+      ${'inwards on the left'}     | ${labelPosition.inside}  | ${orientation.left}   | ${'start'}
+      ${'inwards on the right'}    | ${labelPosition.inside}  | ${orientation.right}  | ${'end'}
+      ${'inwards on the bottom'}   | ${labelPosition.inside}  | ${orientation.bottom} | ${'middle'}
+      ${'overlying on the left'}   | ${labelPosition.over}    | ${orientation.left}   | ${'middle'}
+      ${'overlying on the right'}  | ${labelPosition.over}    | ${orientation.right}  | ${'middle'}
+      ${'overlying on the bottom'} | ${labelPosition.over}    | ${orientation.bottom} | ${'middle'}
+    `(
+      'Label $description',
+      ({ labelPosition, startAngle, expectedAlignment }) => {
+        const { getByText } = render({
+          data: [{ value: 1 }],
+          lineWidth,
+          lengthAngle,
+          startAngle,
+          label: () => 'label',
+          labelPosition,
+        });
+        const label = getByText('label');
+        expect(label).toHaveAttribute('text-anchor', expectedAlignment);
+      }
+    );
   });
 });

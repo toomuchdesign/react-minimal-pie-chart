@@ -58,6 +58,12 @@ exports[`Dist bundle is unchanged 1`] = `
     style: stylePropType
   }));
 
+  function round(number) {
+    var divisor = 100000000000000; // 14 decimals
+
+    return Math.round((number + Number.EPSILON) * divisor) / divisor;
+  }
+
   function degreesToRadians(degrees) {
     return degrees * Math.PI / 180;
   }
@@ -65,22 +71,22 @@ exports[`Dist bundle is unchanged 1`] = `
     var labelPosition = _ref.labelPosition,
         lineWidth = _ref.lineWidth,
         labelHorizontalShift = _ref.labelHorizontalShift;
+    var dx = round(labelHorizontalShift); // Label in the vertical center
 
-    // Label in the vertical center
-    if (labelHorizontalShift === 0) {
+    if (dx === 0) {
       return 'middle';
     } // Outward label
 
 
     if (labelPosition > 100) {
-      return labelHorizontalShift > 0 ? 'start' : 'end';
+      return dx > 0 ? 'start' : 'end';
     } // Inward label
 
 
     var innerRadius = 100 - lineWidth;
 
     if (labelPosition < innerRadius) {
-      return labelHorizontalShift > 0 ? 'end' : 'start';
+      return dx > 0 ? 'end' : 'start';
     } // Overlying label
 
 
