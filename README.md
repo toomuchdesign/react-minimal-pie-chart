@@ -181,6 +181,7 @@ This library uses the `stroke-dasharray` + `stroke-dashoffset` animation strateg
 - Configure Babel to not inject the `_extend` utility in compiled artifact
 - Add `.browserslistrc` to get rid of some Babel helpers
 - Handle prop-types / TS types duplication
+- Consider rounding SVG position attributes' numbers
 
 ## Contributors
 
