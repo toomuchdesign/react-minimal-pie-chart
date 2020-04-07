@@ -1,6 +1,6 @@
 import { extractPercentage, valueBetween } from '../utils';
-import { Data } from '../commonTypes';
-import { Props as ChartProps } from './index';
+import type { Data } from '../commonTypes';
+import type { Props as ChartProps } from './index';
 
 function sumValues(data: Data) {
   return data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);

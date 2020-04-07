@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { dataPropType, stylePropType } from '../propTypes';
-import { Data, EventHandler, LabelProp, StyleObject } from '../commonTypes';
 import extendData from './extendData';
 import renderLabels from './renderLabels';
 import renderSegments from './renderSegments';
+import type {
+  Data,
+  EventHandler,
+  LabelProp,
+  StyleObject,
+} from '../commonTypes';
 
 export type Props = typeof ReactMinimalPieChart.defaultProps & {
   animate?: boolean;

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Props as LabelProps } from './Label';
+import type { Props as LabelProps } from './Label';
 
-export declare type StyleObject = {
+export type StyleObject = {
   [key: string]: string | number;
 };
 

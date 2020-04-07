@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExtendedData, StyleObject } from './commonTypes';
+import type { ExtendedData, StyleObject } from './commonTypes';
 
 export type Props = {
   key?: string | number;

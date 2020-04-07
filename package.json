@@ -92,7 +92,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "svg-partial-circle": "1.0.0",
     "svg-path-parser": "^1.1.0",
-    "typescript": "^3.7.3"
+    "typescript": "^3.8.3"
   },
   "jest": {
     "testRegex": "/__tests__/.*\\.test\\.[jt]sx?$",

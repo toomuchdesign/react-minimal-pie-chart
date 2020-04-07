@@ -1,13 +1,14 @@
 import React from 'react';
-import { default as DefaultLabel, Props as LabelProps } from '../Label';
+import DefaultLabel from '../Label';
 import {
   degreesToRadians,
   evaluateLabelTextAnchor,
   extractPercentage,
   extractAbsoluteCoordinates,
 } from '../utils';
-import { ExtendedData, LabelProp } from '../commonTypes';
-import { Props as ChartProps } from './index';
+import type { Props as LabelProps } from '../Label';
+import type { ExtendedData, LabelProp } from '../commonTypes';
+import type { Props as ChartProps } from './index';
 
 function renderLabelItem(
   option: LabelProp,

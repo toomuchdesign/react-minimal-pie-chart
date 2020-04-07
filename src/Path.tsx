@@ -1,7 +1,7 @@
 import React from 'react';
 import partialCircle from 'svg-partial-circle';
 import { degreesToRadians, extractPercentage, valueBetween } from './utils';
-import { StyleObject } from './commonTypes';
+import type { StyleObject } from './commonTypes';
 
 function makePathCommands(
   cx: number,

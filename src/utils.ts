@@ -1,4 +1,4 @@
-import { Props as ChartProps } from './Chart';
+import type { Props as ChartProps } from './Chart';
 
 function round(number: number): number {
   const divisor = 100000000000000; // 14 decimals

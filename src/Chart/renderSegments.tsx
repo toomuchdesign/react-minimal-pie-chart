@@ -1,8 +1,8 @@
 import React from 'react';
 import Path from '../Path';
 import { extractPercentage, extractAbsoluteCoordinates } from '../utils';
-import { ExtendedData, StyleObject } from '../commonTypes';
-import { Props as ChartProps } from './index';
+import type { ExtendedData, StyleObject } from '../commonTypes';
+import type { Props as ChartProps } from './index';
 
 function makeSegmentTransitionStyle(
   duration: number,
