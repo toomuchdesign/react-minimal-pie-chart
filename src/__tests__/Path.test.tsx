@@ -53,76 +53,93 @@ describe('Path', () => {
     });
   });
 
-  describe('"segmentsShift"', () => {
+  describe('segmentsShift prop', () => {
     /*
      * 1- Render both shifted and non-shifted segments
      * 2- Evaluate expected absolute segment's shift
      * 3- Compare shifted and non-shifted segments info
      */
-    const segmentsShift = 1;
-    const absoluteShift = extractPercentage(
-      PieChart.defaultProps.radius,
-      segmentsShift
-    );
+    describe.each`
+      description      | segmentsShift                   | expectedSegmentsShift
+      ${'as number'}   | ${1}                            | ${[1, 1, 1]}
+      ${'as function'} | ${jest.fn((_, index) => index)} | ${[0, 1, 2]}
+    `('$description', ({ segmentsShift, expectedSegmentsShift }) => {
+      if (typeof segmentsShift === 'function') {
+        it('gets called with expected arguments', () => {
+          render({ segmentsShift });
+          expect(segmentsShift).toHaveBeenNthCalledWith(1, dataMock, 0);
+          expect(segmentsShift).toHaveBeenNthCalledWith(2, dataMock, 1);
+          expect(segmentsShift).toHaveBeenNthCalledWith(3, dataMock, 2);
+        });
+      }
 
-    it('renders segments translated radially', () => {
-      const { container: originalPie } = render();
-      const { container: shiftedPie } = render({
-        segmentsShift,
+      it('renders segments translated radially', () => {
+        const { container: originalPie } = render();
+        const { container: shiftedPie } = render({
+          segmentsShift,
+        });
+        const originalPaths = originalPie.querySelectorAll('path');
+        const shiftedPaths = shiftedPie.querySelectorAll('path');
+
+        originalPaths.forEach((path, index) => {
+          const expectedAbsoluteShift = extractPercentage(
+            PieChart.defaultProps.radius,
+            expectedSegmentsShift[index]
+          );
+          const {
+            startPoint,
+            startAngle,
+            lengthAngle,
+            radius,
+            center,
+          } = getArcInfo(path);
+          const shiftedPathInfo = getArcInfo(shiftedPaths[index]);
+          const { dx, dy } = shiftVectorAlongAngle(
+            bisectorAngle(startAngle, lengthAngle),
+            expectedAbsoluteShift
+          );
+
+          const expected = {
+            startPoint: {
+              x: expect.toEqualWithRoundingError(startPoint.x + dx),
+              y: startPoint.y + dy,
+            },
+            startAngle: expect.toEqualWithRoundingError(startAngle),
+            lengthAngle: expect.toEqualWithRoundingError(lengthAngle),
+            radius: radius,
+            center: {
+              x: expect.toEqualWithRoundingError(center.x + dx),
+              y: expect.toEqualWithRoundingError(center.y + dy),
+            },
+          };
+
+          expect(shiftedPathInfo).toEqual(expected);
+        });
       });
-      const originalPaths = originalPie.querySelectorAll('path');
-      const shiftedPaths = shiftedPie.querySelectorAll('path');
 
-      originalPaths.forEach((path, index) => {
-        const {
-          startPoint,
-          startAngle,
-          lengthAngle,
-          radius,
-          center,
-        } = getArcInfo(path);
-        const shiftedPathInfo = getArcInfo(shiftedPaths[index]);
-        const { dx, dy } = shiftVectorAlongAngle(
-          bisectorAngle(startAngle, lengthAngle),
-          absoluteShift
-        );
+      it('renders labels translated radially', () => {
+        const { container, getAllByText } = render({
+          segmentsShift,
+          label: () => 'label',
+          labelPosition: 0, // Render labels at the segments' origin
+        });
+        const paths = container.querySelectorAll('path');
+        const shiftedLabels = getAllByText('label');
 
-        const expected = {
-          startPoint: {
-            x: expect.toEqualWithRoundingError(startPoint.x + dx),
-            y: startPoint.y + dy,
-          },
-          startAngle: startAngle,
-          lengthAngle: lengthAngle,
-          radius: radius,
-          center: {
-            x: center.x + dx,
-            y: center.y + dy,
-          },
-        };
+        shiftedLabels.forEach((label, index) => {
+          const expectedAbsoluteShift = extractPercentage(
+            PieChart.defaultProps.radius,
+            expectedSegmentsShift[index]
+          );
+          const { startAngle, lengthAngle } = getArcInfo(paths[index]);
+          const { dx, dy } = shiftVectorAlongAngle(
+            bisectorAngle(startAngle, lengthAngle),
+            expectedAbsoluteShift
+          );
 
-        expect(shiftedPathInfo).toEqual(expected);
-      });
-    });
-
-    it('renders labels translated radially', () => {
-      const { container, getAllByText } = render({
-        segmentsShift,
-        label: () => 'label',
-        labelPosition: 0, // Render labels at the segments' origin
-      });
-      const paths = container.querySelectorAll('path');
-      const shiftedLabels = getAllByText('label');
-
-      shiftedLabels.forEach((label, index) => {
-        const { startAngle, lengthAngle } = getArcInfo(paths[index]);
-        const { dx, dy } = shiftVectorAlongAngle(
-          bisectorAngle(startAngle, lengthAngle),
-          absoluteShift
-        );
-
-        expect(label.getAttribute('dx')).toEqualWithRoundingError(dx);
-        expect(label.getAttribute('dy')).toEqualWithRoundingError(dy);
+          expect(label.getAttribute('dx')).toEqualWithRoundingError(dx);
+          expect(label.getAttribute('dy')).toEqualWithRoundingError(dy);
+        });
       });
     });
   });

@@ -21,32 +21,22 @@ function DemoInteraction(props) {
     setSelected(index);
   };
 
-  const data = props.data
-    .map((entry, i) => {
-      if (hovered === i) {
-        return {
-          ...entry,
-          color: 'grey',
-        };
-      }
-      return entry;
-    })
-    .map((entry, i) => {
-      if (selected === i) {
-        return {
-          ...entry,
-          ...{ style: { strokeWidth: 35 } },
-        };
-      }
-      return entry;
-    });
+  const data = props.data.map((entry, i) => {
+    if (hovered === i) {
+      return {
+        ...entry,
+        color: 'grey',
+      };
+    }
+    return entry;
+  });
 
   return (
     <PieChart
       data={data}
       radius={40}
-      lineWidth={75}
       segmentsStyle={{ transition: 'stroke .3s' }}
+      segmentsShift={(_, index) => (index === selected ? 10 : 1)}
       onClick={onClickHandler}
       onMouseOver={onMouseOverHandler}
       onMouseOut={onMouseOutHandler}

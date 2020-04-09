@@ -36,7 +36,7 @@ export type Props = typeof ReactMinimalPieChart.defaultProps & {
   radius?: number;
   reveal?: number;
   rounded?: boolean;
-  segmentsShift: number;
+  segmentsShift?: number | ((data: Data, dataIndex: number) => number);
   segmentsStyle?: StyleObject;
   segmentsTabIndex?: number;
   startAngle?: number;
@@ -94,7 +94,7 @@ export default class ReactMinimalPieChart extends Component<Props> {
     radius: PropTypes.number,
     reveal: PropTypes.number,
     rounded: PropTypes.bool,
-    segmentsShift: PropTypes.number,
+    segmentsShift: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
     segmentsStyle: stylePropType,
     segmentsTabIndex: PropTypes.number,
     startAngle: PropTypes.number,

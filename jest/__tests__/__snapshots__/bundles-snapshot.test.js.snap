@@ -63,6 +63,7 @@ exports[`Dist bundle is unchanged 1`] = `
 
     return Math.round((number + Number.EPSILON) * divisor) / divisor;
   }
+
   function degreesToRadians(degrees) {
     return degrees * Math.PI / 180;
   }
@@ -103,12 +104,10 @@ exports[`Dist bundle is unchanged 1`] = `
     var _props$viewBoxSize = props.viewBoxSize,
         viewBoxWidth = _props$viewBoxSize[0],
         viewBoxHeight = _props$viewBoxSize[1];
-    var radius = extractPercentage(props.radius, viewBoxWidth);
     return {
       cx: extractPercentage(props.cx, viewBoxWidth),
       cy: extractPercentage(props.cy, viewBoxHeight),
-      radius: radius,
-      segmentsShift: extractPercentage(props.segmentsShift, radius)
+      radius: extractPercentage(props.radius, viewBoxWidth)
     };
   }
   function bisectorAngle(startAngle, lengthAngle) {
@@ -123,6 +122,9 @@ exports[`Dist bundle is unchanged 1`] = `
   }
   function isNumber(value) {
     return typeof value === 'number';
+  }
+  function functionProp(prop, payload, index) {
+    return typeof prop === 'function' ? prop(payload, index) : prop;
   }
 
   function sumValues(data) {
@@ -194,12 +196,10 @@ exports[`Dist bundle is unchanged 1`] = `
     var _extractAbsoluteCoord = extractAbsoluteCoordinates(props),
         cx = _extractAbsoluteCoord.cx,
         cy = _extractAbsoluteCoord.cy,
-        radius = _extractAbsoluteCoord.radius,
-        segmentsShift = _extractAbsoluteCoord.segmentsShift;
+        radius = _extractAbsoluteCoord.radius;
 
     return data.map(function (dataEntry, index) {
-      var segmentShift = dataEntry.shift === undefined ? segmentsShift : extractPercentage(radius, dataEntry.shift);
-      var labelPosition = extractPercentage(radius, props.labelPosition) + segmentShift;
+      var labelPosition = extractPercentage(radius, functionProp(props.segmentsShift, data, index) + props.labelPosition);
       var startAngle = props.startAngle + dataEntry.startOffset;
       var segmentBisector = bisectorAngle(startAngle, dataEntry.degrees);
 
@@ -318,12 +318,10 @@ exports[`Dist bundle is unchanged 1`] = `
     var _extractAbsoluteCoord = extractAbsoluteCoordinates(props),
         cx = _extractAbsoluteCoord.cx,
         cy = _extractAbsoluteCoord.cy,
-        radius = _extractAbsoluteCoord.radius,
-        segmentsShift = _extractAbsoluteCoord.segmentsShift;
+        radius = _extractAbsoluteCoord.radius;
 
     var lineWidth = extractPercentage(radius, props.lineWidth);
     var paths = data.map(function (dataEntry, index) {
-      var shift = dataEntry.shift === undefined ? segmentsShift : extractPercentage(dataEntry.shift, radius);
       return /*#__PURE__*/React__default.createElement(ReactMinimalPieChartPath, {
         key: dataEntry.key || index,
         cx: cx,
@@ -333,7 +331,7 @@ exports[`Dist bundle is unchanged 1`] = `
         radius: radius,
         lineWidth: lineWidth,
         reveal: reveal,
-        shift: shift,
+        shift: extractPercentage(radius, functionProp(props.segmentsShift, props.data, index)),
         title: dataEntry.title,
         style: Object.assign({}, props.segmentsStyle, segmentTransitionsCombined, dataEntry.style),
         stroke: dataEntry.color,
@@ -503,7 +501,7 @@ exports[`Dist bundle is unchanged 1`] = `
     radius: PropTypes.number,
     reveal: PropTypes.number,
     rounded: PropTypes.bool,
-    segmentsShift: PropTypes.number,
+    segmentsShift: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
     segmentsStyle: stylePropType,
     segmentsTabIndex: PropTypes.number,
     startAngle: PropTypes.number,

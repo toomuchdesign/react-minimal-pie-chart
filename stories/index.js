@@ -28,16 +28,12 @@ storiesOf('Pie Chart', module)
   ))
   .add('Exploded', () => {
     const shiftSize = 7;
-    const extendedDataMock = dataMock.map((entry, index) =>
-      index === 0 ? { ...entry, shift: shiftSize } : entry
-    );
     return (
       <PieChart
-        data={extendedDataMock}
-        radius={50 - shiftSize}
-        segmentsShift={0.5}
+        data={dataMock}
+        radius={PieChart.defaultProps.radius - shiftSize}
+        segmentsShift={(_, index) => (index === 0 ? shiftSize : 0.5)}
         label
-        // viewBoxSize={[300, 300]}
         labelStyle={{
           ...defaultLabelStyle,
         }}

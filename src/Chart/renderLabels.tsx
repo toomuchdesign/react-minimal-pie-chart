@@ -1,10 +1,11 @@
 import React from 'react';
 import DefaultLabel from '../Label';
 import {
+  bisectorAngle,
   evaluateLabelTextAnchor,
   extractPercentage,
   extractAbsoluteCoordinates,
-  bisectorAngle,
+  functionProp,
   shiftVectorAlongAngle,
 } from '../utils';
 import type { Props as LabelProps } from '../Label';
@@ -32,14 +33,12 @@ function renderLabelItem(
 }
 
 export default function renderLabels(data: ExtendedData, props: ChartProps) {
-  const { cx, cy, radius, segmentsShift } = extractAbsoluteCoordinates(props);
+  const { cx, cy, radius } = extractAbsoluteCoordinates(props);
   return data.map((dataEntry, index) => {
-    const segmentShift =
-      dataEntry.shift === undefined
-        ? segmentsShift
-        : extractPercentage(radius, dataEntry.shift);
-    const labelPosition =
-      extractPercentage(radius, props.labelPosition) + segmentShift;
+    const labelPosition = extractPercentage(
+      radius,
+      functionProp(props.segmentsShift, data, index) + props.labelPosition
+    );
     const startAngle = props.startAngle + dataEntry.startOffset;
     const segmentBisector = bisectorAngle(startAngle, dataEntry.degrees);
     const { dx, dy } = shiftVectorAlongAngle(segmentBisector, labelPosition);

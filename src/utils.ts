@@ -48,12 +48,10 @@ export function extractPercentage(value: number, percentage: number) {
 
 export function extractAbsoluteCoordinates(props: ChartProps) {
   const [viewBoxWidth, viewBoxHeight] = props.viewBoxSize;
-  const radius = extractPercentage(props.radius, viewBoxWidth);
   return {
     cx: extractPercentage(props.cx, viewBoxWidth),
     cy: extractPercentage(props.cy, viewBoxHeight),
-    radius,
-    segmentsShift: extractPercentage(props.segmentsShift, radius),
+    radius: extractPercentage(props.radius, viewBoxWidth),
   };
 }
 
@@ -71,4 +69,13 @@ export function shiftVectorAlongAngle(angle: number, distance: number) {
 
 export function isNumber(value: unknown): value is number {
   return typeof value === 'number';
+}
+
+export function functionProp<Prop, Payload>(
+  prop: Prop,
+  payload?: Payload,
+  index?: number
+  // @ts-ignore
+): Prop extends Function ? ReturnType<Prop> : Prop {
+  return typeof prop === 'function' ? prop(payload, index) : prop;
 }

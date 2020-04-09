@@ -1,5 +1,5 @@
 // https://stackoverflow.com/questions/9017100/calculate-center-of-svg-arc
-// https://stackoverflow.com/questions/197649/how-to-calculate-center-of-an-ellipse-by-two-points-and-radius-sizes
+// https://github.com/Ghostkeeper/SVGToolpathReader/blob/a2bbe90da64e6cd9d54fec553f61ba941001e85d/Parser.py#L493
 // @TODO Find a more reliable solution
 export function getArcCenter(x1, y1, rx, ry, phi, fA, fS, x2, y2) {
   var cx, cy;
