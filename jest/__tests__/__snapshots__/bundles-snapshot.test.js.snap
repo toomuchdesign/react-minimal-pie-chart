@@ -231,7 +231,6 @@ exports[`Dist bundle is unchanged 1`] = `
       return command.join(' ');
     }).join(' ');
   }
-
   function ReactMinimalPieChartPath(_ref) {
     var cx = _ref.cx,
         cy = _ref.cy,

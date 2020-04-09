@@ -1,9 +1,25 @@
 // @ts-nocheck
 import React from 'react';
-import { render, dataMock, expectedNormalizedDataMock } from './testUtils';
+import { render, dataMock } from './testUtils';
+
+export const expectedLabelProps = {
+  x: expect.any(Number),
+  y: expect.any(Number),
+  dx: expect.any(Number),
+  dy: expect.any(Number),
+  textAnchor: expect.any(String),
+  data: dataMock.map((entry) => ({
+    ...entry,
+    degrees: expect.any(Number),
+    startOffset: expect.any(Number),
+    percentage: expect.any(Number),
+  })),
+  dataIndex: expect.any(Number),
+  color: expect.any(String),
+};
 
 describe('Label', () => {
-  describe('"label"', () => {
+  describe('label prop', () => {
     describe('true', () => {
       it('renders 3 <text> elements with expected text and "fill" attribute', () => {
         const { container } = render({ label: true });
@@ -36,7 +52,7 @@ describe('Label', () => {
 
         const expected = {
           key: expect.any(String),
-          ...expectedNormalizedDataMock,
+          ...expectedLabelProps,
         };
         expect(labelMock).toHaveBeenCalledTimes(dataMock.length);
         expect(labelMock).toHaveBeenCalledWith(expected);
@@ -65,28 +81,12 @@ describe('Label', () => {
         });
 
         expect(ComponentMock).toHaveBeenCalledTimes(dataMock.length);
-        expect(ComponentMock).toHaveBeenCalledWith(
-          expectedNormalizedDataMock,
-          {}
-        );
+        expect(ComponentMock).toHaveBeenCalledWith(expectedLabelProps, {});
       });
     });
   });
 
-  describe('"labelStyle"', () => {
-    it('assign provided value to each label as className', () => {
-      const { container } = render({
-        label: true,
-        labelStyle: { pointerEvents: 'none' },
-      });
-
-      container.querySelectorAll('text').forEach((label) => {
-        expect(label).toHaveStyle('pointer-events: none');
-      });
-    });
-  });
-
-  describe('text-anchor alignment', () => {
+  describe('labelStyle prop', () => {
     it('assign provided value to each label as className', () => {
       const { container } = render({
         label: true,

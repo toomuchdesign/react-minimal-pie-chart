@@ -51,15 +51,17 @@ describe('Path', () => {
     });
   });
 
-  it('render path with "stroke-width" equal to the half of "lineWidth" prop', () => {
-    const { container } = render({
-      lineWidth: 5,
+  describe('lineWidth prop', () => {
+    it('render path with "stroke-width" equal to the half of "lineWidth" prop', () => {
+      const { container } = render({
+        lineWidth: 5,
+      });
+      const path = container.querySelector('path');
+      expect(path).toHaveAttribute('stroke-width', `${5 / 2}`);
     });
-    const path = container.querySelector('path');
-    expect(path).toHaveAttribute('stroke-width', `${5 / 2}`);
   });
 
-  describe('reveal', () => {
+  describe('reveal prop', () => {
     const pathLength = degreesToRadians(25) * 360;
     const singleEntryDataMock = [...dataMock[0]];
 
@@ -116,15 +118,15 @@ describe('Path', () => {
     });
   });
 
-  describe('Event handlers', () => {
+  describe('Event handlers props', () => {
     describe.each([
-      ['blur', 'onBlur', fireEvent.blur],
-      ['click', 'onClick', fireEvent.click],
-      ['focus', 'onFocus', fireEvent.focus],
-      ['keydown', 'onKeyDown', fireEvent.keyDown],
-      ['mouseout', 'onMouseOut', fireEvent.mouseOut],
-      ['mouseover', 'onMouseOver', fireEvent.mouseOver],
-    ])('%s', (eventName, propName, event) => {
+      ['onBlur', 'blur', fireEvent.blur],
+      ['onClick', 'click', fireEvent.click],
+      ['onFocus', 'focus', fireEvent.focus],
+      ['onKeyDown', 'keydown', fireEvent.keyDown],
+      ['onMouseOut', 'mouseout', fireEvent.mouseOut],
+      ['onMouseOver', 'mouseover', fireEvent.mouseOver],
+    ])('%s', (propName, eventType, event) => {
       it('fire callback with expected arguments', () => {
         const eventCallbackMock = jest.fn((e) => e.persist());
         const { container } = render({
@@ -136,7 +138,7 @@ describe('Path', () => {
         expect(eventCallbackMock).toHaveBeenCalledTimes(1);
         expect(eventCallbackMock).toHaveBeenLastCalledWith(
           expect.objectContaining({
-            type: eventName,
+            type: eventType,
           }),
           dataMock,
           0

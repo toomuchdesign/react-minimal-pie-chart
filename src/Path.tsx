@@ -3,7 +3,7 @@ import partialCircle from 'svg-partial-circle';
 import { degreesToRadians, extractPercentage, valueBetween } from './utils';
 import type { StyleObject } from './commonTypes';
 
-function makePathCommands(
+export function makePathCommands(
   cx: number,
   cy: number,
   startAngle: number,

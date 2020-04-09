@@ -1,12 +1,21 @@
 import parseSVG from 'svg-path-parser';
 import { degrees as getDegrees } from '@schwingbat/relative-angle';
+import { getArcCenter } from './getArcCenter';
 
-export const DEFAULT_ORIGIN = {
-  x: 50,
-  y: 50,
-};
+function getAbsoluteAngle(radius, point) {
+  const relativeAngle = getDegrees(radius, point);
+  if (relativeAngle < 0) {
+    return 360 + relativeAngle;
+  }
+  return relativeAngle;
+}
 
-export function getArcInfo(element, { arcOrigin = DEFAULT_ORIGIN } = {}) {
+/*
+ * Known issues:
+ * - Paths with non-integer center/startAngle/lengthAngle values
+ *   generate respective values with rounding issues
+ */
+export function getArcInfo(element) {
   const d = element.getAttribute('d');
   const [moveto, arc] = parseSVG(d);
 
@@ -14,14 +23,31 @@ export function getArcInfo(element, { arcOrigin = DEFAULT_ORIGIN } = {}) {
     throw new Error('Provided path is not the section of a circumference');
   }
 
-  let degrees = getDegrees(arcOrigin, arc) - getDegrees(arcOrigin, moveto);
-  const degreesAbsolute = Math.abs(degrees);
+  const center = getArcCenter(
+    moveto.x,
+    moveto.y,
+    arc.rx,
+    arc.ry,
+    arc.xAxisRotation,
+    arc.largeArc ? 1 : 0,
+    arc.sweep ? 1 : 0,
+    arc.x,
+    arc.y
+  );
+
+  // @HACK Magic Number: convert rounding errors like 1.99999999999999 to 2.0000000000000
+  // center.x = Number(center.x.toFixed(13));
+  // center.y = Number(center.y.toFixed(13));
+
+  const startAngle = getAbsoluteAngle(center, moveto);
+  let lengthAngle = getAbsoluteAngle(center, arc) - startAngle;
+  const lengthAngleAbsolute = Math.abs(lengthAngle);
 
   if (
-    (arc.largeArc === true && degreesAbsolute < 180) ||
-    (arc.largeArc === false && degreesAbsolute > 180)
+    (arc.largeArc === true && lengthAngleAbsolute < 180) ||
+    (arc.largeArc === false && lengthAngleAbsolute > 180)
   ) {
-    degrees = (360 - degreesAbsolute) * Math.sign(degrees) * -1;
+    lengthAngle = (360 - lengthAngleAbsolute) * Math.sign(lengthAngle) * -1;
   }
 
   return {
@@ -29,9 +55,13 @@ export function getArcInfo(element, { arcOrigin = DEFAULT_ORIGIN } = {}) {
       x: moveto.x,
       y: moveto.y,
     },
-    startAngle: getDegrees(arcOrigin, moveto),
-    lengthAngle: degrees,
+    endPoint: {
+      x: arc.x,
+      y: arc.y,
+    },
+    startAngle,
+    lengthAngle,
     radius: arc.rx,
-    origin: arcOrigin,
+    center,
   };
 }

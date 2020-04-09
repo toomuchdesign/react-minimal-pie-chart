@@ -32,21 +32,16 @@ describe('Chart', () => {
     });
   });
 
-  describe('"viewBoxSize"', () => {
-    test.each([
-      [undefined, [100, 100]],
-      [
-        [500, 500],
-        [500, 500],
-      ],
-      [
-        [500, 250],
-        [500, 250],
-      ],
-    ])(
+  describe('viewBoxSize prop', () => {
+    it.each`
+      viewBoxSize   | expectedSize
+      ${undefined}  | ${[100, 100]}
+      ${[500, 500]} | ${[500, 500]}
+      ${[500, 250]} | ${[500, 250]}
+    `(
       'renders full-width chart in a SVG viewBox of given size',
-      (viewBoxSize, expected) => {
-        const [expectedWidth, expectedHeight] = expected;
+      ({ viewBoxSize, expectedSize }) => {
+        const [expectedWidth, expectedHeight] = expectedSize;
         const { container } = render({
           viewBoxSize,
         });
@@ -92,7 +87,7 @@ describe('Chart', () => {
     });
   });
 
-  describe('"paddingAngle"', () => {
+  describe('paddingAngle prop', () => {
     it('render a set of arc paths + paddings with total length === "lengthAngle"', () => {
       const pieLengthAngle = 300;
       let pathsTotalLengthAngle = 0;
@@ -105,13 +100,13 @@ describe('Chart', () => {
       container.querySelectorAll('path').forEach((path) => {
         pathsTotalLengthAngle += getArcInfo(path).lengthAngle;
       });
-      expect(pieLengthAngle).toEqual(
+      expect(pieLengthAngle).toEqualWithRoundingError(
         pathsTotalLengthAngle + totalPaddingDegrees
       );
     });
   });
 
-  describe('"background"', () => {
+  describe('background prop', () => {
     describe('render a background segment as long as the whole chart', () => {
       const { container } = render({
         startAngle: 0,
@@ -134,7 +129,7 @@ describe('Chart', () => {
     });
   });
 
-  describe('"animate"', () => {
+  describe('animate prop', () => {
     describe('Segments "style.transition" prop', () => {
       it('receive "stroke-dashoffset" transition prop with custom duration/easing', () => {
         const { container } = render({
@@ -164,10 +159,11 @@ describe('Chart', () => {
       });
     });
 
-    describe.each([
-      [undefined, 360],
-      [50, 180],
-    ])('"reveal === %s"', (reveal, expectedRevealedDegrees) => {
+    describe.each`
+      reveal       | expectedRevealedDegrees
+      ${undefined} | ${360}
+      ${50}        | ${180}
+    `('reveal === ${reveal}', ({ reveal, expectedRevealedDegrees }) => {
       it('re-render on did mount revealing the expected portion of segment', () => {
         const segmentRadius = 25;
         const lengthAngle = 360;
@@ -218,7 +214,7 @@ describe('Chart', () => {
     });
   });
 
-  describe('"data.title"', () => {
+  describe('data.title prop', () => {
     it('render a <Title> element in each path', () => {
       const { container } = render({
         data: [{ title: 'title-value', value: 10, color: 'blue' }],
@@ -229,7 +225,7 @@ describe('Chart', () => {
     });
   });
 
-  describe('"injectSvg"', () => {
+  describe('injectSvg prop', () => {
     it('inject anything into rendered <svg>', () => {
       const { container } = render({
         injectSvg: () => <defs />,
