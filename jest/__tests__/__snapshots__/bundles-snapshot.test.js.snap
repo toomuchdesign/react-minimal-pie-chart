@@ -264,12 +264,13 @@ exports[`Dist bundle is unchanged 1`] = `
   ReactMinimalPieChartPath.displayName = 'ReactMinimalPieChartPath';
 
   function makeSegmentTransitionStyle(duration, easing, furtherStyles) {
-    if (furtherStyles === void 0) {
-      furtherStyles = {};
+    // Merge chart's animation CSS transition with \\"transition\\" found to furtherStyles
+    var transition = \\"stroke-dashoffset \\" + duration + \\"ms \\" + easing;
+
+    if (furtherStyles && furtherStyles.transition) {
+      transition = transition + \\",\\" + furtherStyles.transition;
     }
 
-    // Merge CSS transition necessary for chart animation with the ones provided by \\"segmentsStyle\\"
-    var transition = [\\"stroke-dashoffset \\" + duration + \\"ms \\" + easing, furtherStyles.transition].filter(Boolean).join(',');
     return {
       transition: transition
     };

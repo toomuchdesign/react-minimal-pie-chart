@@ -7,16 +7,13 @@ import type { Props as ChartProps } from './Chart';
 function makeSegmentTransitionStyle(
   duration: number,
   easing: string,
-  furtherStyles: StyleObject = {}
-) {
-  // Merge CSS transition necessary for chart animation with the ones provided by "segmentsStyle"
-  const transition = [
-    `stroke-dashoffset ${duration}ms ${easing}`,
-    furtherStyles.transition,
-  ]
-    .filter(Boolean)
-    .join(',');
-
+  furtherStyles?: StyleObject
+): { transition: string } {
+  // Merge chart's animation CSS transition with "transition" found to furtherStyles
+  let transition = `stroke-dashoffset ${duration}ms ${easing}`;
+  if (furtherStyles && furtherStyles.transition) {
+    transition = `${transition},${furtherStyles.transition}`;
+  }
   return {
     transition,
   };
