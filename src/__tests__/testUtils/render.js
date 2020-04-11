@@ -11,7 +11,13 @@ export const dataMock = [
 
 export function render(props) {
   const defaultProps = { data: dataMock };
-  return TLRender(<PieChart {...defaultProps} {...props} />);
+  const instance = TLRender(<PieChart {...defaultProps} {...props} />);
+
+  // Uniform rerender to render's API
+  const { rerender } = instance;
+  instance.rerender = (props) =>
+    rerender(<PieChart {...defaultProps} {...props} />);
+  return instance;
 }
 
 export { PieChart };

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import { render, dataMock, getArcInfo } from './testUtils';
+import { render, dataMock, getArcInfo, PieChart } from './testUtils';
 import { degreesToRadians } from '../utils';
 
 jest.useFakeTimers();
@@ -165,30 +165,44 @@ describe('Chart', () => {
       ${50}        | ${180}
     `('reveal === ${reveal}', ({ reveal, expectedRevealedDegrees }) => {
       it('re-render on did mount revealing the expected portion of segment', () => {
-        const segmentRadius = 25;
+        const segmentRadius = PieChart.defaultProps.radius / 2;
         const lengthAngle = 360;
         const fullPathLength = degreesToRadians(segmentRadius) * lengthAngle;
-
-        const singleEntryDataMock = [...dataMock[0]];
-        const { container } = render({
-          data: singleEntryDataMock,
+        const initialProps = {
+          data: [...dataMock[0]],
           animate: true,
           lengthAngle,
           reveal,
-        });
+        };
+        const { container, rerender, debug } = render(initialProps);
 
         const path = container.querySelector('path');
 
-        // Path hidden
+        // Paths are hidden
         expect(path).toHaveAttribute('stroke-dasharray', `${fullPathLength}`);
         expect(path).toHaveAttribute('stroke-dashoffset', `${fullPathLength}`);
 
-        // Complete componentDidMount callback execution
+        // Fire componentDidMount
         jest.runAllTimers();
 
-        const expectedRevealedPathLength =
+        let expectedRevealedPathLength =
           (fullPathLength / lengthAngle) * expectedRevealedDegrees;
 
+        // Paths are revealed
+        expect(path).toHaveAttribute('stroke-dasharray', `${fullPathLength}`);
+        expect(path).toHaveAttribute(
+          'stroke-dashoffset',
+          `${fullPathLength - expectedRevealedPathLength}`
+        );
+
+        // Update reveal prop after initial animation
+        const newReveal = 270;
+        rerender({
+          ...initialProps,
+          reveal: newReveal,
+        });
+
+        expectedRevealedPathLength = (fullPathLength / lengthAngle) * newReveal;
         expect(path).toHaveAttribute('stroke-dasharray', `${fullPathLength}`);
         expect(path).toHaveAttribute(
           'stroke-dashoffset',
@@ -201,13 +215,13 @@ describe('Chart', () => {
       // Simulate edge case of animation fired after component was unmounted
       // See: https://github.com/toomuchdesign/react-minimal-pie-chart/issues/8
       jest.spyOn(console, 'error');
-      const { unmount, rerender } = render({
+      const { unmount } = render({
         animate: true,
       });
 
       unmount();
+      // Fire componentDidMount
       jest.runAllTimers();
-      rerender();
 
       expect(console.error).not.toHaveBeenCalled();
       console.error.mockRestore();
