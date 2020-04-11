@@ -1,6 +1,11 @@
 import React from 'react';
 import partialCircle from 'svg-partial-circle';
-import { degreesToRadians, extractPercentage, valueBetween } from './utils';
+import {
+  degreesToRadians,
+  extractPercentage,
+  isNumber,
+  valueBetween,
+} from './utils';
 import type { StyleObject } from './commonTypes';
 
 export function makePathCommands(
@@ -70,7 +75,7 @@ export default function ReactMinimalPieChartPath({
 
   // Animate/hide paths with "stroke-dasharray" + "stroke-dashoffset"
   // https://css-tricks.com/svg-line-animation-works/
-  if (typeof reveal === 'number') {
+  if (isNumber(reveal)) {
     const pathLength = degreesToRadians(actualRadio) * lengthAngle;
     strokeDasharray = Math.abs(pathLength);
     strokeDashoffset =

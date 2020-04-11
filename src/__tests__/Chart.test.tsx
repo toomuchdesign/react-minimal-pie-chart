@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import { render, dataMock, getArcInfo, PieChart } from './testUtils';
-import { degreesToRadians } from '../utils';
+import { degreesToRadians, extractPercentage } from '../utils';
 
 jest.useFakeTimers();
 
@@ -160,53 +160,55 @@ describe('Chart', () => {
     });
 
     describe.each`
-      reveal       | expectedRevealedDegrees
-      ${undefined} | ${360}
-      ${50}        | ${180}
-    `('reveal === ${reveal}', ({ reveal, expectedRevealedDegrees }) => {
+      reveal       | expectedRevealedPercentage
+      ${undefined} | ${100}
+      ${25}        | ${25}
+    `('reveal === ${reveal}', ({ reveal, expectedRevealedPercentage }) => {
       it('re-render on did mount revealing the expected portion of segment', () => {
         const segmentRadius = PieChart.defaultProps.radius / 2;
         const lengthAngle = 360;
         const fullPathLength = degreesToRadians(segmentRadius) * lengthAngle;
+        let hiddenPercentage;
         const initialProps = {
           data: [...dataMock[0]],
           animate: true,
           lengthAngle,
           reveal,
         };
-        const { container, rerender, debug } = render(initialProps);
-
+        const { container, rerender } = render(initialProps);
         const path = container.querySelector('path');
 
         // Paths are hidden
+        hiddenPercentage = 100;
         expect(path).toHaveAttribute('stroke-dasharray', `${fullPathLength}`);
-        expect(path).toHaveAttribute('stroke-dashoffset', `${fullPathLength}`);
+        expect(path).toHaveAttribute(
+          'stroke-dashoffset',
+          `${extractPercentage(fullPathLength, hiddenPercentage)}`
+        );
 
         // Fire componentDidMount
         jest.runAllTimers();
 
-        let expectedRevealedPathLength =
-          (fullPathLength / lengthAngle) * expectedRevealedDegrees;
-
         // Paths are revealed
+        hiddenPercentage = 100 - expectedRevealedPercentage;
         expect(path).toHaveAttribute('stroke-dasharray', `${fullPathLength}`);
         expect(path).toHaveAttribute(
           'stroke-dashoffset',
-          `${fullPathLength - expectedRevealedPathLength}`
+          `${extractPercentage(fullPathLength, hiddenPercentage)}`
         );
 
         // Update reveal prop after initial animation
-        const newReveal = 270;
+        const newReveal = 77;
         rerender({
           ...initialProps,
           reveal: newReveal,
         });
 
-        expectedRevealedPathLength = (fullPathLength / lengthAngle) * newReveal;
+        hiddenPercentage = 100 - newReveal;
         expect(path).toHaveAttribute('stroke-dasharray', `${fullPathLength}`);
         expect(path).toHaveAttribute(
           'stroke-dashoffset',
-          `${fullPathLength - expectedRevealedPathLength}`
+          `${extractPercentage(fullPathLength, hiddenPercentage)}`
         );
       });
     });

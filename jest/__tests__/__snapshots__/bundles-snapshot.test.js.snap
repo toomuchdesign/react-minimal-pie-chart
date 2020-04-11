@@ -110,6 +110,9 @@ exports[`Dist bundle is unchanged 1`] = `
       radius: extractPercentage(props.radius, viewBoxWidth)
     };
   }
+  function isNumber(value) {
+    return typeof value === 'number';
+  }
 
   function sumValues(data) {
     return data.reduce(function (acc, dataEntry) {
@@ -248,7 +251,7 @@ exports[`Dist bundle is unchanged 1`] = `
     var strokeDashoffset; // Animate/hide paths with \\"stroke-dasharray\\" + \\"stroke-dashoffset\\"
     // https://css-tricks.com/svg-line-animation-works/
 
-    if (typeof reveal === 'number') {
+    if (isNumber(reveal)) {
       var pathLength = degreesToRadians(actualRadio) * lengthAngle;
       strokeDasharray = Math.abs(pathLength);
       strokeDashoffset = strokeDasharray - extractPercentage(strokeDasharray, reveal);
@@ -276,13 +279,24 @@ exports[`Dist bundle is unchanged 1`] = `
     };
   }
 
-  function renderSegments(data, props, forcedReveal) {
+  function getRevealValue(props) {
+    //@NOTE When animation is on, chart has to be fully revealed when reveal is not set
+    if (props.animate && !isNumber(props.reveal)) {
+      return 100;
+    }
+
+    return props.reveal;
+  }
+
+  function renderSegments(data, props, revealOverride) {
     var style = props.segmentsStyle;
 
     if (props.animate) {
       var transitionStyle = makeSegmentTransitionStyle(props.animationDuration, props.animationEasing, style);
       style = Object.assign({}, style, transitionStyle);
     }
+
+    var reveal = revealOverride != null ? revealOverride : getRevealValue(props);
 
     var _extractAbsoluteCoord = extractAbsoluteCoordinates(props),
         cx = _extractAbsoluteCoord.cx,
@@ -300,7 +314,7 @@ exports[`Dist bundle is unchanged 1`] = `
         lengthAngle: dataEntry.degrees,
         radius: radius,
         lineWidth: lineWidth,
-        reveal: forcedReveal != null ? forcedReveal : props.reveal,
+        reveal: reveal,
         title: dataEntry.title,
         style: Object.assign({}, style, dataEntry.style),
         stroke: dataEntry.color,
@@ -359,12 +373,12 @@ exports[`Dist bundle is unchanged 1`] = `
       var _this;
 
       _this = _Component.call(this, props) || this;
-      _this.forcedSegmentsReveal = void 0;
+      _this.revealOverride = void 0;
       _this.initialAnimationTimerId = void 0;
       _this.initialAnimationRAFId = void 0;
 
       if (props.animate === true) {
-        _this.forcedSegmentsReveal = 0;
+        _this.revealOverride = 0;
       }
 
       return _this;
@@ -398,9 +412,7 @@ exports[`Dist bundle is unchanged 1`] = `
     };
 
     _proto.startAnimation = function startAnimation() {
-      var _this$props$reveal;
-
-      this.forcedSegmentsReveal = (_this$props$reveal = this.props.reveal) != null ? _this$props$reveal : 100;
+      this.revealOverride = null;
       this.forceUpdate();
     };
 
@@ -422,7 +434,7 @@ exports[`Dist bundle is unchanged 1`] = `
         style: {
           display: 'block'
         }
-      }, renderSegments(extendedData, props, this.forcedSegmentsReveal), props.label && renderLabels(extendedData, props), props.injectSvg && props.injectSvg()), props.children);
+      }, renderSegments(extendedData, props, this.revealOverride), props.label && renderLabels(extendedData, props), props.injectSvg && props.injectSvg()), props.children);
     };
 
     return ReactMinimalPieChart;

@@ -1,6 +1,10 @@
 import React from 'react';
 import Path from '../Path';
-import { extractPercentage, extractAbsoluteCoordinates } from '../utils';
+import {
+  extractPercentage,
+  extractAbsoluteCoordinates,
+  isNumber,
+} from '../utils';
 import type { ExtendedData, StyleObject } from '../commonTypes';
 import type { Props as ChartProps } from './Chart';
 
@@ -19,10 +23,18 @@ function makeSegmentTransitionStyle(
   };
 }
 
+function getRevealValue<Reveal>(props: { reveal?: Reveal; animate: boolean }) {
+  //@NOTE When animation is on, chart has to be fully revealed when reveal is not set
+  if (props.animate && !isNumber(props.reveal)) {
+    return 100;
+  }
+  return props.reveal;
+}
+
 export default function renderSegments(
   data: ExtendedData,
   props: ChartProps,
-  forcedReveal?: number
+  revealOverride?: null | number
 ) {
   let style = props.segmentsStyle;
   if (props.animate) {
@@ -33,6 +45,7 @@ export default function renderSegments(
     );
     style = Object.assign({}, style, transitionStyle);
   }
+  const reveal = revealOverride ?? getRevealValue(props);
 
   const { cx, cy, radius } = extractAbsoluteCoordinates(props);
   const lineWidth = extractPercentage(radius, props.lineWidth);
@@ -48,7 +61,7 @@ export default function renderSegments(
         lengthAngle={dataEntry.degrees}
         radius={radius}
         lineWidth={lineWidth}
-        reveal={forcedReveal ?? props.reveal}
+        reveal={reveal}
         title={dataEntry.title}
         style={Object.assign({}, style, dataEntry.style)}
         stroke={dataEntry.color}
