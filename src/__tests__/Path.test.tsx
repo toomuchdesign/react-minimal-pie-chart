@@ -44,10 +44,7 @@ describe('Path', () => {
       expect(path).toHaveAttribute('stroke', 'black');
       expect(path).toHaveAttribute('tabindex', '2');
       expect(path).toHaveAttribute('stroke-linecap', 'round');
-      expect(path).toHaveStyle(`
-        opacity: .5;
-        fill: green;
-      `);
+      expect(path).toHaveStyle({ opacity: 0.5, fill: 'green' });
     });
   });
 

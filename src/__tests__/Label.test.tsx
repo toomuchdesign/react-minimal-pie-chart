@@ -94,7 +94,7 @@ describe('Label', () => {
       });
 
       container.querySelectorAll('text').forEach((label) => {
-        expect(label).toHaveStyle('pointer-events: none');
+        expect(label).toHaveStyle({ pointerEvents: 'none' });
       });
     });
   });
