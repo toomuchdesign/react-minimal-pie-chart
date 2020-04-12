@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import PieChart from '../src';
+import FullOption from './FullOption';
 import InteractionStory from './InteractionStory';
 import InteractionTabStory from './InteractionTabStory';
 import LoadingIndicatorStory from './LoadingIndicatorStory';
@@ -19,12 +20,10 @@ const defaultLabelStyle = {
 };
 
 storiesOf('Pie Chart', module)
+  .add('Full option', () => <FullOption data={dataMock} />)
   .add('Default', () => <PieChart data={dataMock} />)
   .add('Custom size', () => (
     <PieChart data={dataMock} style={{ height: '100px' }} />
-  ))
-  .add('Spaced', () => (
-    <PieChart data={dataMock} segmentsShift={0.5} radius={50 - 0.5} />
   ))
   .add('Exploded', () => {
     const shiftSize = 7;
