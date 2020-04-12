@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
-import { render, dataMock, getArcInfo } from './testUtils';
-import { degreesToRadians } from '../utils';
+import { render, dataMock, getArcInfo, PieChart } from './testUtils';
+import { degreesToRadians, extractPercentage } from '../utils';
 
 jest.useFakeTimers();
 
@@ -160,39 +160,55 @@ describe('Chart', () => {
     });
 
     describe.each`
-      reveal       | expectedRevealedDegrees
-      ${undefined} | ${360}
-      ${50}        | ${180}
-    `('reveal === ${reveal}', ({ reveal, expectedRevealedDegrees }) => {
+      reveal       | expectedRevealedPercentage
+      ${undefined} | ${100}
+      ${25}        | ${25}
+    `('reveal === ${reveal}', ({ reveal, expectedRevealedPercentage }) => {
       it('re-render on did mount revealing the expected portion of segment', () => {
-        const segmentRadius = 25;
+        const segmentRadius = PieChart.defaultProps.radius / 2;
         const lengthAngle = 360;
         const fullPathLength = degreesToRadians(segmentRadius) * lengthAngle;
-
-        const singleEntryDataMock = [...dataMock[0]];
-        const { container } = render({
-          data: singleEntryDataMock,
+        let hiddenPercentage;
+        const initialProps = {
+          data: [...dataMock[0]],
           animate: true,
           lengthAngle,
           reveal,
-        });
-
+        };
+        const { container, rerender } = render(initialProps);
         const path = container.querySelector('path');
 
-        // Path hidden
-        expect(path).toHaveAttribute('stroke-dasharray', `${fullPathLength}`);
-        expect(path).toHaveAttribute('stroke-dashoffset', `${fullPathLength}`);
-
-        // Complete componentDidMount callback execution
-        jest.runAllTimers();
-
-        const expectedRevealedPathLength =
-          (fullPathLength / lengthAngle) * expectedRevealedDegrees;
-
+        // Paths are hidden
+        hiddenPercentage = 100;
         expect(path).toHaveAttribute('stroke-dasharray', `${fullPathLength}`);
         expect(path).toHaveAttribute(
           'stroke-dashoffset',
-          `${fullPathLength - expectedRevealedPathLength}`
+          `${extractPercentage(fullPathLength, hiddenPercentage)}`
+        );
+
+        // Fire componentDidMount
+        jest.runAllTimers();
+
+        // Paths are revealed
+        hiddenPercentage = 100 - expectedRevealedPercentage;
+        expect(path).toHaveAttribute('stroke-dasharray', `${fullPathLength}`);
+        expect(path).toHaveAttribute(
+          'stroke-dashoffset',
+          `${extractPercentage(fullPathLength, hiddenPercentage)}`
+        );
+
+        // Update reveal prop after initial animation
+        const newReveal = 77;
+        rerender({
+          ...initialProps,
+          reveal: newReveal,
+        });
+
+        hiddenPercentage = 100 - newReveal;
+        expect(path).toHaveAttribute('stroke-dasharray', `${fullPathLength}`);
+        expect(path).toHaveAttribute(
+          'stroke-dashoffset',
+          `${extractPercentage(fullPathLength, hiddenPercentage)}`
         );
       });
     });
@@ -201,13 +217,13 @@ describe('Chart', () => {
       // Simulate edge case of animation fired after component was unmounted
       // See: https://github.com/toomuchdesign/react-minimal-pie-chart/issues/8
       jest.spyOn(console, 'error');
-      const { unmount, rerender } = render({
+      const { unmount } = render({
         animate: true,
       });
 
       unmount();
+      // Fire componentDidMount
       jest.runAllTimers();
-      rerender();
 
       expect(console.error).not.toHaveBeenCalled();
       console.error.mockRestore();

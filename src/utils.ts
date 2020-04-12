@@ -54,3 +54,7 @@ export function extractAbsoluteCoordinates(props: ChartProps) {
     radius: extractPercentage(props.radius, viewBoxWidth),
   };
 }
+
+export function isNumber(value: unknown): value is number {
+  return typeof value === 'number';
+}

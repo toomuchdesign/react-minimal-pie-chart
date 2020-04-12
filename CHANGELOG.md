@@ -1,3 +1,9 @@
+# 7.1.1
+
+### Bugfixes
+
+- Fix regression introduced in `7.1.0` consisting of `reveal` prop being stuck after initial animation
+
 # 7.1.0
 
 ### New Features
