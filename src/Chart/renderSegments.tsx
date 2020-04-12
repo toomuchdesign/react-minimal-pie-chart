@@ -36,34 +36,36 @@ export default function renderSegments(
   props: ChartProps,
   revealOverride?: null | number
 ) {
-  let style = props.segmentsStyle;
-  if (props.animate) {
-    const transitionStyle = makeSegmentTransitionStyle(
+  // @NOTE this should go in Path component. Here for performance reasons
+  const reveal = revealOverride ?? getRevealValue(props);
+  const segmentTransitionsCombined =
+    props.animate &&
+    makeSegmentTransitionStyle(
       props.animationDuration,
       props.animationEasing,
-      style
+      props.segmentsStyle
     );
-    style = Object.assign({}, style, transitionStyle);
-  }
-  const reveal = revealOverride ?? getRevealValue(props);
 
   const { cx, cy, radius } = extractAbsoluteCoordinates(props);
   const lineWidth = extractPercentage(radius, props.lineWidth);
   const paths = data.map((dataEntry, index) => {
-    const startAngle = props.startAngle + dataEntry.startOffset;
-
     return (
       <Path
         key={dataEntry.key || index}
         cx={cx}
         cy={cy}
-        startAngle={startAngle}
+        startAngle={props.startAngle + dataEntry.startOffset}
         lengthAngle={dataEntry.degrees}
         radius={radius}
         lineWidth={lineWidth}
         reveal={reveal}
         title={dataEntry.title}
-        style={Object.assign({}, style, dataEntry.style)}
+        style={Object.assign(
+          {},
+          props.segmentsStyle,
+          segmentTransitionsCombined,
+          dataEntry.style
+        )}
         stroke={dataEntry.color}
         strokeLinecap={props.rounded ? 'round' : undefined}
         tabIndex={props.segmentsTabIndex}

@@ -289,14 +289,9 @@ exports[`Dist bundle is unchanged 1`] = `
   }
 
   function renderSegments(data, props, revealOverride) {
-    var style = props.segmentsStyle;
-
-    if (props.animate) {
-      var transitionStyle = makeSegmentTransitionStyle(props.animationDuration, props.animationEasing, style);
-      style = Object.assign({}, style, transitionStyle);
-    }
-
+    // @NOTE this should go in Path component. Here for performance reasons
     var reveal = revealOverride != null ? revealOverride : getRevealValue(props);
+    var segmentTransitionsCombined = props.animate && makeSegmentTransitionStyle(props.animationDuration, props.animationEasing, props.segmentsStyle);
 
     var _extractAbsoluteCoord = extractAbsoluteCoordinates(props),
         cx = _extractAbsoluteCoord.cx,
@@ -305,18 +300,17 @@ exports[`Dist bundle is unchanged 1`] = `
 
     var lineWidth = extractPercentage(radius, props.lineWidth);
     var paths = data.map(function (dataEntry, index) {
-      var startAngle = props.startAngle + dataEntry.startOffset;
       return /*#__PURE__*/React__default.createElement(ReactMinimalPieChartPath, {
         key: dataEntry.key || index,
         cx: cx,
         cy: cy,
-        startAngle: startAngle,
+        startAngle: props.startAngle + dataEntry.startOffset,
         lengthAngle: dataEntry.degrees,
         radius: radius,
         lineWidth: lineWidth,
         reveal: reveal,
         title: dataEntry.title,
-        style: Object.assign({}, style, dataEntry.style),
+        style: Object.assign({}, props.segmentsStyle, segmentTransitionsCombined, dataEntry.style),
         stroke: dataEntry.color,
         strokeLinecap: props.rounded ? 'round' : undefined,
         tabIndex: props.segmentsTabIndex,
