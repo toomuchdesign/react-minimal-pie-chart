@@ -60,10 +60,13 @@ export default function renderSegments(
         radius={radius}
         lineWidth={lineWidth}
         reveal={reveal}
-        shift={extractPercentage(
-          radius,
-          functionProp(props.segmentsShift, props.data, index)
-        )}
+        shift={
+          props.segmentsShift &&
+          extractPercentage(
+            radius,
+            functionProp(props.segmentsShift, props.data, index)
+          )
+        }
         title={dataEntry.title}
         style={Object.assign(
           {},

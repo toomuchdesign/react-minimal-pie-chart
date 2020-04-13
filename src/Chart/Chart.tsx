@@ -60,7 +60,6 @@ export default class ReactMinimalPieChart extends Component<Props> {
     paddingAngle: 0,
     radius: 50,
     rounded: false,
-    segmentsShift: 0,
     startAngle: 0,
     viewBoxSize: [100, 100],
   };

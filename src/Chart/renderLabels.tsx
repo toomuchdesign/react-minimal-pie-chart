@@ -35,13 +35,16 @@ function renderLabelItem(
 export default function renderLabels(data: ExtendedData, props: ChartProps) {
   const { cx, cy, radius } = extractAbsoluteCoordinates(props);
   return data.map((dataEntry, index) => {
-    const labelPosition = extractPercentage(
+    const distanceFromCenter = extractPercentage(
       radius,
-      functionProp(props.segmentsShift, data, index) + props.labelPosition
+      props.labelPosition + functionProp(props.segmentsShift ?? 0, data, index)
     );
     const startAngle = props.startAngle + dataEntry.startOffset;
     const segmentBisector = bisectorAngle(startAngle, dataEntry.degrees);
-    const { dx, dy } = shiftVectorAlongAngle(segmentBisector, labelPosition);
+    const { dx, dy } = shiftVectorAlongAngle(
+      segmentBisector,
+      distanceFromCenter
+    );
 
     // This object is passed as props to the "label" component
     const labelProps = {
@@ -55,7 +58,7 @@ export default function renderLabels(data: ExtendedData, props: ChartProps) {
         lineWidth: props.lineWidth,
         labelHorizontalShift: dx,
       }),
-      data: data,
+      data,
       dataIndex: index,
       color: dataEntry.color,
       style: props.labelStyle,

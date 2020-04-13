@@ -67,6 +67,7 @@ export default function ReactMinimalPieChartPath({
   ...props
 }: Props) {
   const pathRadius = radius - lineWidth / 2;
+  //@NOTE This shift might be rendered as a translation in future
   const { dx, dy } = shiftVectorAlongAngle(
     bisectorAngle(startAngle, lengthAngle),
     shift
