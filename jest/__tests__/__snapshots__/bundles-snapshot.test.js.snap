@@ -59,7 +59,7 @@ exports[`Dist bundle is unchanged 1`] = `
   }));
 
   function round(number) {
-    var divisor = 100000000000000; // 14 decimals
+    var divisor = 1e14; // 14 decimals
 
     return Math.round((number + Number.EPSILON) * divisor) / divisor;
   }

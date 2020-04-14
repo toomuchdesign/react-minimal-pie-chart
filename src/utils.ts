@@ -1,7 +1,7 @@
 import type { Props as ChartProps } from './Chart';
 
 function round(number: number): number {
-  const divisor = 100000000000000; // 14 decimals
+  const divisor = 1e14; // 14 decimals
   return Math.round((number + Number.EPSILON) * divisor) / divisor;
 }
 
