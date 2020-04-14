@@ -55,10 +55,6 @@ export function getArcInfo(element) {
       x: moveto.x,
       y: moveto.y,
     },
-    endPoint: {
-      x: arc.x,
-      y: arc.y,
-    },
     startAngle,
     lengthAngle,
     radius: arc.rx,

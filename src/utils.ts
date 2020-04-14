@@ -55,6 +55,27 @@ export function extractAbsoluteCoordinates(props: ChartProps) {
   };
 }
 
+export function bisectorAngle(startAngle: number, lengthAngle: number) {
+  return startAngle + lengthAngle / 2;
+}
+
+export function shiftVectorAlongAngle(angle: number, distance: number) {
+  const angleRadians = degreesToRadians(angle);
+  return {
+    dx: distance * Math.cos(angleRadians),
+    dy: distance * Math.sin(angleRadians),
+  };
+}
+
 export function isNumber(value: unknown): value is number {
   return typeof value === 'number';
+}
+
+export function functionProp<Prop, Payload>(
+  prop: Prop,
+  payload?: Payload,
+  index?: number
+  // @ts-ignore
+): Prop extends Function ? ReturnType<Prop> : Prop {
+  return typeof prop === 'function' ? prop(payload, index) : prop;
 }

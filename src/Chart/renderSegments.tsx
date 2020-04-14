@@ -3,6 +3,7 @@ import Path from '../Path';
 import {
   extractPercentage,
   extractAbsoluteCoordinates,
+  functionProp,
   isNumber,
 } from '../utils';
 import type { ExtendedData, StyleObject } from '../commonTypes';
@@ -59,6 +60,13 @@ export default function renderSegments(
         radius={radius}
         lineWidth={lineWidth}
         reveal={reveal}
+        shift={
+          props.segmentsShift &&
+          extractPercentage(
+            radius,
+            functionProp(props.segmentsShift, props.data, index)
+          )
+        }
         title={dataEntry.title}
         style={Object.assign(
           {},

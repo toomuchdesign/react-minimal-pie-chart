@@ -1,9 +1,11 @@
 import React from 'react';
 import partialCircle from 'svg-partial-circle';
 import {
+  bisectorAngle,
   degreesToRadians,
   extractPercentage,
   isNumber,
+  shiftVectorAlongAngle,
   valueBetween,
 } from './utils';
 import type { StyleObject } from './commonTypes';
@@ -43,6 +45,7 @@ type Props = {
   onMouseOver?: (event: React.MouseEvent) => void;
   radius: number;
   reveal?: number;
+  shift?: number;
   startAngle: number;
   stroke?: string;
   strokeLinecap?: 'butt' | 'round' | 'square' | 'inherit';
@@ -54,21 +57,28 @@ type Props = {
 export default function ReactMinimalPieChartPath({
   cx,
   cy,
-  startAngle,
   lengthAngle,
-  radius,
   lineWidth,
+  radius,
+  shift = 0,
   reveal,
+  startAngle,
   title,
   ...props
 }: Props) {
-  const actualRadio = radius - lineWidth / 2;
+  const pathRadius = radius - lineWidth / 2;
+  //@NOTE This shift might be rendered as a translation in future
+  const { dx, dy } = shiftVectorAlongAngle(
+    bisectorAngle(startAngle, lengthAngle),
+    shift
+  );
+
   const pathCommands = makePathCommands(
-    cx,
-    cy,
+    cx + dx,
+    cy + dy,
     startAngle,
     lengthAngle,
-    actualRadio
+    pathRadius
   );
   let strokeDasharray;
   let strokeDashoffset;
@@ -76,7 +86,7 @@ export default function ReactMinimalPieChartPath({
   // Animate/hide paths with "stroke-dasharray" + "stroke-dashoffset"
   // https://css-tricks.com/svg-line-animation-works/
   if (isNumber(reveal)) {
-    const pathLength = degreesToRadians(actualRadio) * lengthAngle;
+    const pathLength = degreesToRadians(pathRadius) * lengthAngle;
     strokeDasharray = Math.abs(pathLength);
     strokeDashoffset =
       strokeDasharray - extractPercentage(strokeDasharray, reveal);

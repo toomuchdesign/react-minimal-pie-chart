@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import PieChart from '../src';
+import FullOption from './FullOption';
 import InteractionStory from './InteractionStory';
 import InteractionTabStory from './InteractionTabStory';
 import LoadingIndicatorStory from './LoadingIndicatorStory';
@@ -19,10 +20,25 @@ const defaultLabelStyle = {
 };
 
 storiesOf('Pie Chart', module)
+  .add('Full option', () => <FullOption data={dataMock} />)
   .add('Default', () => <PieChart data={dataMock} />)
   .add('Custom size', () => (
     <PieChart data={dataMock} style={{ height: '100px' }} />
-  ));
+  ))
+  .add('Exploded', () => {
+    const shiftSize = 7;
+    return (
+      <PieChart
+        data={dataMock}
+        radius={PieChart.defaultProps.radius - shiftSize}
+        segmentsShift={(_, index) => (index === 0 ? shiftSize : 0.5)}
+        label
+        labelStyle={{
+          ...defaultLabelStyle,
+        }}
+      />
+    );
+  });
 
 storiesOf('Donut Chart', module)
   .add("Custom arcs' width", () => <PieChart data={dataMock} lineWidth={15} />)
