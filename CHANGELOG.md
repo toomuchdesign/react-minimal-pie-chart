@@ -1,3 +1,9 @@
+# 7.2.0
+
+### New Features
+
+- Add `segmentsShift` prop to move segments radially and render exploded charts
+
 # 7.1.1
 
 ### Bugfixes

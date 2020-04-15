@@ -4,7 +4,7 @@ import PieChart from '../src';
 import { dataPropType } from '../src/propTypes';
 
 function DemoInteractionTab(props) {
-  const [selected, setSelected] = useState(undefined);
+  const [selected, setSelected] = useState(0);
   const [focused, setFocused] = useState(undefined);
 
   const onFocusHandler = (_, __, index) => {

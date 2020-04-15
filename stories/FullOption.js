@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PieChart from '../src';
 
 function FullOption(props) {
-  const [selected, setSelected] = useState(undefined);
+  const [selected, setSelected] = useState(0);
   const [hovered, setHovered] = useState(undefined);
 
   const onMouseOverHandler = (_, __, index) => {

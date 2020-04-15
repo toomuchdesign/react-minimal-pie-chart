@@ -4,7 +4,7 @@ import PieChart from '../src';
 import { dataPropType } from '../src/propTypes';
 
 function DemoInteraction(props) {
-  const [selected, setSelected] = useState(undefined);
+  const [selected, setSelected] = useState(0);
   const [hovered, setHovered] = useState(undefined);
 
   const onMouseOverHandler = (_, __, index) => {
