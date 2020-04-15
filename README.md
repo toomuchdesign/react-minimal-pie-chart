@@ -7,17 +7,13 @@
 
 Lightweight React **SVG pie charts**, with **versatile options** and **CSS animation** included. **< 3kB** gzipped. 👏[Demo][storybook]&nbsp;👏.
 
-```js
-import PieChart from 'react-minimal-pie-chart';
-
-<PieChart
-  data={[
-    { title: 'One', value: 10, color: '#E38627' },
-    { title: 'Two', value: 15, color: '#C13C37' },
-    { title: 'Three', value: 20, color: '#6A2135' },
-  ]}
-/>;
-```
+<p align="center">
+  <img
+    width="350px"
+    src="docs/chart.gif?raw=true"
+    alt="React minimal pie chart preview"
+  />
+</p>
 
 ## Why?
 
@@ -49,6 +45,20 @@ If you don't use a package manager, `react-minimal-pie-chart` exposes also an `U
 
 ```
 https://unpkg.com/react-minimal-pie-chart/dist/index.js
+```
+
+## Usage
+
+```js
+import PieChart from 'react-minimal-pie-chart';
+
+<PieChart
+  data={[
+    { title: 'One', value: 10, color: '#E38627' },
+    { title: 'Two', value: 15, color: '#C13C37' },
+    { title: 'Three', value: 20, color: '#6A2135' },
+  ]}
+/>;
 ```
 
 ## Options
