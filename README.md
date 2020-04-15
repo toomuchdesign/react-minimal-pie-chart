@@ -29,18 +29,15 @@ Because [Recharts][recharts-github] is awesome, but when you just need a simple 
 |   [rechart][recharts-github]<br>_v1.8.5_   |     [![Bundle size: Recharts][recharts-bundlephobia-badge]][recharts-bundlephobia]      |      92.6 KB      |             1900 ms             |
 | [victory-pie][victory-pie-github]<br>_v34_ | [![Bundle size: Victory pie][victory-pie-bundlephobia-badge]][victory-pie-bundlephobia] |      50.5 KB      |             1100 ms             |
 
-\* Benchmark carried out with [size-limit](https://github.com/ai/size-limit) with a "real-world" setup: see [benchmark repo](https://github.com/toomuchdesign/react-pie-charts-size).
-
-Note: what matter here are not absolute values but the relation between magnitudes.
+\* Benchmark carried out with [size-limit](https://github.com/ai/size-limit) with a "real-world" setup: see [benchmark repo](https://github.com/toomuchdesign/react-pie-charts-size). (What matter here are not absolute values but the relation between magnitudes)
 
 ## Features
 
 - **< 3kB** gzipped
 - Versatile: **Pie**, **Donut**, **Loading**, **Completion** charts (see [Demo][storybook])
-- Customizable chart **labels**
-- Customizable **CSS animations**
-- **Typescript types** included
-- **No dependencies** (except for [React's prop-types](https://github.com/reactjs/))
+- Customizable chart **labels** and **CSS animations**
+- Written in **Typescript**
+- No dependencies (except for [React's prop-types](https://github.com/reactjs/))
 
 ## Installation
 
@@ -153,13 +150,13 @@ See some examples in the [demo source][demo-label-source].
 
 ### User interactions with the chart
 
-See [demo][demo-interaction] and its [source][demo-interaction-source].
+See [demo][demo-interaction] and relative source [here][demo-interaction-source] and [here][demo-interaction-2-source].
 
 ## Browsers support
 
-The main requirement of this library is an accurate rendering of [SVG Stroke properties](https://www.w3schools.com/graphics/svg_stroking.asp).
-
 Here is an updated [browsers support list 🔍](https://github.com/toomuchdesign/react-minimal-pie-chart/issues/129).
+
+The main requirement of this library is an accurate rendering of [SVG Stroke properties](https://www.w3schools.com/graphics/svg_stroking.asp).
 
 Please consider that a [`Math.sign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sign) polyfill is needed to support legacy browsers.
 
@@ -236,6 +233,7 @@ Thanks to you all ([emoji key](https://github.com/kentcdodds/all-contributors#em
 [victory-pie-bundlephobia]: https://bundlephobia.com/result?p=victory-pie
 [victory-pie-github]: https://github.com/FormidableLabs/victory
 [storybook]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html
-[demo-interaction]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html?path=/story/interaction--custom-click-mouseover-mouseout-callbacks
-[demo-interaction-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v3.5.0/stories/InteractionStory.js
-[demo-label-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v3.5.0/stories/index.js#L94
+[demo-interaction]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html?path=/story/interaction--click-mouseover-mouseout-callbacks
+[demo-interaction-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v7.1.1/stories/InteractionStory.js
+[demo-interaction-2-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v7.1.1/stories/InteractionTabStory.js
+[demo-label-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v7.1.1/stories/index.js#L67
