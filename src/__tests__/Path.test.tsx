@@ -56,15 +56,16 @@ describe('Path', () => {
   describe('segmentsShift prop', () => {
     /*
      * 1- Render both shifted and non-shifted segments
-     * 2- Evaluate expected absolute segment's shift
+     * 2- Evaluate expected absolute segment's shift<
      * 3- Compare shifted and non-shifted segments info
      */
     describe.each`
-      description      | segmentsShift                   | expectedSegmentsShift
-      ${'as number'}   | ${1}                            | ${[1, 1, 1]}
-      ${'as function'} | ${jest.fn((_, index) => index)} | ${[0, 1, 2]}
+      description      | segmentsShift          | expectedSegmentsShift
+      ${'as number'}   | ${1}                   | ${[1, 1, 1]}
+      ${'as function'} | ${(_, index) => index} | ${[0, 1, 2]}
+      ${'as function'} | ${jest.fn()}           | ${[0, 0, 0]}
     `('$description', ({ segmentsShift, expectedSegmentsShift }) => {
-      if (typeof segmentsShift === 'function') {
+      if (jest.isMockFunction(segmentsShift)) {
         it('gets called with expected arguments', () => {
           render({ segmentsShift });
           expect(segmentsShift).toHaveBeenNthCalledWith(1, dataMock, 0);
