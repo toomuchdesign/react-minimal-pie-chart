@@ -1,5 +1,5 @@
 import { extractPercentage, valueBetween } from '../utils';
-import type { Data } from '../commonTypes';
+import type { Data, ExtendedData } from '../commonTypes';
 import type { Props as ChartProps } from './Chart';
 
 function sumValues(data: Data) {
@@ -12,7 +12,7 @@ export default function extendData({
   lengthAngle: totalAngle,
   totalValue,
   paddingAngle,
-}: ChartProps) {
+}: ChartProps): ExtendedData {
   const total = totalValue || sumValues(data);
   const normalizedTotalAngle = valueBetween(totalAngle, -360, 360);
   const numberOfPaddings =
