@@ -4,15 +4,15 @@ import { extractPercentage, functionProp, isNumber } from '../utils';
 import type { ExtendedData, StyleObject } from '../commonTypes';
 import type { Props as ChartProps } from './Chart';
 
-function makeSegmentTransitionStyle(
+function combineSegmentTransitionsStyle(
   duration: number,
   easing: string,
-  furtherStyles?: StyleObject
+  customStyle?: StyleObject
 ): { transition: string } {
-  // Merge chart's animation CSS transition with "transition" found to furtherStyles
+  // Merge chart's animation CSS transition with "transition" found to customStyle
   let transition = `stroke-dashoffset ${duration}ms ${easing}`;
-  if (furtherStyles && furtherStyles.transition) {
-    transition = `${transition},${furtherStyles.transition}`;
+  if (customStyle && customStyle.transition) {
+    transition = `${transition},${customStyle.transition}`;
   }
   return {
     transition,
@@ -46,17 +46,10 @@ export default function renderSegments(
 ) {
   // @NOTE this should go in Path component. Here for performance reasons
   const reveal = revealOverride ?? getRevealValue(props);
-  const segmentTransitionsCombined =
-    props.animate &&
-    makeSegmentTransitionStyle(
-      props.animationDuration,
-      props.animationEasing,
-      props.segmentsStyle
-    );
-
   const { radius } = props;
   const lineWidth = extractPercentage(radius, props.lineWidth);
   const paths = data.map((dataEntry, index) => {
+    const segmentsStyle = functionProp(props.segmentsStyle, index);
     return (
       <Path
         key={dataEntry.key || index}
@@ -71,9 +64,13 @@ export default function renderSegments(
         title={dataEntry.title}
         style={Object.assign(
           {},
-          props.segmentsStyle,
-          segmentTransitionsCombined,
-          dataEntry.style
+          segmentsStyle,
+          props.animate &&
+            combineSegmentTransitionsStyle(
+              props.animationDuration,
+              props.animationEasing,
+              segmentsStyle
+            )
         )}
         stroke={dataEntry.color}
         strokeLinecap={props.rounded ? 'round' : undefined}

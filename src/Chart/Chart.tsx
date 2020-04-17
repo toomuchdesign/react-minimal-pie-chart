@@ -37,7 +37,9 @@ export type Props = Omit<typeof ReactMinimalPieChart.defaultProps, 'label'> & {
   reveal?: number;
   rounded?: boolean;
   segmentsShift?: number | ((dataIndex: number) => number | undefined);
-  segmentsStyle?: StyleObject;
+  segmentsStyle?:
+    | StyleObject
+    | ((dataIndex: number) => StyleObject | undefined);
   segmentsTabIndex?: number;
   startAngle?: number;
   style?: StyleObject;

@@ -271,12 +271,12 @@ exports[`Dist bundle is unchanged 1`] = `
   }
   ReactMinimalPieChartPath.displayName = 'ReactMinimalPieChartPath';
 
-  function makeSegmentTransitionStyle(duration, easing, furtherStyles) {
-    // Merge chart's animation CSS transition with \\"transition\\" found to furtherStyles
+  function combineSegmentTransitionsStyle(duration, easing, customStyle) {
+    // Merge chart's animation CSS transition with \\"transition\\" found to customStyle
     var transition = \\"stroke-dashoffset \\" + duration + \\"ms \\" + easing;
 
-    if (furtherStyles && furtherStyles.transition) {
-      transition = transition + \\",\\" + furtherStyles.transition;
+    if (customStyle && customStyle.transition) {
+      transition = transition + \\",\\" + customStyle.transition;
     }
 
     return {
@@ -302,10 +302,10 @@ exports[`Dist bundle is unchanged 1`] = `
   function renderSegments(data, props, revealOverride) {
     // @NOTE this should go in Path component. Here for performance reasons
     var reveal = revealOverride != null ? revealOverride : getRevealValue(props);
-    var segmentTransitionsCombined = props.animate && makeSegmentTransitionStyle(props.animationDuration, props.animationEasing, props.segmentsStyle);
     var radius = props.radius;
     var lineWidth = extractPercentage(radius, props.lineWidth);
     var paths = data.map(function (dataEntry, index) {
+      var segmentsStyle = functionProp(props.segmentsStyle, index);
       return /*#__PURE__*/React__default.createElement(ReactMinimalPieChartPath, {
         key: dataEntry.key || index,
         cx: props.cx,
@@ -317,7 +317,7 @@ exports[`Dist bundle is unchanged 1`] = `
         reveal: reveal,
         shift: functionProp(props.segmentsShift, index),
         title: dataEntry.title,
-        style: Object.assign({}, props.segmentsStyle, segmentTransitionsCombined, dataEntry.style),
+        style: Object.assign({}, segmentsStyle, props.animate && combineSegmentTransitionsStyle(props.animationDuration, props.animationEasing, segmentsStyle)),
         stroke: dataEntry.color,
         strokeLinecap: props.rounded ? 'round' : undefined,
         tabIndex: props.segmentsTabIndex,

@@ -18,15 +18,10 @@ function DemoInteractionTab(props: Props) {
         color: 'grey',
       };
     }
-    if (selected === i) {
-      result = {
-        ...result,
-        style: { strokeWidth: 35 },
-      };
-    }
     return result;
   });
 
+  const segmentsStyle = { transition: 'stroke .3s', cursor: 'pointer' };
   return (
     <>
       <p>
@@ -37,7 +32,11 @@ function DemoInteractionTab(props: Props) {
         data={data}
         radius={40}
         lineWidth={75}
-        segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
+        segmentsStyle={(index) => {
+          return index === selected
+            ? { ...segmentsStyle, strokeWidth: 35 }
+            : segmentsStyle;
+        }}
         segmentsTabIndex={1}
         onKeyDown={(event, index) => {
           // Enter keypress
