@@ -42,7 +42,6 @@ function FullOption(props: Props) {
         fill: '#fff',
         opacity: 0.75,
         pointerEvents: 'none',
-        dominantBaseline: 'central', //@TODO remove if when #149 gets implemented
       }}
       onClick={(_, index) => {
         setSelected(index === selected ? undefined : index);
