@@ -1,6 +1,11 @@
 // @ts-nocheck
 import React from 'react';
-import { render, dataMock } from './testUtils';
+import { render, dataMock, PieChart, getArcInfo } from './testUtils';
+import {
+  bisectorAngle,
+  extractPercentage,
+  shiftVectorAlongAngle,
+} from '../utils';
 
 export const expectedLabelProps = {
   x: expect.any(Number),
@@ -82,6 +87,36 @@ describe('Label', () => {
 
         expect(ComponentMock).toHaveBeenCalledTimes(dataMock.length);
         expect(ComponentMock).toHaveBeenCalledWith(expectedLabelProps, {});
+      });
+    });
+  });
+
+  describe('labelPosition prop', () => {
+    it("radially moves label by the provided percentage of charts' radius", () => {
+      const radius = 66;
+      const labelPosition = 5;
+      const { container } = render({
+        label: true,
+        radius,
+        labelPosition,
+      });
+      const paths = container.querySelectorAll('path');
+      const labels = container.querySelectorAll('text');
+      const expectedDistanceFromCenter = extractPercentage(
+        radius,
+        labelPosition
+      );
+
+      labels.forEach((label, index) => {
+        const { startAngle, lengthAngle } = getArcInfo(paths[index]);
+        const { dx, dy } = shiftVectorAlongAngle(
+          bisectorAngle(startAngle, lengthAngle),
+          expectedDistanceFromCenter
+        );
+        expect(label).toHaveAttribute('x', `${PieChart.defaultProps.cx}`);
+        expect(label).toHaveAttribute('y', `${PieChart.defaultProps.cy}`);
+        expect(label).toHaveAttribute('dx', `${dx}`);
+        expect(label).toHaveAttribute('dy', `${dy}`);
       });
     });
   });

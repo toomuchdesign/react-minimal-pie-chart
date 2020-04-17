@@ -145,13 +145,16 @@ describe('Path', () => {
   });
 
   describe('lineWidth prop', () => {
-    it('render path with "stroke-width" equal to the half of "lineWidth" prop', () => {
+    it('render path which "stroke-width" attributes equals the provided percentage of radius size', () => {
+      const radius = 66;
+      const lineWidth = 5;
       const { container } = render({
-        lineWidth: 5,
+        radius,
+        lineWidth,
       });
-
+      const expectedStrokeWidth = extractPercentage(radius, lineWidth);
       const path = container.querySelector('path');
-      expect(path).toHaveAttribute('stroke-width', `${5 / 2}`);
+      expect(path).toHaveAttribute('stroke-width', `${expectedStrokeWidth}`);
     });
   });
 

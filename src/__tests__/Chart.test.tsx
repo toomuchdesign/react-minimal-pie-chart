@@ -50,11 +50,6 @@ describe('Chart', () => {
           'viewBox',
           `0 0 ${expectedWidth} ${expectedHeight}`
         );
-
-        const firstPath = container.querySelector('path');
-        const firstPathInfo = getArcInfo(firstPath);
-        expect(firstPathInfo.radius).toBe(expectedWidth / 4);
-        expect(firstPathInfo.startPoint.y).toBe(expectedHeight / 2);
       }
     );
   });

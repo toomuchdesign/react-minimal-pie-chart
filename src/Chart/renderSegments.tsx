@@ -1,11 +1,6 @@
 import React from 'react';
 import Path from '../Path';
-import {
-  extractPercentage,
-  extractAbsoluteCoordinates,
-  functionProp,
-  isNumber,
-} from '../utils';
+import { extractPercentage, functionProp, isNumber } from '../utils';
 import type { ExtendedData, StyleObject } from '../commonTypes';
 import type { Props as ChartProps } from './Chart';
 
@@ -60,16 +55,15 @@ export default function renderSegments(
       props.segmentsStyle
     );
 
-  const { cx, cy, radius } = extractAbsoluteCoordinates(props);
-  // @NOTE this should go in Path component. Here for performance reasons
+  const { radius } = props;
   const lineWidth = extractPercentage(radius, props.lineWidth);
   const paths = data.map((dataEntry, index) => {
     const segmentsShift = functionProp(props.segmentsShift, props.data, index);
     return (
       <Path
         key={dataEntry.key || index}
-        cx={cx}
-        cy={cy}
+        cx={props.cx}
+        cy={props.cy}
         startAngle={props.startAngle + dataEntry.startOffset}
         lengthAngle={dataEntry.degrees}
         radius={radius}
@@ -101,8 +95,8 @@ export default function renderSegments(
     paths.unshift(
       <Path
         key="bg"
-        cx={cx}
-        cy={cy}
+        cx={props.cx}
+        cy={props.cy}
         startAngle={props.startAngle}
         lengthAngle={props.lengthAngle}
         radius={radius}

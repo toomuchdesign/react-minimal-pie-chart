@@ -90,16 +90,6 @@ exports[`Dist bundle is unchanged 1`] = `
   function extractPercentage(value, percentage) {
     return value * percentage / 100;
   }
-  function extractAbsoluteCoordinates(props) {
-    var _props$viewBoxSize = props.viewBoxSize,
-        viewBoxWidth = _props$viewBoxSize[0],
-        viewBoxHeight = _props$viewBoxSize[1];
-    return {
-      cx: extractPercentage(props.cx, viewBoxWidth),
-      cy: extractPercentage(props.cy, viewBoxHeight),
-      radius: extractPercentage(props.radius, viewBoxWidth)
-    };
-  }
   function bisectorAngle(startAngle, lengthAngle) {
     return startAngle + lengthAngle / 2;
   }
@@ -189,16 +179,11 @@ exports[`Dist bundle is unchanged 1`] = `
   }
 
   function renderLabels(data, props) {
-    var _extractAbsoluteCoord = extractAbsoluteCoordinates(props),
-        cx = _extractAbsoluteCoord.cx,
-        cy = _extractAbsoluteCoord.cy,
-        radius = _extractAbsoluteCoord.radius;
-
     return data.map(function (dataEntry, index) {
       var _functionProp;
 
       var segmentsShift = (_functionProp = functionProp(props.segmentsShift, data, index)) != null ? _functionProp : 0;
-      var distanceFromCenter = extractPercentage(radius, props.labelPosition + segmentsShift);
+      var distanceFromCenter = extractPercentage(props.radius, props.labelPosition + segmentsShift);
       var startAngle = props.startAngle + dataEntry.startOffset;
       var segmentBisector = bisectorAngle(startAngle, dataEntry.degrees);
 
@@ -209,8 +194,8 @@ exports[`Dist bundle is unchanged 1`] = `
 
       var labelProps = {
         key: \\"label-\\" + (dataEntry.key || index),
-        x: cx,
-        y: cy,
+        x: props.cx,
+        y: props.cy,
         dx: dx,
         dy: dy,
         textAnchor: evaluateLabelTextAnchor({
@@ -319,20 +304,14 @@ exports[`Dist bundle is unchanged 1`] = `
     // @NOTE this should go in Path component. Here for performance reasons
     var reveal = revealOverride != null ? revealOverride : getRevealValue(props);
     var segmentTransitionsCombined = props.animate && makeSegmentTransitionStyle(props.animationDuration, props.animationEasing, props.segmentsStyle);
-
-    var _extractAbsoluteCoord = extractAbsoluteCoordinates(props),
-        cx = _extractAbsoluteCoord.cx,
-        cy = _extractAbsoluteCoord.cy,
-        radius = _extractAbsoluteCoord.radius; // @NOTE this should go in Path component. Here for performance reasons
-
-
+    var radius = props.radius;
     var lineWidth = extractPercentage(radius, props.lineWidth);
     var paths = data.map(function (dataEntry, index) {
       var segmentsShift = functionProp(props.segmentsShift, props.data, index);
       return /*#__PURE__*/React__default.createElement(ReactMinimalPieChartPath, {
         key: dataEntry.key || index,
-        cx: cx,
-        cy: cy,
+        cx: props.cx,
+        cy: props.cy,
         startAngle: props.startAngle + dataEntry.startOffset,
         lengthAngle: dataEntry.degrees,
         radius: radius,
@@ -357,8 +336,8 @@ exports[`Dist bundle is unchanged 1`] = `
     if (props.background) {
       paths.unshift( /*#__PURE__*/React__default.createElement(ReactMinimalPieChartPath, {
         key: \\"bg\\",
-        cx: cx,
-        cy: cy,
+        cx: props.cx,
+        cy: props.cy,
         startAngle: props.startAngle,
         lengthAngle: props.lengthAngle,
         radius: radius,
