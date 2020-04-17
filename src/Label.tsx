@@ -20,14 +20,7 @@ export default function ReactMinimalPieChartLabel({
   color,
   ...props
 }: Props) {
-  return (
-    <text
-      textAnchor="middle"
-      dominantBaseline="middle"
-      fill={color}
-      {...props}
-    />
-  );
+  return <text dominantBaseline="central" fill={color} {...props} />;
 }
 
 ReactMinimalPieChartLabel.displayName = 'ReactMinimalPieChartLabel';
