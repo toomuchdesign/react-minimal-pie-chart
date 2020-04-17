@@ -2,9 +2,9 @@
 import { fireEvent } from '@testing-library/react';
 import { render, dataMock, getArcInfo, PieChart } from './testUtils';
 import {
+  bisectorAngle,
   degreesToRadians,
   extractPercentage,
-  bisectorAngle,
   shiftVectorAlongAngle,
 } from '../utils';
 
@@ -83,10 +83,6 @@ describe('Path', () => {
         const shiftedPaths = shiftedPie.querySelectorAll('path');
 
         originalPaths.forEach((path, index) => {
-          const expectedAbsoluteShift = extractPercentage(
-            PieChart.defaultProps.radius,
-            expectedSegmentsShift[index]
-          );
           const {
             startPoint,
             startAngle,
@@ -97,7 +93,7 @@ describe('Path', () => {
           const shiftedPathInfo = getArcInfo(shiftedPaths[index]);
           const { dx, dy } = shiftVectorAlongAngle(
             bisectorAngle(startAngle, lengthAngle),
-            expectedAbsoluteShift
+            expectedSegmentsShift[index]
           );
 
           const expected = {
@@ -125,13 +121,16 @@ describe('Path', () => {
         });
         const paths = container.querySelectorAll('path');
         const shiftedLabels = getAllByText('label');
+        const distanceFromCenter = extractPercentage(
+          PieChart.defaultProps.radius,
+          PieChart.defaultProps.labelPosition
+        );
 
         shiftedLabels.forEach((label, index) => {
           const { startAngle, lengthAngle } = getArcInfo(paths[index]);
-          const expectedAbsoluteShift = extractPercentage(
-            PieChart.defaultProps.radius,
-            expectedSegmentsShift[index] + PieChart.defaultProps.labelPosition
-          );
+          const expectedAbsoluteShift =
+            distanceFromCenter + expectedSegmentsShift[index];
+
           const { dx, dy } = shiftVectorAlongAngle(
             bisectorAngle(startAngle, lengthAngle),
             expectedAbsoluteShift

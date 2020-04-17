@@ -29,10 +29,10 @@ function FullOption(props: Props) {
         fontSize: '8px',
       }}
       data={data}
-      radius={40}
+      radius={PieChart.defaultProps.radius - 6}
       lineWidth={60}
       segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
-      segmentsShift={(_, index) => (index === selected ? 10 : 1)}
+      segmentsShift={(_, index) => (index === selected ? 6 : 1)}
       animate
       label={({ data, dataIndex }) =>
         Math.round(data[dataIndex].percentage) + '%'
