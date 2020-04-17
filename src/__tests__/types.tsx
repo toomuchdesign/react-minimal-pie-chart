@@ -1,8 +1,6 @@
 import React from 'react';
 import type { FocusEvent, KeyboardEvent, MouseEvent } from 'react';
 import PieChart from '../../src';
-import type { Props as PieChartProps } from '../../src/Chart';
-type Data = PieChartProps['data'];
 
 <PieChart data={[]} />;
 <PieChart
@@ -49,12 +47,12 @@ type Data = PieChartProps['data'];
 
 <PieChart
   data={[]}
-  onBlur={(e: FocusEvent, data: Data, index: number) => {}}
-  onClick={(e: MouseEvent, data: Data, index: number) => {}}
-  onFocus={(e: FocusEvent, data: Data, index: number) => {}}
-  onKeyDown={(e: KeyboardEvent, data: Data, index: number) => {}}
-  onMouseOut={(e: MouseEvent, data: Data, index: number) => {}}
-  onMouseOver={(e: MouseEvent, data: Data, index: number) => {}}
+  onBlur={(e: FocusEvent, index: number) => {}}
+  onClick={(e: MouseEvent, index: number) => {}}
+  onFocus={(e: FocusEvent, index: number) => {}}
+  onKeyDown={(e: KeyboardEvent, index: number) => {}}
+  onMouseOut={(e: MouseEvent, index: number) => {}}
+  onMouseOver={(e: MouseEvent, index: number) => {}}
 />;
 
 <PieChart data={[]}>1</PieChart>;

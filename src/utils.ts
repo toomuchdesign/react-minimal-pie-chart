@@ -60,11 +60,10 @@ export function isNumber(value: unknown): value is number {
   return typeof value === 'number';
 }
 
-export function functionProp<Prop, Payload>(
+export function functionProp<Prop>(
   prop: Prop,
-  payload?: Payload,
   index?: number
   // @ts-ignore
 ): Prop extends Function ? ReturnType<Prop> : Prop {
-  return typeof prop === 'function' ? prop(payload, index) : prop;
+  return typeof prop === 'function' ? prop(index) : prop;
 }

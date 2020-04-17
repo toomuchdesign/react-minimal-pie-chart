@@ -5,11 +5,7 @@ export type StyleObject = {
   [key: string]: string | number;
 };
 
-export type EventHandler<Event> = (
-  event: Event,
-  data: Data,
-  dataIndex: number
-) => void;
+export type EventHandler<Event> = (event: Event, dataIndex: number) => void;
 
 type LabelPropAsReactElement = React.ReactElement<LabelProps>;
 type LabelPropAsFunction = (

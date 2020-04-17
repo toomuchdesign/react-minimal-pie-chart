@@ -27,15 +27,14 @@ function getRevealValue<Reveal>(props: { reveal?: Reveal; animate: boolean }) {
   return props.reveal;
 }
 
-function makeEventHandler<Event, EventHandler, Payload1, Payload2>(
+function makeEventHandler<Event, EventHandler, Payload>(
   eventHandler: undefined | (EventHandler & Function),
-  payload1: Payload1,
-  payload2: Payload2
+  payload: Payload
 ) {
   return (
     eventHandler &&
     ((e: Event) => {
-      eventHandler(e, payload1, payload2);
+      eventHandler(e, payload);
     })
   );
 }
@@ -68,7 +67,7 @@ export default function renderSegments(
         radius={radius}
         lineWidth={lineWidth}
         reveal={reveal}
-        shift={functionProp(props.segmentsShift, props.data, index)}
+        shift={functionProp(props.segmentsShift, index)}
         title={dataEntry.title}
         style={Object.assign(
           {},
@@ -80,12 +79,12 @@ export default function renderSegments(
         strokeLinecap={props.rounded ? 'round' : undefined}
         tabIndex={props.segmentsTabIndex}
         fill="none"
-        onBlur={makeEventHandler(props.onBlur, props.data, index)}
-        onClick={makeEventHandler(props.onClick, props.data, index)}
-        onFocus={makeEventHandler(props.onFocus, props.data, index)}
-        onKeyDown={makeEventHandler(props.onKeyDown, props.data, index)}
-        onMouseOver={makeEventHandler(props.onMouseOver, props.data, index)}
-        onMouseOut={makeEventHandler(props.onMouseOut, props.data, index)}
+        onBlur={makeEventHandler(props.onBlur, index)}
+        onClick={makeEventHandler(props.onClick, index)}
+        onFocus={makeEventHandler(props.onFocus, index)}
+        onKeyDown={makeEventHandler(props.onKeyDown, index)}
+        onMouseOver={makeEventHandler(props.onMouseOver, index)}
+        onMouseOut={makeEventHandler(props.onMouseOut, index)}
       />
     );
   });
