@@ -1,5 +1,3 @@
-import type { Props as ChartProps } from './Chart';
-
 function round(number: number): number {
   const divisor = 1e14; // 14 decimals
   return Math.round((number + Number.EPSILON) * divisor) / divisor;
@@ -44,15 +42,6 @@ export function valueBetween(value: number, min: number, max: number) {
 
 export function extractPercentage(value: number, percentage: number) {
   return (value * percentage) / 100;
-}
-
-export function extractAbsoluteCoordinates(props: ChartProps) {
-  const [viewBoxWidth, viewBoxHeight] = props.viewBoxSize;
-  return {
-    cx: extractPercentage(props.cx, viewBoxWidth),
-    cy: extractPercentage(props.cy, viewBoxHeight),
-    radius: extractPercentage(props.radius, viewBoxWidth),
-  };
 }
 
 export function bisectorAngle(startAngle: number, lengthAngle: number) {

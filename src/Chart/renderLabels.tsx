@@ -4,7 +4,6 @@ import {
   bisectorAngle,
   evaluateLabelTextAnchor,
   extractPercentage,
-  extractAbsoluteCoordinates,
   functionProp,
   shiftVectorAlongAngle,
 } from '../utils';
@@ -34,11 +33,10 @@ function renderLabelItem(
 }
 
 export default function renderLabels(data: ExtendedData, props: ChartProps) {
-  const { cx, cy, radius } = extractAbsoluteCoordinates(props);
   return data.map((dataEntry, index) => {
     const segmentsShift = functionProp(props.segmentsShift, data, index) ?? 0;
     const distanceFromCenter = extractPercentage(
-      radius,
+      props.radius,
       props.labelPosition + segmentsShift
     );
     const startAngle = props.startAngle + dataEntry.startOffset;
@@ -51,8 +49,8 @@ export default function renderLabels(data: ExtendedData, props: ChartProps) {
     // This object is passed as props to the "label" component
     const labelProps = {
       key: `label-${dataEntry.key || index}`,
-      x: cx,
-      y: cy,
+      x: props.cx,
+      y: props.cy,
       dx,
       dy,
       textAnchor: evaluateLabelTextAnchor({

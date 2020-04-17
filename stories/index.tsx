@@ -61,7 +61,6 @@ storiesOf('Partial chart', module)
       data={dataMock}
       startAngle={180}
       lengthAngle={180}
-      cy={100}
       viewBoxSize={[100, 50]}
     />
   ))
@@ -159,7 +158,6 @@ storiesOf('Misc', module)
       startAngle={-180}
       lengthAngle={180}
       lineWidth={20}
-      cy={100}
       viewBoxSize={[100, 50]}
       injectSvg={() => (
         <defs>
