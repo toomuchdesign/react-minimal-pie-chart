@@ -19,7 +19,6 @@ export type DataEntry = {
   color: string;
   value: number;
   key?: string | number;
-  style?: StyleObject;
   [key: string]: any;
 };
 

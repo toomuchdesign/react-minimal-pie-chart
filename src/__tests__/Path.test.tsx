@@ -29,17 +29,15 @@ describe('Path', () => {
     });
   });
 
-  it('receive "segmentsStyle", "segmentsTabIndex", "rounded", "data[].color" and "data[].style" props', () => {
+  it('receive "segmentsTabIndex", "rounded" and "data[].color"props', () => {
     const dataMockWithStyle = dataMock.map((entry) => ({
       ...entry,
       ...{
         color: 'black',
-        style: { fill: 'green' },
       },
     }));
     const { container } = render({
       data: dataMockWithStyle,
-      segmentsStyle: { opacity: '.5' },
       segmentsTabIndex: 2,
       rounded: true,
     });
@@ -49,7 +47,36 @@ describe('Path', () => {
       expect(path).toHaveAttribute('stroke', 'black');
       expect(path).toHaveAttribute('tabindex', '2');
       expect(path).toHaveAttribute('stroke-linecap', 'round');
-      expect(path).toHaveStyle({ opacity: 0.5, fill: 'green' });
+    });
+  });
+
+  describe('segmentsStyle prop', () => {
+    describe.each`
+      description      | segmentsStyle                  | expectedStyle
+      ${'undefined'}   | ${undefined}                   | ${null}
+      ${'as object'}   | ${{ color: 'green' }}          | ${{ color: 'green' }}
+      ${'as function'} | ${(i) => ({ color: 'green' })} | ${{ color: 'green' }}
+      ${'as function'} | ${jest.fn((i) => undefined)}   | ${null}
+    `('$description', ({ segmentsStyle, expectedStyle }) => {
+      if (jest.isMockFunction(segmentsStyle)) {
+        it('gets called with expected arguments', () => {
+          render({ segmentsStyle });
+          expect(segmentsStyle).toHaveBeenNthCalledWith(1, 0);
+          expect(segmentsStyle).toHaveBeenNthCalledWith(2, 1);
+          expect(segmentsStyle).toHaveBeenNthCalledWith(3, 2);
+        });
+      }
+
+      it('segments receives expected style', () => {
+        const { container } = render({ segmentsStyle });
+        container.querySelectorAll('path').forEach((path) => {
+          if (expectedStyle) {
+            expect(path).toHaveStyle(expectedStyle);
+          } else {
+            expect(path.getAttribute('style')).toEqual(expectedStyle);
+          }
+        });
+      });
     });
   });
 

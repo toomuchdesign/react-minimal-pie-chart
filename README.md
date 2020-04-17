@@ -76,7 +76,7 @@ import PieChart from 'react-minimal-pie-chart';
 | **paddingAngle**      | _Number_                              | Angle between two segments                                                                                                                                                                                                                                                                | -          |
 | **rounded**           | _Bool_                                | Round line caps of each segment                                                                                                                                                                                                                                                           | false      |
 | **segmentsShift**     | _Number_ (user units), _Function_     | Translates segments radially. If `number` set, provide shift value relative to `viewBoxSize` space. If `function`, return a value for each segment: `(segmentIndex) => number \| undefined` </br>(`radius` prop might be adjusted to prevent segments from overflowing chart's boundaries) | -          |
-| **segmentsStyle**     | _Object_                              | Style object assigned to each segment                                                                                                                                                                                                                                                     | -          |
+| **segmentsStyle**     | _Object_, _Function_                  | Style object assigned to each segment. If `function` set, return a value for each segment `(segmentIndex) => {} \| undefined`                                                                                                                                                            | -          |
 | **segmentsTabIndex**  | _Number_                              | [`tabindex` attribute](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/tabindex) assigned to segments                                                                                                                                                                          | -          |
 | **label**             | _Boolean_, _ReactElement_, _Function_ | If `true` set, labels will be drawn automatically. If `ReactElement` set, the option can be the custom label element. If set a `function`, the function will be called to render customized label                                                                                         | false      |
 | **labelPosition**     | _Number_ (%)                          | Label position from origin. Percentage of chart's radio _(50 === middle point)_                                                                                                                                                                                                           | 50         |
@@ -108,15 +108,15 @@ type dataProps = {
   value: number;
   color: string;
   key?: string | number;
-  style?: { [key: string]: string | number };
   title?: string | number;
 }[];
 ```
 
-Each data entry accepts the following **optional props**:
+Each entry accepts the following **optional properties**:
 
-- [**`key`**](https://reactjs.org/docs/lists-and-keys.html): in case items' indexes weren't enough
-- **`style`**: style object assigned to the corresponding chart segment
+- **`key`**: custom value to be used as [segments element keys](https://reactjs.org/docs/lists-and-keys.html)
+
+- **`title`**: [`title` element](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title) rendered as segment's child
 
 ### Custom labels with `label` prop
 
