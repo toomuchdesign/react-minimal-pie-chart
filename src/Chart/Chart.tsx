@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import type { FocusEvent, KeyboardEvent, MouseEvent } from 'react';
-import PropTypes from 'prop-types';
-import { dataPropType, stylePropType } from '../propTypes';
 import extendData from './extendData';
 import renderLabels from './renderLabels';
 import renderSegments from './renderSegments';
@@ -66,44 +64,6 @@ export default class ReactMinimalPieChart extends Component<Props> {
     rounded: false,
     startAngle: 0,
     viewBoxSize: [100, 100],
-  };
-  static propTypes = {
-    animate: PropTypes.bool,
-    animationDuration: PropTypes.number,
-    animationEasing: PropTypes.string,
-    background: PropTypes.string,
-    children: PropTypes.node,
-    className: PropTypes.string,
-    cx: PropTypes.number,
-    cy: PropTypes.number,
-    data: dataPropType,
-    injectSvg: PropTypes.func,
-    label: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.element,
-      PropTypes.bool,
-    ]),
-    labelPosition: PropTypes.number,
-    labelStyle: stylePropType,
-    lengthAngle: PropTypes.number,
-    lineWidth: PropTypes.number,
-    onBlur: PropTypes.func,
-    onClick: PropTypes.func,
-    onFocus: PropTypes.func,
-    onKeyDown: PropTypes.func,
-    onMouseOut: PropTypes.func,
-    onMouseOver: PropTypes.func,
-    paddingAngle: PropTypes.number,
-    radius: PropTypes.number,
-    reveal: PropTypes.number,
-    rounded: PropTypes.bool,
-    segmentsShift: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-    segmentsStyle: stylePropType,
-    segmentsTabIndex: PropTypes.number,
-    startAngle: PropTypes.number,
-    style: stylePropType,
-    totalValue: PropTypes.number,
-    viewBoxSize: PropTypes.arrayOf(PropTypes.number),
   };
 
   revealOverride?: null | number;

@@ -1,7 +1,6 @@
 import React, { useState, ComponentProps } from 'react';
 import { action } from '@storybook/addon-actions';
 import PieChart from '../src';
-import { dataPropType } from '../src/propTypes';
 
 type Props = {
   data: ComponentProps<typeof PieChart>['data'];
@@ -41,9 +40,5 @@ function DemoInteraction(props: Props) {
     />
   );
 }
-
-DemoInteraction.propTypes = {
-  data: dataPropType,
-};
 
 export default DemoInteraction;

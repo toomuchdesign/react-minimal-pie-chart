@@ -2,13 +2,12 @@
 
 exports[`Dist bundle is unchanged 1`] = `
 "(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('prop-types')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'react', 'prop-types'], factory) :
-  (global = global || self, factory(global.ReactMinimalPieChart = {}, global.React, global.PropTypes));
-}(this, (function (exports, React, PropTypes) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
+  (global = global || self, factory(global.ReactMinimalPieChart = {}, global.React));
+}(this, (function (exports, React) { 'use strict';
 
   var React__default = 'default' in React ? React['default'] : React;
-  PropTypes = PropTypes && PropTypes.hasOwnProperty('default') ? PropTypes['default'] : PropTypes;
 
   function _extends() {
     _extends = Object.assign || function (target) {
@@ -48,15 +47,6 @@ exports[`Dist bundle is unchanged 1`] = `
 
     return target;
   }
-
-  var stylePropType = PropTypes.objectOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string]));
-  var dataPropType = PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    value: PropTypes.number.isRequired,
-    color: PropTypes.string,
-    key: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    style: stylePropType
-  }));
 
   function round(number) {
     var divisor = 1e14; // 14 decimals
@@ -472,40 +462,6 @@ exports[`Dist bundle is unchanged 1`] = `
     rounded: false,
     startAngle: 0,
     viewBoxSize: [100, 100]
-  };
-  ReactMinimalPieChart.propTypes = {
-    animate: PropTypes.bool,
-    animationDuration: PropTypes.number,
-    animationEasing: PropTypes.string,
-    background: PropTypes.string,
-    children: PropTypes.node,
-    className: PropTypes.string,
-    cx: PropTypes.number,
-    cy: PropTypes.number,
-    data: dataPropType,
-    injectSvg: PropTypes.func,
-    label: PropTypes.oneOfType([PropTypes.func, PropTypes.element, PropTypes.bool]),
-    labelPosition: PropTypes.number,
-    labelStyle: stylePropType,
-    lengthAngle: PropTypes.number,
-    lineWidth: PropTypes.number,
-    onBlur: PropTypes.func,
-    onClick: PropTypes.func,
-    onFocus: PropTypes.func,
-    onKeyDown: PropTypes.func,
-    onMouseOut: PropTypes.func,
-    onMouseOver: PropTypes.func,
-    paddingAngle: PropTypes.number,
-    radius: PropTypes.number,
-    reveal: PropTypes.number,
-    rounded: PropTypes.bool,
-    segmentsShift: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-    segmentsStyle: stylePropType,
-    segmentsTabIndex: PropTypes.number,
-    startAngle: PropTypes.number,
-    style: stylePropType,
-    totalValue: PropTypes.number,
-    viewBoxSize: PropTypes.arrayOf(PropTypes.number)
   };
 
   exports.default = ReactMinimalPieChart;

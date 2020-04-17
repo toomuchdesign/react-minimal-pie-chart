@@ -35,7 +35,7 @@ Because [Recharts][recharts-github] is awesome, but when you just need a simple 
 - Versatile: **Pie**, **Donut**, **Loading**, **Completion** charts (see [Demo][storybook])
 - Customizable chart **labels** and **CSS animations**
 - Written in **Typescript**
-- No dependencies (except for [React's prop-types](https://github.com/reactjs/))
+- No dependencies
 
 ## Installation
 
@@ -192,7 +192,6 @@ This library uses the `stroke-dasharray` + `stroke-dashoffset` animation strateg
 - Consider moving storybook deployment to CI
 - Configure Babel to not inject the `_extend` utility in compiled artifact
 - Add `.browserslistrc` to get rid of some Babel helpers
-- Handle prop-types / TS types duplication
 - Consider using `transform` to mutate segments/labels positions
 
 ## Contributors
