@@ -59,55 +59,47 @@ describe('Chart', () => {
     );
   });
 
-  describe('Partial circle', () => {
-    it('render a set of arc paths with total lengthAngle === 270°', () => {
-      const pieLengthAngle = 270;
-      let pathsTotalLengthAngle = 0;
-
-      const { container } = render({
-        lengthAngle: pieLengthAngle,
-      });
-      container.querySelectorAll('path').forEach((path) => {
-        pathsTotalLengthAngle += getArcInfo(path).lengthAngle;
-      });
-      expect(pathsTotalLengthAngle).toEqual(pieLengthAngle);
-    });
-
-    it('renders a set of arc paths with total negative lengthAngle === -270°', () => {
-      const pieLengthAngle = -270;
-      let pathsTotalLengthAngle = 0;
-
-      const { container } = render({
-        lengthAngle: pieLengthAngle,
-      });
-      container.querySelectorAll('path').forEach((path) => {
-        pathsTotalLengthAngle += getArcInfo(path).lengthAngle;
-      });
-      expect(pathsTotalLengthAngle).toEqual(pieLengthAngle);
-    });
+  describe('lengthAngle prop', () => {
+    it.each`
+      lengthAngle
+      ${270}
+      ${-270}
+    `(
+      'render a set of arcs which total length angle equals $lengthAngle',
+      ({ lengthAngle }) => {
+        let pathsTotalLengthAngle = 0;
+        const { container } = render({
+          lengthAngle,
+        });
+        container.querySelectorAll('path').forEach((path) => {
+          pathsTotalLengthAngle += getArcInfo(path).lengthAngle;
+        });
+        expect(pathsTotalLengthAngle).toEqual(lengthAngle);
+      }
+    );
   });
 
   describe('paddingAngle prop', () => {
-    it('render a set of arc paths + paddings with total length === "lengthAngle"', () => {
-      const pieLengthAngle = 300;
+    it('render a set of arcs which total length angle + paddings equals "lengthAngle"', () => {
+      const lengthAngle = 300;
       let pathsTotalLengthAngle = 0;
       const totalPaddingDegrees = 10 * (dataMock.length - 1);
 
       const { container } = render({
-        lengthAngle: pieLengthAngle,
+        lengthAngle,
         paddingAngle: 10,
       });
       container.querySelectorAll('path').forEach((path) => {
         pathsTotalLengthAngle += getArcInfo(path).lengthAngle;
       });
-      expect(pieLengthAngle).toEqualWithRoundingError(
+      expect(lengthAngle).toEqualWithRoundingError(
         pathsTotalLengthAngle + totalPaddingDegrees
       );
     });
   });
 
   describe('background prop', () => {
-    describe('render a background segment as long as the whole chart', () => {
+    describe('render a background segment long as the whole chart', () => {
       const { container } = render({
         startAngle: 0,
         lengthAngle: 200,
