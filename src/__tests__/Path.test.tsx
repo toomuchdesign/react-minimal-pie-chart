@@ -60,17 +60,17 @@ describe('Path', () => {
      * 3- Compare shifted and non-shifted segments info
      */
     describe.each`
-      description      | segmentsShift          | expectedSegmentsShift
-      ${'as number'}   | ${1}                   | ${[1, 1, 1]}
-      ${'as function'} | ${(_, index) => index} | ${[0, 1, 2]}
-      ${'as function'} | ${jest.fn()}           | ${[0, 0, 0]}
+      description      | segmentsShift       | expectedSegmentsShift
+      ${'as number'}   | ${1}                | ${[1, 1, 1]}
+      ${'as function'} | ${(index) => index} | ${[0, 1, 2]}
+      ${'as function'} | ${jest.fn()}        | ${[0, 0, 0]}
     `('$description', ({ segmentsShift, expectedSegmentsShift }) => {
       if (jest.isMockFunction(segmentsShift)) {
         it('gets called with expected arguments', () => {
           render({ segmentsShift });
-          expect(segmentsShift).toHaveBeenNthCalledWith(1, dataMock, 0);
-          expect(segmentsShift).toHaveBeenNthCalledWith(2, dataMock, 1);
-          expect(segmentsShift).toHaveBeenNthCalledWith(3, dataMock, 2);
+          expect(segmentsShift).toHaveBeenNthCalledWith(1, 0);
+          expect(segmentsShift).toHaveBeenNthCalledWith(2, 1);
+          expect(segmentsShift).toHaveBeenNthCalledWith(3, 2);
         });
       }
 
@@ -228,7 +228,8 @@ describe('Path', () => {
         const { container } = render({
           [propName]: eventCallbackMock,
         });
-        const segment = container.querySelector('path');
+        const segmentIndex = 0;
+        const segment = container.querySelectorAll('path')[segmentIndex];
         event(segment);
 
         expect(eventCallbackMock).toHaveBeenCalledTimes(1);
@@ -236,8 +237,7 @@ describe('Path', () => {
           expect.objectContaining({
             type: eventType,
           }),
-          dataMock,
-          0
+          segmentIndex
         );
       });
     });

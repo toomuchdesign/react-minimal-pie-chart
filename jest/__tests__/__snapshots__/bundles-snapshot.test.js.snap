@@ -103,8 +103,8 @@ exports[`Dist bundle is unchanged 1`] = `
   function isNumber(value) {
     return typeof value === 'number';
   }
-  function functionProp(prop, payload, index) {
-    return typeof prop === 'function' ? prop(payload, index) : prop;
+  function functionProp(prop, index) {
+    return typeof prop === 'function' ? prop(index) : prop;
   }
 
   function sumValues(data) {
@@ -182,7 +182,7 @@ exports[`Dist bundle is unchanged 1`] = `
     return data.map(function (dataEntry, index) {
       var _functionProp;
 
-      var segmentsShift = (_functionProp = functionProp(props.segmentsShift, data, index)) != null ? _functionProp : 0;
+      var segmentsShift = (_functionProp = functionProp(props.segmentsShift, index)) != null ? _functionProp : 0;
       var distanceFromCenter = extractPercentage(props.radius, props.labelPosition) + segmentsShift;
       var startAngle = props.startAngle + dataEntry.startOffset;
       var segmentBisector = bisectorAngle(startAngle, dataEntry.degrees);
@@ -294,9 +294,9 @@ exports[`Dist bundle is unchanged 1`] = `
     return props.reveal;
   }
 
-  function makeEventHandler(eventHandler, payload1, payload2) {
+  function makeEventHandler(eventHandler, payload) {
     return eventHandler && function (e) {
-      eventHandler(e, payload1, payload2);
+      eventHandler(e, payload);
     };
   }
 
@@ -316,19 +316,19 @@ exports[`Dist bundle is unchanged 1`] = `
         radius: radius,
         lineWidth: lineWidth,
         reveal: reveal,
-        shift: functionProp(props.segmentsShift, props.data, index),
+        shift: functionProp(props.segmentsShift, index),
         title: dataEntry.title,
         style: Object.assign({}, props.segmentsStyle, segmentTransitionsCombined, dataEntry.style),
         stroke: dataEntry.color,
         strokeLinecap: props.rounded ? 'round' : undefined,
         tabIndex: props.segmentsTabIndex,
         fill: \\"none\\",
-        onBlur: makeEventHandler(props.onBlur, props.data, index),
-        onClick: makeEventHandler(props.onClick, props.data, index),
-        onFocus: makeEventHandler(props.onFocus, props.data, index),
-        onKeyDown: makeEventHandler(props.onKeyDown, props.data, index),
-        onMouseOver: makeEventHandler(props.onMouseOver, props.data, index),
-        onMouseOut: makeEventHandler(props.onMouseOut, props.data, index)
+        onBlur: makeEventHandler(props.onBlur, index),
+        onClick: makeEventHandler(props.onClick, index),
+        onFocus: makeEventHandler(props.onFocus, index),
+        onKeyDown: makeEventHandler(props.onKeyDown, index),
+        onMouseOver: makeEventHandler(props.onMouseOver, index),
+        onMouseOut: makeEventHandler(props.onMouseOut, index)
       });
     });
 

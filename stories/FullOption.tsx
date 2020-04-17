@@ -32,7 +32,7 @@ function FullOption(props: Props) {
       radius={PieChart.defaultProps.radius - 6}
       lineWidth={60}
       segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
-      segmentsShift={(_, index) => (index === selected ? 6 : 1)}
+      segmentsShift={(index) => (index === selected ? 6 : 1)}
       animate
       label={({ data, dataIndex }) =>
         Math.round(data[dataIndex].percentage) + '%'
@@ -44,10 +44,10 @@ function FullOption(props: Props) {
         pointerEvents: 'none',
         dominantBaseline: 'central', //@TODO remove if when #149 gets implemented
       }}
-      onClick={(_, __, index) => {
+      onClick={(_, index) => {
         setSelected(index === selected ? undefined : index);
       }}
-      onMouseOver={(_, __, index) => {
+      onMouseOver={(_, index) => {
         setHovered(index);
       }}
       onMouseOut={() => {

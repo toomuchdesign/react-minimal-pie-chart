@@ -25,13 +25,13 @@ function DemoInteraction(props: Props) {
       data={data}
       radius={PieChart.defaultProps.radius - 6}
       segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
-      segmentsShift={(_, index) => (index === selected ? 6 : 1)}
-      onClick={(event, propsData, index) => {
-        action('CLICK')(event, propsData, index);
-        console.log('CLICK', { event, propsData, index });
+      segmentsShift={(index) => (index === selected ? 6 : 1)}
+      onClick={(event, index) => {
+        action('CLICK')(event, index);
+        console.log('CLICK', { event, index });
         setSelected(index === selected ? undefined : index);
       }}
-      onMouseOver={(_, __, index) => {
+      onMouseOver={(_, index) => {
         setHovered(index);
       }}
       onMouseOut={() => {

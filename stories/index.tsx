@@ -31,7 +31,7 @@ storiesOf('Pie Chart', module)
       <PieChart
         data={dataMock}
         radius={PieChart.defaultProps.radius - shiftSize}
-        segmentsShift={(_, index) => (index === 0 ? shiftSize : 0.5)}
+        segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
         label
         labelStyle={{
           ...defaultLabelStyle,

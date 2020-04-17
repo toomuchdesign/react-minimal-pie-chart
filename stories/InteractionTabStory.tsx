@@ -39,15 +39,15 @@ function DemoInteractionTab(props: Props) {
         lineWidth={75}
         segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
         segmentsTabIndex={1}
-        onKeyDown={(event, propsData, index) => {
+        onKeyDown={(event, index) => {
           // Enter keypress
           if (event.keyCode === 13) {
-            action('CLICK')(event, propsData, index);
-            console.log('CLICK', { event, propsData, index });
+            action('CLICK')(event, index);
+            console.log('CLICK', { event, index });
             setSelected(selected === index ? undefined : index);
           }
         }}
-        onFocus={(_, __, index) => {
+        onFocus={(_, index) => {
           setFocused(index);
         }}
         onBlur={() => setFocused(undefined)}
