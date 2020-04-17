@@ -183,7 +183,7 @@ exports[`Dist bundle is unchanged 1`] = `
       var _functionProp;
 
       var segmentsShift = (_functionProp = functionProp(props.segmentsShift, data, index)) != null ? _functionProp : 0;
-      var distanceFromCenter = extractPercentage(props.radius, props.labelPosition + segmentsShift);
+      var distanceFromCenter = extractPercentage(props.radius, props.labelPosition) + segmentsShift;
       var startAngle = props.startAngle + dataEntry.startOffset;
       var segmentBisector = bisectorAngle(startAngle, dataEntry.degrees);
 
@@ -307,7 +307,6 @@ exports[`Dist bundle is unchanged 1`] = `
     var radius = props.radius;
     var lineWidth = extractPercentage(radius, props.lineWidth);
     var paths = data.map(function (dataEntry, index) {
-      var segmentsShift = functionProp(props.segmentsShift, props.data, index);
       return /*#__PURE__*/React__default.createElement(ReactMinimalPieChartPath, {
         key: dataEntry.key || index,
         cx: props.cx,
@@ -317,7 +316,7 @@ exports[`Dist bundle is unchanged 1`] = `
         radius: radius,
         lineWidth: lineWidth,
         reveal: reveal,
-        shift: segmentsShift && extractPercentage(radius, segmentsShift),
+        shift: functionProp(props.segmentsShift, props.data, index),
         title: dataEntry.title,
         style: Object.assign({}, props.segmentsStyle, segmentTransitionsCombined, dataEntry.style),
         stroke: dataEntry.color,

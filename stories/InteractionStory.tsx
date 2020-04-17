@@ -23,9 +23,9 @@ function DemoInteraction(props: Props) {
   return (
     <PieChart
       data={data}
-      radius={40}
+      radius={PieChart.defaultProps.radius - 6}
       segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
-      segmentsShift={(_, index) => (index === selected ? 10 : 1)}
+      segmentsShift={(_, index) => (index === selected ? 6 : 1)}
       onClick={(event, propsData, index) => {
         action('CLICK')(event, propsData, index);
         console.log('CLICK', { event, propsData, index });
