@@ -47,7 +47,6 @@ export default {
       name: 'ReactMinimalPieChart',
       globals: {
         react: 'React',
-        'prop-types': 'PropTypes',
       },
     },
   ],

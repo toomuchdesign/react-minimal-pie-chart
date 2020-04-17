@@ -57,9 +57,7 @@
     "react": "^15.0.0 || ^16.0.0",
     "react-dom": "^15.0.0 || ^16.0.0"
   },
-  "dependencies": {
-    "prop-types": "^15.5.7"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
@@ -84,6 +82,7 @@
     "jest": "^24.9.0",
     "lint-staged": "^10.1.1",
     "prettier": "^2.0.2",
+    "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "rollup": "^1.27.14",
@@ -114,8 +113,7 @@
       "limit": "3 KB",
       "path": "./es/index.js",
       "ignore": [
-        "react",
-        "prop-types"
+        "react"
       ]
     }
   ],
