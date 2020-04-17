@@ -19,11 +19,13 @@ Lightweight React **SVG pie charts**, with **versatile options** and **CSS anima
 
 Because [Recharts][recharts-github] is awesome, but when you just need a simple pie/donought chart, **3kB** are usually enough.
 
-|                                            |                                 Size<br>by Bundlefobia                                  | Benchmark Size \* | Loading time<br>on a slow 3g \* |
-| :----------------------------------------: | :-------------------------------------------------------------------------------------: | :---------------: | :-----------------------------: |
-|    react-minimal-pie-chart<br>_v7.0.0_     |       [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]       |      2.3 KB       |              46 ms              |
-|   [rechart][recharts-github]<br>_v1.8.5_   |     [![Bundle size: Recharts][recharts-bundlephobia-badge]][recharts-bundlephobia]      |      92.6 KB      |             1900 ms             |
-| [victory-pie][victory-pie-github]<br>_v34_ | [![Bundle size: Victory pie][victory-pie-bundlephobia-badge]][victory-pie-bundlephobia] |      50.5 KB      |             1100 ms             |
+|                                                        |                                         Size<br>by Bundlefobia                                          | Benchmark Size \* | Loading time<br>on a slow 3g \* |
+| :----------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :---------------: | :-----------------------------: |
+|           react-minimal-pie-chart (_v7.2.0_)           |               [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]               |      2.59 KB      |             ~52 ms              |
+|         [rechart][recharts-github] (_v1.8.5_)          |             [![Bundle size: Recharts][recharts-bundlephobia-badge]][recharts-bundlephobia]              |       97 KB       |            ~1900 ms             |
+|     [victory-pie][victory-pie-github] (_v34.1.3_)      |         [![Bundle size: Victory pie][victory-pie-bundlephobia-badge]][victory-pie-bundlephobia]         |      50.5 KB      |            ~1100 ms             |
+| [react-apexcharts][react-apexcharts-github] (_v1.3.7_) | [![Bundle size: React apec charts][react-apexcharts-bundlephobia-badge]][react-apexcharts-bundlephobia] |     114.7 KB      |            ~2300 ms             |
+|       [react-vis][react-vis-github] (_v1.11.7_)        |            [![Bundle size: React vis][react-vis-bundlephobia-badge]][react-vis-bundlephobia]            |      78.4 KB      |            ~1600 ms             |
 
 \* Benchmark carried out with [size-limit](https://github.com/ai/size-limit) with a "real-world" setup: see [benchmark repo](https://github.com/toomuchdesign/react-pie-charts-size). (What matter here are not absolute values but the relation between magnitudes)
 
@@ -242,6 +244,12 @@ Thanks to you all ([emoji key](https://github.com/kentcdodds/all-contributors#em
 [victory-pie-bundlephobia-badge]: https://badgen.net/bundlephobia/minzip/victory-pie
 [victory-pie-bundlephobia]: https://bundlephobia.com/result?p=victory-pie
 [victory-pie-github]: https://github.com/FormidableLabs/victory
+[react-apexcharts-bundlephobia-badge]: https://badgen.net/bundlephobia/minzip/apexcharts
+[react-apexcharts-bundlephobia]: https://bundlephobia.com/result?p=apexcharts
+[react-apexcharts-github]: https://github.com/apexcharts/apexcharts.js
+[react-vis-bundlephobia-badge]: https://badgen.net/bundlephobia/minzip/react-vis
+[react-vis-bundlephobia]: https://bundlephobia.com/result?p=react-vis
+[react-vis-github]: https://github.com/uber/react-vis
 [storybook]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html
 [demo-interaction]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html?path=/story/interaction--click-mouseover-mouseout-callbacks
 [demo-interaction-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v7.1.1/stories/InteractionStory.js
