@@ -2,34 +2,59 @@ import React from 'react';
 import DefaultLabel from '../Label';
 import {
   bisectorAngle,
-  evaluateLabelTextAnchor,
   extractPercentage,
   functionProp,
   shiftVectorAlongAngle,
 } from '../utils';
-import type { Props as LabelProps } from '../Label';
-import type { ExtendedData, LabelProp } from '../commonTypes';
 import type { PropsWithDefaults as ChartProps } from './Chart';
+import type { Props as LabelProps } from '../Label';
+import type { ExtendedData, LabelRenderFunction } from '../commonTypes';
 
-function renderLabelItem(
-  providedLabel: LabelProp,
-  labelProps: LabelProps,
-  defaultValue: number
-): JSX.Element {
-  if (React.isValidElement(providedLabel)) {
-    return React.cloneElement(providedLabel, labelProps);
+function round(number: number): number {
+  const divisor = 1e14; // 14 decimals
+  return Math.round((number + Number.EPSILON) * divisor) / divisor;
+}
+
+function evaluateTextAnchorPosition({
+  labelPosition,
+  lineWidth,
+  labelHorizontalShift,
+}: {
+  labelPosition: number;
+  lineWidth: number;
+  labelHorizontalShift: number;
+}) {
+  const dx = round(labelHorizontalShift);
+  // Label in the vertical center
+  if (dx === 0) {
+    return 'middle';
+  }
+  // Outward label
+  if (labelPosition > 100) {
+    return dx > 0 ? 'start' : 'end';
+  }
+  // Inward label
+  const innerRadius = 100 - lineWidth;
+  if (labelPosition < innerRadius) {
+    return dx > 0 ? 'end' : 'start';
+  }
+  // Overlying label
+  return 'middle';
+}
+
+function renderLabelElement(
+  renderLabel: LabelRenderFunction,
+  labelProps: LabelProps
+): JSX.Element | null {
+  const label = renderLabel(labelProps);
+  if (typeof label === 'string' || typeof label === 'number') {
+    return <DefaultLabel {...labelProps}>{label}</DefaultLabel>;
   }
 
-  let labelValue: number | string = defaultValue;
-  if (typeof providedLabel === 'function') {
-    const label = providedLabel(labelProps);
-    if (React.isValidElement(label)) {
-      return label;
-    }
-    labelValue = label;
+  if (React.isValidElement(label)) {
+    return label;
   }
-
-  return <DefaultLabel {...labelProps}>{labelValue}</DefaultLabel>;
+  return null;
 }
 
 export default function renderLabels(data: ExtendedData, props: ChartProps) {
@@ -44,14 +69,14 @@ export default function renderLabels(data: ExtendedData, props: ChartProps) {
       distanceFromCenter
     );
 
-    // This object is passed as props to the "label" component
+    // This object is passed as argument to the "label" function prop
     const labelProps = {
       key: `label-${dataEntry.key || index}`,
       x: props.cx,
       y: props.cy,
       dx,
       dy,
-      textAnchor: evaluateLabelTextAnchor({
+      textAnchor: evaluateTextAnchorPosition({
         labelPosition: props.labelPosition,
         lineWidth: props.lineWidth,
         labelHorizontalShift: dx,
@@ -62,8 +87,6 @@ export default function renderLabels(data: ExtendedData, props: ChartProps) {
       style: props.labelStyle,
     };
 
-    return (
-      props.label && renderLabelItem(props.label, labelProps, dataEntry.value)
-    );
+    return props.label && renderLabelElement(props.label, labelProps);
   });
 }

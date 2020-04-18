@@ -32,12 +32,11 @@ import PieChart from '../../src';
   viewBoxSize={[1, 1]}
 />;
 
-<PieChart data={[]} label />;
-<PieChart data={[]} label={false} />;
 <PieChart data={[]} label={() => 1} />;
 <PieChart data={[]} label={() => 'string'} />;
 <PieChart data={[]} label={() => <text />} />;
-<PieChart data={[]} label={<text />} />;
+<PieChart data={[]} label={() => undefined} />;
+<PieChart data={[]} label={() => null} />;
 
 <PieChart data={[]} segmentsShift={1} />;
 <PieChart data={[]} segmentsShift={() => 1} />;
