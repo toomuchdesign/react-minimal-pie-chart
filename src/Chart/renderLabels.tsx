@@ -13,23 +13,24 @@ import type { ExtendedData, LabelProp } from '../commonTypes';
 import type { Props as ChartProps } from './Chart';
 
 function renderLabelItem(
-  option: LabelProp,
+  providedLabel: LabelProp,
   labelProps: LabelProps,
-  value: number
-) {
-  if (React.isValidElement(option)) {
-    return React.cloneElement(option, labelProps);
+  defaultValue: number
+): JSX.Element {
+  if (React.isValidElement(providedLabel)) {
+    return React.cloneElement(providedLabel, labelProps);
   }
 
-  let label: number | string | React.ReactElement = value;
-  if (typeof option === 'function') {
-    label = option(labelProps);
+  let labelValue: number | string = defaultValue;
+  if (typeof providedLabel === 'function') {
+    const label = providedLabel(labelProps);
     if (React.isValidElement(label)) {
       return label;
     }
+    labelValue = label;
   }
 
-  return <DefaultLabel {...labelProps}>{label}</DefaultLabel>;
+  return <DefaultLabel {...labelProps}>{labelValue}</DefaultLabel>;
 }
 
 export default function renderLabels(data: ExtendedData, props: ChartProps) {

@@ -178,22 +178,24 @@ exports[`Dist bundle is unchanged 1`] = `
   }
   ReactMinimalPieChartLabel.displayName = 'ReactMinimalPieChartLabel';
 
-  function renderLabelItem(option, labelProps, value) {
-    if (React__default.isValidElement(option)) {
-      return React__default.cloneElement(option, labelProps);
+  function renderLabelItem(providedLabel, labelProps, defaultValue) {
+    if (React__default.isValidElement(providedLabel)) {
+      return React__default.cloneElement(providedLabel, labelProps);
     }
 
-    var label = value;
+    var labelValue = defaultValue;
 
-    if (typeof option === 'function') {
-      label = option(labelProps);
+    if (typeof providedLabel === 'function') {
+      var label = providedLabel(labelProps);
 
       if (React__default.isValidElement(label)) {
         return label;
       }
+
+      labelValue = label;
     }
 
-    return /*#__PURE__*/React__default.createElement(ReactMinimalPieChartLabel, labelProps, label);
+    return /*#__PURE__*/React__default.createElement(ReactMinimalPieChartLabel, labelProps, labelValue);
   }
 
   function renderLabels(data, props) {
