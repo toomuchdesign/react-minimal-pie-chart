@@ -398,8 +398,8 @@ exports[`Dist bundle is unchanged 1`] = `
 
       _this = _Component.call(this, props) || this;
       _this.revealOverride = void 0;
-      _this.initialAnimationTimerId = void 0;
-      _this.initialAnimationRAFId = void 0;
+      _this.animationTimerId = void 0;
+      _this.animationRAFId = void 0;
 
       if (props.animate === true) {
         _this.revealOverride = 0;
@@ -414,10 +414,10 @@ exports[`Dist bundle is unchanged 1`] = `
       var _this2 = this;
 
       if (this.props.animate === true && requestAnimationFrame) {
-        this.initialAnimationTimerId = setTimeout(function () {
-          _this2.initialAnimationTimerId = null;
-          _this2.initialAnimationRAFId = requestAnimationFrame(function () {
-            _this2.initialAnimationRAFId = null;
+        this.animationTimerId = setTimeout(function () {
+          _this2.animationTimerId = null;
+          _this2.animationRAFId = requestAnimationFrame(function () {
+            _this2.animationRAFId = null;
 
             _this2.startAnimation();
           });
@@ -426,12 +426,12 @@ exports[`Dist bundle is unchanged 1`] = `
     };
 
     _proto.componentWillUnmount = function componentWillUnmount() {
-      if (this.initialAnimationTimerId) {
-        clearTimeout(this.initialAnimationTimerId);
+      if (this.animationTimerId) {
+        clearTimeout(this.animationTimerId);
       }
 
-      if (this.initialAnimationRAFId) {
-        cancelAnimationFrame(this.initialAnimationRAFId);
+      if (this.animationRAFId) {
+        cancelAnimationFrame(this.animationRAFId);
       }
     };
 

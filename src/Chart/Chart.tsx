@@ -105,8 +105,8 @@ export default class ReactMinimalPieChart extends Component<Props> {
   };
 
   revealOverride?: null | number;
-  initialAnimationTimerId?: null | number;
-  initialAnimationRAFId?: null | number;
+  animationTimerId?: null | number;
+  animationRAFId?: null | number;
 
   constructor(props: Props) {
     super(props);
@@ -118,10 +118,10 @@ export default class ReactMinimalPieChart extends Component<Props> {
 
   componentDidMount() {
     if (this.props.animate === true && requestAnimationFrame) {
-      this.initialAnimationTimerId = setTimeout(() => {
-        this.initialAnimationTimerId = null;
-        this.initialAnimationRAFId = requestAnimationFrame(() => {
-          this.initialAnimationRAFId = null;
+      this.animationTimerId = setTimeout(() => {
+        this.animationTimerId = null;
+        this.animationRAFId = requestAnimationFrame(() => {
+          this.animationRAFId = null;
           this.startAnimation();
         });
       });
@@ -129,11 +129,11 @@ export default class ReactMinimalPieChart extends Component<Props> {
   }
 
   componentWillUnmount() {
-    if (this.initialAnimationTimerId) {
-      clearTimeout(this.initialAnimationTimerId);
+    if (this.animationTimerId) {
+      clearTimeout(this.animationTimerId);
     }
-    if (this.initialAnimationRAFId) {
-      cancelAnimationFrame(this.initialAnimationRAFId);
+    if (this.animationRAFId) {
+      cancelAnimationFrame(this.animationRAFId);
     }
   }
 
