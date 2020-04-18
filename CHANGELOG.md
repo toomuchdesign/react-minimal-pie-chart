@@ -1,3 +1,13 @@
+# 7.3.0
+
+### New Features
+
+- Allow `segmentsShift` as function to return `undefined`
+
+### Minor Changes
+
+- Improve `sumValues` performance
+
 # 7.2.0
 
 ### New Features
