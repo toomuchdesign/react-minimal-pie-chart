@@ -372,7 +372,7 @@ exports[`Dist bundle is unchanged 1`] = `
     _proto.componentDidMount = function componentDidMount() {
       var _this2 = this;
 
-      if (this.props.animate === true && requestAnimationFrame) {
+      if (this.props.animate) {
         this.animationTimerId = setTimeout(function () {
           _this2.animationTimerId = null;
           _this2.animationRAFId = requestAnimationFrame(function () {
