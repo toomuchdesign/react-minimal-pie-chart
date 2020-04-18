@@ -19,7 +19,12 @@ module.exports = (api) => {
       ],
     ],
     plugins: [
-      '@babel/plugin-transform-react-jsx',
+      [
+        '@babel/plugin-transform-react-jsx',
+        {
+          useBuiltIns: true,
+        },
+      ],
       [
         '@babel/plugin-proposal-class-properties',
         {

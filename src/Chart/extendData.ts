@@ -33,11 +33,13 @@ export default function extendData({
     const startOffset = lastSegmentEnd;
     lastSegmentEnd = lastSegmentEnd + degrees + singlePaddingDegrees;
 
-    return {
-      percentage: valueInPercentage,
-      degrees,
-      startOffset,
-      ...dataEntry,
-    };
+    return Object.assign(
+      {
+        percentage: valueInPercentage,
+        degrees,
+        startOffset,
+      },
+      dataEntry
+    );
   });
 }
