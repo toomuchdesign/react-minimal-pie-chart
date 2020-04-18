@@ -2,8 +2,12 @@ import { extractPercentage, valueBetween } from '../utils';
 import type { Data, ExtendedData } from '../commonTypes';
 import type { Props as ChartProps } from './Chart';
 
-function sumValues(data: Data) {
-  return data.reduce((acc, dataEntry) => acc + dataEntry.value, 0);
+function sumValues(data: Data): number {
+  let sum = 0;
+  for (let i = 0; i < data.length; i++) {
+    sum += data[i].value;
+  }
+  return sum;
 }
 
 // Append "percentage", "degrees" and "startOffset" into each data entry

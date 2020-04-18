@@ -128,9 +128,13 @@ exports[`Dist bundle is unchanged 1`] = `
   }
 
   function sumValues(data) {
-    return data.reduce(function (acc, dataEntry) {
-      return acc + dataEntry.value;
-    }, 0);
+    var sum = 0;
+
+    for (var i = 0; i < data.length; i++) {
+      sum += data[i].value;
+    }
+
+    return sum;
   } // Append \\"percentage\\", \\"degrees\\" and \\"startOffset\\" into each data entry
 
 
