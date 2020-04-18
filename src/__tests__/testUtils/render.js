@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { render as TLRender } from '@testing-library/react';
 import PieChart from '../../../src/index';

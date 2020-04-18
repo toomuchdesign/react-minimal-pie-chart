@@ -35,10 +35,6 @@ export function getArcInfo(element) {
     arc.y
   );
 
-  // @HACK Magic Number: convert rounding errors like 1.99999999999999 to 2.0000000000000
-  // center.x = Number(center.x.toFixed(13));
-  // center.y = Number(center.y.toFixed(13));
-
   const startAngle = getAbsoluteAngle(center, moveto);
   let lengthAngle = getAbsoluteAngle(center, arc) - startAngle;
   const lengthAngleAbsolute = Math.abs(lengthAngle);

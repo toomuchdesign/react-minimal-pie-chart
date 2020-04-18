@@ -99,25 +99,43 @@ describe('Chart', () => {
   });
 
   describe('background prop', () => {
-    describe('render a background segment long as the whole chart', () => {
+    it('render an extra background segment long as the whole chart', () => {
       const { container } = render({
         startAngle: 0,
         lengthAngle: 200,
         background: 'green',
       });
-      const [background, segment] = container.querySelectorAll('path');
+      const paths = container.querySelectorAll('path');
+      const [background, segment] = paths;
       const backgroundInfo = getArcInfo(background);
       const segmentInfo = getArcInfo(segment);
 
+      expect(paths.length).toBe(dataMock.length + 1);
       expect(backgroundInfo.startAngle).toBe(0);
       expect(backgroundInfo.lengthAngle).toBe(200);
       expect(backgroundInfo.radius).toEqual(segmentInfo.radius);
+      expect(backgroundInfo.center).toMatchObject({
+        x: expect.toEqualWithRoundingError(segmentInfo.center.x),
+        y: expect.toEqualWithRoundingError(segmentInfo.center.y),
+      });
       expect(background).toHaveAttribute('fill', 'none');
       expect(background).toHaveAttribute('stroke', 'green');
+      expect(background).not.toHaveAttribute('stroke-linecap');
       expect(background).toHaveAttribute(
         'stroke-width',
         segment.getAttribute('stroke-width')
       );
+    });
+
+    it('render an extra background segment with expected stroke linecap', () => {
+      const { container } = render({
+        background: 'green',
+        rounded: true,
+      });
+      const paths = container.querySelectorAll('path');
+      const [background] = paths;
+      expect(paths.length).toBe(dataMock.length + 1);
+      expect(background).toHaveAttribute('stroke-linecap', 'round');
     });
   });
 
