@@ -6,7 +6,7 @@ import renderSegments from './renderSegments';
 import type {
   Data,
   EventHandler,
-  LabelProp,
+  LabelRenderFunction,
   StyleObject,
 } from '../commonTypes';
 
@@ -23,7 +23,7 @@ type Props = {
   lengthAngle?: number;
   lineWidth?: number;
   injectSvg?: () => React.ReactElement | void;
-  label?: LabelProp;
+  label?: LabelRenderFunction;
   labelPosition?: number;
   labelStyle?: StyleObject;
   onBlur?: EventHandler<FocusEvent>;
@@ -53,7 +53,6 @@ const defaultProps = {
   animationEasing: 'ease-out',
   cx: 50,
   cy: 50,
-  label: false,
   data: [] as Data,
   labelPosition: 50,
   lengthAngle: 360,
@@ -65,9 +64,7 @@ const defaultProps = {
   viewBoxSize: [100, 100],
 };
 
-// @NOTE excluding some defaultProps entries due to issues on how TS inferres types
-// when optional props with multiple types (eg number | string) are defaulted to a specific type
-export type PropsWithDefaults = Props & Omit<typeof defaultProps, 'label'>;
+export type PropsWithDefaults = Props & typeof defaultProps;
 
 export default function PieChart(props: PropsWithDefaults) {
   const [revealOverride, setRevealOverride] = useState(

@@ -7,12 +7,9 @@ export type StyleObject = {
 
 export type EventHandler<Event> = (event: Event, dataIndex: number) => void;
 
-type LabelPropAsReactElement = React.ReactElement<LabelProps>;
-type LabelPropAsFunction = (
+export type LabelRenderFunction = (
   labelProps: LabelProps
-) => number | string | React.ReactElement;
-
-export type LabelProp = boolean | LabelPropAsReactElement | LabelPropAsFunction;
+) => number | string | React.ReactElement | undefined | null;
 
 export type DataEntry = {
   title?: string | number;

@@ -24,47 +24,45 @@ export const expectedLabelProps = {
 };
 
 describe('Label', () => {
-  describe('label prop', () => {
-    describe('true', () => {
-      it('renders 3 <text> elements with expected text and "fill" attribute', () => {
-        const { container } = render({ label: true });
-        const labels = container.querySelectorAll('text');
+  describe('label prop function', () => {
+    it('receives expected "labelProps" object', () => {
+      const labelMock = jest.fn();
+      render({
+        label: labelMock,
+      });
 
-        expect(labels.length).toBe(dataMock.length);
-        labels.forEach((label, index) => {
-          expect(label).toHaveTextContent(`${dataMock[index].value}`);
-          expect(label).toHaveAttribute('fill', dataMock[index].color);
+      const expected = {
+        key: expect.any(String),
+        ...expectedLabelProps,
+      };
+      expect(labelMock).toHaveBeenCalledTimes(dataMock.length);
+      expect(labelMock).toHaveBeenCalledWith(expected);
+    });
+
+    describe('returning a value', () => {
+      const labels = [0, null, 'label'];
+      describe.each`
+        description    | label                                   | expectedLabels
+        ${'number'}    | ${() => -5}                             | ${[-5, -5, -5]}
+        ${'number'}    | ${({ dataIndex }) => dataIndex}         | ${[0, 1, 2]}
+        ${'string'}    | ${() => 'label'}                        | ${['label', 'label', 'label']}
+        ${'null'}      | ${() => null}                           | ${[]}
+        ${'undefined'} | ${() => undefined}                      | ${[]}
+        ${'mixed'}     | ${({ dataIndex }) => labels[dataIndex]} | ${[0, 'label']}
+      `('$description', ({ label, expectedLabels }) => {
+        it('renders expected <text> elements with expected content', () => {
+          const { container } = render({ label });
+          const labels = container.querySelectorAll('text');
+          expect(labels.length).toBe(expectedLabels.length);
+
+          labels.forEach((label, index) => {
+            expect(label).toHaveTextContent(String(expectedLabels[index]));
+          });
         });
       });
     });
 
-    describe('provided as function returning a value', () => {
-      it('renders 3 <text> elements with expected content', () => {
-        const { container } = render({
-          label: (props) => props.dataIndex,
-        });
-
-        container.querySelectorAll('text').forEach((label, index) => {
-          expect(label).toHaveTextContent(index);
-        });
-      });
-
-      it('receives expected "props" object', () => {
-        const labelMock = jest.fn();
-        render({
-          label: labelMock,
-        });
-
-        const expected = {
-          key: expect.any(String),
-          ...expectedLabelProps,
-        };
-        expect(labelMock).toHaveBeenCalledTimes(dataMock.length);
-        expect(labelMock).toHaveBeenCalledWith(expected);
-      });
-    });
-
-    describe('provided as function returning an element', () => {
+    describe('an element', () => {
       it('render returned elements', () => {
         const { container } = render({
           label: (props) => (
@@ -77,37 +75,24 @@ describe('Label', () => {
         });
       });
     });
-
-    describe('provided as element', () => {
-      it('renders with expected props', () => {
-        const ComponentMock = jest.fn(() => null);
-        render({
-          label: <ComponentMock />,
-        });
-
-        expect(ComponentMock).toHaveBeenCalledTimes(dataMock.length);
-        expect(ComponentMock).toHaveBeenCalledWith(expectedLabelProps, {});
-      });
-    });
   });
 
   describe('labelPosition prop', () => {
     it("radially moves label by the provided percentage of charts' radius", () => {
       const radius = 66;
       const labelPosition = 5;
-      const { container } = render({
-        label: true,
+      const { container, getAllByText } = render({
+        label: () => 'label',
         radius,
         labelPosition,
       });
       const paths = container.querySelectorAll('path');
-      const labels = container.querySelectorAll('text');
       const expectedDistanceFromCenter = extractPercentage(
         radius,
         labelPosition
       );
 
-      labels.forEach((label, index) => {
+      getAllByText('label').forEach((label, index) => {
         const { startAngle, lengthAngle } = getArcInfo(paths[index]);
         const { dx, dy } = shiftVectorAlongAngle(
           bisectorAngle(startAngle, lengthAngle),
@@ -123,12 +108,12 @@ describe('Label', () => {
 
   describe('labelStyle prop', () => {
     it('assign provided value to each label as className', () => {
-      const { container } = render({
-        label: true,
+      const { getAllByText } = render({
+        label: () => 'label',
         labelStyle: { pointerEvents: 'none' },
       });
 
-      container.querySelectorAll('text').forEach((label) => {
+      getAllByText('label').forEach((label) => {
         expect(label).toHaveStyle({ pointerEvents: 'none' });
       });
     });

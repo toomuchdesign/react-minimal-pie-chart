@@ -9,39 +9,8 @@ exports[`Dist bundle is unchanged 1`] = `
 
   var React__default = 'default' in React ? React['default'] : React;
 
-  function round(number) {
-    var divisor = 1e14; // 14 decimals
-
-    return Math.round((number + Number.EPSILON) * divisor) / divisor;
-  }
-
   function degreesToRadians(degrees) {
     return degrees * Math.PI / 180;
-  }
-  function evaluateLabelTextAnchor(_ref) {
-    var labelPosition = _ref.labelPosition,
-        lineWidth = _ref.lineWidth,
-        labelHorizontalShift = _ref.labelHorizontalShift;
-    var dx = round(labelHorizontalShift); // Label in the vertical center
-
-    if (dx === 0) {
-      return 'middle';
-    } // Outward label
-
-
-    if (labelPosition > 100) {
-      return dx > 0 ? 'start' : 'end';
-    } // Inward label
-
-
-    var innerRadius = 100 - lineWidth;
-
-    if (labelPosition < innerRadius) {
-      return dx > 0 ? 'end' : 'start';
-    } // Overlying label
-
-
-    return 'middle';
   }
   function valueBetween(value, min, max) {
     if (value > max) return max;
@@ -64,8 +33,8 @@ exports[`Dist bundle is unchanged 1`] = `
   function isNumber(value) {
     return typeof value === 'number';
   }
-  function functionProp(prop, index) {
-    return typeof prop === 'function' ? prop(index) : prop;
+  function functionProp(prop, payload) {
+    return typeof prop === 'function' ? prop(payload) : prop;
   }
 
   function sumValues(data) {
@@ -133,24 +102,50 @@ exports[`Dist bundle is unchanged 1`] = `
   }
   Label.displayName = 'ReactMinimalPieChartLabel';
 
-  function renderLabelItem(providedLabel, labelProps, defaultValue) {
-    if (React__default.isValidElement(providedLabel)) {
-      return React__default.cloneElement(providedLabel, labelProps);
+  function round(number) {
+    var divisor = 1e14; // 14 decimals
+
+    return Math.round((number + Number.EPSILON) * divisor) / divisor;
+  }
+
+  function evaluateTextAnchorPosition(_ref) {
+    var labelPosition = _ref.labelPosition,
+        lineWidth = _ref.lineWidth,
+        labelHorizontalShift = _ref.labelHorizontalShift;
+    var dx = round(labelHorizontalShift); // Label in the vertical center
+
+    if (dx === 0) {
+      return 'middle';
+    } // Outward label
+
+
+    if (labelPosition > 100) {
+      return dx > 0 ? 'start' : 'end';
+    } // Inward label
+
+
+    var innerRadius = 100 - lineWidth;
+
+    if (labelPosition < innerRadius) {
+      return dx > 0 ? 'end' : 'start';
+    } // Overlying label
+
+
+    return 'middle';
+  }
+
+  function renderLabelElement(renderLabel, labelProps) {
+    var label = renderLabel(labelProps);
+
+    if (typeof label === 'string' || typeof label === 'number') {
+      return /*#__PURE__*/React__default.createElement(Label, labelProps, label);
     }
 
-    var labelValue = defaultValue;
-
-    if (typeof providedLabel === 'function') {
-      var label = providedLabel(labelProps);
-
-      if (React__default.isValidElement(label)) {
-        return label;
-      }
-
-      labelValue = label;
+    if (React__default.isValidElement(label)) {
+      return label;
     }
 
-    return /*#__PURE__*/React__default.createElement(Label, labelProps, labelValue);
+    return null;
   }
 
   function renderLabels(data, props) {
@@ -164,7 +159,7 @@ exports[`Dist bundle is unchanged 1`] = `
 
       var _shiftVectorAlongAngl = shiftVectorAlongAngle(segmentBisector, distanceFromCenter),
           dx = _shiftVectorAlongAngl.dx,
-          dy = _shiftVectorAlongAngl.dy; // This object is passed as props to the \\"label\\" component
+          dy = _shiftVectorAlongAngl.dy; // This object is passed as argument to the \\"label\\" function prop
 
 
       var labelProps = {
@@ -173,7 +168,7 @@ exports[`Dist bundle is unchanged 1`] = `
         y: props.cy,
         dx: dx,
         dy: dy,
-        textAnchor: evaluateLabelTextAnchor({
+        textAnchor: evaluateTextAnchorPosition({
           labelPosition: props.labelPosition,
           lineWidth: props.lineWidth,
           labelHorizontalShift: dx
@@ -183,7 +178,7 @@ exports[`Dist bundle is unchanged 1`] = `
         color: dataEntry.color,
         style: props.labelStyle
       };
-      return props.label && renderLabelItem(props.label, labelProps, dataEntry.value);
+      return props.label && renderLabelElement(props.label, labelProps);
     });
   }
 
@@ -331,7 +326,6 @@ exports[`Dist bundle is unchanged 1`] = `
     animationEasing: 'ease-out',
     cx: 50,
     cy: 50,
-    label: false,
     data: [],
     labelPosition: 50,
     lengthAngle: 360,

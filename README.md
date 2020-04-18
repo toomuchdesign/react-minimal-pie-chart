@@ -78,7 +78,7 @@ import PieChart from 'react-minimal-pie-chart';
 | **segmentsShift**     | _Number_ (user units), _Function_     | Translates segments radially. If `number` set, provide shift value relative to `viewBoxSize` space. If `function`, return a value for each segment: `(segmentIndex) => number \| undefined` </br>(`radius` prop might be adjusted to prevent segments from overflowing chart's boundaries) | -          |
 | **segmentsStyle**     | _Object_, _Function_                  | Style object assigned to each segment. If `function` set, return a value for each segment `(segmentIndex) => {} \| undefined`                                                                                                                                                            | -          |
 | **segmentsTabIndex**  | _Number_                              | [`tabindex` attribute](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/tabindex) assigned to segments                                                                                                                                                                          | -          |
-| **label**             | _Boolean_, _ReactElement_, _Function_ | If `true` set, labels will be drawn automatically. If `ReactElement` set, the option can be the custom label element. If set a `function`, the function will be called to render customized label                                                                                         | false      |
+| **label**             | _Function_                            | A function returning the value or element rendered as label: `(labelProps: LabelProps) => string \| number \| ReactElement \| undefined \| null`                                                                                                                                         | -      |
 | **labelPosition**     | _Number_ (%)                          | Label position from origin. Percentage of chart's radio _(50 === middle point)_                                                                                                                                                                                                           | 50         |
 | **labelStyle**        | _Object_                              | Style object assigned to each label                                                                                                                                                                                                                                                       | -          |
 | **animate**           | _Bool_                                | Animate segments on component mount                                                                                                                                                                                                                                                       | false      |
@@ -104,11 +104,12 @@ import PieChart from 'react-minimal-pie-chart';
 `props.data` expects the following array of entries:
 
 ```typescript
-type dataProps = {
-  value: number;
+type Data = {
   color: string;
+  value: number;
   key?: string | number;
   title?: string | number;
+  [key: string]: any;
 }[];
 ```
 
@@ -120,10 +121,18 @@ Each entry accepts the following **optional properties**:
 
 ### Custom labels with `label` prop
 
-When `label` is a **function** or **ReactElement**, the provided entity will be called with the following **`labelProps`** object respectively **as argument** or **as props**:
+When `label` is a **function**, the provided function is called with `labelProps` as **argument** and is supposed to **return the string, number or element** to be rendered as label content.
+
+```js
+<PieChart
+  label={(labelProps: LabelProps) =>
+    number | string | React.ReactElement | undefined | null
+  }
+/>
+```
 
 ```typescript
-type labelProps = {
+type LabelProps = {
   key: string;
   x: number;
   y: number;
@@ -140,22 +149,6 @@ type labelProps = {
   color: string;
   style: { [key: string]: string | number };
 };
-```
-
-#### `label` as function
-
-The provided **function** is called with `labelProps` as **argument** and is supposed to **return the string, number or element** rendered as label content.
-
-```js
-<PieChart label={(labelProps: labelProps) => string | number | ReactElement} />
-```
-
-#### `label` as React element
-
-The provided **React element** will get `labelProps` object as `props`.
-
-```js
-<PieChart label={<CustomLabel />} />
 ```
 
 See some examples in the [demo source][demo-label-source].

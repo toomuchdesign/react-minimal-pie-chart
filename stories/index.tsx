@@ -32,7 +32,7 @@ storiesOf('Pie Chart', module)
         data={dataMock}
         radius={PieChart.defaultProps.radius - shiftSize}
         segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
-        label
+        label={({ dataIndex, data }) => data[dataIndex].value}
         labelStyle={{
           ...defaultLabelStyle,
         }}
@@ -83,7 +83,7 @@ storiesOf('Labels', module)
   .add('Default labels', () => (
     <PieChart
       data={dataMock}
-      label
+      label={({ dataIndex, data }) => data[dataIndex].value}
       labelStyle={{
         ...defaultLabelStyle,
       }}
@@ -92,7 +92,7 @@ storiesOf('Labels', module)
   .add('Outer labels', () => (
     <PieChart
       data={dataMock}
-      label
+      label={({ dataIndex, data }) => data[dataIndex].value}
       labelStyle={{
         fontSize: '5px',
         fontFamily: 'sans-serif',
@@ -107,7 +107,7 @@ storiesOf('Labels', module)
       lineWidth={20}
       paddingAngle={18}
       rounded
-      label
+      label={({ dataIndex, data }) => data[dataIndex].value}
       labelStyle={{
         fontSize: '5px',
         fontFamily: 'sans-serif',
@@ -120,7 +120,7 @@ storiesOf('Labels', module)
       data={[{ value: 82, color: '#E38627' }]}
       totalValue={100}
       lineWidth={20}
-      label
+      label={({ dataIndex, data }) => data[dataIndex].value}
       labelStyle={{
         fontSize: '25px',
         fontFamily: 'sans-serif',
@@ -174,7 +174,7 @@ storiesOf('Misc', module)
   .add('Squared pie', () => (
     <PieChart
       data={dataMock}
-      label
+      label={({ dataIndex, data }) => data[dataIndex].value}
       labelStyle={defaultLabelStyle}
       radius={75}
     />
