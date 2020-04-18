@@ -190,7 +190,6 @@ This library uses the `stroke-dasharray` + `stroke-dashoffset` animation strateg
 ## Todo's
 
 - Consider moving storybook deployment to CI
-- Configure Babel to not inject the `_extend` utility in compiled artifact
 - Add `.browserslistrc` to get rid of some Babel helpers
 - Consider using `transform` to mutate segments/labels positions
 
