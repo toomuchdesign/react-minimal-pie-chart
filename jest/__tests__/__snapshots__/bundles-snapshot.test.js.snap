@@ -9,27 +9,6 @@ exports[`Dist bundle is unchanged 1`] = `
 
   var React__default = 'default' in React ? React['default'] : React;
 
-  function _inheritsLoose(subClass, superClass) {
-    subClass.prototype = Object.create(superClass.prototype);
-    subClass.prototype.constructor = subClass;
-    subClass.__proto__ = superClass;
-  }
-
-  function _objectWithoutPropertiesLoose(source, excluded) {
-    if (source == null) return {};
-    var target = {};
-    var sourceKeys = Object.keys(source);
-    var key, i;
-
-    for (i = 0; i < sourceKeys.length; i++) {
-      key = sourceKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      target[key] = source[key];
-    }
-
-    return target;
-  }
-
   function round(number) {
     var divisor = 1e14; // 14 decimals
 
@@ -126,7 +105,22 @@ exports[`Dist bundle is unchanged 1`] = `
     });
   }
 
-  function ReactMinimalPieChartLabel(_ref) {
+  function _objectWithoutPropertiesLoose(source, excluded) {
+    if (source == null) return {};
+    var target = {};
+    var sourceKeys = Object.keys(source);
+    var key, i;
+
+    for (i = 0; i < sourceKeys.length; i++) {
+      key = sourceKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      target[key] = source[key];
+    }
+
+    return target;
+  }
+
+  function Label(_ref) {
     var data = _ref.data,
         dataIndex = _ref.dataIndex,
         color = _ref.color,
@@ -137,7 +131,7 @@ exports[`Dist bundle is unchanged 1`] = `
       fill: color
     }, props));
   }
-  ReactMinimalPieChartLabel.displayName = 'ReactMinimalPieChartLabel';
+  Label.displayName = 'ReactMinimalPieChartLabel';
 
   function renderLabelItem(providedLabel, labelProps, defaultValue) {
     if (React__default.isValidElement(providedLabel)) {
@@ -156,7 +150,7 @@ exports[`Dist bundle is unchanged 1`] = `
       labelValue = label;
     }
 
-    return /*#__PURE__*/React__default.createElement(ReactMinimalPieChartLabel, labelProps, labelValue);
+    return /*#__PURE__*/React__default.createElement(Label, labelProps, labelValue);
   }
 
   function renderLabels(data, props) {
@@ -214,7 +208,7 @@ exports[`Dist bundle is unchanged 1`] = `
       return command.join(' ');
     }).join(' ');
   }
-  function ReactMinimalPieChartPath(_ref) {
+  function Path(_ref) {
     var cx = _ref.cx,
         cy = _ref.cy,
         lengthAngle = _ref.lengthAngle,
@@ -251,7 +245,7 @@ exports[`Dist bundle is unchanged 1`] = `
       strokeDashoffset: strokeDashoffset
     }, props), title && /*#__PURE__*/React__default.createElement(\\"title\\", null, title));
   }
-  ReactMinimalPieChartPath.displayName = 'ReactMinimalPieChartPath';
+  Path.displayName = 'ReactMinimalPieChartPath';
 
   function combineSegmentTransitionsStyle(duration, easing, customStyle) {
     // Merge chart's animation CSS transition with \\"transition\\" found to customStyle
@@ -288,7 +282,7 @@ exports[`Dist bundle is unchanged 1`] = `
     var lineWidth = extractPercentage(radius, props.lineWidth);
     var paths = data.map(function (dataEntry, index) {
       var segmentsStyle = functionProp(props.segmentsStyle, index);
-      return /*#__PURE__*/React__default.createElement(ReactMinimalPieChartPath, {
+      return /*#__PURE__*/React__default.createElement(Path, {
         key: dataEntry.key || index,
         cx: props.cx,
         cy: props.cy,
@@ -314,7 +308,7 @@ exports[`Dist bundle is unchanged 1`] = `
     });
 
     if (props.background) {
-      paths.unshift( /*#__PURE__*/React__default.createElement(ReactMinimalPieChartPath, {
+      paths.unshift( /*#__PURE__*/React__default.createElement(Path, {
         key: \\"bg\\",
         cx: props.cx,
         cy: props.cy,
@@ -331,77 +325,7 @@ exports[`Dist bundle is unchanged 1`] = `
     return paths;
   }
 
-  var ReactMinimalPieChart = /*#__PURE__*/function (_Component) {
-    _inheritsLoose(ReactMinimalPieChart, _Component);
-
-    function ReactMinimalPieChart(props) {
-      var _this;
-
-      _this = _Component.call(this, props) || this;
-      _this.revealOverride = void 0;
-      _this.animationTimerId = void 0;
-      _this.animationRAFId = void 0;
-
-      if (props.animate === true) {
-        _this.revealOverride = 0;
-      }
-
-      return _this;
-    }
-
-    var _proto = ReactMinimalPieChart.prototype;
-
-    _proto.componentDidMount = function componentDidMount() {
-      var _this2 = this;
-
-      if (this.props.animate) {
-        this.animationTimerId = setTimeout(function () {
-          _this2.animationTimerId = null;
-          _this2.animationRAFId = requestAnimationFrame(function () {
-            _this2.animationRAFId = null;
-
-            _this2.startAnimation();
-          });
-        });
-      }
-    };
-
-    _proto.componentWillUnmount = function componentWillUnmount() {
-      if (this.animationTimerId) {
-        clearTimeout(this.animationTimerId);
-      }
-
-      if (this.animationRAFId) {
-        cancelAnimationFrame(this.animationRAFId);
-      }
-    };
-
-    _proto.startAnimation = function startAnimation() {
-      this.revealOverride = null;
-      this.forceUpdate();
-    };
-
-    _proto.render = function render() {
-      var props = this.props;
-      var extendedData = extendData(props);
-      return /*#__PURE__*/React__default.createElement(\\"div\\", {
-        className: props.className,
-        style: props.style
-      }, /*#__PURE__*/React__default.createElement(\\"svg\\", {
-        viewBox: \\"0 0 \\" + props.viewBoxSize[0] + \\" \\" + props.viewBoxSize[1],
-        width: \\"100%\\",
-        height: \\"100%\\",
-        style: {
-          display: 'block'
-        }
-      }, renderSegments(extendedData, props, this.revealOverride), props.label && renderLabels(extendedData, props), props.injectSvg && props.injectSvg()), props.children);
-    };
-
-    return ReactMinimalPieChart;
-  }(React.Component);
-
-  ReactMinimalPieChart.displayName = 'ReactMinimalPieChart';
-  ReactMinimalPieChart.defaultProps = {
+  var defaultProps = {
     animate: false,
     animationDuration: 500,
     animationEasing: 'ease-out',
@@ -418,6 +342,47 @@ exports[`Dist bundle is unchanged 1`] = `
     startAngle: 0,
     viewBoxSize: [100, 100]
   };
+  function ReactMinimalPieChart(props) {
+    var _useState = React.useState(props.animate ? 0 : null),
+        revealOverride = _useState[0],
+        setRevealOverride = _useState[1];
+
+    React.useEffect(function () {
+      if (props.animate) {
+        return startInitialAnimation();
+      }
+
+      function startInitialAnimation() {
+        var animationTimerId;
+        var animationRAFId;
+        animationTimerId = setTimeout(function () {
+          animationTimerId = null;
+          animationRAFId = requestAnimationFrame(function () {
+            animationRAFId = null;
+            setRevealOverride(null); // Start animation
+          });
+        });
+        return function () {
+          animationTimerId && clearTimeout(animationTimerId);
+          animationRAFId && cancelAnimationFrame(animationRAFId);
+        };
+      }
+    }, []);
+    var extendedData = extendData(props);
+    return /*#__PURE__*/React__default.createElement(\\"div\\", {
+      className: props.className,
+      style: props.style
+    }, /*#__PURE__*/React__default.createElement(\\"svg\\", {
+      viewBox: \\"0 0 \\" + props.viewBoxSize[0] + \\" \\" + props.viewBoxSize[1],
+      width: \\"100%\\",
+      height: \\"100%\\",
+      style: {
+        display: 'block'
+      }
+    }, renderSegments(extendedData, props, revealOverride), props.label && renderLabels(extendedData, props), props.injectSvg && props.injectSvg()), props.children);
+  }
+  ReactMinimalPieChart.displayName = 'ReactMinimalPieChart';
+  ReactMinimalPieChart.defaultProps = defaultProps;
 
   exports.default = ReactMinimalPieChart;
 

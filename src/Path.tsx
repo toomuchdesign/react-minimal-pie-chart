@@ -54,7 +54,7 @@ type Props = {
   title?: string | number;
 };
 
-export default function ReactMinimalPieChartPath({
+export default function Path({
   cx,
   cy,
   lengthAngle,
@@ -105,4 +105,4 @@ export default function ReactMinimalPieChartPath({
   );
 }
 
-ReactMinimalPieChartPath.displayName = 'ReactMinimalPieChartPath';
+Path.displayName = 'ReactMinimalPieChartPath';
