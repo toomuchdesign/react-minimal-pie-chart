@@ -7,7 +7,7 @@ import {
   shiftVectorAlongAngle,
 } from '../utils';
 import type { PropsWithDefaults as ChartProps } from './Chart';
-import type { Props as LabelProps } from '../Label';
+import type { LabelRenderProps } from '../Label';
 import type { ExtendedData, LabelRenderFunction } from '../commonTypes';
 
 function round(number: number): number {
@@ -44,11 +44,18 @@ function evaluateTextAnchorPosition({
 
 function renderLabelElement(
   renderLabel: LabelRenderFunction,
-  labelProps: LabelProps
+  labelProps: LabelRenderProps
 ): JSX.Element | null {
   const label = renderLabel(labelProps);
   if (typeof label === 'string' || typeof label === 'number') {
-    return <DefaultLabel {...labelProps}>{label}</DefaultLabel>;
+    return (
+      <DefaultLabel
+        key={`label-${labelProps.dataEntry.key || labelProps.dataIndex}`}
+        {...labelProps}
+      >
+        {label}
+      </DefaultLabel>
+    );
   }
 
   if (React.isValidElement(label)) {
@@ -70,8 +77,7 @@ export default function renderLabels(data: ExtendedData, props: ChartProps) {
     );
 
     // This object is passed as argument to the "label" function prop
-    const labelProps = {
-      key: `label-${dataEntry.key || index}`,
+    const labelRenderProps = {
       x: props.cx,
       y: props.cy,
       dx,
@@ -81,12 +87,11 @@ export default function renderLabels(data: ExtendedData, props: ChartProps) {
         lineWidth: props.lineWidth,
         labelHorizontalShift: dx,
       }),
-      data,
+      dataEntry,
       dataIndex: index,
-      color: dataEntry.color,
       style: props.labelStyle,
     };
 
-    return props.label && renderLabelElement(props.label, labelProps);
+    return props.label && renderLabelElement(props.label, labelRenderProps);
   });
 }

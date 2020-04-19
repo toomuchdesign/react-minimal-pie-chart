@@ -1,5 +1,5 @@
-import React from 'react';
-import type { Props as LabelProps } from './Label';
+import type { ReactElement } from 'react';
+import type { LabelRenderProps } from './Label';
 
 export type StyleObject = {
   [key: string]: string | number;
@@ -8,8 +8,8 @@ export type StyleObject = {
 export type EventHandler<Event> = (event: Event, dataIndex: number) => void;
 
 export type LabelRenderFunction = (
-  labelProps: LabelProps
-) => number | string | React.ReactElement | undefined | null;
+  labelRenderProps: LabelRenderProps
+) => number | string | ReactElement | undefined | null;
 
 export type DataEntry = {
   title?: string | number;
@@ -19,7 +19,7 @@ export type DataEntry = {
   [key: string]: any;
 };
 
-type ExtendedDataEntry = DataEntry & {
+export type ExtendedDataEntry = DataEntry & {
   degrees: number;
   startOffset: number;
   percentage: number;

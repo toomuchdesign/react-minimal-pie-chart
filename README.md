@@ -78,7 +78,7 @@ import PieChart from 'react-minimal-pie-chart';
 | **segmentsShift**     | _Number_ (user units), _Function_     | Translates segments radially. If `number` set, provide shift value relative to `viewBoxSize` space. If `function`, return a value for each segment: `(segmentIndex) => number \| undefined` </br>(`radius` prop might be adjusted to prevent segments from overflowing chart's boundaries) | -          |
 | **segmentsStyle**     | _Object_, _Function_                  | Style object assigned to each segment. If `function` set, return a value for each segment `(segmentIndex) => {} \| undefined`                                                                                                                                                            | -          |
 | **segmentsTabIndex**  | _Number_                              | [`tabindex` attribute](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/tabindex) assigned to segments                                                                                                                                                                          | -          |
-| **label**             | _Function_                            | A function returning the value or element rendered as label: `(labelProps: LabelProps) => string \| number \| ReactElement \| undefined \| null`                                                                                                                                         | -      |
+| **label**             | _Function_                            | A function returning the value or element rendered as label: `(labelRenderProps: LabelRenderProps) => string \| number \| ReactElement \| undefined \| null`                                                                                                                                         | -      |
 | **labelPosition**     | _Number_ (%)                          | Label position from origin. Percentage of chart's radio _(50 === middle point)_                                                                                                                                                                                                           | 50         |
 | **labelStyle**        | _Object_                              | Style object assigned to each label                                                                                                                                                                                                                                                       | -          |
 | **animate**           | _Bool_                                | Animate segments on component mount                                                                                                                                                                                                                                                       | false      |
@@ -121,32 +121,30 @@ Each entry accepts the following **optional properties**:
 
 ### Custom labels with `label` prop
 
-When `label` is a **function**, the provided function is called with `labelProps` as **argument** and is supposed to **return the string, number or element** to be rendered as label content.
+`label` is a function property that gets called with `dataIndex` and `labelRenderProps` as **arguments**. It's return value represents the **string, number or element** to be rendered as label.
 
 ```js
 <PieChart
-  label={(labelProps: LabelProps) =>
+  label={(labelRenderProps: LabelRenderProps) =>
     number | string | React.ReactElement | undefined | null
   }
 />
 ```
 
 ```typescript
-type LabelProps = {
-  key: string;
+type LabelRenderProps = {
   x: number;
   y: number;
   dx: number;
   dy: number;
   textAnchor: string;
-  data: {
-    // props.data entry extended with:
+  // props.data entry relative to the label extended with:
+  dataEntry: {
     degrees: number;
     startOffset: number;
     percentage: number;
-  }[];
+  };
   dataIndex: number;
-  color: string;
   style: { [key: string]: string | number };
 };
 ```
