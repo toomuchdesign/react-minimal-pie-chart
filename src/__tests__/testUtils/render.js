@@ -1,5 +1,5 @@
 import React from 'react';
-import { render as TLRender } from '@testing-library/react';
+import { render as TLRender, act } from '@testing-library/react';
 import PieChart from '../../../src/index';
 
 export const dataMock = [
@@ -19,4 +19,4 @@ export function render(props) {
   return instance;
 }
 
-export { PieChart };
+export { PieChart, act };

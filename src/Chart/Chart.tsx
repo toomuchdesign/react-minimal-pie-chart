@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import type { FocusEvent, KeyboardEvent, MouseEvent } from 'react';
+import React, { useState, useEffect } from 'react';
+import type { FocusEvent, KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import extendData from './extendData';
 import renderLabels from './renderLabels';
 import renderSegments from './renderSegments';
@@ -10,13 +10,12 @@ import type {
   StyleObject,
 } from '../commonTypes';
 
-// @NOTE excluding defaultProps.data type due to issues to inferred never[] type
-// @NOTE Excluding defaultProps.label type causing typing bugs
-export type Props = Omit<typeof ReactMinimalPieChart.defaultProps, 'label'> & {
+export type Props = {
   animate?: boolean;
   animationDuration?: number;
   animationEasing?: string;
   background?: string;
+  children?: ReactNode;
   className?: string;
   cx?: number;
   cy?: number;
@@ -46,83 +45,72 @@ export type Props = Omit<typeof ReactMinimalPieChart.defaultProps, 'label'> & {
   style?: StyleObject;
   totalValue?: number;
   viewBoxSize?: [number, number];
+  // @NOTE excluding defaultProps entries due to issues on how TS inferres types
+  // Current strategy doesn't work with optional props with multiple types (eg number | string)
+} & Omit<typeof defaultProps, 'label'>;
+
+const defaultProps = {
+  animate: false,
+  animationDuration: 500,
+  animationEasing: 'ease-out',
+  cx: 50,
+  cy: 50,
+  label: false,
+  data: [] as Data,
+  labelPosition: 50,
+  lengthAngle: 360,
+  lineWidth: 100,
+  paddingAngle: 0,
+  radius: 50,
+  rounded: false,
+  startAngle: 0,
+  viewBoxSize: [100, 100],
 };
 
-export default class ReactMinimalPieChart extends Component<Props> {
-  static displayName = 'ReactMinimalPieChart';
-  static defaultProps = {
-    animate: false,
-    animationDuration: 500,
-    animationEasing: 'ease-out',
-    cx: 50,
-    cy: 50,
-    label: false,
-    data: [] as Data,
-    labelPosition: 50,
-    lengthAngle: 360,
-    lineWidth: 100,
-    paddingAngle: 0,
-    radius: 50,
-    rounded: false,
-    startAngle: 0,
-    viewBoxSize: [100, 100],
-  };
-
-  revealOverride?: null | number;
-  animationTimerId?: null | number;
-  animationRAFId?: null | number;
-
-  constructor(props: Props) {
-    super(props);
-
-    if (props.animate === true) {
-      this.revealOverride = 0;
+export default function ReactMinimalPieChart(props: Props) {
+  const [revealOverride, setRevealOverride] = useState(
+    props.animate ? 0 : null
+  );
+  useEffect(() => {
+    if (props.animate) {
+      return startInitialAnimation();
     }
-  }
 
-  componentDidMount() {
-    if (this.props.animate) {
-      this.animationTimerId = setTimeout(() => {
-        this.animationTimerId = null;
-        this.animationRAFId = requestAnimationFrame(() => {
-          this.animationRAFId = null;
-          this.startAnimation();
+    function startInitialAnimation() {
+      let animationTimerId: number | null;
+      let animationRAFId: number | null;
+      animationTimerId = setTimeout(() => {
+        animationTimerId = null;
+        animationRAFId = requestAnimationFrame(() => {
+          animationRAFId = null;
+          setRevealOverride(null); // Start animation
         });
       });
-    }
-  }
 
-  componentWillUnmount() {
-    if (this.animationTimerId) {
-      clearTimeout(this.animationTimerId);
+      return () => {
+        animationTimerId && clearTimeout(animationTimerId);
+        animationRAFId && cancelAnimationFrame(animationRAFId);
+      };
     }
-    if (this.animationRAFId) {
-      cancelAnimationFrame(this.animationRAFId);
-    }
-  }
+  }, []);
 
-  startAnimation() {
-    this.revealOverride = null;
-    this.forceUpdate();
-  }
-
-  render() {
-    const props = this.props;
-    const extendedData = extendData(props);
-    return (
-      <div className={props.className} style={props.style}>
-        <svg
-          viewBox={`0 0 ${props.viewBoxSize[0]} ${props.viewBoxSize[1]}`}
-          width="100%"
-          height="100%"
-          style={{ display: 'block' }}
-        >
-          {renderSegments(extendedData, props, this.revealOverride)}
-          {props.label && renderLabels(extendedData, props)}
-          {props.injectSvg && props.injectSvg()}
-        </svg>
-        {props.children}
-      </div>
-    );
-  }
+  const extendedData = extendData(props);
+  return (
+    <div className={props.className} style={props.style}>
+      <svg
+        viewBox={`0 0 ${props.viewBoxSize[0]} ${props.viewBoxSize[1]}`}
+        width="100%"
+        height="100%"
+        style={{ display: 'block' }}
+      >
+        {renderSegments(extendedData, props, revealOverride)}
+        {props.label && renderLabels(extendedData, props)}
+        {props.injectSvg && props.injectSvg()}
+      </svg>
+      {props.children}
+    </div>
+  );
 }
+
+ReactMinimalPieChart.displayName = 'ReactMinimalPieChart';
+ReactMinimalPieChart.defaultProps = defaultProps;

@@ -14,13 +14,8 @@ export type Props = {
   style?: StyleObject;
 };
 
-export default function ReactMinimalPieChartLabel({
-  data,
-  dataIndex,
-  color,
-  ...props
-}: Props) {
+export default function Label({ data, dataIndex, color, ...props }: Props) {
   return <text dominantBaseline="central" fill={color} {...props} />;
 }
 
-ReactMinimalPieChartLabel.displayName = 'ReactMinimalPieChartLabel';
+Label.displayName = 'ReactMinimalPieChartLabel';

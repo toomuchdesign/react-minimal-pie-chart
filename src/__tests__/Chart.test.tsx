@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import { render, dataMock, getArcInfo, PieChart } from './testUtils';
+import { act, render, dataMock, getArcInfo, PieChart } from './testUtils';
 import { degreesToRadians, extractPercentage } from '../utils';
 
 jest.useFakeTimers();
@@ -203,8 +203,10 @@ describe('Chart', () => {
           `${extractPercentage(fullPathLength, hiddenPercentage)}`
         );
 
-        // Fire componentDidMount
-        jest.runAllTimers();
+        // Trigger async initial animation
+        act(() => {
+          jest.runAllTimers();
+        });
 
         // Paths are revealed
         hiddenPercentage = 100 - expectedRevealedPercentage;
@@ -239,8 +241,10 @@ describe('Chart', () => {
       });
 
       unmount();
-      // Fire componentDidMount
-      jest.runAllTimers();
+      // Trigger async initial animation
+      act(() => {
+        jest.runAllTimers();
+      });
 
       expect(console.error).not.toHaveBeenCalled();
       console.error.mockRestore();
