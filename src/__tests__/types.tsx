@@ -1,5 +1,8 @@
 import React from 'react';
+import type { FocusEvent, KeyboardEvent, MouseEvent } from 'react';
 import PieChart from '../../src';
+import type { Props as PieChartProps } from '../../src/Chart';
+type Data = PieChartProps['data'];
 
 <PieChart data={[]} />;
 <PieChart
@@ -44,15 +47,14 @@ import PieChart from '../../src';
 //@ts-ignore
 <PieChart data={[]} segmentsShift={() => {}} />;
 
-//@TODO update with actual event type
 <PieChart
   data={[]}
-  onBlur={(e) => {}}
-  onClick={(e) => {}}
-  onFocus={(e) => {}}
-  onKeyDown={(e) => {}}
-  onMouseOut={(e) => {}}
-  onMouseOver={(e) => {}}
+  onBlur={(e: FocusEvent, data: Data, index: number) => {}}
+  onClick={(e: MouseEvent, data: Data, index: number) => {}}
+  onFocus={(e: FocusEvent, data: Data, index: number) => {}}
+  onKeyDown={(e: KeyboardEvent, data: Data, index: number) => {}}
+  onMouseOut={(e: MouseEvent, data: Data, index: number) => {}}
+  onMouseOver={(e: MouseEvent, data: Data, index: number) => {}}
 />;
 
 <PieChart data={[]}>1</PieChart>;

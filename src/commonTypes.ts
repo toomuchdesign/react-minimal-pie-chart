@@ -5,8 +5,8 @@ export type StyleObject = {
   [key: string]: string | number;
 };
 
-export type EventHandler = (
-  event: React.MouseEvent,
+export type EventHandler<Event> = (
+  event: Event,
   data: Data,
   dataIndex: number
 ) => void;
