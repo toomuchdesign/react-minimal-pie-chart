@@ -383,11 +383,6 @@ exports[`Dist bundle is unchanged 1`] = `
 
     _proto.render = function render() {
       var props = this.props;
-
-      if (props.data === undefined) {
-        return null;
-      }
-
       var extendedData = extendData(props);
       return /*#__PURE__*/React__default.createElement(\\"div\\", {
         className: props.className,
@@ -413,6 +408,7 @@ exports[`Dist bundle is unchanged 1`] = `
     cx: 50,
     cy: 50,
     label: false,
+    data: [],
     labelPosition: 50,
     lengthAngle: 360,
     lineWidth: 100,

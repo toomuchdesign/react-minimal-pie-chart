@@ -10,7 +10,8 @@ import type {
   StyleObject,
 } from '../commonTypes';
 
-// @NOTE Excluding defaultProps entries causing typing bugs
+// @NOTE excluding defaultProps.data type due to issues to inferred never[] type
+// @NOTE Excluding defaultProps.label type causing typing bugs
 export type Props = Omit<typeof ReactMinimalPieChart.defaultProps, 'label'> & {
   animate?: boolean;
   animationDuration?: number;
@@ -56,6 +57,7 @@ export default class ReactMinimalPieChart extends Component<Props> {
     cx: 50,
     cy: 50,
     label: false,
+    data: [] as Data,
     labelPosition: 50,
     lengthAngle: 360,
     lineWidth: 100,
@@ -106,11 +108,7 @@ export default class ReactMinimalPieChart extends Component<Props> {
 
   render() {
     const props = this.props;
-    if (props.data === undefined) {
-      return null;
-    }
     const extendedData = extendData(props);
-
     return (
       <div className={props.className} style={props.style}>
         <svg
