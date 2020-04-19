@@ -13,11 +13,23 @@ beforeAll(() => {
 });
 
 describe('Chart', () => {
-  it('return null if props.data is undefined', () => {
-    const { container } = render({
-      data: undefined,
+  describe('data prop', () => {
+    it('renders empty SVG element when is undefined', () => {
+      const { container } = render({
+        data: undefined,
+      });
+      const svg = container.querySelector('svg');
+      expect(svg).toBeEmpty();
     });
-    expect(container).toBeEmpty();
+
+    it('render a <Title> element if data[].title provided', () => {
+      const { container } = render({
+        data: [{ title: 'title-value', value: 10, color: 'blue' }],
+      });
+
+      const title = container.querySelector('title');
+      expect(title).toHaveTextContent('title-value');
+    });
   });
 
   describe('wrapper element', () => {
@@ -232,17 +244,6 @@ describe('Chart', () => {
 
       expect(console.error).not.toHaveBeenCalled();
       console.error.mockRestore();
-    });
-  });
-
-  describe('data.title prop', () => {
-    it('render a <Title> element in each path', () => {
-      const { container } = render({
-        data: [{ title: 'title-value', value: 10, color: 'blue' }],
-      });
-
-      const title = container.querySelector('title');
-      expect(title).toHaveTextContent('title-value');
     });
   });
 
