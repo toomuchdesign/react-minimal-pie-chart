@@ -1,21 +1,24 @@
 import React from 'react';
-import type { ExtendedData, StyleObject } from './commonTypes';
+import type { ReactNode } from 'react';
+import type { ExtendedDataEntry, StyleObject } from './commonTypes';
 
-export type Props = {
-  key?: string | number;
+export type LabelRenderProps = {
   x: number;
   y: number;
   dx: number;
   dy: number;
   textAnchor: string;
-  data: ExtendedData;
+  dataEntry: ExtendedDataEntry;
   dataIndex: number;
-  color: string;
   style?: StyleObject;
 };
 
-export default function Label({ data, dataIndex, color, ...props }: Props) {
-  return <text dominantBaseline="central" fill={color} {...props} />;
+type Props = LabelRenderProps & {
+  children: ReactNode;
+};
+
+export default function Label({ dataEntry, dataIndex, ...props }: Props) {
+  return <text dominantBaseline="central" {...props} />;
 }
 
 Label.displayName = 'ReactMinimalPieChartLabel';

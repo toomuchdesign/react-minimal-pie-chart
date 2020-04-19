@@ -16,7 +16,6 @@ const dataMock = [
 const defaultLabelStyle = {
   fontSize: '5px',
   fontFamily: 'sans-serif',
-  fill: '#121212',
 };
 
 storiesOf('Pie Chart', module)
@@ -32,7 +31,7 @@ storiesOf('Pie Chart', module)
         data={dataMock}
         radius={PieChart.defaultProps.radius - shiftSize}
         segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
-        label={({ dataIndex, data }) => data[dataIndex].value}
+        label={({ dataEntry }) => dataEntry.value}
         labelStyle={{
           ...defaultLabelStyle,
         }}
@@ -83,7 +82,7 @@ storiesOf('Labels', module)
   .add('Default labels', () => (
     <PieChart
       data={dataMock}
-      label={({ dataIndex, data }) => data[dataIndex].value}
+      label={({ dataEntry }) => dataEntry.value}
       labelStyle={{
         ...defaultLabelStyle,
       }}
@@ -92,7 +91,7 @@ storiesOf('Labels', module)
   .add('Outer labels', () => (
     <PieChart
       data={dataMock}
-      label={({ dataIndex, data }) => data[dataIndex].value}
+      label={({ dataEntry }) => dataEntry.value}
       labelStyle={{
         fontSize: '5px',
         fontFamily: 'sans-serif',
@@ -107,7 +106,7 @@ storiesOf('Labels', module)
       lineWidth={20}
       paddingAngle={18}
       rounded
-      label={({ dataIndex, data }) => data[dataIndex].value}
+      label={({ dataEntry }) => dataEntry.value}
       labelStyle={{
         fontSize: '5px',
         fontFamily: 'sans-serif',
@@ -120,10 +119,11 @@ storiesOf('Labels', module)
       data={[{ value: 82, color: '#E38627' }]}
       totalValue={100}
       lineWidth={20}
-      label={({ dataIndex, data }) => data[dataIndex].value}
+      label={({ dataEntry }) => dataEntry.value}
       labelStyle={{
         fontSize: '25px',
         fontFamily: 'sans-serif',
+        fill: '#E38627',
       }}
       labelPosition={0}
     />
@@ -131,9 +131,7 @@ storiesOf('Labels', module)
   .add('Percentage', () => (
     <PieChart
       data={dataMock}
-      label={({ data, dataIndex }) =>
-        Math.round(data[dataIndex].percentage) + '%'
-      }
+      label={({ dataEntry }) => Math.round(dataEntry.percentage) + '%'}
       labelStyle={defaultLabelStyle}
     />
   ));
@@ -174,7 +172,7 @@ storiesOf('Misc', module)
   .add('Squared pie', () => (
     <PieChart
       data={dataMock}
-      label={({ dataIndex, data }) => data[dataIndex].value}
+      label={({ dataEntry }) => dataEntry.value}
       labelStyle={defaultLabelStyle}
       radius={75}
     />

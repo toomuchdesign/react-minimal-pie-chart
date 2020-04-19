@@ -34,9 +34,7 @@ function FullOption(props: Props) {
       segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
       segmentsShift={(index) => (index === selected ? 6 : 1)}
       animate
-      label={({ data, dataIndex }) =>
-        Math.round(data[dataIndex].percentage) + '%'
-      }
+      label={({ dataEntry }) => Math.round(dataEntry.percentage) + '%'}
       labelPosition={100 - lineWidth / 2}
       labelStyle={{
         fill: '#fff',

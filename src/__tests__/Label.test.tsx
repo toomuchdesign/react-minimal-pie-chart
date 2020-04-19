@@ -7,36 +7,36 @@ import {
   shiftVectorAlongAngle,
 } from '../utils';
 
-export const expectedLabelProps = {
-  x: expect.any(Number),
-  y: expect.any(Number),
-  dx: expect.any(Number),
-  dy: expect.any(Number),
-  textAnchor: expect.any(String),
-  data: dataMock.map((entry) => ({
-    ...entry,
-    degrees: expect.any(Number),
-    startOffset: expect.any(Number),
-    percentage: expect.any(Number),
-  })),
-  dataIndex: expect.any(Number),
-  color: expect.any(String),
-};
+function getExpectedLabelRenderProps(dataEntry) {
+  return {
+    x: expect.any(Number),
+    y: expect.any(Number),
+    dx: expect.any(Number),
+    dy: expect.any(Number),
+    textAnchor: expect.any(String),
+    dataEntry: {
+      ...dataEntry,
+      degrees: expect.any(Number),
+      startOffset: expect.any(Number),
+      percentage: expect.any(Number),
+    },
+    dataIndex: expect.any(Number),
+  };
+}
 
 describe('Label', () => {
   describe('label prop function', () => {
-    it('receives expected "labelProps" object', () => {
+    it('gets called with expected arguments', () => {
       const labelMock = jest.fn();
       render({
         label: labelMock,
       });
 
-      const expected = {
-        key: expect.any(String),
-        ...expectedLabelProps,
-      };
       expect(labelMock).toHaveBeenCalledTimes(dataMock.length);
-      expect(labelMock).toHaveBeenCalledWith(expected);
+      dataMock.forEach((dataEntry) => {
+        const expected = getExpectedLabelRenderProps(dataEntry);
+        expect(labelMock).toHaveBeenCalledWith(expected);
+      });
     });
 
     describe('returning a value', () => {

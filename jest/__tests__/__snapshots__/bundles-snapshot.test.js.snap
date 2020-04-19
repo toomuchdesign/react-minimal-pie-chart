@@ -90,14 +90,12 @@ exports[`Dist bundle is unchanged 1`] = `
   }
 
   function Label(_ref) {
-    var data = _ref.data,
+    var dataEntry = _ref.dataEntry,
         dataIndex = _ref.dataIndex,
-        color = _ref.color,
-        props = _objectWithoutPropertiesLoose(_ref, [\\"data\\", \\"dataIndex\\", \\"color\\"]);
+        props = _objectWithoutPropertiesLoose(_ref, [\\"dataEntry\\", \\"dataIndex\\"]);
 
     return /*#__PURE__*/React__default.createElement(\\"text\\", Object.assign({
-      dominantBaseline: \\"central\\",
-      fill: color
+      dominantBaseline: \\"central\\"
     }, props));
   }
   Label.displayName = 'ReactMinimalPieChartLabel';
@@ -138,7 +136,9 @@ exports[`Dist bundle is unchanged 1`] = `
     var label = renderLabel(labelProps);
 
     if (typeof label === 'string' || typeof label === 'number') {
-      return /*#__PURE__*/React__default.createElement(Label, labelProps, label);
+      return /*#__PURE__*/React__default.createElement(Label, Object.assign({
+        key: \\"label-\\" + (labelProps.dataEntry.key || labelProps.dataIndex)
+      }, labelProps), label);
     }
 
     if (React__default.isValidElement(label)) {
@@ -162,8 +162,7 @@ exports[`Dist bundle is unchanged 1`] = `
           dy = _shiftVectorAlongAngl.dy; // This object is passed as argument to the \\"label\\" function prop
 
 
-      var labelProps = {
-        key: \\"label-\\" + (dataEntry.key || index),
+      var labelRenderProps = {
         x: props.cx,
         y: props.cy,
         dx: dx,
@@ -173,12 +172,11 @@ exports[`Dist bundle is unchanged 1`] = `
           lineWidth: props.lineWidth,
           labelHorizontalShift: dx
         }),
-        data: data,
+        dataEntry: dataEntry,
         dataIndex: index,
-        color: dataEntry.color,
         style: props.labelStyle
       };
-      return props.label && renderLabelElement(props.label, labelProps);
+      return props.label && renderLabelElement(props.label, labelRenderProps);
     });
   }
 
