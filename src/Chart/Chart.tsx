@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import type { FocusEvent, KeyboardEvent, MouseEvent } from 'react';
 import PropTypes from 'prop-types';
 import { dataPropType, stylePropType } from '../propTypes';
 import extendData from './extendData';
@@ -27,12 +28,12 @@ export type Props = Omit<typeof ReactMinimalPieChart.defaultProps, 'label'> & {
   label?: LabelProp;
   labelPosition?: number;
   labelStyle?: StyleObject;
-  onBlur?: EventHandler;
-  onClick?: EventHandler;
-  onFocus?: EventHandler;
-  onKeyDown?: EventHandler;
-  onMouseOut?: EventHandler;
-  onMouseOver?: EventHandler;
+  onBlur?: EventHandler<FocusEvent>;
+  onClick?: EventHandler<MouseEvent>;
+  onFocus?: EventHandler<FocusEvent>;
+  onKeyDown?: EventHandler<KeyboardEvent>;
+  onMouseOut?: EventHandler<MouseEvent>;
+  onMouseOver?: EventHandler<MouseEvent>;
   paddingAngle?: number;
   radius?: number;
   reveal?: number;

@@ -47,6 +47,17 @@ export default function renderSegments(
       props.segmentsStyle
     );
 
+  // @NOTE TS can't keep track of existence check (eg. props.onBlur && ...) of object properties
+  // @TODO Find a better solution then extracting props (.bind() or second && check inside callback)
+  const {
+    onBlur,
+    onClick,
+    onFocus,
+    onKeyDown,
+    onMouseOut,
+    onMouseOver,
+  } = props;
+
   const { cx, cy, radius } = extractAbsoluteCoordinates(props);
   const lineWidth = extractPercentage(radius, props.lineWidth);
   const paths = data.map((dataEntry, index) => {
@@ -74,45 +85,39 @@ export default function renderSegments(
         tabIndex={props.segmentsTabIndex}
         fill="none"
         onBlur={
-          props.onBlur &&
-          ((e: React.FocusEvent) => {
-            // @ts-ignore
-            props.onBlur(e, props.data, index);
+          onBlur &&
+          ((e) => {
+            onBlur(e, props.data, index);
           })
         }
         onClick={
-          props.onClick &&
-          ((e: React.MouseEvent) => {
-            // @ts-ignore
-            props.onClick(e, props.data, index);
+          onClick &&
+          ((e) => {
+            onClick(e, props.data, index);
           })
         }
         onFocus={
-          props.onFocus &&
-          ((e: React.FocusEvent) => {
-            // @ts-ignore
-            props.onFocus(e, props.data, index);
+          onFocus &&
+          ((e) => {
+            onFocus(e, props.data, index);
           })
         }
         onKeyDown={
-          props.onKeyDown &&
-          ((e: React.KeyboardEvent) => {
-            // @ts-ignore
-            props.onKeyDown(e, props.data, index);
+          onKeyDown &&
+          ((e) => {
+            onKeyDown(e, props.data, index);
           })
         }
         onMouseOver={
-          props.onMouseOver &&
-          ((e: React.MouseEvent) => {
-            // @ts-ignore
-            props.onMouseOver(e, props.data, index);
+          onMouseOver &&
+          ((e) => {
+            onMouseOver(e, props.data, index);
           })
         }
         onMouseOut={
-          props.onMouseOut &&
-          ((e: React.MouseEvent) => {
-            // @ts-ignore
-            props.onMouseOut(e, props.data, index);
+          onMouseOut &&
+          ((e) => {
+            onMouseOut(e, props.data, index);
           })
         }
       />
