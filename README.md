@@ -65,6 +65,7 @@ import PieChart from 'react-minimal-pie-chart';
 
 ## Options
 
+<!-- prettier-ignore-start -->
 | Property              | Type                                  | Description                                                                                                                                                                                                                                                                               | Default    |
 | --------------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
 | **data** _(required)_ | _Array_                               | Source data which each element is a segment                                                                                                                                                                                                                                               | -          |
@@ -96,6 +97,7 @@ import PieChart from 'react-minimal-pie-chart';
 | **onKeyDown**         | _Function_                            | `onKeyDown` event handler for each segment: `(event, data, dataIndex) => void`                                                                                                                                                                                                            | -          |
 | **onMouseOut**        | _Function_                            | `onMouseOut` event handler for each segment: `(event, data, dataIndex) => void`                                                                                                                                                                                                           | -          |
 | **onMouseOver**       | _Function_                            | `onMouseOver` event handler for each segment: `(event, data, dataIndex) => void`                                                                                                                                                                                                          | -          |
+<!-- prettier-ignore-end -->
 
 ### About `props.data`
 
