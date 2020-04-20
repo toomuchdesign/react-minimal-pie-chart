@@ -1,3 +1,11 @@
+# 7.3.1
+
+### Bugfixes
+
+- Fix event handler types expecting wrong event as first argument
+- Fix `label` prop type declaration when receiving a function (#154)
+- Fix wrong label position when segmentsShift enabled (#155)
+
 # 7.3.0
 
 ### New Features

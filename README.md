@@ -21,7 +21,7 @@ Because [Recharts][recharts-github] is awesome, but when you just need a simple 
 
 |                                                        |                                         Size<br>by Bundlefobia                                          | Benchmark Size \* | Loading time<br>on a slow 3g \* |
 | :----------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :---------------: | :-----------------------------: |
-|           react-minimal-pie-chart (_v7.2.0_)           |               [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]               |      2.59 KB      |             ~52 ms              |
+|           react-minimal-pie-chart (_v7.3.1_)           |               [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]               |      2.6 KB       |             ~53 ms              |
 |         [rechart][recharts-github] (_v1.8.5_)          |             [![Bundle size: Recharts][recharts-bundlephobia-badge]][recharts-bundlephobia]              |       97 KB       |            ~1900 ms             |
 |     [victory-pie][victory-pie-github] (_v34.1.3_)      |         [![Bundle size: Victory pie][victory-pie-bundlephobia-badge]][victory-pie-bundlephobia]         |      50.5 KB      |            ~1100 ms             |
 | [react-apexcharts][react-apexcharts-github] (_v1.3.7_) | [![Bundle size: React apec charts][react-apexcharts-bundlephobia-badge]][react-apexcharts-bundlephobia] |     114.7 KB      |            ~2300 ms             |
@@ -222,6 +222,7 @@ Thanks to you all ([emoji key](https://github.com/kentcdodds/all-contributors#em
   <tr>
     <td align="center"><a href="https://github.com/razked"><img src="https://avatars0.githubusercontent.com/u/39411034?v=4" width="100px;" alt=""/><br /><sub><b>Raz Kedem</b></sub></a><br /><a href="https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3Arazked" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/slumbering"><img src="https://avatars2.githubusercontent.com/u/1186424?v=4" width="100px;" alt=""/><br /><sub><b>Blocksmith</b></sub></a><br /><a href="https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3Aslumbering" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="http://jamietalbot.com"><img src="https://avatars0.githubusercontent.com/u/425787?v=4" width="100px;" alt=""/><br /><sub><b>Jamie Talbot</b></sub></a><br /><a href="https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3Amajelbstoat" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
