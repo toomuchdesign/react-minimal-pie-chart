@@ -11,7 +11,8 @@ import type {
   StyleObject,
 } from '../commonTypes';
 
-export type Props = typeof ReactMinimalPieChart.defaultProps & {
+// @NOTE Excluding defaultProps entries causing typing bugs
+export type Props = Omit<typeof ReactMinimalPieChart.defaultProps, 'label'> & {
   animate?: boolean;
   animationDuration?: number;
   animationEasing?: string;
