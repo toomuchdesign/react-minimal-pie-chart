@@ -66,6 +66,8 @@ export default function renderLabels(data: ExtendedData, props: ChartProps) {
       style: props.labelStyle,
     };
 
-    return renderLabelItem(props.label, labelProps, dataEntry.value);
+    return (
+      props.label && renderLabelItem(props.label, labelProps, dataEntry.value)
+    );
   });
 }
