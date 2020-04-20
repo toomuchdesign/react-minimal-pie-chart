@@ -11,8 +11,9 @@
     "paths": {
       "*": ["@types/*"]
     },
-    "noErrorTruncation": true
+    "noErrorTruncation": true,
+    "emitDeclarationOnly": true
   },
   "include": ["./src/index.ts"],
-  "exclude": ["node_modules", "__tests__"]
+  "exclude": ["node_modules"]
 }
