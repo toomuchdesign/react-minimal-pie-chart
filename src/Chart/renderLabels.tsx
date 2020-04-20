@@ -36,9 +36,10 @@ function renderLabelItem(
 export default function renderLabels(data: ExtendedData, props: ChartProps) {
   const { cx, cy, radius } = extractAbsoluteCoordinates(props);
   return data.map((dataEntry, index) => {
+    const segmentsShift = functionProp(props.segmentsShift, data, index) ?? 0;
     const distanceFromCenter = extractPercentage(
       radius,
-      functionProp(props.segmentsShift, data, index) ?? 0 + props.labelPosition
+      props.labelPosition + segmentsShift
     );
     const startAngle = props.startAngle + dataEntry.startOffset;
     const segmentBisector = bisectorAngle(startAngle, dataEntry.degrees);

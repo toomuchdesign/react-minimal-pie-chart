@@ -122,17 +122,16 @@ describe('Path', () => {
         const { container, getAllByText } = render({
           segmentsShift,
           label: () => 'label',
-          labelPosition: 0, // Render labels at the segments' origin
         });
         const paths = container.querySelectorAll('path');
         const shiftedLabels = getAllByText('label');
 
         shiftedLabels.forEach((label, index) => {
+          const { startAngle, lengthAngle } = getArcInfo(paths[index]);
           const expectedAbsoluteShift = extractPercentage(
             PieChart.defaultProps.radius,
-            expectedSegmentsShift[index]
+            expectedSegmentsShift[index] + PieChart.defaultProps.labelPosition
           );
-          const { startAngle, lengthAngle } = getArcInfo(paths[index]);
           const { dx, dy } = shiftVectorAlongAngle(
             bisectorAngle(startAngle, lengthAngle),
             expectedAbsoluteShift

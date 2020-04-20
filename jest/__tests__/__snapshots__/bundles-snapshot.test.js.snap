@@ -207,7 +207,8 @@ exports[`Dist bundle is unchanged 1`] = `
     return data.map(function (dataEntry, index) {
       var _functionProp;
 
-      var distanceFromCenter = extractPercentage(radius, (_functionProp = functionProp(props.segmentsShift, data, index)) != null ? _functionProp : 0 + props.labelPosition);
+      var segmentsShift = (_functionProp = functionProp(props.segmentsShift, data, index)) != null ? _functionProp : 0;
+      var distanceFromCenter = extractPercentage(radius, props.labelPosition + segmentsShift);
       var startAngle = props.startAngle + dataEntry.startOffset;
       var segmentBisector = bisectorAngle(startAngle, dataEntry.degrees);
 
