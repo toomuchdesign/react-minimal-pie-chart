@@ -27,7 +27,7 @@
     "clean": "rm -rf lib es dist types",
     "compile": "npm run clean && npm run compile:types && npm run compile:source",
     "compile:source": "rollup -c",
-    "compile:types": "tsc",
+    "compile:types": "tsc -p tsconfig.build.json",
     "contrib:add": "all-contributors add",
     "contrib:generate": "all-contributors generate",
     "format": "prettier --write \"**/*.{js,ts,tsx,json,md}\"",
