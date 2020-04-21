@@ -1,6 +1,6 @@
 import React from 'react';
 import type { FocusEvent, KeyboardEvent, MouseEvent } from 'react';
-import PieChart from '../../src';
+import { PieChart } from '../../src';
 
 <PieChart data={[]} />;
 <PieChart

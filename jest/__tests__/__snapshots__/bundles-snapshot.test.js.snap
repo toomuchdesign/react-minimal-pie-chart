@@ -333,9 +333,7 @@ exports[`Dist bundle is unchanged 1`] = `
     rounded: false,
     startAngle: 0,
     viewBoxSize: [100, 100]
-  }; // @NOTE excluding some defaultProps entries due to issues on how TS inferres types
-  // when optional props with multiple types (eg number | string) are defaulted to a specific type
-
+  };
   function PieChart(props) {
     var _useState = React.useState(props.animate ? 0 : null),
         revealOverride = _useState[0],
@@ -378,7 +376,7 @@ exports[`Dist bundle is unchanged 1`] = `
   PieChart.defaultProps = defaultProps;
   PieChart.displayName = 'ReactMinimalPieChart';
 
-  exports.default = PieChart;
+  exports.PieChart = PieChart;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

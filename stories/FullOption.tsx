@@ -1,5 +1,5 @@
 import React, { useState, ComponentProps } from 'react';
-import PieChart from '../src';
+import { PieChart } from '../src';
 
 type Props = {
   data: ComponentProps<typeof PieChart>['data'];

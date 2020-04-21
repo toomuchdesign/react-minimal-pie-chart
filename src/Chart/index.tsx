@@ -1,1 +1,1 @@
-export { default } from './Chart';
+export { PieChart } from './Chart';
