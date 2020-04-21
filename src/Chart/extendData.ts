@@ -1,6 +1,6 @@
 import { extractPercentage, valueBetween } from '../utils';
 import type { Data, ExtendedData } from '../commonTypes';
-import type { Props as ChartProps } from './Chart';
+import type { PropsWithDefaults as ChartProps } from './Chart';
 
 function sumValues(data: Data): number {
   let sum = 0;

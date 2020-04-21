@@ -10,7 +10,7 @@ import type {
   StyleObject,
 } from '../commonTypes';
 
-export type Props = {
+type Props = {
   animate?: boolean;
   animationDuration?: number;
   animationEasing?: string;
@@ -45,9 +45,7 @@ export type Props = {
   style?: StyleObject;
   totalValue?: number;
   viewBoxSize?: [number, number];
-  // @NOTE excluding defaultProps entries due to issues on how TS inferres types
-  // Current strategy doesn't work with optional props with multiple types (eg number | string)
-} & Omit<typeof defaultProps, 'label'>;
+};
 
 const defaultProps = {
   animate: false,
@@ -67,7 +65,11 @@ const defaultProps = {
   viewBoxSize: [100, 100],
 };
 
-export default function ReactMinimalPieChart(props: Props) {
+// @NOTE excluding some defaultProps entries due to issues on how TS inferres types
+// when optional props with multiple types (eg number | string) are defaulted to a specific type
+export type PropsWithDefaults = Props & Omit<typeof defaultProps, 'label'>;
+
+export default function PieChart(props: PropsWithDefaults) {
   const [revealOverride, setRevealOverride] = useState(
     props.animate ? 0 : null
   );
@@ -112,5 +114,5 @@ export default function ReactMinimalPieChart(props: Props) {
   );
 }
 
-ReactMinimalPieChart.displayName = 'ReactMinimalPieChart';
-ReactMinimalPieChart.defaultProps = defaultProps;
+PieChart.defaultProps = defaultProps;
+PieChart.displayName = 'ReactMinimalPieChart';
