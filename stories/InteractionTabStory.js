@@ -13,7 +13,6 @@ function DemoInteractionTab(props) {
 
   const onBlurHandler = () => {
     setFocused(undefined);
-    setSelected(undefined);
   };
 
   const onKeyDownHandler = (event, propsData, index) => {
@@ -25,25 +24,22 @@ function DemoInteractionTab(props) {
     }
   };
 
-  const data = props.data
-    .map((entry, i) => {
-      if (focused === i) {
-        return {
-          ...entry,
-          color: 'grey',
-        };
-      }
-      return entry;
-    })
-    .map((entry, i) => {
-      if (selected === i) {
-        return {
-          ...entry,
-          ...{ style: { strokeWidth: 35 } },
-        };
-      }
-      return entry;
-    });
+  const data = props.data.map((entry, i) => {
+    let result = entry;
+    if (focused === i) {
+      result = {
+        ...result,
+        color: 'grey',
+      };
+    }
+    if (selected === i) {
+      result = {
+        ...result,
+        style: { strokeWidth: 35 },
+      };
+    }
+    return result;
+  });
 
   return (
     <>
@@ -55,7 +51,7 @@ function DemoInteractionTab(props) {
         data={data}
         radius={40}
         lineWidth={75}
-        segmentsStyle={{ transition: 'stroke .3s' }}
+        segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
         segmentsTabIndex={1}
         onKeyDown={onKeyDownHandler}
         onFocus={onFocusHandler}

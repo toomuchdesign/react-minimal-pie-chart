@@ -18,7 +18,7 @@ function DemoInteraction(props) {
   const onClickHandler = (event, propsData, index) => {
     action('CLICK')(event, propsData, index);
     console.log('CLICK', { event, propsData, index });
-    setSelected(index);
+    setSelected(index === selected ? undefined : index);
   };
 
   const data = props.data.map((entry, i) => {
@@ -35,7 +35,7 @@ function DemoInteraction(props) {
     <PieChart
       data={data}
       radius={40}
-      segmentsStyle={{ transition: 'stroke .3s' }}
+      segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
       segmentsShift={(_, index) => (index === selected ? 10 : 1)}
       onClick={onClickHandler}
       onMouseOver={onMouseOverHandler}
