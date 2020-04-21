@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PieChart from '../src';
+import { PieChart } from '../src';
 
 function PartialLoadingIndicatorStory() {
   const [percentage, setPercentage] = useState(20);

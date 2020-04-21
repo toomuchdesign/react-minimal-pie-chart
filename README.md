@@ -52,7 +52,7 @@ https://unpkg.com/react-minimal-pie-chart/dist/index.js
 ## Usage
 
 ```js
-import PieChart from 'react-minimal-pie-chart';
+import { PieChart } from 'react-minimal-pie-chart';
 
 <PieChart
   data={[

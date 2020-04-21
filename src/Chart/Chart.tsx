@@ -66,7 +66,7 @@ const defaultProps = {
 
 export type PropsWithDefaults = Props & typeof defaultProps;
 
-export default function PieChart(props: PropsWithDefaults) {
+export function PieChart(props: PropsWithDefaults) {
   const [revealOverride, setRevealOverride] = useState(
     props.animate ? 0 : null
   );

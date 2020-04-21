@@ -1,6 +1,6 @@
 import React from 'react';
 import { render as TLRender, act } from '@testing-library/react';
-import PieChart from '../../../src/index';
+import { PieChart } from '../../../src';
 
 export const dataMock = [
   { value: 10, color: 'blue' },
