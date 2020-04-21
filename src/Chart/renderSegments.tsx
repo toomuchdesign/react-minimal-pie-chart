@@ -2,7 +2,7 @@ import React from 'react';
 import Path from '../Path';
 import { extractPercentage, functionProp, isNumber } from '../utils';
 import type { ExtendedData, StyleObject } from '../commonTypes';
-import type { Props as ChartProps } from './Chart';
+import type { PropsWithDefaults as ChartProps } from './Chart';
 
 function combineSegmentTransitionsStyle(
   duration: number,

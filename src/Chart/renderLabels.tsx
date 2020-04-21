@@ -9,7 +9,7 @@ import {
 } from '../utils';
 import type { Props as LabelProps } from '../Label';
 import type { ExtendedData, LabelProp } from '../commonTypes';
-import type { Props as ChartProps } from './Chart';
+import type { PropsWithDefaults as ChartProps } from './Chart';
 
 function renderLabelItem(
   providedLabel: LabelProp,
