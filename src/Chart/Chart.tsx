@@ -48,7 +48,6 @@ type Props = {
 };
 
 const defaultProps = {
-  animate: false,
   animationDuration: 500,
   animationEasing: 'ease-out',
   cx: 50,
@@ -59,7 +58,6 @@ const defaultProps = {
   lineWidth: 100,
   paddingAngle: 0,
   radius: 50,
-  rounded: false,
   startAngle: 0,
   viewBoxSize: [100, 100],
 };

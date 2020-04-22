@@ -19,7 +19,7 @@ function combineSegmentTransitionsStyle(
   };
 }
 
-function getRevealValue<Reveal>(props: { reveal?: Reveal; animate: boolean }) {
+function getRevealValue<Reveal>(props: { reveal?: Reveal; animate?: boolean }) {
   //@NOTE When animation is on, chart has to be fully revealed when reveal is not set
   if (props.animate && !isNumber(props.reveal)) {
     return 100;
