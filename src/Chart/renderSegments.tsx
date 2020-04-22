@@ -32,6 +32,19 @@ function getRevealValue<Reveal>(props: { reveal?: Reveal; animate: boolean }) {
   return props.reveal;
 }
 
+function makeEventHandler<Event, EventHandler, Payload1, Payload2>(
+  eventHandler: undefined | (EventHandler & Function),
+  payload1: Payload1,
+  payload2: Payload2
+) {
+  return (
+    eventHandler &&
+    ((e: Event) => {
+      eventHandler(e, payload1, payload2);
+    })
+  );
+}
+
 export default function renderSegments(
   data: ExtendedData,
   props: ChartProps,
@@ -47,18 +60,8 @@ export default function renderSegments(
       props.segmentsStyle
     );
 
-  // @NOTE TS can't keep track of existence check (eg. props.onBlur && ...) of object properties
-  // @TODO Find a better solution then extracting props (.bind() or second && check inside callback)
-  const {
-    onBlur,
-    onClick,
-    onFocus,
-    onKeyDown,
-    onMouseOut,
-    onMouseOver,
-  } = props;
-
   const { cx, cy, radius } = extractAbsoluteCoordinates(props);
+  // @NOTE this should go in Path component. Here for performance reasons
   const lineWidth = extractPercentage(radius, props.lineWidth);
   const paths = data.map((dataEntry, index) => {
     const segmentsShift = functionProp(props.segmentsShift, props.data, index);
@@ -84,42 +87,12 @@ export default function renderSegments(
         strokeLinecap={props.rounded ? 'round' : undefined}
         tabIndex={props.segmentsTabIndex}
         fill="none"
-        onBlur={
-          onBlur &&
-          ((e) => {
-            onBlur(e, props.data, index);
-          })
-        }
-        onClick={
-          onClick &&
-          ((e) => {
-            onClick(e, props.data, index);
-          })
-        }
-        onFocus={
-          onFocus &&
-          ((e) => {
-            onFocus(e, props.data, index);
-          })
-        }
-        onKeyDown={
-          onKeyDown &&
-          ((e) => {
-            onKeyDown(e, props.data, index);
-          })
-        }
-        onMouseOver={
-          onMouseOver &&
-          ((e) => {
-            onMouseOver(e, props.data, index);
-          })
-        }
-        onMouseOut={
-          onMouseOut &&
-          ((e) => {
-            onMouseOut(e, props.data, index);
-          })
-        }
+        onBlur={makeEventHandler(props.onBlur, props.data, index)}
+        onClick={makeEventHandler(props.onClick, props.data, index)}
+        onFocus={makeEventHandler(props.onFocus, props.data, index)}
+        onKeyDown={makeEventHandler(props.onKeyDown, props.data, index)}
+        onMouseOver={makeEventHandler(props.onMouseOver, props.data, index)}
+        onMouseOut={makeEventHandler(props.onMouseOut, props.data, index)}
       />
     );
   });

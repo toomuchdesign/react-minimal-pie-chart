@@ -319,23 +319,22 @@ exports[`Dist bundle is unchanged 1`] = `
     return props.reveal;
   }
 
+  function makeEventHandler(eventHandler, payload1, payload2) {
+    return eventHandler && function (e) {
+      eventHandler(e, payload1, payload2);
+    };
+  }
+
   function renderSegments(data, props, revealOverride) {
     // @NOTE this should go in Path component. Here for performance reasons
     var reveal = revealOverride != null ? revealOverride : getRevealValue(props);
-    var segmentTransitionsCombined = props.animate && makeSegmentTransitionStyle(props.animationDuration, props.animationEasing, props.segmentsStyle); // @NOTE TS can't keep track of existence check (eg. props.onBlur && ...) of object properties
-    // @TODO Find a better solution then extracting props (.bind() or second && check inside callback)
-
-    var onBlur = props.onBlur,
-        onClick = props.onClick,
-        onFocus = props.onFocus,
-        onKeyDown = props.onKeyDown,
-        onMouseOut = props.onMouseOut,
-        onMouseOver = props.onMouseOver;
+    var segmentTransitionsCombined = props.animate && makeSegmentTransitionStyle(props.animationDuration, props.animationEasing, props.segmentsStyle);
 
     var _extractAbsoluteCoord = extractAbsoluteCoordinates(props),
         cx = _extractAbsoluteCoord.cx,
         cy = _extractAbsoluteCoord.cy,
-        radius = _extractAbsoluteCoord.radius;
+        radius = _extractAbsoluteCoord.radius; // @NOTE this should go in Path component. Here for performance reasons
+
 
     var lineWidth = extractPercentage(radius, props.lineWidth);
     var paths = data.map(function (dataEntry, index) {
@@ -356,24 +355,12 @@ exports[`Dist bundle is unchanged 1`] = `
         strokeLinecap: props.rounded ? 'round' : undefined,
         tabIndex: props.segmentsTabIndex,
         fill: \\"none\\",
-        onBlur: onBlur && function (e) {
-          onBlur(e, props.data, index);
-        },
-        onClick: onClick && function (e) {
-          onClick(e, props.data, index);
-        },
-        onFocus: onFocus && function (e) {
-          onFocus(e, props.data, index);
-        },
-        onKeyDown: onKeyDown && function (e) {
-          onKeyDown(e, props.data, index);
-        },
-        onMouseOver: onMouseOver && function (e) {
-          onMouseOver(e, props.data, index);
-        },
-        onMouseOut: onMouseOut && function (e) {
-          onMouseOut(e, props.data, index);
-        }
+        onBlur: makeEventHandler(props.onBlur, props.data, index),
+        onClick: makeEventHandler(props.onClick, props.data, index),
+        onFocus: makeEventHandler(props.onFocus, props.data, index),
+        onKeyDown: makeEventHandler(props.onKeyDown, props.data, index),
+        onMouseOver: makeEventHandler(props.onMouseOver, props.data, index),
+        onMouseOut: makeEventHandler(props.onMouseOut, props.data, index)
       });
     });
 
