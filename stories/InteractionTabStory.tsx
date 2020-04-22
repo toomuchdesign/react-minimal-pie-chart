@@ -1,28 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, ComponentProps } from 'react';
 import { action } from '@storybook/addon-actions';
 import PieChart from '../src';
 import { dataPropType } from '../src/propTypes';
 
-function DemoInteractionTab(props) {
-  const [selected, setSelected] = useState(0);
-  const [focused, setFocused] = useState(undefined);
+type Props = {
+  data: ComponentProps<typeof PieChart>['data'];
+};
 
-  const onFocusHandler = (_, __, index) => {
-    setFocused(index);
-  };
-
-  const onBlurHandler = () => {
-    setFocused(undefined);
-  };
-
-  const onKeyDownHandler = (event, propsData, index) => {
-    // Enter keypress
-    if (event.keyCode === 13) {
-      action('CLICK')(event, propsData, index);
-      console.log('CLICK', { event, propsData, index });
-      setSelected(selected === index ? undefined : index);
-    }
-  };
+function DemoInteractionTab(props: Props) {
+  const [selected, setSelected] = useState<undefined | number>(0);
+  const [focused, setFocused] = useState<undefined | number>(undefined);
 
   const data = props.data.map((entry, i) => {
     let result = entry;
@@ -53,9 +40,18 @@ function DemoInteractionTab(props) {
         lineWidth={75}
         segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
         segmentsTabIndex={1}
-        onKeyDown={onKeyDownHandler}
-        onFocus={onFocusHandler}
-        onBlur={onBlurHandler}
+        onKeyDown={(event, propsData, index) => {
+          // Enter keypress
+          if (event.keyCode === 13) {
+            action('CLICK')(event, propsData, index);
+            console.log('CLICK', { event, propsData, index });
+            setSelected(selected === index ? undefined : index);
+          }
+        }}
+        onFocus={(_, __, index) => {
+          setFocused(index);
+        }}
+        onBlur={() => setFocused(undefined)}
       />
     </>
   );

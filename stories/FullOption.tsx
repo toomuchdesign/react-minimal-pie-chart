@@ -1,21 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, ComponentProps } from 'react';
 import PieChart from '../src';
 
-function FullOption(props) {
-  const [selected, setSelected] = useState(0);
-  const [hovered, setHovered] = useState(undefined);
+type Props = {
+  data: ComponentProps<typeof PieChart>['data'];
+};
 
-  const onMouseOverHandler = (_, __, index) => {
-    setHovered(index);
-  };
-
-  const onMouseOutHandler = () => {
-    setHovered(undefined);
-  };
-
-  const onClickHandler = (_, __, index) => {
-    setSelected(index === selected ? undefined : index);
-  };
+function FullOption(props: Props) {
+  const [selected, setSelected] = useState<number | undefined>(0);
+  const [hovered, setHovered] = useState<number | undefined>(undefined);
 
   const data = props.data.map((entry, i) => {
     if (hovered === i) {
@@ -52,9 +44,15 @@ function FullOption(props) {
         pointerEvents: 'none',
         dominantBaseline: 'central', //@TODO remove if when #149 gets implemented
       }}
-      onClick={onClickHandler}
-      onMouseOver={onMouseOverHandler}
-      onMouseOut={onMouseOutHandler}
+      onClick={(_, __, index) => {
+        setSelected(index === selected ? undefined : index);
+      }}
+      onMouseOver={(_, __, index) => {
+        setHovered(index);
+      }}
+      onMouseOut={() => {
+        setHovered(undefined);
+      }}
     />
   );
 }
