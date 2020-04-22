@@ -107,7 +107,8 @@ describe('Label', () => {
   });
 
   describe('labelStyle prop', () => {
-    it('assign provided value to each label as className', () => {
+    describe('as object', () => {});
+    it("pass provided value as labels' style", () => {
       const { getAllByText } = render({
         label: () => 'label',
         labelStyle: { pointerEvents: 'none' },
@@ -115,6 +116,19 @@ describe('Label', () => {
 
       getAllByText('label').forEach((label) => {
         expect(label).toHaveStyle({ pointerEvents: 'none' });
+      });
+    });
+
+    describe('as function', () => {
+      it("pass return value as labels' style", () => {
+        const { getAllByText } = render({
+          label: () => 'label',
+          labelStyle: (index) => ({ stroke: dataMock[index].color }),
+        });
+
+        getAllByText('label').forEach((label, index) => {
+          expect(label).toHaveStyle({ stroke: dataMock[index].color });
+        });
       });
     });
   });

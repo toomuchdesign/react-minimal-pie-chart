@@ -17,7 +17,6 @@ import { PieChart } from '../../src';
   cy={1}
   injectSvg={() => <text />}
   labelPosition={1}
-  labelStyle={{ color: 'red' }}
   lengthAngle={1}
   lineWidth={1}
   paddingAngle={1}
@@ -37,6 +36,8 @@ import { PieChart } from '../../src';
 <PieChart data={[]} label={() => <text />} />;
 <PieChart data={[]} label={() => undefined} />;
 <PieChart data={[]} label={() => null} />;
+<PieChart data={[]} labelStyle={{ color: 'red' }} />;
+<PieChart data={[]} labelStyle={(i: number) => ({ color: 'red' })} />;
 
 <PieChart data={[]} segmentsShift={1} />;
 <PieChart data={[]} segmentsShift={() => 1} />;
