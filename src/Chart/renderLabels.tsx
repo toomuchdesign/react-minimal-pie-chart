@@ -89,7 +89,7 @@ export default function renderLabels(data: ExtendedData, props: ChartProps) {
       }),
       dataEntry,
       dataIndex: index,
-      style: props.labelStyle,
+      style: functionProp(props.labelStyle, index),
     };
 
     return props.label && renderLabelElement(props.label, labelRenderProps);

@@ -25,7 +25,7 @@ type Props = {
   injectSvg?: () => React.ReactElement | void;
   label?: LabelRenderFunction;
   labelPosition?: number;
-  labelStyle?: StyleObject;
+  labelStyle?: StyleObject | ((dataIndex: number) => StyleObject | undefined);
   onBlur?: EventHandler<FocusEvent>;
   onClick?: EventHandler<MouseEvent>;
   onFocus?: EventHandler<FocusEvent>;

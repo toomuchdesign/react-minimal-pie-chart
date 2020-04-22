@@ -92,10 +92,11 @@ storiesOf('Labels', module)
     <PieChart
       data={dataMock}
       label={({ dataEntry }) => dataEntry.value}
-      labelStyle={{
+      labelStyle={(index) => ({
+        fill: dataMock[index].color,
         fontSize: '5px',
         fontFamily: 'sans-serif',
-      }}
+      })}
       radius={42}
       labelPosition={112}
     />
@@ -107,10 +108,11 @@ storiesOf('Labels', module)
       paddingAngle={18}
       rounded
       label={({ dataEntry }) => dataEntry.value}
-      labelStyle={{
+      labelStyle={(index) => ({
+        fill: dataMock[index].color,
         fontSize: '5px',
         fontFamily: 'sans-serif',
-      }}
+      })}
       labelPosition={60}
     />
   ))
