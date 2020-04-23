@@ -66,8 +66,7 @@ storiesOf('Partial chart', module)
   .add('90° chart', () => (
     <PieChart
       data={dataMock}
-      cx={100}
-      cy={100}
+      center={[100, 100]}
       startAngle={-180}
       lengthAngle={90}
       radius={100}
@@ -159,17 +158,16 @@ storiesOf('Misc', module)
       lengthAngle={180}
       lineWidth={20}
       viewBoxSize={[100, 50]}
-      injectSvg={() => (
-        <defs>
-          <linearGradient id="gradient1">
-            <stop offset="0%" stopColor="#4CAF50" />
-            <stop offset="45%" stopColor="#ffb961" />
-            <stop offset="55%" stopColor="#ffb961" />
-            <stop offset="100%" stopColor="#C13C37" />
-          </linearGradient>
-        </defs>
-      )}
-    />
+    >
+      <defs>
+        <linearGradient id="gradient1">
+          <stop offset="0%" stopColor="#4CAF50" />
+          <stop offset="45%" stopColor="#ffb961" />
+          <stop offset="55%" stopColor="#ffb961" />
+          <stop offset="100%" stopColor="#C13C37" />
+        </linearGradient>
+      </defs>
+    </PieChart>
   ))
   .add('Squared pie', () => (
     <PieChart

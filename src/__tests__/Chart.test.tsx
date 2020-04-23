@@ -251,10 +251,10 @@ describe('Chart', () => {
     });
   });
 
-  describe('injectSvg prop', () => {
+  describe('children prop', () => {
     it('inject anything into rendered <svg>', () => {
       const { container } = render({
-        injectSvg: () => <defs />,
+        children: <defs />,
       });
 
       const injectedElement = container.querySelector('svg > defs');
