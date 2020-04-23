@@ -46,15 +46,18 @@ export default function renderSegments(
 ) {
   // @NOTE this should go in Path component. Here for performance reasons
   const reveal = revealOverride ?? getRevealValue(props);
-  const { radius } = props;
+  const {
+    radius,
+    center: [cx, cy],
+  } = props;
   const lineWidth = extractPercentage(radius, props.lineWidth);
   const paths = data.map((dataEntry, index) => {
     const segmentsStyle = functionProp(props.segmentsStyle, index);
     return (
       <Path
         key={dataEntry.key || index}
-        cx={props.cx}
-        cy={props.cy}
+        cx={cx}
+        cy={cy}
         startAngle={props.startAngle + dataEntry.startOffset}
         lengthAngle={dataEntry.degrees}
         radius={radius}
@@ -90,8 +93,8 @@ export default function renderSegments(
     paths.unshift(
       <Path
         key="bg"
-        cx={props.cx}
-        cy={props.cy}
+        cx={cx}
+        cy={cy}
         startAngle={props.startAngle}
         lengthAngle={props.lengthAngle}
         radius={radius}

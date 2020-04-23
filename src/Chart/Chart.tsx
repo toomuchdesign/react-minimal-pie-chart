@@ -15,14 +15,12 @@ type Props = {
   animationDuration?: number;
   animationEasing?: string;
   background?: string;
+  center?: [number, number];
   children?: ReactNode;
   className?: string;
-  cx?: number;
-  cy?: number;
   data: Data;
   lengthAngle?: number;
   lineWidth?: number;
-  injectSvg?: () => React.ReactElement | void;
   label?: LabelRenderFunction;
   labelPosition?: number;
   labelStyle?: StyleObject | ((dataIndex: number) => StyleObject | undefined);
@@ -50,8 +48,7 @@ type Props = {
 const defaultProps = {
   animationDuration: 500,
   animationEasing: 'ease-out',
-  cx: 50,
-  cy: 50,
+  center: [50, 50],
   data: [] as Data,
   labelPosition: 50,
   lengthAngle: 360,
@@ -102,9 +99,8 @@ export function PieChart(props: PropsWithDefaults) {
       >
         {renderSegments(extendedData, props, revealOverride)}
         {props.label && renderLabels(extendedData, props)}
-        {props.injectSvg && props.injectSvg()}
+        {props.children}
       </svg>
-      {props.children}
     </div>
   );
 }

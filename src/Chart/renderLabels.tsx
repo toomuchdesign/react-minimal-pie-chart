@@ -78,8 +78,8 @@ export default function renderLabels(data: ExtendedData, props: ChartProps) {
 
     // This object is passed as argument to the "label" function prop
     const labelRenderProps = {
-      x: props.cx,
-      y: props.cy,
+      x: props.center[0],
+      y: props.center[1],
       dx,
       dy,
       textAnchor: evaluateTextAnchorPosition({

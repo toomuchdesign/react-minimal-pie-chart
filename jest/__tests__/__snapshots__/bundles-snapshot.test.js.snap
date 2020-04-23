@@ -163,8 +163,8 @@ exports[`Dist bundle is unchanged 1`] = `
 
 
       var labelRenderProps = {
-        x: props.cx,
-        y: props.cy,
+        x: props.center[0],
+        y: props.center[1],
         dx: dx,
         dy: dy,
         textAnchor: evaluateTextAnchorPosition({
@@ -271,14 +271,17 @@ exports[`Dist bundle is unchanged 1`] = `
   function renderSegments(data, props, revealOverride) {
     // @NOTE this should go in Path component. Here for performance reasons
     var reveal = revealOverride != null ? revealOverride : getRevealValue(props);
-    var radius = props.radius;
+    var radius = props.radius,
+        _props$center = props.center,
+        cx = _props$center[0],
+        cy = _props$center[1];
     var lineWidth = extractPercentage(radius, props.lineWidth);
     var paths = data.map(function (dataEntry, index) {
       var segmentsStyle = functionProp(props.segmentsStyle, index);
       return /*#__PURE__*/React__default.createElement(Path, {
         key: dataEntry.key || index,
-        cx: props.cx,
-        cy: props.cy,
+        cx: cx,
+        cy: cy,
         startAngle: props.startAngle + dataEntry.startOffset,
         lengthAngle: dataEntry.degrees,
         radius: radius,
@@ -303,8 +306,8 @@ exports[`Dist bundle is unchanged 1`] = `
     if (props.background) {
       paths.unshift( /*#__PURE__*/React__default.createElement(Path, {
         key: \\"bg\\",
-        cx: props.cx,
-        cy: props.cy,
+        cx: cx,
+        cy: cy,
         startAngle: props.startAngle,
         lengthAngle: props.lengthAngle,
         radius: radius,
@@ -321,8 +324,7 @@ exports[`Dist bundle is unchanged 1`] = `
   var defaultProps = {
     animationDuration: 500,
     animationEasing: 'ease-out',
-    cx: 50,
-    cy: 50,
+    center: [50, 50],
     data: [],
     labelPosition: 50,
     lengthAngle: 360,
@@ -369,7 +371,7 @@ exports[`Dist bundle is unchanged 1`] = `
       style: {
         display: 'block'
       }
-    }, renderSegments(extendedData, props, revealOverride), props.label && renderLabels(extendedData, props), props.injectSvg && props.injectSvg()), props.children);
+    }, renderSegments(extendedData, props, revealOverride), props.label && renderLabels(extendedData, props), props.children));
   }
   PieChart.defaultProps = defaultProps;
   PieChart.displayName = 'ReactMinimalPieChart';

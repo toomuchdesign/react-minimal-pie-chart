@@ -98,8 +98,14 @@ describe('Label', () => {
           bisectorAngle(startAngle, lengthAngle),
           expectedDistanceFromCenter
         );
-        expect(label).toHaveAttribute('x', `${PieChart.defaultProps.cx}`);
-        expect(label).toHaveAttribute('y', `${PieChart.defaultProps.cy}`);
+        expect(label).toHaveAttribute(
+          'x',
+          `${PieChart.defaultProps.center[0]}`
+        );
+        expect(label).toHaveAttribute(
+          'y',
+          `${PieChart.defaultProps.center[1]}`
+        );
         expect(label).toHaveAttribute('dx', `${dx}`);
         expect(label).toHaveAttribute('dy', `${dy}`);
       });

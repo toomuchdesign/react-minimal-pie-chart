@@ -13,9 +13,7 @@ import { PieChart } from '../../src';
   animationEasing={'string'}
   background={'string'}
   className={'string'}
-  cx={1}
-  cy={1}
-  injectSvg={() => <text />}
+  center={[100, 100]}
   labelPosition={1}
   lengthAngle={1}
   lineWidth={1}
@@ -58,5 +56,5 @@ import { PieChart } from '../../src';
 <PieChart data={[]}>1</PieChart>;
 <PieChart data={[]}>'string'</PieChart>;
 <PieChart data={[]}>
-  <div />
+  <defs />
 </PieChart>;
