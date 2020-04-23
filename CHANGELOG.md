@@ -1,3 +1,41 @@
+# 8.0.0
+
+### Breaking Changes
+
+- Chart component exposed as named export instead of default.
+- Minimum `react` and `react-dom` peerDependency versions increased to `^16.8.0`
+- `label` prop works as [render prop](https://reactjs.org/docs/render-props.html); drop support for `boolean` and Element values
+- `segmentsShift` prop expressed as absolute `viewBox` units instead of radius' percentage
+- Event handlers signature updated to: `(event, segmentIndex) => void`
+- `rx` and `ry` props replaced by `center` array prop
+- `center` and `radius` props expressed as absolute `viewBox` units instead of percentage of it
+- `prop-types` dependency and static `PropTypes` declarations dropped
+- Dropped support for `data[].style property
+- Replaced extendedData startOffset prop with startAngle
+- `injectSVG` dropped in favour of native children prop
+- requestAnimationFrame existence check removed
+
+### New Features
+
+- Gzipped size reduced from 2.6kb to 1.9 kb (-27%)
+- `segmentsStyle` and `labelStyle` accept both value or function
+
+### Bugfixes
+
+- Default labels vertically aligned with `dominant-baseline: central` (#149)
+
+### How to migrate to version 8.0.0
+
+- Update import declaration to: `import {PieChart} from 'react-minimal-pie-chart'`
+- Make sure that installed `react` and `react-dom` version is >= `16.8.0`
+- Migrate `label` prop to provide a render function (see docs about labels)
+- Replace existing `rx` `ry` props with `center`
+- Review existing `center` and `segmentsShift` values (now expressed as `viewBox` values)
+- Update `onBlur`, `onClick`, `onFocus`, `onKeyDown`, `onMouseOut`, `onMouseOver`, `segmentsShift` function props to new signatures
+- Move existing `injectSVG` prop return value to `children` prop
+- Use `segmentsStyle` as function instead of `data[].style` prop
+- Mind that the root element is now the SVG itself
+
 # 7.3.1
 
 ### Bugfixes
