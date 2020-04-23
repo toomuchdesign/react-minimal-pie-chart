@@ -5,7 +5,7 @@
 [![Coveralls][coveralls-badge]][coveralls]
 [![Bundle size][bundlephobia-badge]][bundlephobia]
 
-Lightweight React **SVG pie charts**, with **versatile options** and **CSS animation** included. **< 3kB** gzipped. [👏 Demo 👏][storybook].
+Lightweight React **SVG pie charts**, with **versatile options** and **CSS animation** included. **< 2kB** gzipped. [👏 Demo 👏][storybook].
 
 <p align="center">
   <img
@@ -17,21 +17,21 @@ Lightweight React **SVG pie charts**, with **versatile options** and **CSS anima
 
 ## Why?
 
-Because [Recharts][recharts-github] is awesome, but when you just need a simple pie/donought chart, **3kB** are usually enough.
+Because [Recharts][recharts-github] is awesome, but when you just need a simple pie/donought chart, **~~3kB~~ 2kB** are usually enough.
 
 |                                                        |                                         Size<br>by Bundlefobia                                          | Benchmark Size \* | Loading time<br>on a slow 3g \* |
 | :----------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :---------------: | :-----------------------------: |
-|           react-minimal-pie-chart (_v7.3.1_)           |               [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]               |      2.6 KB       |             ~53 ms              |
-|         [rechart][recharts-github] (_v1.8.5_)          |             [![Bundle size: Recharts][recharts-bundlephobia-badge]][recharts-bundlephobia]              |       97 KB       |            ~1900 ms             |
+|           react-minimal-pie-chart (_v8.0.0_)           |               [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]               |      1.87 KB      |             ~38 ms              |
+|         [rechart][recharts-github] (_v1.8.5_)          |             [![Bundle size: Recharts][recharts-bundlephobia-badge]][recharts-bundlephobia]              |      96.9 KB      |            ~1900 ms             |
 |     [victory-pie][victory-pie-github] (_v34.1.3_)      |         [![Bundle size: Victory pie][victory-pie-bundlephobia-badge]][victory-pie-bundlephobia]         |      50.5 KB      |            ~1100 ms             |
-| [react-apexcharts][react-apexcharts-github] (_v1.3.7_) | [![Bundle size: React apec charts][react-apexcharts-bundlephobia-badge]][react-apexcharts-bundlephobia] |     114.7 KB      |            ~2300 ms             |
-|       [react-vis][react-vis-github] (_v1.11.7_)        |            [![Bundle size: React vis][react-vis-bundlephobia-badge]][react-vis-bundlephobia]            |      78.4 KB      |            ~1600 ms             |
+| [react-apexcharts][react-apexcharts-github] (_v1.3.7_) | [![Bundle size: React apec charts][react-apexcharts-bundlephobia-badge]][react-apexcharts-bundlephobia] |     114.6 KB      |            ~2300 ms             |
+|       [react-vis][react-vis-github] (_v1.11.7_)        |            [![Bundle size: React vis][react-vis-bundlephobia-badge]][react-vis-bundlephobia]            |      78.3 KB      |            ~1600 ms             |
 
 \* Benchmark carried out with [size-limit](https://github.com/ai/size-limit) with a "real-world" setup: see [benchmark repo](https://github.com/toomuchdesign/react-pie-charts-size). (What matter here are not absolute values but the relation between magnitudes)
 
 ## Features
 
-- **< 3kB** gzipped
+- **< 2kB** gzipped
 - Versatile: **Pie**, **Donut**, **Loading**, **Completion** charts (see [Demo][storybook])
 - Customizable chart **labels** and **CSS animations**
 - Written in **Typescript**
@@ -68,39 +68,40 @@ import { PieChart } from 'react-minimal-pie-chart';
 <!-- prettier-ignore-start -->
 | Property              | Type                                  | Description                                                                                                                                                                                                                                                                               | Default    |
 | --------------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| **data** _(required)_ | _Array_                               | Source data which each element is a segment                                                                                                                                                                                                                                               | -          |
-| **lineWidth**         | _Number_ (%)                          | Line width of each segment. Percentage of chart's radio _(100 === full pie)_                                                                                                                                                                                                              | 100        |
-| **startAngle**        | _Number_                              | Start angle of first segment                                                                                                                                                                                                                                                              | 0          |
-| **lengthAngle**       | _Number_                              | Total angle taken by the chart _(can be negative to make the chart clockwise!)_                                                                                                                                                                                                           | 360        |
-| **totalValue**        | _Number_                              | Total value represented by the full chart                                                                                                                                                                                                                                                 | -          |
-| **paddingAngle**      | _Number_                              | Angle between two segments                                                                                                                                                                                                                                                                | -          |
-| **rounded**           | _Bool_                                | Round line caps of each segment                                                                                                                                                                                                                                                           | -      |
-| **segmentsShift**     | _Number_ (user units), _Function_     | Translates segments radially. If `number` set, provide shift value relative to `viewBoxSize` space. If `function`, return a value for each segment: `(segmentIndex) => number \| undefined` </br>(`radius` prop might be adjusted to prevent segments from overflowing chart's boundaries) | -          |
-| **segmentsStyle**     | _Object_, _Function_                  | Style object assigned to each segment. If `function` set, return a value for each segment `(segmentIndex) => {} \| undefined`                                                                                                                                                            | -          |
-| **segmentsTabIndex**  | _Number_                              | [`tabindex` attribute](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/tabindex) assigned to segments                                                                                                                                                                          | -          |
-| **label**             | _Function_                            | A function returning the value or element rendered as label: `(labelRenderProps: LabelRenderProps) => string \| number \| ReactElement \| undefined \| null`                                                                                                                                         | -      |
-| **labelPosition**     | _Number_ (%)                          | Label position from origin. Percentage of chart's radio _(50 === middle point)_                                                                                                                                                                                                           | 50         |
-| **labelStyle**        | _Object_, _Function_                  | Style object assigned to each label. If `function` set, return a value for each label `(segmentIndex) => {} \| undefined`                                                                                                                                                             | -          |
-| **animate**           | _Bool_                                | Animate segments on component mount                                                                                                                                                                                                                                                       | -      |
-| **animationDuration** | _Number_                              | Animation duration in ms                                                                                                                                                                                                                                                                  | 500        |
-| **animationEasing**   | _String_                              | A [CSS easing function](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function)                                                                                                                                                                                      | "ease-out" |
-| **reveal**            | _Number_ (%)                          | Turn on CSS animation and reveal just a percentage of each segment                                                                                                                                                                                                                        | -          |
-| **background**        | _String_                              | Segments' background color                                                                                                                                                                                                                                                                | -          |
-| **children**          | _ReactElement_ (svg)               | Elements rendered as children of SVG element (eg. SVG `defs` and gradient elements)                                                                                                                                                                                               | -          |
-| **radius**            | _Number_ (user units)                 | Radius of the pie (relative to `viewBoxSize` space)                                                                                                                                                                                                                                       | 50         |
-| **center**            | _Array of Numbers_                 | x and y coordinates of center (relative to `viewBoxSize` space)                                                                                                                                                                                                                                  | [50, 50]         |
-| **viewBoxSize**       | _Array of Numbers_                    | `width` and `height` of SVG `viewBox` attribute                                                                                                                                                                                                                                           | [100, 100] |
-| **onBlur**            | _Function_                            | `onBlur` event handler for each segment: `(event, segmentIndex) => void`                                                                                                                                                                                                                  | -          |
-| **onClick**           | _Function_                            | `onClick` event handler for each segment: `(event, segmentIndex) => void`                                                                                                                                                                                                                 | -          |
-| **onFocus**           | _Function_                            | `onFocus` event handler for each segment: `(event, segmentIndex) => void`                                                                                                                                                                                                                 | -          |
-| **onKeyDown**         | _Function_                            | `onKeyDown` event handler for each segment: `(event, segmentIndex) => void`                                                                                                                                                                                                               | -          |
-| **onMouseOut**        | _Function_                            | `onMouseOut` event handler for each segment: `(event, segmentIndex) => void`                                                                                                                                                                                                              | -          |
-| **onMouseOver**       | _Function_                            | `onMouseOver` event handler for each segment: `(event, segmentIndex) => void`                                                                                                                                                                                                             | -          |
+| [**data**][data-props-docs] | `DataEntry[]`                         | Source data. Each entry represents a chart segment                                                                                                                                                                                                                                               | []          |
+| **lineWidth**         | `number` (%)                          | Line width of each segment. Percentage of chart's radius                                                                                                                                                                                                              | 100        |
+| **startAngle**        | `number`                              | Start angle of first segment                                                                                                                                                                                                                                                              | 0          |
+| **lengthAngle**       | `number`                              | Total angle taken by the chart _(can be negative to make the chart clockwise!)_                                                                                                                                                                                                           | 360        |
+| **totalValue**        | `number`                              | Total value represented by the full chart                                                                                                                                                                                                                                                 | -          |
+| **paddingAngle**      | `number`                              | Angle between two segments                                                                                                                                                                                                                                                                | -          |
+| **rounded**           | `boolean`                                | Round line caps of each segment                                                                                                                                                                                                                                                           | -      |
+| **segmentsShift**     | `number`</br>or:</br>`(segmentIndex) => number`     | Translates segments radially. If `number` set, provide shift value relative to `viewBoxSize` space. If `function`, return a value for each segment.</br>_(`radius` prop might be adjusted to prevent segments from overflowing chart's boundaries)_ | -          |
+| **segmentsStyle**     | `CSSObject`</br>or:</br>`(segmentIndex) => CSSObject`                  | Style object assigned to each segment. If `function`, return a value for each segment                                                                                                                                                            | -          |
+| **segmentsTabIndex**  | `number`                              | [`tabindex` attribute](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/tabindex) assigned to segments                                                                                                                                                                          | -          |
+| [**label**][label-props-docs] | `(labelRenderProps) => string \| number \| ReactElement` | A function returning a label value or the SVG element to be rendered as label                                                                                                                                          | -      |
+| **labelPosition**     | `number` (%)                          | Label position from origin. Percentage of chart's radius _(50 === middle point)_                                                                                                                                                                                                           | 50         |
+| **labelStyle**        | `CSSObject`</br>or:</br>`(segmentIndex) => CSSObject`                  | Style object assigned to each label. If `function` set, return style for each label                                                                                                                                                             | -          |
+| **animate**           | `boolean`                                | Animate segments on component mount                                                                                                                                                                                                                                                       | -      |
+| **animationDuration** | `number`                              | Animation duration in ms                                                                                                                                                                                                                                                                  | 500        |
+| **animationEasing**   | `string`                              | A [CSS easing function](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function)                                                                                                                                                                                      | ease-out |
+| **reveal**            | `number` (%)                          | Turn on CSS animation and reveal just a percentage of each segment                                                                                                                                                                                                                        | -          |
+| **background**        | `string`                              | Segments' background color                                                                                                                                                                                                                                                                | -          |
+| **children**          | `ReactElement` (svg)               | Elements rendered as children of SVG element (eg. SVG `defs` and gradient elements)                                                                                                                                                                                               | -          |
+| **radius**            | `number` (user units)                 | Radius of the pie (relative to `viewBoxSize` space)                                                                                                                                                                                                                                       | 50         |
+| **center**            | `[number, number]`                 | x and y coordinates of center (relative to `viewBoxSize` space)                                                                                                                                                                                                                                  | [50, 50]         |
+| **viewBoxSize**       | `[number, number]`                    | `width` and `height` of SVG `viewBox` attribute                                                                                                                                                                                                                                           | [100, 100] |
+| **onBlur**            | `(e, segmentIndex) => void`                            | `onBlur` event handler for each segment                                                                                                                                                                                                                  | -          |
+| **onClick**           | `(e, segmentIndex) => void`                            | `onClick` event handler for each segment                                                                                                                                                                                                                 | -          |
+| **onFocus**           | `(e, segmentIndex) => void`                            | `onFocus` event handler for each segment                                                                                                                                                                                                                 | -          |
+| **onKeyDown**         | `(e, segmentIndex) => void`                            | `onKeyDown` event handler for each segment                                                                                                                                                                                                               | -          |
+| **onMouseOut**        | `(e, segmentIndex) => void`                            | `onMouseOut` event handler for each segment                                                                                                                                                                                                              | -          |
+| **onMouseOver**       | `(e, segmentIndex) => void`                            | `onMouseOver` event handler for each segment                                                                                                                                                                                                             | -          |
+|  | `.oOo.oOo.oOo.oOo.oOo.oOo.oOo.` | | |
 <!-- prettier-ignore-end -->
 
-### About `props.data`
+### About `data` prop
 
-`props.data` expects the following array of entries:
+`data` prop expects an array of chart entries as follows:
 
 ```typescript
 type Data = {
@@ -112,15 +113,15 @@ type Data = {
 }[];
 ```
 
-Each entry accepts the following **optional properties**:
+Each entry accepts any custom property plus the following **optional ones**:
 
 - **`key`**: custom value to be used as [segments element keys](https://reactjs.org/docs/lists-and-keys.html)
 
 - **`title`**: [`title` element](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title) rendered as segment's child
 
-### Custom labels with `label` prop
+### Custom labels with `label` render prop
 
-`label` is a function property that gets called with `dataIndex` and `labelRenderProps` as **arguments**. It's return value represents the **string, number or element** to be rendered as label.
+`label` prop accepts a function returning the **string, number or element** rendered as label for each segment:
 
 ```js
 <PieChart
@@ -130,6 +131,8 @@ Each entry accepts the following **optional properties**:
 />
 ```
 
+The function receives `labelRenderProps` object as single **argument**:
+
 ```typescript
 type LabelRenderProps = {
   x: number;
@@ -137,8 +140,9 @@ type LabelRenderProps = {
   dx: number;
   dy: number;
   textAnchor: string;
-  // props.data entry relative to the label extended with:
   dataEntry: {
+    ...props.data[dataIndex]
+    // props.data entry relative to the label extended with:
     startAngle: number;
     degrees: number;
     percentage: number;
@@ -148,7 +152,21 @@ type LabelRenderProps = {
 };
 ```
 
-See some examples in the [demo source][demo-label-source].
+#### Label prop, common scenarios
+
+Render entries' values as labels:
+
+```js
+label={({ dataEntry }) => dataEntry.value}
+```
+
+Render segment's percentage as labels:
+
+```js
+label={({ dataEntry }) => `${Math.round(dataEntry.percentage)} %`}
+```
+
+See examples in the [demo source][demo-label-source].
 
 ## How to
 
@@ -182,6 +200,8 @@ This library uses the `stroke-dasharray` + `stroke-dashoffset` animation strateg
 - Consider moving storybook deployment to CI
 - Add `.browserslistrc` to get rid of some Babel helpers
 - Consider using `transform` to mutate segments/labels positions
+- Consider exposing a reduced chart variation including just a subset of the features
+- Consider abstracting React bindings to re-use business logic with other frameworks
 
 ## Contributors
 
@@ -243,6 +263,8 @@ Thanks to you all ([emoji key](https://github.com/kentcdodds/all-contributors#em
 [react-vis-github]: https://github.com/uber/react-vis
 [storybook]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html
 [demo-interaction]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html?path=/story/interaction--click-mouseover-mouseout-callbacks
-[demo-interaction-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v7.1.1/stories/InteractionStory.js
-[demo-interaction-2-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v7.1.1/stories/InteractionTabStory.js
-[demo-label-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v7.1.1/stories/index.js#L67
+[demo-interaction-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v8.0.0/stories/InteractionStory.tsx
+[demo-interaction-2-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v8.0.0/stories/InteractionTabStory.tsx
+[demo-label-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v8.0.0/stories/index.js#L80
+[data-props-docs]: #about-data-prop
+[label-props-docs]: #custom-labels-with-label-render-prop
