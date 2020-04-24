@@ -90,18 +90,17 @@ export function PieChart(props: PropsWithDefaults) {
 
   const extendedData = extendData(props);
   return (
-    <div className={props.className} style={props.style}>
-      <svg
-        viewBox={`0 0 ${props.viewBoxSize[0]} ${props.viewBoxSize[1]}`}
-        width="100%"
-        height="100%"
-        style={{ display: 'block' }}
-      >
-        {renderSegments(extendedData, props, revealOverride)}
-        {props.label && renderLabels(extendedData, props)}
-        {props.children}
-      </svg>
-    </div>
+    <svg
+      viewBox={`0 0 ${props.viewBoxSize[0]} ${props.viewBoxSize[1]}`}
+      width="100%"
+      height="100%"
+      className={props.className}
+      style={props.style}
+    >
+      {renderSegments(extendedData, props, revealOverride)}
+      {props.label && renderLabels(extendedData, props)}
+      {props.children}
+    </svg>
   );
 }
 
