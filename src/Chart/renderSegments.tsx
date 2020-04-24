@@ -59,7 +59,7 @@ export default function renderSegments(
         key={dataEntry.key || index}
         cx={cx}
         cy={cy}
-        startAngle={props.startAngle + dataEntry.startOffset}
+        startAngle={dataEntry.startAngle}
         lengthAngle={dataEntry.degrees}
         radius={radius}
         lineWidth={lineWidth}

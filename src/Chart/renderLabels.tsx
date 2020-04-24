@@ -69,10 +69,8 @@ export default function renderLabels(data: ExtendedData, props: ChartProps) {
     const segmentsShift = functionProp(props.segmentsShift, index) ?? 0;
     const distanceFromCenter =
       extractPercentage(props.radius, props.labelPosition) + segmentsShift;
-    const startAngle = props.startAngle + dataEntry.startOffset;
-    const segmentBisector = bisectorAngle(startAngle, dataEntry.degrees);
     const { dx, dy } = shiftVectorAlongAngle(
-      segmentBisector,
+      bisectorAngle(dataEntry.startAngle, dataEntry.degrees),
       distanceFromCenter
     );
 

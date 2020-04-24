@@ -17,7 +17,7 @@ function getExpectedLabelRenderProps(dataEntry) {
     dataEntry: {
       ...dataEntry,
       degrees: expect.any(Number),
-      startOffset: expect.any(Number),
+      startAngle: expect.any(Number),
       percentage: expect.any(Number),
     },
     dataIndex: expect.any(Number),
