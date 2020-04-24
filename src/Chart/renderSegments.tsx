@@ -1,13 +1,14 @@
 import React from 'react';
+import type { CSSProperties } from 'react';
 import Path from '../Path';
 import { extractPercentage, functionProp, isNumber } from '../utils';
-import type { ExtendedData, StyleObject } from '../commonTypes';
+import type { ExtendedData } from '../commonTypes';
 import type { PropsWithDefaults as ChartProps } from './Chart';
 
 function combineSegmentTransitionsStyle(
   duration: number,
   easing: string,
-  customStyle?: StyleObject
+  customStyle?: CSSProperties
 ): { transition: string } {
   // Merge chart's animation CSS transition with "transition" found to customStyle
   let transition = `stroke-dashoffset ${duration}ms ${easing}`;

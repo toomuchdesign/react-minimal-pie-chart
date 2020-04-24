@@ -144,7 +144,7 @@ type LabelRenderProps = {
     percentage: number;
   };
   dataIndex: number;
-  style: { [key: string]: string | number };
+  style: React.CSSProperties;
 };
 ```
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import type { SVGProps } from 'react';
 import partialCircle from 'svg-partial-circle';
 import {
   bisectorAngle,
@@ -8,7 +9,6 @@ import {
   shiftVectorAlongAngle,
   valueBetween,
 } from './utils';
-import type { StyleObject } from './commonTypes';
 
 export function makePathCommands(
   cx: number,
@@ -16,7 +16,7 @@ export function makePathCommands(
   startAngle: number,
   lengthAngle: number,
   radius: number
-) {
+): string {
   const patchedLengthAngle = valueBetween(lengthAngle, -359.999, 359.999);
 
   return partialCircle(
@@ -30,27 +30,15 @@ export function makePathCommands(
     .join(' ');
 }
 
-type Props = {
+type Props = SVGProps<SVGPathElement> & {
   cx: number;
   cy: number;
-  fill?: string;
   lengthAngle: number;
   lineWidth: number;
-  key?: number | string;
-  onBlur?: (event: React.FocusEvent) => void;
-  onClick?: (event: React.MouseEvent) => void;
-  onFocus?: (event: React.FocusEvent) => void;
-  onKeyDown?: (event: React.KeyboardEvent) => void;
-  onMouseOut?: (event: React.MouseEvent) => void;
-  onMouseOver?: (event: React.MouseEvent) => void;
   radius: number;
   reveal?: number;
   shift?: number;
   startAngle: number;
-  stroke?: string;
-  strokeLinecap?: 'butt' | 'round' | 'square' | 'inherit';
-  style?: StyleObject;
-  tabIndex?: number;
   title?: string | number;
 };
 

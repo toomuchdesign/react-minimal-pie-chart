@@ -1,10 +1,6 @@
 import type { ReactElement } from 'react';
 import type { LabelRenderProps } from './Label';
 
-export type StyleObject = {
-  [key: string]: string | number;
-};
-
 export type EventHandler<Event> = (event: Event, dataIndex: number) => void;
 
 export type LabelRenderFunction = (
