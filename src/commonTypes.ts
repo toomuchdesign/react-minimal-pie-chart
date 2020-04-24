@@ -17,7 +17,7 @@ export type DataEntry = {
 
 export type ExtendedDataEntry = DataEntry & {
   degrees: number;
-  startOffset: number;
+  startAngle: number;
   percentage: number;
 };
 

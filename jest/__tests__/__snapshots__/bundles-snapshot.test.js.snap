@@ -45,14 +45,15 @@ exports[`Dist bundle is unchanged 1`] = `
     }
 
     return sum;
-  } // Append \\"percentage\\", \\"degrees\\" and \\"startOffset\\" into each data entry
+  } // Append \\"percentage\\", \\"degrees\\" and \\"startAngle\\" to each data entry
 
 
   function extendData(_ref) {
     var data = _ref.data,
         totalAngle = _ref.lengthAngle,
         totalValue = _ref.totalValue,
-        paddingAngle = _ref.paddingAngle;
+        paddingAngle = _ref.paddingAngle,
+        chartStartAngle = _ref.startAngle;
     var total = totalValue || sumValues(data);
     var normalizedTotalAngle = valueBetween(totalAngle, -360, 360);
     var numberOfPaddings = Math.abs(normalizedTotalAngle) === 360 ? data.length : data.length - 1;
@@ -64,12 +65,12 @@ exports[`Dist bundle is unchanged 1`] = `
     return data.map(function (dataEntry) {
       var valueInPercentage = total === 0 ? 0 : dataEntry.value / total * 100;
       var degrees = extractPercentage(degreesTakenByPaths, valueInPercentage);
-      var startOffset = lastSegmentEnd;
+      var startAngle = lastSegmentEnd + chartStartAngle;
       lastSegmentEnd = lastSegmentEnd + degrees + singlePaddingDegrees;
       return Object.assign({
         percentage: valueInPercentage,
-        degrees: degrees,
-        startOffset: startOffset
+        startAngle: startAngle,
+        degrees: degrees
       }, dataEntry);
     });
   }
@@ -154,10 +155,8 @@ exports[`Dist bundle is unchanged 1`] = `
 
       var segmentsShift = (_functionProp = functionProp(props.segmentsShift, index)) != null ? _functionProp : 0;
       var distanceFromCenter = extractPercentage(props.radius, props.labelPosition) + segmentsShift;
-      var startAngle = props.startAngle + dataEntry.startOffset;
-      var segmentBisector = bisectorAngle(startAngle, dataEntry.degrees);
 
-      var _shiftVectorAlongAngl = shiftVectorAlongAngle(segmentBisector, distanceFromCenter),
+      var _shiftVectorAlongAngl = shiftVectorAlongAngle(bisectorAngle(dataEntry.startAngle, dataEntry.degrees), distanceFromCenter),
           dx = _shiftVectorAlongAngl.dx,
           dy = _shiftVectorAlongAngl.dy; // This object is passed as argument to the \\"label\\" function prop
 
@@ -282,7 +281,7 @@ exports[`Dist bundle is unchanged 1`] = `
         key: dataEntry.key || index,
         cx: cx,
         cy: cy,
-        startAngle: props.startAngle + dataEntry.startOffset,
+        startAngle: dataEntry.startAngle,
         lengthAngle: dataEntry.degrees,
         radius: radius,
         lineWidth: lineWidth,

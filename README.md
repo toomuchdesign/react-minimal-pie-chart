@@ -139,8 +139,8 @@ type LabelRenderProps = {
   textAnchor: string;
   // props.data entry relative to the label extended with:
   dataEntry: {
+    startAngle: number;
     degrees: number;
-    startOffset: number;
     percentage: number;
   };
   dataIndex: number;

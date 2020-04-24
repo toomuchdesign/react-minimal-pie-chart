@@ -10,12 +10,13 @@ function sumValues(data: Data): number {
   return sum;
 }
 
-// Append "percentage", "degrees" and "startOffset" into each data entry
+// Append "percentage", "degrees" and "startAngle" to each data entry
 export default function extendData({
   data,
   lengthAngle: totalAngle,
   totalValue,
   paddingAngle,
+  startAngle: chartStartAngle,
 }: ChartProps): ExtendedData {
   const total = totalValue || sumValues(data);
   const normalizedTotalAngle = valueBetween(totalAngle, -360, 360);
@@ -30,14 +31,14 @@ export default function extendData({
   return data.map((dataEntry) => {
     const valueInPercentage = total === 0 ? 0 : (dataEntry.value / total) * 100;
     const degrees = extractPercentage(degreesTakenByPaths, valueInPercentage);
-    const startOffset = lastSegmentEnd;
+    const startAngle = lastSegmentEnd + chartStartAngle;
     lastSegmentEnd = lastSegmentEnd + degrees + singlePaddingDegrees;
 
     return Object.assign(
       {
         percentage: valueInPercentage,
+        startAngle,
         degrees,
-        startOffset,
       },
       dataEntry
     );
