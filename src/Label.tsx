@@ -1,6 +1,6 @@
 import React from 'react';
-import type { ReactNode } from 'react';
-import type { ExtendedDataEntry, StyleObject } from './commonTypes';
+import type { CSSProperties, SVGProps } from 'react';
+import type { ExtendedDataEntry } from './commonTypes';
 
 export type LabelRenderProps = {
   x: number;
@@ -10,12 +10,10 @@ export type LabelRenderProps = {
   textAnchor: string;
   dataEntry: ExtendedDataEntry;
   dataIndex: number;
-  style?: StyleObject;
+  style?: CSSProperties;
 };
 
-type Props = LabelRenderProps & {
-  children: ReactNode;
-};
+type Props = SVGProps<SVGTextElement> & LabelRenderProps;
 
 export default function Label({ dataEntry, dataIndex, ...props }: Props) {
   return <text dominantBaseline="central" {...props} />;

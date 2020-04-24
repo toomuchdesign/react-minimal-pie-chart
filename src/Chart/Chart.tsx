@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import type { FocusEvent, KeyboardEvent, MouseEvent, ReactNode } from 'react';
+import type {
+  CSSProperties,
+  FocusEvent,
+  KeyboardEvent,
+  MouseEvent,
+  ReactNode,
+} from 'react';
 import extendData from './extendData';
 import renderLabels from './renderLabels';
 import renderSegments from './renderSegments';
-import type {
-  Data,
-  EventHandler,
-  LabelRenderFunction,
-  StyleObject,
-} from '../commonTypes';
+import type { Data, EventHandler, LabelRenderFunction } from '../commonTypes';
 
 type Props = {
   animate?: boolean;
@@ -23,7 +24,9 @@ type Props = {
   lineWidth?: number;
   label?: LabelRenderFunction;
   labelPosition?: number;
-  labelStyle?: StyleObject | ((dataIndex: number) => StyleObject | undefined);
+  labelStyle?:
+    | CSSProperties
+    | ((dataIndex: number) => CSSProperties | undefined);
   onBlur?: EventHandler<FocusEvent>;
   onClick?: EventHandler<MouseEvent>;
   onFocus?: EventHandler<FocusEvent>;
@@ -36,11 +39,11 @@ type Props = {
   rounded?: boolean;
   segmentsShift?: number | ((dataIndex: number) => number | undefined);
   segmentsStyle?:
-    | StyleObject
-    | ((dataIndex: number) => StyleObject | undefined);
+    | CSSProperties
+    | ((dataIndex: number) => CSSProperties | undefined);
   segmentsTabIndex?: number;
   startAngle?: number;
-  style?: StyleObject;
+  style?: CSSProperties;
   totalValue?: number;
   viewBoxSize?: [number, number];
 };
@@ -48,7 +51,7 @@ type Props = {
 const defaultProps = {
   animationDuration: 500,
   animationEasing: 'ease-out',
-  center: [50, 50],
+  center: [50, 50] as [number, number],
   data: [] as Data,
   labelPosition: 50,
   lengthAngle: 360,
@@ -56,7 +59,7 @@ const defaultProps = {
   paddingAngle: 0,
   radius: 50,
   startAngle: 0,
-  viewBoxSize: [100, 100],
+  viewBoxSize: [100, 100] as [number, number],
 };
 
 export type PropsWithDefaults = Props & typeof defaultProps;
