@@ -26,21 +26,25 @@ export default function extendData({
   const degreesTakenByPadding = singlePaddingDegrees * numberOfPaddings;
   const degreesTakenByPaths = normalizedTotalAngle - degreesTakenByPadding;
   let lastSegmentEnd = 0;
+  const extendedData = [];
 
   // @NOTE: Shall we evaluate percentage accordingly to dataEntry.value's sign?
-  return data.map((dataEntry) => {
+  for (let i = 0; i < data.length; i++) {
+    const dataEntry = data[i];
     const valueInPercentage = total === 0 ? 0 : (dataEntry.value / total) * 100;
     const degrees = extractPercentage(degreesTakenByPaths, valueInPercentage);
     const startAngle = lastSegmentEnd + chartStartAngle;
     lastSegmentEnd = lastSegmentEnd + degrees + singlePaddingDegrees;
-
-    return Object.assign(
-      {
-        percentage: valueInPercentage,
-        startAngle,
-        degrees,
-      },
-      dataEntry
+    extendedData.push(
+      Object.assign(
+        {
+          percentage: valueInPercentage,
+          startAngle,
+          degrees,
+        },
+        dataEntry
+      )
     );
-  });
+  }
+  return extendedData;
 }
