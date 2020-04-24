@@ -13,6 +13,23 @@ beforeAll(() => {
 });
 
 describe('Chart', () => {
+  describe('SVG root element', () => {
+    it('receive className, style and children props', () => {
+      const { container } = render({
+        className: 'foo',
+        style: { color: 'green' },
+        children: <defs />,
+      });
+      const root = container.firstChild;
+      expect(root.tagName).toBe('svg');
+      expect(root).toHaveClass('foo');
+      expect(root).toHaveStyle({ color: 'green' });
+
+      const children = container.querySelector('svg > defs');
+      expect(children).toBeInTheDocument();
+    });
+  });
+
   describe('data prop', () => {
     it('renders empty SVG element when is undefined', () => {
       const { container } = render({
@@ -29,18 +46,6 @@ describe('Chart', () => {
 
       const title = container.querySelector('title');
       expect(title).toHaveTextContent('title-value');
-    });
-  });
-
-  describe('wrapper element', () => {
-    it('receive "className" and "style" props', () => {
-      const { container } = render({
-        className: 'foo',
-        style: { color: 'green' },
-      });
-      const wrapper = container.firstChild;
-      expect(wrapper).toHaveAttribute('class', 'foo');
-      expect(wrapper).toHaveStyle({ color: 'green' });
     });
   });
 
@@ -248,17 +253,6 @@ describe('Chart', () => {
 
       expect(console.error).not.toHaveBeenCalled();
       console.error.mockRestore();
-    });
-  });
-
-  describe('children prop', () => {
-    it('inject anything into rendered <svg>', () => {
-      const { container } = render({
-        children: <defs />,
-      });
-
-      const injectedElement = container.querySelector('svg > defs');
-      expect(injectedElement).toBeInTheDocument();
     });
   });
 });
