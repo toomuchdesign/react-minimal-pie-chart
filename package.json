@@ -109,7 +109,7 @@
   },
   "size-limit": [
     {
-      "limit": "3 KB",
+      "limit": "2 KB",
       "path": "./es/index.js",
       "ignore": [
         "react"
