@@ -37,6 +37,7 @@ type Props = SVGProps<SVGPathElement> & {
   lineWidth: number;
   radius: number;
   reveal?: number;
+  rounded?: boolean;
   shift?: number;
   startAngle: number;
   title?: string | number;
@@ -50,6 +51,7 @@ export default function Path({
   radius,
   shift = 0,
   reveal,
+  rounded,
   startAngle,
   title,
   ...props
@@ -83,9 +85,11 @@ export default function Path({
   return (
     <path
       d={pathCommands}
+      fill="none"
       strokeWidth={lineWidth}
       strokeDasharray={strokeDasharray}
       strokeDashoffset={strokeDashoffset}
+      strokeLinecap={rounded ? 'round' : undefined}
       {...props}
     >
       {title && <title>{title}</title>}
