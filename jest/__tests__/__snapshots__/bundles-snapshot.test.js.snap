@@ -213,9 +213,10 @@ exports[`Dist bundle is unchanged 1`] = `
         _ref$shift = _ref.shift,
         shift = _ref$shift === void 0 ? 0 : _ref$shift,
         reveal = _ref.reveal,
+        rounded = _ref.rounded,
         startAngle = _ref.startAngle,
         title = _ref.title,
-        props = _objectWithoutPropertiesLoose(_ref, [\\"cx\\", \\"cy\\", \\"lengthAngle\\", \\"lineWidth\\", \\"radius\\", \\"shift\\", \\"reveal\\", \\"startAngle\\", \\"title\\"]);
+        props = _objectWithoutPropertiesLoose(_ref, [\\"cx\\", \\"cy\\", \\"lengthAngle\\", \\"lineWidth\\", \\"radius\\", \\"shift\\", \\"reveal\\", \\"rounded\\", \\"startAngle\\", \\"title\\"]);
 
     var pathRadius = radius - lineWidth / 2; //@NOTE This shift might be rendered as a translation in future
 
@@ -236,9 +237,11 @@ exports[`Dist bundle is unchanged 1`] = `
 
     return /*#__PURE__*/React__default.createElement(\\"path\\", Object.assign({
       d: pathCommands,
+      fill: \\"none\\",
       strokeWidth: lineWidth,
       strokeDasharray: strokeDasharray,
-      strokeDashoffset: strokeDashoffset
+      strokeDashoffset: strokeDashoffset,
+      strokeLinecap: rounded ? 'round' : undefined
     }, props), title && /*#__PURE__*/React__default.createElement(\\"title\\", null, title));
   }
   Path.displayName = 'ReactMinimalPieChartPath';
@@ -282,21 +285,20 @@ exports[`Dist bundle is unchanged 1`] = `
     var paths = data.map(function (dataEntry, index) {
       var segmentsStyle = functionProp(props.segmentsStyle, index);
       return /*#__PURE__*/React__default.createElement(Path, {
-        key: dataEntry.key || index,
         cx: cx,
         cy: cy,
-        startAngle: dataEntry.startAngle,
+        key: dataEntry.key || index,
         lengthAngle: dataEntry.degrees,
-        radius: radius,
         lineWidth: lineWidth,
+        radius: radius,
+        rounded: props.rounded,
         reveal: reveal,
         shift: functionProp(props.segmentsShift, index),
+        startAngle: dataEntry.startAngle,
         title: dataEntry.title,
         style: Object.assign({}, segmentsStyle, props.animate && combineSegmentTransitionsStyle(props.animationDuration, props.animationEasing, segmentsStyle)),
         stroke: dataEntry.color,
-        strokeLinecap: props.rounded ? 'round' : undefined,
         tabIndex: props.segmentsTabIndex,
-        fill: \\"none\\",
         onBlur: makeEventHandler(props.onBlur, index),
         onClick: makeEventHandler(props.onClick, index),
         onFocus: makeEventHandler(props.onFocus, index),
@@ -308,16 +310,15 @@ exports[`Dist bundle is unchanged 1`] = `
 
     if (props.background) {
       paths.unshift( /*#__PURE__*/React__default.createElement(Path, {
-        key: \\"bg\\",
         cx: cx,
         cy: cy,
-        startAngle: props.startAngle,
+        key: \\"bg\\",
         lengthAngle: props.lengthAngle,
-        radius: radius,
         lineWidth: lineWidth,
-        stroke: props.background,
-        strokeLinecap: props.rounded ? 'round' : undefined,
-        fill: \\"none\\"
+        radius: radius,
+        rounded: props.rounded,
+        startAngle: props.startAngle,
+        stroke: props.background
       }));
     }
 

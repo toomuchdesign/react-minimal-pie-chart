@@ -56,15 +56,16 @@ export default function renderSegments(
     const segmentsStyle = functionProp(props.segmentsStyle, index);
     return (
       <Path
-        key={dataEntry.key || index}
         cx={cx}
         cy={cy}
-        startAngle={dataEntry.startAngle}
+        key={dataEntry.key || index}
         lengthAngle={dataEntry.degrees}
-        radius={radius}
         lineWidth={lineWidth}
+        radius={radius}
+        rounded={props.rounded}
         reveal={reveal}
         shift={functionProp(props.segmentsShift, index)}
+        startAngle={dataEntry.startAngle}
         title={dataEntry.title}
         style={Object.assign(
           {},
@@ -77,9 +78,7 @@ export default function renderSegments(
             )
         )}
         stroke={dataEntry.color}
-        strokeLinecap={props.rounded ? 'round' : undefined}
         tabIndex={props.segmentsTabIndex}
-        fill="none"
         onBlur={makeEventHandler(props.onBlur, index)}
         onClick={makeEventHandler(props.onClick, index)}
         onFocus={makeEventHandler(props.onFocus, index)}
@@ -93,16 +92,15 @@ export default function renderSegments(
   if (props.background) {
     paths.unshift(
       <Path
-        key="bg"
         cx={cx}
         cy={cy}
-        startAngle={props.startAngle}
+        key="bg"
         lengthAngle={props.lengthAngle}
-        radius={radius}
         lineWidth={lineWidth}
+        radius={radius}
+        rounded={props.rounded}
+        startAngle={props.startAngle}
         stroke={props.background}
-        strokeLinecap={props.rounded ? 'round' : undefined}
-        fill="none"
       />
     );
   }
