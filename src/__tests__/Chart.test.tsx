@@ -240,7 +240,7 @@ describe('Chart', () => {
     it("don't re-render when component is unmounted", () => {
       // Simulate edge case of animation fired after component was unmounted
       // See: https://github.com/toomuchdesign/react-minimal-pie-chart/issues/8
-      jest.spyOn(console, 'error');
+      const consoleError = jest.spyOn(console, 'error');
       const { unmount } = render({
         animate: true,
       });
@@ -251,8 +251,8 @@ describe('Chart', () => {
         jest.runAllTimers();
       });
 
-      expect(console.error).not.toHaveBeenCalled();
       console.error.mockRestore();
+      expect(consoleError).not.toHaveBeenCalled();
     });
   });
 });
