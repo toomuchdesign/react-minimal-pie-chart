@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { fireEvent } from '@testing-library/react';
-import { render, dataMock, getArcInfo, PieChart } from './testUtils';
+import { render, dataMock, getArcInfo } from './testUtils';
 import {
   bisectorAngle,
   degreesToRadians,
@@ -83,7 +83,7 @@ describe('Path', () => {
   describe('segmentsShift prop', () => {
     /*
      * 1- Render both shifted and non-shifted segments
-     * 2- Evaluate expected absolute segment's shift<
+     * 2- Evaluate expected absolute segment's shift
      * 3- Compare shifted and non-shifted segments info
      */
     describe.each`
@@ -138,33 +138,6 @@ describe('Path', () => {
           };
 
           expect(shiftedPathInfo).toEqual(expected);
-        });
-      });
-
-      it('renders labels translated radially', () => {
-        const { container, getAllByText } = render({
-          segmentsShift,
-          label: () => 'label',
-        });
-        const paths = container.querySelectorAll('path');
-        const shiftedLabels = getAllByText('label');
-        const distanceFromCenter = extractPercentage(
-          PieChart.defaultProps.radius,
-          PieChart.defaultProps.labelPosition
-        );
-
-        shiftedLabels.forEach((label, index) => {
-          const { startAngle, lengthAngle } = getArcInfo(paths[index]);
-          const expectedAbsoluteShift =
-            distanceFromCenter + expectedSegmentsShift[index];
-
-          const { dx, dy } = shiftVectorAlongAngle(
-            bisectorAngle(startAngle, lengthAngle),
-            expectedAbsoluteShift
-          );
-
-          expect(label.getAttribute('dx')).toEqualWithRoundingError(dx);
-          expect(label.getAttribute('dy')).toEqualWithRoundingError(dy);
         });
       });
     });

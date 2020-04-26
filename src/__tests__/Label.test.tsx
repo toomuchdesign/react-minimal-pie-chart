@@ -78,38 +78,50 @@ describe('Label', () => {
   });
 
   describe('labelPosition prop', () => {
-    it("radially moves label by the provided percentage of charts' radius", () => {
-      const radius = 66;
-      const labelPosition = 5;
-      const { container, getAllByText } = render({
-        label: () => 'label',
-        radius,
-        labelPosition,
-      });
-      const paths = container.querySelectorAll('path');
-      const expectedDistanceFromCenter = extractPercentage(
-        radius,
-        labelPosition
-      );
+    const radius = 66;
+    const labelPosition = 5;
+    const expectedDistanceFromCenter = extractPercentage(radius, labelPosition);
+    describe.each`
+      description      | segmentsShift       | expectedSegmentsShift
+      ${'as number'}   | ${1}                | ${[1, 1, 1]}
+      ${'as function'} | ${(index) => index} | ${[0, 1, 2]}
+    `(
+      '+ segmentShift $description',
+      ({ segmentsShift, expectedSegmentsShift }) => {
+        it('renders labels translated radially', () => {
+          const { container, getAllByText } = render({
+            radius,
+            labelPosition,
+            segmentsShift,
+            label: () => 'label',
+          });
+          const paths = container.querySelectorAll('path');
+          const shiftedLabels = getAllByText('label');
 
-      getAllByText('label').forEach((label, index) => {
-        const { startAngle, lengthAngle } = getArcInfo(paths[index]);
-        const { dx, dy } = shiftVectorAlongAngle(
-          bisectorAngle(startAngle, lengthAngle),
-          expectedDistanceFromCenter
-        );
-        expect(label).toHaveAttribute(
-          'x',
-          `${PieChart.defaultProps.center[0]}`
-        );
-        expect(label).toHaveAttribute(
-          'y',
-          `${PieChart.defaultProps.center[1]}`
-        );
-        expect(label).toHaveAttribute('dx', `${dx}`);
-        expect(label).toHaveAttribute('dy', `${dy}`);
-      });
-    });
+          shiftedLabels.forEach((label, index) => {
+            const { startAngle, lengthAngle } = getArcInfo(paths[index]);
+            const expectedAbsoluteShift =
+              expectedDistanceFromCenter + expectedSegmentsShift[index];
+
+            const { dx, dy } = shiftVectorAlongAngle(
+              bisectorAngle(startAngle, lengthAngle),
+              expectedAbsoluteShift
+            );
+
+            expect(label).toHaveAttribute(
+              'x',
+              `${PieChart.defaultProps.center[0]}`
+            );
+            expect(label).toHaveAttribute(
+              'y',
+              `${PieChart.defaultProps.center[1]}`
+            );
+            expect(label.getAttribute('dx')).toEqualWithRoundingError(dx);
+            expect(label.getAttribute('dy')).toEqualWithRoundingError(dy);
+          });
+        });
+      }
+    );
   });
 
   describe('labelStyle prop', () => {
