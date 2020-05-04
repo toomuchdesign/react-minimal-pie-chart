@@ -14,6 +14,7 @@
 - Replaced extendedData startOffset prop with startAngle
 - `injectSVG` dropped in favour of native children prop
 - requestAnimationFrame existence check removed
+- Removed `Object.assign` polyfill
 
 ### New Features
 
@@ -35,6 +36,7 @@
 - Move existing `injectSVG` prop return value to `children` prop
 - Use `segmentsStyle` as function instead of `data[].style` prop
 - Mind that the root element is now the SVG itself
+- Provide an [`Object.assign` polyfill](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill) to support legacy browser (eg. IE)
 
 # 7.3.1
 
