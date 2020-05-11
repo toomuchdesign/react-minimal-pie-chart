@@ -6,6 +6,7 @@ import InteractionStory from './InteractionStory';
 import InteractionTabStory from './InteractionTabStory';
 import LoadingIndicatorStory from './LoadingIndicatorStory';
 import PartialLoadingIndicatorStory from './PartialLoadingIndicatorStory';
+import Tooltip from './Tooltip';
 
 const dataMock = [
   { title: 'One', value: 10, color: '#E38627' },
@@ -176,4 +177,5 @@ storiesOf('Misc', module)
       labelStyle={defaultLabelStyle}
       radius={75}
     />
-  ));
+  ))
+  .add('Tooltip integration', () => <Tooltip data={dataMock} />);
