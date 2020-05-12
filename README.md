@@ -198,10 +198,11 @@ This library uses the `stroke-dasharray` + `stroke-dashoffset` animation strateg
 ## Todo's
 
 - Consider moving storybook deployment to CI
-- Add `.browserslistrc` to get rid of some Babel helpers
 - Consider using `transform` to mutate segments/labels positions
 - Consider exposing a reduced chart variation including just a subset of the features
 - Consider abstracting React bindings to re-use business logic with other frameworks
+- Remove `defaultProps` in favour of JS default arguments
+- Provide a way to supply `svg` element with any extra prop
 
 ## Contributors
 
