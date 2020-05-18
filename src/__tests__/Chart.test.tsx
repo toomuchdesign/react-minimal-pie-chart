@@ -188,13 +188,12 @@ describe('Chart', () => {
     `('reveal === ${reveal}', ({ reveal, expectedRevealedPercentage }) => {
       it('re-render on did mount revealing the expected portion of segment', () => {
         const segmentRadius = PieChart.defaultProps.radius / 2;
-        const lengthAngle = 360;
+        const lengthAngle = PieChart.defaultProps.lengthAngle;
         const fullPathLength = degreesToRadians(segmentRadius) * lengthAngle;
         let hiddenPercentage;
         const initialProps = {
           data: [...dataMock[0]],
           animate: true,
-          lengthAngle,
           reveal,
         };
         const { container, rerender } = render(initialProps);
@@ -253,6 +252,25 @@ describe('Chart', () => {
 
       console.error.mockRestore();
       expect(consoleError).not.toHaveBeenCalled();
+    });
+
+    describe('stroke-dashoffset attribute', () => {
+      it("doesn't generate zero rounding issues after animation (GitHub: #133)", () => {
+        const { container } = render({
+          data: [{ value: 1 }, { value: 1.6 }],
+          animate: true,
+        });
+
+        // Trigger async initial animation
+        act(() => {
+          jest.runAllTimers();
+        });
+
+        // Expect all segments to be fully exposed
+        container.querySelectorAll('path').forEach((path) => {
+          expect(path).toHaveAttribute('stroke-dashoffset', '0');
+        });
+      });
     });
   });
 });

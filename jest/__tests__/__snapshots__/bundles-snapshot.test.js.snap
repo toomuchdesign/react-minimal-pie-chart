@@ -18,7 +18,7 @@ exports[`Dist bundle is unchanged 1`] = `
     return value;
   }
   function extractPercentage(value, percentage) {
-    return value * percentage / 100;
+    return percentage / 100 * value;
   }
   function bisectorAngle(startAngle, lengthAngle) {
     return startAngle + lengthAngle / 2;
