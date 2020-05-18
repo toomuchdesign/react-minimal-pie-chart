@@ -9,7 +9,7 @@ export function valueBetween(value: number, min: number, max: number) {
 }
 
 export function extractPercentage(value: number, percentage: number) {
-  return (value * percentage) / 100;
+  return (percentage / 100) * value;
 }
 
 export function bisectorAngle(startAngle: number, lengthAngle: number) {
