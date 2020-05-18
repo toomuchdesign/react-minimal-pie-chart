@@ -1,3 +1,9 @@
+# 8.0.1
+
+### Bugfixes
+
+- Change `extractPercentage` implementation to address a rounding issue in `stroke-dashoffset` evaluation (#133)
+
 # 8.0.0
 
 ### Breaking Changes
