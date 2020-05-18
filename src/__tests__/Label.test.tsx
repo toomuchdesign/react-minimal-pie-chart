@@ -116,8 +116,8 @@ describe('Label', () => {
               'y',
               `${PieChart.defaultProps.center[1]}`
             );
-            expect(label.getAttribute('dx')).toEqualWithRoundingError(dx);
-            expect(label.getAttribute('dy')).toEqualWithRoundingError(dy);
+            expect(label).toHaveAttribute('dx', `${dx}`);
+            expect(label).toHaveAttribute('dy', `${dy}`);
           });
         });
       }

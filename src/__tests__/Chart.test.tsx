@@ -104,9 +104,9 @@ describe('Chart', () => {
       container.querySelectorAll('path').forEach((path) => {
         pathsTotalLengthAngle += getArcInfo(path).lengthAngle;
       });
-      expect(lengthAngle).toEqualWithRoundingError(
+      expect(
         pathsTotalLengthAngle + totalPaddingDegrees
-      );
+      ).toEqualWithRoundingError(lengthAngle);
     });
   });
 
