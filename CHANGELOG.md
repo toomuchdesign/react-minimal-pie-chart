@@ -10,6 +10,7 @@
 
 - Chart component exposed as named export instead of default.
 - Minimum `react` and `react-dom` peerDependency versions increased to `^16.8.0`
+- Minimum `typescript` version increased to `^3.8.0` (due to `import type`)
 - `label` prop works as [render prop](https://reactjs.org/docs/render-props.html); drop support for `boolean` and Element values
 - `segmentsShift` prop expressed as absolute `viewBox` units instead of radius' percentage
 - Event handlers signature updated to: `(event, segmentIndex) => void`
@@ -35,6 +36,7 @@
 
 - Update import declaration to: `import {PieChart} from 'react-minimal-pie-chart'`
 - Make sure that installed `react` and `react-dom` version is >= `16.8.0`
+- In case `typescript` is used, ensure that installed version is >= `3.8`
 - Migrate `label` prop to provide a render function (see docs about labels)
 - Replace existing `rx` `ry` props with `center`
 - Review existing `center` and `segmentsShift` values (now expressed as `viewBox` values)

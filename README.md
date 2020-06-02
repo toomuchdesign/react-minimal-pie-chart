@@ -49,6 +49,8 @@ If you don't use a package manager, `react-minimal-pie-chart` exposes also an `U
 https://unpkg.com/react-minimal-pie-chart/dist/index.js
 ```
 
+Minimum supported **Typescript** version: >= `3.8`
+
 ## Usage
 
 ```js
@@ -207,6 +209,7 @@ This library uses the `stroke-dasharray` + `stroke-dashoffset` animation strateg
 - Consider abstracting React bindings to re-use business logic with other frameworks
 - Remove `defaultProps` in favour of JS default arguments
 - Provide a way to supply `svg` element with any extra prop
+- Consider removing `import type` declaration from generated type definition files (if possible) to ensure Typescript 3.0+ backward compatibility
 
 ## Contributors
 
@@ -238,6 +241,9 @@ Thanks to you all ([emoji key](https://github.com/kentcdodds/all-contributors#em
     <td align="center"><a href="https://github.com/razked"><img src="https://avatars0.githubusercontent.com/u/39411034?v=4" width="100px;" alt=""/><br /><sub><b>Raz Kedem</b></sub></a><br /><a href="https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3Arazked" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/slumbering"><img src="https://avatars2.githubusercontent.com/u/1186424?v=4" width="100px;" alt=""/><br /><sub><b>Blocksmith</b></sub></a><br /><a href="https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3Aslumbering" title="Bug reports">🐛</a></td>
     <td align="center"><a href="http://jamietalbot.com"><img src="https://avatars0.githubusercontent.com/u/425787?v=4" width="100px;" alt=""/><br /><sub><b>Jamie Talbot</b></sub></a><br /><a href="https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3Amajelbstoat" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="http://timeslikethese.ca"><img src="https://avatars1.githubusercontent.com/u/22269057?v=4" width="100px;" alt=""/><br /><sub><b>Oscar Yixuan Chen</b></sub></a><br /><a href="https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3Aairoscar" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/RuiRocha1991"><img src="https://avatars2.githubusercontent.com/u/29250466?v=4" width="100px;" alt=""/><br /><sub><b>RuiRocha1991</b></sub></a><br /><a href="https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3ARuiRocha1991" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/Romaboy"><img src="https://avatars0.githubusercontent.com/u/42248135?v=4" width="100px;" alt=""/><br /><sub><b>Roman Kushyn</b></sub></a><br /><a href="https://github.com/toomuchdesign/react-minimal-pie-chart/issues?q=author%3ARomaboy" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 

@@ -171,6 +171,33 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "airoscar",
+      "name": "Oscar Yixuan Chen",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/22269057?v=4",
+      "profile": "http://timeslikethese.ca",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "RuiRocha1991",
+      "name": "RuiRocha1991",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/29250466?v=4",
+      "profile": "https://github.com/RuiRocha1991",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "Romaboy",
+      "name": "Roman Kushyn",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/42248135?v=4",
+      "profile": "https://github.com/Romaboy",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github",
