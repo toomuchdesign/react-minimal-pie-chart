@@ -70,7 +70,7 @@
     "@storybook/storybook-deployer": "^2.8.6",
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/react": "^10.0.2",
-    "@types/react": "^16.9.34",
+    "@types/react": "^16.9.41",
     "all-contributors-cli": "^6.14.2",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.1.0",
