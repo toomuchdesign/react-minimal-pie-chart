@@ -1,6 +1,5 @@
 // @ts-nocheck
-import { fireEvent } from '@testing-library/react';
-import { render, dataMock, getArcInfo } from './testUtils';
+import { render, dataMock, getArcInfo, fireEvent } from './testUtils';
 import {
   bisectorAngle,
   degreesToRadians,
