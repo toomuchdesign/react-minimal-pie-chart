@@ -68,7 +68,7 @@
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/react": "^5.3.19",
     "@storybook/storybook-deployer": "^2.8.6",
-    "@testing-library/jest-dom": "^5.11.2",
+    "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^10.4.7",
     "@types/react": "^16.9.41",
     "all-contributors-cli": "^6.17.0",
