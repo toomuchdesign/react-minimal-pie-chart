@@ -64,7 +64,7 @@ const defaultProps = {
 
 export type PropsWithDefaults = Props & typeof defaultProps;
 
-export function PieChart(props: PropsWithDefaults) {
+export function ReactMinimalPieChart(props: PropsWithDefaults) {
   const [revealOverride, setRevealOverride] = useState(
     props.animate ? 0 : null
   );
@@ -107,5 +107,4 @@ export function PieChart(props: PropsWithDefaults) {
   );
 }
 
-PieChart.defaultProps = defaultProps;
-PieChart.displayName = 'ReactMinimalPieChart';
+ReactMinimalPieChart.defaultProps = defaultProps;

@@ -1,1 +1,1 @@
-export { PieChart } from './Chart';
+export { ReactMinimalPieChart as PieChart } from './Chart';

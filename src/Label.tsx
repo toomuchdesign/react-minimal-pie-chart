@@ -15,8 +15,10 @@ export type LabelRenderProps = {
 
 type Props = SVGProps<SVGTextElement> & LabelRenderProps;
 
-export default function Label({ dataEntry, dataIndex, ...props }: Props) {
+export default function ReactMinimalPieChartLabel({
+  dataEntry,
+  dataIndex,
+  ...props
+}: Props) {
   return <text dominantBaseline="central" {...props} />;
 }
-
-Label.displayName = 'ReactMinimalPieChartLabel';

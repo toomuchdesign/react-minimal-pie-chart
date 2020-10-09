@@ -43,7 +43,7 @@ type Props = SVGProps<SVGPathElement> & {
   title?: string | number;
 };
 
-export default function Path({
+export default function ReactMinimalPieChartPath({
   cx,
   cy,
   lengthAngle,
@@ -96,5 +96,3 @@ export default function Path({
     </path>
   );
 }
-
-Path.displayName = 'ReactMinimalPieChartPath';

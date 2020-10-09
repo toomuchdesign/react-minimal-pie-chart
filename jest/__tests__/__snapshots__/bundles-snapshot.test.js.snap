@@ -94,7 +94,7 @@ exports[`Dist bundle is unchanged 1`] = `
     return target;
   }
 
-  function Label(_ref) {
+  function ReactMinimalPieChartLabel(_ref) {
     var dataEntry = _ref.dataEntry,
         dataIndex = _ref.dataIndex,
         props = _objectWithoutPropertiesLoose(_ref, [\\"dataEntry\\", \\"dataIndex\\"]);
@@ -103,7 +103,6 @@ exports[`Dist bundle is unchanged 1`] = `
       dominantBaseline: \\"central\\"
     }, props));
   }
-  Label.displayName = 'ReactMinimalPieChartLabel';
 
   function round(number) {
     var divisor = 1e14; // 14 decimals
@@ -141,7 +140,7 @@ exports[`Dist bundle is unchanged 1`] = `
     var label = renderLabel(labelProps);
 
     if (typeof label === 'string' || typeof label === 'number') {
-      return /*#__PURE__*/React__default.createElement(Label, Object.assign({
+      return /*#__PURE__*/React__default.createElement(ReactMinimalPieChartLabel, Object.assign({
         key: \\"label-\\" + (labelProps.dataEntry.key || labelProps.dataIndex)
       }, labelProps), label);
     }
@@ -204,7 +203,7 @@ exports[`Dist bundle is unchanged 1`] = `
       return command.join(' ');
     }).join(' ');
   }
-  function Path(_ref) {
+  function ReactMinimalPieChartPath(_ref) {
     var cx = _ref.cx,
         cy = _ref.cy,
         lengthAngle = _ref.lengthAngle,
@@ -244,7 +243,6 @@ exports[`Dist bundle is unchanged 1`] = `
       strokeLinecap: rounded ? 'round' : undefined
     }, props), title && /*#__PURE__*/React__default.createElement(\\"title\\", null, title));
   }
-  Path.displayName = 'ReactMinimalPieChartPath';
 
   function combineSegmentTransitionsStyle(duration, easing, customStyle) {
     // Merge chart's animation CSS transition with \\"transition\\" found to customStyle
@@ -284,7 +282,7 @@ exports[`Dist bundle is unchanged 1`] = `
     var lineWidth = extractPercentage(radius, props.lineWidth);
     var paths = data.map(function (dataEntry, index) {
       var segmentsStyle = functionProp(props.segmentsStyle, index);
-      return /*#__PURE__*/React__default.createElement(Path, {
+      return /*#__PURE__*/React__default.createElement(ReactMinimalPieChartPath, {
         cx: cx,
         cy: cy,
         key: dataEntry.key || index,
@@ -309,7 +307,7 @@ exports[`Dist bundle is unchanged 1`] = `
     });
 
     if (props.background) {
-      paths.unshift( /*#__PURE__*/React__default.createElement(Path, {
+      paths.unshift( /*#__PURE__*/React__default.createElement(ReactMinimalPieChartPath, {
         cx: cx,
         cy: cy,
         key: \\"bg\\",
@@ -338,7 +336,7 @@ exports[`Dist bundle is unchanged 1`] = `
     startAngle: 0,
     viewBoxSize: [100, 100]
   };
-  function PieChart(props) {
+  function ReactMinimalPieChart(props) {
     var _useState = React.useState(props.animate ? 0 : null),
         revealOverride = _useState[0],
         setRevealOverride = _useState[1];
@@ -373,10 +371,9 @@ exports[`Dist bundle is unchanged 1`] = `
       style: props.style
     }, renderSegments(extendedData, props, revealOverride), props.label && renderLabels(extendedData, props), props.children);
   }
-  PieChart.defaultProps = defaultProps;
-  PieChart.displayName = 'ReactMinimalPieChart';
+  ReactMinimalPieChart.defaultProps = defaultProps;
 
-  exports.PieChart = PieChart;
+  exports.PieChart = ReactMinimalPieChart;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
