@@ -3,6 +3,7 @@
   "schedule": "every month",
   "rangeStrategy": "replace",
   "postUpdateOptions": ["npmDedupe"],
+  "masterIssue": true,
   "packageRules": [
     {
       "packagePatterns": ["^rollup"],
