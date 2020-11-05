@@ -1,3 +1,7 @@
+# 8.1.0
+
+- Widen peerDependencies to include React 17
+
 # 8.0.1
 
 ### Bugfixes
