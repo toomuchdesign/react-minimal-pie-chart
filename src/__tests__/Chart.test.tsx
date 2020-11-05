@@ -36,7 +36,7 @@ describe('Chart', () => {
         data: undefined,
       });
       const svg = container.querySelector('svg');
-      expect(svg).toBeEmpty();
+      expect(svg).toBeEmptyDOMElement();
     });
 
     it('render a <Title> element if data[].title provided', () => {
