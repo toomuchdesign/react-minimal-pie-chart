@@ -73,7 +73,7 @@
     "@types/react": "^16.9.49",
     "all-contributors-cli": "^6.19.0",
     "babel-jest": "^24.9.0",
-    "babel-loader": "^8.1.0",
+    "babel-loader": "^8.2.2",
     "coveralls": "^3.1.0",
     "es-check": "^5.1.1",
     "husky": "^3.0.9",
