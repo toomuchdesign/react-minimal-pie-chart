@@ -59,9 +59,9 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@babel/plugin-transform-react-jsx": "^7.12.7",
-    "@babel/preset-env": "^7.12.7",
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-react-jsx": "^7.12.12",
+    "@babel/preset-env": "^7.12.11",
     "@babel/preset-typescript": "^7.12.7",
     "@schwingbat/relative-angle": "^1.0.0",
     "@size-limit/preset-small-lib": "^2.2.4",
