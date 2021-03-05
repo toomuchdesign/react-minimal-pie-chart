@@ -74,7 +74,7 @@ export function PieChart(props: PropsWithDefaults) {
     }
 
     function startInitialAnimation() {
-      let animationTimerId: number | null;
+      let animationTimerId: NodeJS.Timeout | null;
       let animationRAFId: number | null;
       animationTimerId = setTimeout(() => {
         animationTimerId = null;
