@@ -64,7 +64,7 @@
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-typescript": "^7.12.7",
     "@schwingbat/relative-angle": "^1.0.0",
-    "@size-limit/preset-small-lib": "^2.2.4",
+    "@size-limit/preset-small-lib": "^4.10.0",
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/react": "^5.3.19",
     "@storybook/storybook-deployer": "^2.8.7",
@@ -88,6 +88,7 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
+    "size-limit": "^4.10.0",
     "svg-partial-circle": "1.0.0",
     "svg-path-parser": "^1.1.0",
     "typescript": "^3.8.3"
