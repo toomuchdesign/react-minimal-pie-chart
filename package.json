@@ -91,7 +91,7 @@
     "size-limit": "^4.10.0",
     "svg-partial-circle": "1.0.0",
     "svg-path-parser": "^1.1.0",
-    "typescript": "^3.8.3"
+    "typescript": "^4.2.3"
   },
   "jest": {
     "testRegex": "/__tests__/.*\\.test\\.[jt]sx?$",
