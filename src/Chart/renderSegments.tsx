@@ -1,6 +1,6 @@
 import React from 'react';
 import type { CSSProperties } from 'react';
-import ReactMinimalPieChartPath from '../Path';
+import Path from '../Path';
 import { extractPercentage, functionProp, isNumber } from '../utils';
 import type { ExtendedData } from '../commonTypes';
 import type { PropsWithDefaults as ChartProps } from './Chart';
@@ -55,7 +55,7 @@ export default function renderSegments(
   const paths = data.map((dataEntry, index) => {
     const segmentsStyle = functionProp(props.segmentsStyle, index);
     return (
-      <ReactMinimalPieChartPath
+      <Path
         cx={cx}
         cy={cy}
         key={dataEntry.key || index}
@@ -91,7 +91,7 @@ export default function renderSegments(
 
   if (props.background) {
     paths.unshift(
-      <ReactMinimalPieChartPath
+      <Path
         cx={cx}
         cy={cy}
         key="bg"
