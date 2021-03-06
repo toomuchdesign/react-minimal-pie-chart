@@ -4,10 +4,12 @@ exports[`Dist bundle is unchanged 1`] = `
 "(function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
   typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
-  (global = global || self, factory(global.ReactMinimalPieChart = {}, global.React));
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.ReactMinimalPieChart = {}, global.React));
 }(this, (function (exports, React) { 'use strict';
 
-  var React__default = 'default' in React ? React['default'] : React;
+  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+  var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
   function degreesToRadians(degrees) {
     return degrees * Math.PI / 180;
@@ -95,11 +97,11 @@ exports[`Dist bundle is unchanged 1`] = `
   }
 
   function ReactMinimalPieChartLabel(_ref) {
-    var dataEntry = _ref.dataEntry,
-        dataIndex = _ref.dataIndex,
-        props = _objectWithoutPropertiesLoose(_ref, [\\"dataEntry\\", \\"dataIndex\\"]);
+    _ref.dataEntry;
+        _ref.dataIndex;
+        var props = _objectWithoutPropertiesLoose(_ref, [\\"dataEntry\\", \\"dataIndex\\"]);
 
-    return /*#__PURE__*/React__default.createElement(\\"text\\", Object.assign({
+    return /*#__PURE__*/React__default['default'].createElement(\\"text\\", Object.assign({
       dominantBaseline: \\"central\\"
     }, props));
   }
@@ -140,12 +142,12 @@ exports[`Dist bundle is unchanged 1`] = `
     var label = renderLabel(labelProps);
 
     if (typeof label === 'string' || typeof label === 'number') {
-      return /*#__PURE__*/React__default.createElement(ReactMinimalPieChartLabel, Object.assign({
+      return /*#__PURE__*/React__default['default'].createElement(ReactMinimalPieChartLabel, Object.assign({
         key: \\"label-\\" + (labelProps.dataEntry.key || labelProps.dataIndex)
       }, labelProps), label);
     }
 
-    if (React__default.isValidElement(label)) {
+    if (React__default['default'].isValidElement(label)) {
       return label;
     }
 
@@ -234,14 +236,14 @@ exports[`Dist bundle is unchanged 1`] = `
       strokeDashoffset = strokeDasharray - extractPercentage(strokeDasharray, reveal);
     }
 
-    return /*#__PURE__*/React__default.createElement(\\"path\\", Object.assign({
+    return /*#__PURE__*/React__default['default'].createElement(\\"path\\", Object.assign({
       d: pathCommands,
       fill: \\"none\\",
       strokeWidth: lineWidth,
       strokeDasharray: strokeDasharray,
       strokeDashoffset: strokeDashoffset,
       strokeLinecap: rounded ? 'round' : undefined
-    }, props), title && /*#__PURE__*/React__default.createElement(\\"title\\", null, title));
+    }, props), title && /*#__PURE__*/React__default['default'].createElement(\\"title\\", null, title));
   }
 
   function combineSegmentTransitionsStyle(duration, easing, customStyle) {
@@ -282,7 +284,7 @@ exports[`Dist bundle is unchanged 1`] = `
     var lineWidth = extractPercentage(radius, props.lineWidth);
     var paths = data.map(function (dataEntry, index) {
       var segmentsStyle = functionProp(props.segmentsStyle, index);
-      return /*#__PURE__*/React__default.createElement(ReactMinimalPieChartPath, {
+      return /*#__PURE__*/React__default['default'].createElement(ReactMinimalPieChartPath, {
         cx: cx,
         cy: cy,
         key: dataEntry.key || index,
@@ -307,7 +309,7 @@ exports[`Dist bundle is unchanged 1`] = `
     });
 
     if (props.background) {
-      paths.unshift( /*#__PURE__*/React__default.createElement(ReactMinimalPieChartPath, {
+      paths.unshift( /*#__PURE__*/React__default['default'].createElement(ReactMinimalPieChartPath, {
         cx: cx,
         cy: cy,
         key: \\"bg\\",
@@ -363,7 +365,7 @@ exports[`Dist bundle is unchanged 1`] = `
       }
     }, []);
     var extendedData = extendData(props);
-    return /*#__PURE__*/React__default.createElement(\\"svg\\", {
+    return /*#__PURE__*/React__default['default'].createElement(\\"svg\\", {
       viewBox: \\"0 0 \\" + props.viewBoxSize[0] + \\" \\" + props.viewBoxSize[1],
       width: \\"100%\\",
       height: \\"100%\\",
