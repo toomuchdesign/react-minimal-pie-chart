@@ -1,3 +1,7 @@
+# 8.2.0
+
+- Decrease bundle size of about 2%
+
 # 8.1.0
 
 - Widen peerDependencies to include React 17

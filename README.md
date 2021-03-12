@@ -21,7 +21,7 @@ Because [Recharts][recharts-github] is awesome, but when you just need a simple 
 
 |                                                        |                                         Size<br>by Bundlefobia                                          | Benchmark Size \* | Loading time<br>on a slow 3g \* |
 | :----------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :---------------: | :-----------------------------: |
-|           react-minimal-pie-chart (_v8.0.0_)           |               [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]               |      1.87 KB      |             ~38 ms              |
+|           react-minimal-pie-chart (_v8.2.0_)           |               [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]               |      1.83 KB      |             ~38 ms              |
 |         [rechart][recharts-github] (_v1.8.5_)          |             [![Bundle size: Recharts][recharts-bundlephobia-badge]][recharts-bundlephobia]              |      96.9 KB      |            ~1900 ms             |
 |     [victory-pie][victory-pie-github] (_v34.1.3_)      |         [![Bundle size: Victory pie][victory-pie-bundlephobia-badge]][victory-pie-bundlephobia]         |      50.5 KB      |            ~1100 ms             |
 | [react-apexcharts][react-apexcharts-github] (_v1.3.7_) | [![Bundle size: React apec charts][react-apexcharts-bundlephobia-badge]][react-apexcharts-bundlephobia] |     114.6 KB      |            ~2300 ms             |
