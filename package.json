@@ -85,7 +85,7 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-tooltip": "^4.2.7",
+    "react-tooltip": "^4.2.21",
     "rollup": "^2.40.0",
     "simple-git-hooks": "^2.4.1",
     "size-limit": "^4.10.0",
