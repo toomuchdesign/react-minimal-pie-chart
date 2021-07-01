@@ -86,7 +86,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-tooltip": "^4.2.7",
-    "rollup": "^2.40.0",
+    "rollup": "^2.52.4",
     "simple-git-hooks": "^2.4.1",
     "size-limit": "^4.10.0",
     "svg-partial-circle": "1.0.0",
