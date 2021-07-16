@@ -6,7 +6,7 @@
   "masterIssue": true,
   "packageRules": [
     {
-      "packagePatterns": ["^rollup"],
+      "packagePatterns": ["^rollup", "^@rollup/"],
       "groupName": "Update rollup packages"
     },
     {
