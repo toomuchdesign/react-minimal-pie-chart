@@ -253,8 +253,8 @@ Thanks to you all ([emoji key](https://github.com/kentcdodds/all-contributors#em
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-[ci-badge]: https://travis-ci.com/toomuchdesign/react-minimal-pie-chart.svg?branch=master
-[ci]: https://travis-ci.com/toomuchdesign/react-minimal-pie-chart
+[ci-badge]: https://github.com/toomuchdesign/react-minimal-pie-chart/actions/workflows/ci.yml/badge.svg
+[ci]: https://github.com/toomuchdesign/react-minimal-pie-chart/actions/workflows/ci.yml
 [coveralls-badge]: https://coveralls.io/repos/github/toomuchdesign/react-minimal-pie-chart/badge.svg?branch=master
 [coveralls]: https://coveralls.io/github/toomuchdesign/react-minimal-pie-chart?branch=master
 [npm]: https://www.npmjs.com/package/react-minimal-pie-chart
