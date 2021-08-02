@@ -67,7 +67,7 @@
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-node-resolve": "^11.2.0",
     "@schwingbat/relative-angle": "^1.0.0",
-    "@size-limit/preset-small-lib": "^4.10.0",
+    "@size-limit/preset-small-lib": "^5.0.2",
     "@storybook/addon-actions": "^6.1.21",
     "@storybook/react": "^6.1.21",
     "@storybook/storybook-deployer": "^2.8.7",
