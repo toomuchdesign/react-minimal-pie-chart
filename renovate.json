@@ -30,7 +30,7 @@
       "groupName": "Update jest packages"
     },
     {
-      "packageNames": ["size-limit", "^@size-limit/"],
+      "packagePatterns": ["size-limit", "^@size-limit/"],
       "groupName": "Update size-limit packages"
     },
     {
