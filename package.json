@@ -95,6 +95,7 @@
   "jest": {
     "testRegex": "/__tests__/.*\\.test\\.[jt]sx?$",
     "testURL": "http://localhost/",
+    "testEnvironment": "jsdom",
     "coverageReporters": [
       "text",
       "lcov"
