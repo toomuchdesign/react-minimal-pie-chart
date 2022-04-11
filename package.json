@@ -54,8 +54,8 @@
   "author": "Andrea Carraro <me@andreacarraro.it>",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0"
+    "react": "^16.8.0 || ^17.0.0 || ^18",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18"
   },
   "dependencies": {},
   "devDependencies": {
