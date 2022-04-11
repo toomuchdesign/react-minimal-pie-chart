@@ -67,7 +67,7 @@
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-node-resolve": "^11.2.0",
     "@schwingbat/relative-angle": "^1.0.0",
-    "@size-limit/preset-small-lib": "^5.0.2",
+    "@size-limit/preset-small-lib": "^5.0.5",
     "@storybook/addon-actions": "^6.1.21",
     "@storybook/react": "^6.1.21",
     "@storybook/storybook-deployer": "^2.8.7",
@@ -87,7 +87,7 @@
     "react-tooltip": "^4.2.7",
     "rollup": "^2.40.0",
     "simple-git-hooks": "^2.4.1",
-    "size-limit": "^5.0.2",
+    "size-limit": "^5.0.5",
     "svg-partial-circle": "1.0.0",
     "svg-path-parser": "^1.1.0",
     "typescript": "^4.2.3"
