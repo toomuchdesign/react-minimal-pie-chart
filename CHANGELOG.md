@@ -1,3 +1,7 @@
+# 8.3.0
+
+- Support React 18
+
 # 8.2.0
 
 - Decrease bundle size of about 2%
