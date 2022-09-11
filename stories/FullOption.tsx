@@ -1,11 +1,7 @@
-import React, { useState, ComponentProps } from 'react';
-import { PieChart } from '../src';
+import React, { useState } from 'react';
+import { PieChart, PieChartProps } from '../src';
 
-type Props = {
-  data: ComponentProps<typeof PieChart>['data'];
-};
-
-function FullOption(props: Props) {
+function FullOption(props: PieChartProps) {
   const [selected, setSelected] = useState<number | undefined>(0);
   const [hovered, setHovered] = useState<number | undefined>(undefined);
 

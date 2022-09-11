@@ -16,7 +16,7 @@ import type {
   LabelRenderFunction,
 } from '../commonTypes';
 
-type Props<DataEntry extends BaseDataEntry> = {
+export type Props<DataEntry extends BaseDataEntry = BaseDataEntry> = {
   animate?: boolean;
   animationDuration?: number;
   animationEasing?: string;
