@@ -15,6 +15,7 @@ import type {
   EventHandler,
   LabelRenderFunction,
 } from '../commonTypes';
+import { makePropsWithDefaults } from '../utils';
 
 export type Props<DataEntry extends BaseDataEntry = BaseDataEntry> = {
   animate?: boolean;
@@ -53,7 +54,7 @@ export type Props<DataEntry extends BaseDataEntry = BaseDataEntry> = {
   viewBoxSize?: [number, number];
 };
 
-const defaultProps = {
+export const defaultProps = {
   animationDuration: 500,
   animationEasing: 'ease-out',
   center: [50, 50] as [number, number],
@@ -72,11 +73,17 @@ export type PropsWithDefaults<
 > = Props<DataEntry> & typeof defaultProps;
 
 export function ReactMinimalPieChart<DataEntry extends BaseDataEntry>(
-  props: PropsWithDefaults<DataEntry>
+  originalProps: Props<DataEntry>
 ) {
+  const props = makePropsWithDefaults<PropsWithDefaults<DataEntry>>(
+    originalProps,
+    // @ts-expect-error: defaultProps.data is typed as BaseDataEntry
+    defaultProps
+  );
   const [revealOverride, setRevealOverride] = useState(
     props.animate ? 0 : null
   );
+
   useEffect(() => {
     if (props.animate) {
       return startInitialAnimation();
@@ -115,5 +122,3 @@ export function ReactMinimalPieChart<DataEntry extends BaseDataEntry>(
     </svg>
   );
 }
-
-ReactMinimalPieChart.defaultProps = defaultProps;

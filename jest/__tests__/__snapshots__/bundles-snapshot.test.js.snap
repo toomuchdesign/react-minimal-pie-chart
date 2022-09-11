@@ -38,6 +38,17 @@ exports[`Dist bundle is unchanged 1`] = `
   function functionProp(prop, payload) {
     return typeof prop === 'function' ? prop(payload) : prop;
   }
+  function makePropsWithDefaults(props, defaultProps) {
+    var result = Object.assign({}, defaultProps, props); // @NOTE Object.assign doesn't default properties with undefined value (like React defaultProps does)
+
+    for (var key in defaultProps) {
+      if (props[key] === undefined) {
+        result[key] = defaultProps[key];
+      }
+    }
+
+    return result;
+  }
 
   function sumValues(data) {
     var sum = 0;
@@ -338,7 +349,10 @@ exports[`Dist bundle is unchanged 1`] = `
     startAngle: 0,
     viewBoxSize: [100, 100]
   };
-  function ReactMinimalPieChart(props) {
+  function ReactMinimalPieChart(originalProps) {
+    var props = makePropsWithDefaults(originalProps, // @ts-expect-error: defaultProps.data is typed as BaseDataEntry
+    defaultProps);
+
     var _useState = React.useState(props.animate ? 0 : null),
         revealOverride = _useState[0],
         setRevealOverride = _useState[1];
@@ -373,9 +387,9 @@ exports[`Dist bundle is unchanged 1`] = `
       style: props.style
     }, renderSegments(extendedData, props, revealOverride), props.label && renderLabels(extendedData, props), props.children);
   }
-  ReactMinimalPieChart.defaultProps = defaultProps;
 
   exports.PieChart = ReactMinimalPieChart;
+  exports.pieChartDefaultProps = defaultProps;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

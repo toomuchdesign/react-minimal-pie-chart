@@ -1,11 +1,12 @@
 // @ts-nocheck
 import React from 'react';
-import { render, dataMock, PieChart, getArcInfo } from './testUtils';
+import { render, dataMock, getArcInfo } from './testUtils';
 import {
   bisectorAngle,
   extractPercentage,
   shiftVectorAlongAngle,
 } from '../utils';
+import { pieChartDefaultProps } from '../../src';
 
 function getExpectedLabelRenderProps(dataEntry) {
   return {
@@ -110,11 +111,11 @@ describe('Label', () => {
 
             expect(label).toHaveAttribute(
               'x',
-              `${PieChart.defaultProps.center[0]}`
+              `${pieChartDefaultProps.center[0]}`
             );
             expect(label).toHaveAttribute(
               'y',
-              `${PieChart.defaultProps.center[1]}`
+              `${pieChartDefaultProps.center[1]}`
             );
             expect(label).toHaveAttribute('dx', `${dx}`);
             expect(label).toHaveAttribute('dy', `${dy}`);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { action } from '@storybook/addon-actions';
-import { PieChart, PieChartProps } from '../src';
+import { PieChart, pieChartDefaultProps, PieChartProps } from '../src';
 
 function DemoInteraction(props: PieChartProps) {
   const [selected, setSelected] = useState<number | undefined>(0);
@@ -19,7 +19,7 @@ function DemoInteraction(props: PieChartProps) {
   return (
     <PieChart
       data={data}
-      radius={PieChart.defaultProps.radius - 6}
+      radius={pieChartDefaultProps.radius - 6}
       segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
       segmentsShift={(index) => (index === selected ? 6 : 1)}
       onClick={(event, index) => {

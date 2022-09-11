@@ -207,9 +207,8 @@ This library uses the `stroke-dasharray` + `stroke-dashoffset` animation strateg
 - Consider using `transform` to mutate segments/labels positions
 - Consider exposing a reduced chart variation including just a subset of the features
 - Consider abstracting React bindings to re-use business logic with other frameworks
-- Remove `defaultProps` in favour of JS default arguments
 - Provide a way to supply `svg` element with any extra prop
-- Consider removing `import type` declaration from generated type definition files (if possible) to ensure Typescript 3.0+ backward compatibility
+- Find a better solution to assign default props
 
 ## Contributors
 
