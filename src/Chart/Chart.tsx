@@ -117,7 +117,7 @@ export function ReactMinimalPieChart<DataEntry extends BaseDataEntry>(
       style={props.style}
     >
       {renderSegments(extendedData, props, revealOverride)}
-      {props.label && renderLabels(extendedData, props)}
+      {renderLabels(extendedData, props)}
       {props.children}
     </svg>
   );
