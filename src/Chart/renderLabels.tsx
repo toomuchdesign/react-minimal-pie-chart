@@ -8,7 +8,11 @@ import {
 } from '../utils';
 import type { PropsWithDefaults as ChartProps } from './Chart';
 import type { LabelRenderProps } from '../Label';
-import type { ExtendedData, LabelRenderFunction } from '../commonTypes';
+import type {
+  ExtendedData,
+  LabelRenderFunction,
+  BaseDataEntry,
+} from '../commonTypes';
 
 function round(number: number): number {
   const divisor = 1e14; // 14 decimals
@@ -42,9 +46,9 @@ function evaluateTextAnchorPosition({
   return 'middle';
 }
 
-function renderLabelElement(
-  renderLabel: LabelRenderFunction,
-  labelProps: LabelRenderProps
+function renderLabelElement<DataEntry extends BaseDataEntry>(
+  renderLabel: LabelRenderFunction<DataEntry>,
+  labelProps: LabelRenderProps<DataEntry>
 ): JSX.Element | null {
   const label = renderLabel(labelProps);
   if (typeof label === 'string' || typeof label === 'number') {
@@ -64,7 +68,10 @@ function renderLabelElement(
   return null;
 }
 
-export default function renderLabels(data: ExtendedData, props: ChartProps) {
+export default function renderLabels<DataEntry extends BaseDataEntry>(
+  data: ExtendedData<DataEntry>,
+  props: ChartProps<DataEntry>
+) {
   return data.map((dataEntry, index) => {
     const segmentsShift = functionProp(props.segmentsShift, index) ?? 0;
     const distanceFromCenter =

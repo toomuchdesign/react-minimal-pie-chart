@@ -1,24 +1,23 @@
 import React from 'react';
 import type { CSSProperties, SVGProps } from 'react';
-import type { ExtendedDataEntry } from './commonTypes';
+import type { ExtendedData, BaseDataEntry } from './commonTypes';
 
-export type LabelRenderProps = {
+export type LabelRenderProps<DataEntry extends BaseDataEntry> = {
   x: number;
   y: number;
   dx: number;
   dy: number;
   textAnchor: string;
-  dataEntry: ExtendedDataEntry;
+  dataEntry: ExtendedData<DataEntry>[number];
   dataIndex: number;
   style?: CSSProperties;
 };
 
-type Props = SVGProps<SVGTextElement> & LabelRenderProps;
+type Props<DataEntry extends BaseDataEntry> = SVGProps<SVGTextElement> &
+  LabelRenderProps<DataEntry>;
 
-export default function ReactMinimalPieChartLabel({
-  dataEntry,
-  dataIndex,
-  ...props
-}: Props) {
+export default function ReactMinimalPieChartLabel<
+  DataEntry extends BaseDataEntry
+>({ dataEntry, dataIndex, ...props }: Props<DataEntry>) {
   return <text dominantBaseline="central" {...props} />;
 }

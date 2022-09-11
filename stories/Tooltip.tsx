@@ -6,7 +6,9 @@ type Props = {
   data: ComponentProps<typeof PieChart>['data'];
 };
 
-function makeTooltipContent(entry: Props['data'][0]) {
+function makeTooltipContent(
+  entry: Props['data'][0] & { tooltip: Props['data'][0]['title'] }
+) {
   return `Sector ${entry.tooltip} has value ${entry.value}`;
 }
 

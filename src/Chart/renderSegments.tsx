@@ -2,7 +2,7 @@ import React from 'react';
 import type { CSSProperties } from 'react';
 import Path from '../Path';
 import { extractPercentage, functionProp, isNumber } from '../utils';
-import type { ExtendedData } from '../commonTypes';
+import type { ExtendedData, BaseDataEntry } from '../commonTypes';
 import type { PropsWithDefaults as ChartProps } from './Chart';
 
 function combineSegmentTransitionsStyle(
@@ -40,9 +40,9 @@ function makeEventHandler<Event, EventHandler, Payload>(
   );
 }
 
-export default function renderSegments(
-  data: ExtendedData,
-  props: ChartProps,
+export default function renderSegments<DataEntry extends BaseDataEntry>(
+  data: ExtendedData<DataEntry>,
+  props: ChartProps<DataEntry>,
   revealOverride?: null | number
 ) {
   // @NOTE this should go in Path component. Here for performance reasons
