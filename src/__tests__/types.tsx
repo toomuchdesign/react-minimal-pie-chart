@@ -58,3 +58,14 @@ import { PieChart } from '../../src';
 <PieChart data={[]}>
   <defs />
 </PieChart>;
+
+<PieChart
+  data={[
+    { value: 10, color: 'blue', custom: 'foo' },
+    { value: 15, color: 'orange', custom: 'bar' },
+  ]}
+  label={(labelRenderProps) => {
+    const customProp: string = labelRenderProps.dataEntry.custom;
+    return null;
+  }}
+/>;

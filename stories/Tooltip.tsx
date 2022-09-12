@@ -1,16 +1,18 @@
-import React, { useState, ComponentProps } from 'react';
+import React, { useState } from 'react';
 import ReactTooltip from 'react-tooltip';
-import { PieChart } from '../src';
+import { PieChart, PieChartProps } from '../src';
 
-type Props = {
-  data: ComponentProps<typeof PieChart>['data'];
-};
+type BaseData = PieChartProps['data'][number];
 
-function makeTooltipContent(entry: Props['data'][0]) {
+function makeTooltipContent(
+  entry: BaseData & {
+    tooltip: BaseData['title'];
+  }
+) {
   return `Sector ${entry.tooltip} has value ${entry.value}`;
 }
 
-function ToolTip(props: Props) {
+function ToolTip(props: PieChartProps) {
   const [hovered, setHovered] = useState<number | null>(null);
   const data = props.data.map(({ title, ...entry }) => {
     return {

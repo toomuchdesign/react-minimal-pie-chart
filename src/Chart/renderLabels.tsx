@@ -1,5 +1,5 @@
 import React from 'react';
-import DefaultLabel from '../Label';
+import Label from '../Label';
 import {
   bisectorAngle,
   extractPercentage,
@@ -8,7 +8,7 @@ import {
 } from '../utils';
 import type { PropsWithDefaults as ChartProps } from './Chart';
 import type { LabelRenderProps } from '../Label';
-import type { ExtendedData, LabelRenderFunction } from '../commonTypes';
+import type { ExtendedData, BaseDataEntry } from '../commonTypes';
 
 function round(number: number): number {
   const divisor = 1e14; // 14 decimals
@@ -42,29 +42,10 @@ function evaluateTextAnchorPosition({
   return 'middle';
 }
 
-function renderLabelElement(
-  renderLabel: LabelRenderFunction,
-  labelProps: LabelRenderProps
-): JSX.Element | null {
-  const label = renderLabel(labelProps);
-  if (typeof label === 'string' || typeof label === 'number') {
-    return (
-      <DefaultLabel
-        key={`label-${labelProps.dataEntry.key || labelProps.dataIndex}`}
-        {...labelProps}
-      >
-        {label}
-      </DefaultLabel>
-    );
-  }
-
-  if (React.isValidElement(label)) {
-    return label;
-  }
-  return null;
-}
-
-export default function renderLabels(data: ExtendedData, props: ChartProps) {
+function makeLabelRenderProps<DataEntry extends BaseDataEntry>(
+  data: ExtendedData<DataEntry>,
+  props: ChartProps<DataEntry>
+): LabelRenderProps<DataEntry>[] {
   return data.map((dataEntry, index) => {
     const segmentsShift = functionProp(props.segmentsShift, index) ?? 0;
     const distanceFromCenter =
@@ -75,7 +56,7 @@ export default function renderLabels(data: ExtendedData, props: ChartProps) {
     );
 
     // This object is passed as argument to the "label" function prop
-    const labelRenderProps = {
+    const labelRenderProps: LabelRenderProps<DataEntry> = {
       x: props.center[0],
       y: props.center[1],
       dx,
@@ -90,6 +71,18 @@ export default function renderLabels(data: ExtendedData, props: ChartProps) {
       style: functionProp(props.labelStyle, index),
     };
 
-    return props.label && renderLabelElement(props.label, labelRenderProps);
+    return labelRenderProps;
   });
+}
+
+export default function renderLabels<DataEntry extends BaseDataEntry>(
+  data: ExtendedData<DataEntry>,
+  props: ChartProps<DataEntry>
+) {
+  const { label } = props;
+  if (label) {
+    return makeLabelRenderProps(data, props).map((labelRenderProps, index) => (
+      <Label key={index} renderLabel={label} labelProps={labelRenderProps} />
+    ));
+  }
 }

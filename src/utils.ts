@@ -34,3 +34,19 @@ export function functionProp<Prop, Payload>(
 ): Prop extends (...args: any) => any ? ReturnType<Prop> : Prop {
   return typeof prop === 'function' ? prop(payload) : prop;
 }
+
+export function makePropsWithDefaults<Result extends Object>(
+  props: Partial<Result>,
+  defaultProps: Result
+): Result {
+  const result: Result = Object.assign({}, defaultProps, props);
+
+  // @NOTE Object.assign doesn't default properties with undefined value (like React defaultProps does)
+  for (const key in defaultProps) {
+    if (props[key] === undefined) {
+      result[key] = defaultProps[key];
+    }
+  }
+
+  return result;
+}

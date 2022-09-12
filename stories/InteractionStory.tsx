@@ -1,12 +1,8 @@
-import React, { useState, ComponentProps } from 'react';
+import React, { useState } from 'react';
 import { action } from '@storybook/addon-actions';
-import { PieChart } from '../src';
+import { PieChart, pieChartDefaultProps, PieChartProps } from '../src';
 
-type Props = {
-  data: ComponentProps<typeof PieChart>['data'];
-};
-
-function DemoInteraction(props: Props) {
+function DemoInteraction(props: PieChartProps) {
   const [selected, setSelected] = useState<number | undefined>(0);
   const [hovered, setHovered] = useState<number | undefined>(undefined);
 
@@ -23,7 +19,7 @@ function DemoInteraction(props: Props) {
   return (
     <PieChart
       data={data}
-      radius={PieChart.defaultProps.radius - 6}
+      radius={pieChartDefaultProps.radius - 6}
       segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
       segmentsShift={(index) => (index === selected ? 6 : 1)}
       onClick={(event, index) => {

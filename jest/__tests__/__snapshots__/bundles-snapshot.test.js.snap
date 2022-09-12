@@ -38,6 +38,17 @@ exports[`Dist bundle is unchanged 1`] = `
   function functionProp(prop, payload) {
     return typeof prop === 'function' ? prop(payload) : prop;
   }
+  function makePropsWithDefaults(props, defaultProps) {
+    var result = Object.assign({}, defaultProps, props); // @NOTE Object.assign doesn't default properties with undefined value (like React defaultProps does)
+
+    for (var key in defaultProps) {
+      if (props[key] === undefined) {
+        result[key] = defaultProps[key];
+      }
+    }
+
+    return result;
+  }
 
   function sumValues(data) {
     var sum = 0;
@@ -96,7 +107,7 @@ exports[`Dist bundle is unchanged 1`] = `
     return target;
   }
 
-  function ReactMinimalPieChartLabel(_ref) {
+  function ReactMinimalPieChartDefaultLabel(_ref) {
     _ref.dataEntry;
         _ref.dataIndex;
         var props = _objectWithoutPropertiesLoose(_ref, [\\"dataEntry\\", \\"dataIndex\\"]);
@@ -104,6 +115,24 @@ exports[`Dist bundle is unchanged 1`] = `
     return /*#__PURE__*/React__default['default'].createElement(\\"text\\", Object.assign({
       dominantBaseline: \\"central\\"
     }, props));
+  }
+
+  function ReactMinimalPieChartLabel(_ref2) {
+    var renderLabel = _ref2.renderLabel,
+        labelProps = _ref2.labelProps;
+    var label = renderLabel(labelProps);
+
+    if (typeof label === 'string' || typeof label === 'number') {
+      return /*#__PURE__*/React__default['default'].createElement(ReactMinimalPieChartDefaultLabel, Object.assign({
+        key: \\"label-\\" + (labelProps.dataEntry.key || labelProps.dataIndex)
+      }, labelProps), label);
+    }
+
+    if (React__default['default'].isValidElement(label)) {
+      return label;
+    }
+
+    return null;
   }
 
   function round(number) {
@@ -138,23 +167,7 @@ exports[`Dist bundle is unchanged 1`] = `
     return 'middle';
   }
 
-  function renderLabelElement(renderLabel, labelProps) {
-    var label = renderLabel(labelProps);
-
-    if (typeof label === 'string' || typeof label === 'number') {
-      return /*#__PURE__*/React__default['default'].createElement(ReactMinimalPieChartLabel, Object.assign({
-        key: \\"label-\\" + (labelProps.dataEntry.key || labelProps.dataIndex)
-      }, labelProps), label);
-    }
-
-    if (React__default['default'].isValidElement(label)) {
-      return label;
-    }
-
-    return null;
-  }
-
-  function renderLabels(data, props) {
+  function makeLabelRenderProps(data, props) {
     return data.map(function (dataEntry, index) {
       var _functionProp;
 
@@ -180,8 +193,22 @@ exports[`Dist bundle is unchanged 1`] = `
         dataIndex: index,
         style: functionProp(props.labelStyle, index)
       };
-      return props.label && renderLabelElement(props.label, labelRenderProps);
+      return labelRenderProps;
     });
+  }
+
+  function renderLabels(data, props) {
+    var label = props.label;
+
+    if (label) {
+      return makeLabelRenderProps(data, props).map(function (labelRenderProps, index) {
+        return /*#__PURE__*/React__default['default'].createElement(ReactMinimalPieChartLabel, {
+          key: index,
+          renderLabel: label,
+          labelProps: labelRenderProps
+        });
+      });
+    }
   }
 
   var partialCircle = function partialCircle(cx, cy, r, start, end) {
@@ -338,7 +365,10 @@ exports[`Dist bundle is unchanged 1`] = `
     startAngle: 0,
     viewBoxSize: [100, 100]
   };
-  function ReactMinimalPieChart(props) {
+  function ReactMinimalPieChart(originalProps) {
+    var props = makePropsWithDefaults(originalProps, // @ts-expect-error: defaultProps.data is typed as BaseDataEntry
+    defaultProps);
+
     var _useState = React.useState(props.animate ? 0 : null),
         revealOverride = _useState[0],
         setRevealOverride = _useState[1];
@@ -371,11 +401,11 @@ exports[`Dist bundle is unchanged 1`] = `
       height: \\"100%\\",
       className: props.className,
       style: props.style
-    }, renderSegments(extendedData, props, revealOverride), props.label && renderLabels(extendedData, props), props.children);
+    }, renderSegments(extendedData, props, revealOverride), renderLabels(extendedData, props), props.children);
   }
-  ReactMinimalPieChart.defaultProps = defaultProps;
 
   exports.PieChart = ReactMinimalPieChart;
+  exports.pieChartDefaultProps = defaultProps;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

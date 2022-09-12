@@ -9,9 +9,15 @@ import type {
 import extendData from './extendData';
 import renderLabels from './renderLabels';
 import renderSegments from './renderSegments';
-import type { Data, EventHandler, LabelRenderFunction } from '../commonTypes';
+import type {
+  Data,
+  BaseDataEntry,
+  EventHandler,
+  LabelRenderFunction,
+} from '../commonTypes';
+import { makePropsWithDefaults } from '../utils';
 
-type Props = {
+export type Props<DataEntry extends BaseDataEntry = BaseDataEntry> = {
   animate?: boolean;
   animationDuration?: number;
   animationEasing?: string;
@@ -19,10 +25,10 @@ type Props = {
   center?: [number, number];
   children?: ReactNode;
   className?: string;
-  data: Data;
+  data: Data<DataEntry>;
   lengthAngle?: number;
   lineWidth?: number;
-  label?: LabelRenderFunction;
+  label?: LabelRenderFunction<DataEntry>;
   labelPosition?: number;
   labelStyle?:
     | CSSProperties
@@ -48,7 +54,7 @@ type Props = {
   viewBoxSize?: [number, number];
 };
 
-const defaultProps = {
+export const defaultProps = {
   animationDuration: 500,
   animationEasing: 'ease-out',
   center: [50, 50] as [number, number],
@@ -62,12 +68,22 @@ const defaultProps = {
   viewBoxSize: [100, 100] as [number, number],
 };
 
-export type PropsWithDefaults = Props & typeof defaultProps;
+export type PropsWithDefaults<
+  DataEntry extends BaseDataEntry
+> = Props<DataEntry> & typeof defaultProps;
 
-export function ReactMinimalPieChart(props: PropsWithDefaults) {
+export function ReactMinimalPieChart<DataEntry extends BaseDataEntry>(
+  originalProps: Props<DataEntry>
+) {
+  const props = makePropsWithDefaults<PropsWithDefaults<DataEntry>>(
+    originalProps,
+    // @ts-expect-error: defaultProps.data is typed as BaseDataEntry
+    defaultProps
+  );
   const [revealOverride, setRevealOverride] = useState(
     props.animate ? 0 : null
   );
+
   useEffect(() => {
     if (props.animate) {
       return startInitialAnimation();
@@ -101,10 +117,8 @@ export function ReactMinimalPieChart(props: PropsWithDefaults) {
       style={props.style}
     >
       {renderSegments(extendedData, props, revealOverride)}
-      {props.label && renderLabels(extendedData, props)}
+      {renderLabels(extendedData, props)}
       {props.children}
     </svg>
   );
 }
-
-ReactMinimalPieChart.defaultProps = defaultProps;

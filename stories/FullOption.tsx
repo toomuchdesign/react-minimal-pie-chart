@@ -1,11 +1,7 @@
-import React, { useState, ComponentProps } from 'react';
-import { PieChart } from '../src';
+import React, { useState } from 'react';
+import { PieChart, pieChartDefaultProps, PieChartProps } from '../src';
 
-type Props = {
-  data: ComponentProps<typeof PieChart>['data'];
-};
-
-function FullOption(props: Props) {
+function FullOption(props: PieChartProps) {
   const [selected, setSelected] = useState<number | undefined>(0);
   const [hovered, setHovered] = useState<number | undefined>(undefined);
 
@@ -29,7 +25,7 @@ function FullOption(props: Props) {
         fontSize: '8px',
       }}
       data={data}
-      radius={PieChart.defaultProps.radius - 6}
+      radius={pieChartDefaultProps.radius - 6}
       lineWidth={60}
       segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
       segmentsShift={(index) => (index === selected ? 6 : 1)}

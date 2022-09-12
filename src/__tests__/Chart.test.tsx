@@ -1,7 +1,8 @@
 // @ts-nocheck
 import React from 'react';
-import { act, render, dataMock, getArcInfo, PieChart } from './testUtils';
+import { act, render, dataMock, getArcInfo } from './testUtils';
 import { degreesToRadians, extractPercentage } from '../utils';
+import { pieChartDefaultProps } from '../../src';
 
 jest.useFakeTimers();
 
@@ -187,8 +188,8 @@ describe('Chart', () => {
       ${25}        | ${25}
     `('reveal === ${reveal}', ({ reveal, expectedRevealedPercentage }) => {
       it('re-render on did mount revealing the expected portion of segment', () => {
-        const segmentRadius = PieChart.defaultProps.radius / 2;
-        const lengthAngle = PieChart.defaultProps.lengthAngle;
+        const segmentRadius = pieChartDefaultProps.radius / 2;
+        const lengthAngle = pieChartDefaultProps.lengthAngle;
         const fullPathLength = degreesToRadians(segmentRadius) * lengthAngle;
         let hiddenPercentage;
         const initialProps = {

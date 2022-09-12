@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { PieChart } from '../src';
+import { PieChart, pieChartDefaultProps } from '../src';
 import FullOption from './FullOption';
 import InteractionStory from './InteractionStory';
 import InteractionTabStory from './InteractionTabStory';
@@ -30,7 +30,7 @@ storiesOf('Pie Chart', module)
     return (
       <PieChart
         data={dataMock}
-        radius={PieChart.defaultProps.radius - shiftSize}
+        radius={pieChartDefaultProps.radius - shiftSize}
         segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
         label={({ dataEntry }) => dataEntry.value}
         labelStyle={{

@@ -1,25 +1,28 @@
-import type { ReactElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import type { LabelRenderProps } from './Label';
 
 export type EventHandler<Event> = (event: Event, dataIndex: number) => void;
 
-export type LabelRenderFunction = (
-  labelRenderProps: LabelRenderProps
-) => number | string | ReactElement | undefined | null;
+export type LabelRenderFunction<DataEntry extends BaseDataEntry> = (
+  labelRenderProps: LabelRenderProps<DataEntry>
+) => ReactNode;
 
-export type DataEntry = {
+export type BaseDataEntry = {
   title?: string | number;
   color: string;
   value: number;
   key?: string | number;
-  [key: string]: any;
 };
 
-export type ExtendedDataEntry = DataEntry & {
+type BaseExtendedDataEntry<
+  DataEntry extends BaseDataEntry = BaseDataEntry
+> = DataEntry & {
   degrees: number;
   startAngle: number;
   percentage: number;
 };
 
-export type Data = DataEntry[];
-export type ExtendedData = ExtendedDataEntry[];
+export type Data<DataEntry extends BaseDataEntry = BaseDataEntry> = DataEntry[];
+export type ExtendedData<
+  DataEntry extends BaseDataEntry = BaseDataEntry
+> = BaseExtendedDataEntry<DataEntry>[];
