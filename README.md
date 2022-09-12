@@ -21,7 +21,7 @@ Because [Recharts][recharts-github] is awesome, but when you just need a simple 
 
 |                                                        |                                         Size<br>by Bundlefobia                                          | Benchmark Size \* | Loading time<br>on a slow 3g \* |
 | :----------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :---------------: | :-----------------------------: |
-|           react-minimal-pie-chart (_v8.2.0_)           |               [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]               |      1.83 KB      |             ~38 ms              |
+|           react-minimal-pie-chart (_v8.4.0_)           |               [![Bundle size: React minimal pie chart][bundlephobia-badge]][bundlephobia]               |      1.93 KB      |             ~39 ms              |
 |         [rechart][recharts-github] (_v1.8.5_)          |             [![Bundle size: Recharts][recharts-bundlephobia-badge]][recharts-bundlephobia]              |      96.9 KB      |            ~1900 ms             |
 |     [victory-pie][victory-pie-github] (_v34.1.3_)      |         [![Bundle size: Victory pie][victory-pie-bundlephobia-badge]][victory-pie-bundlephobia]         |      50.5 KB      |            ~1100 ms             |
 | [react-apexcharts][react-apexcharts-github] (_v1.3.7_) | [![Bundle size: React apec charts][react-apexcharts-bundlephobia-badge]][react-apexcharts-bundlephobia] |     114.6 KB      |            ~2300 ms             |
@@ -100,6 +100,12 @@ import { PieChart } from 'react-minimal-pie-chart';
 | **onMouseOver**       | `(e, segmentIndex) => void`                            | `onMouseOver` event handler for each segment                                                                                                                                                                                                             | -          |
 |  | `.oOo.oOo.oOo.oOo.oOo.oOo.oOo.` | | |
 <!-- prettier-ignore-end -->
+
+Prop types are exposed for convenience:
+
+```ts
+import type { PieChartProps } from 'react-minimal-pie-chart';
+```
 
 ### About `data` prop
 
@@ -205,7 +211,6 @@ This library uses the `stroke-dasharray` + `stroke-dashoffset` animation strateg
 
 - Consider moving storybook deployment to CI
 - Consider using `transform` to mutate segments/labels positions
-- Consider exposing a reduced chart variation including just a subset of the features
 - Consider abstracting React bindings to re-use business logic with other frameworks
 - Provide a way to supply `svg` element with any extra prop
 - Find a better solution to assign default props
