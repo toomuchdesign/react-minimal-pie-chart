@@ -2,7 +2,7 @@
   "projectName": "react-minimal-pie-chart",
   "projectOwner": "toomuchdesign",
   "files": [
-    "README.md"
+    "./packages/react/README.md"
   ],
   "imageSize": 100,
   "commit": false,

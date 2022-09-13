@@ -1,0 +1,29 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "pipeline": {
+    "compile": {
+      "outputs": ["lib", "es", "dist", "types"]
+    },
+    "test": {
+      "outputs": [],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+    },
+    "test:ts": {
+      "outputs": [],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+    },
+    "test:source": {
+      "outputs": ["coverage"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+    },
+    "test:update": {
+      "outputs": ["jest/__tests__/__snapshots__"],
+      "inputs": []
+    },
+    "test:bundles": {
+      "dependsOn": ["compile"],
+      "outputs": [],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+    }
+  }
+}

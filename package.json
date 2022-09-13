@@ -1,52 +1,22 @@
 {
   "name": "react-minimal-pie-chart",
-  "version": "8.3.0",
-  "description": "Lightweight but versatile SVG pie/donut charts for React",
-  "main": "lib/index.js",
-  "module": "es/index.js",
-  "jsnext:main": "es/index.js",
-  "browser": "dist/index.js",
-  "types": "types/index.d.ts",
-  "files": [
-    "dist",
-    "es",
-    "lib",
-    "types"
-  ],
-  "sideEffects": false,
+  "description": "Lightweight but versatile SVG pie/donut charts for React and Solid",
   "scripts": {
-    "test": "jest ./src --runInBand",
-    "test:bundles": "npm run test:bundles:snapshot && npm run test:bundles:unit && npm run test:bundles:es5 && npm run test:bundles:size",
-    "test:bundles:unit": "jest ./src --config ./jest/es.config.js && jest ./src --config ./jest/lib.config.js && jest ./src --config ./jest/dist.config.js",
-    "test:bundles:snapshot": "jest ./jest/__tests__/bundles-snapshot.test.js",
-    "test:bundles:es5": "es-check es5 './@(lib|dist)/*.js'",
-    "test:bundles:size": "size-limit",
-    "test:source": "npm run test:ts && npm t -- --coverage",
-    "test:ts": "tsc -p tsconfig.test.json",
-    "test:update": "npm run compile:source && npm run test:bundles:snapshot -- -u && git add ./jest/__tests__/__snapshots__",
-    "clean": "rm -rf lib es dist types",
-    "compile": "npm run clean && npm run compile:types && npm run compile:source",
-    "compile:source": "rollup -c",
-    "compile:types": "tsc -p tsconfig.build.json",
+    "test": "turbo run test",
+    "compile": "turbo run compile",
+    "test:ts": "turbo run test:ts",
+    "test:source": "turbo run test:source",
+    "test:bundles": "turbo run test:bundles",
+    "test:update": "turbo run test:update",
     "contrib:add": "all-contributors add",
     "contrib:generate": "all-contributors generate",
     "format": "prettier --write \"**/*.{js,ts,tsx,json,md}\"",
-    "preversion": "npm run prepare",
-    "version": "git add package.json",
-    "postversion": "git push && git push --tags",
     "prepare": "npx simple-git-hooks && npm run test:source && npm run compile && npm run test:bundles",
-    "start": "start-storybook -p 9001 -c .storybook",
-    "storybook:deploy": "storybook-to-ghpages",
-    "storybook:build": "build-storybook"
+    "start": "start-storybook -p 9001 -c ./packages/react/.storybook",
+    "storybook:build": "build-storybook -c ./packages/react/.storybook",
+    "build-storybook": "npm run storybook:build",
+    "storybook:deploy": "storybook-to-ghpages"
   },
-  "keywords": [
-    "react",
-    "pie",
-    "donough",
-    "arc",
-    "chart",
-    "typescript"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/toomuchdesign/react-minimal-pie-chart.git"
@@ -57,7 +27,6 @@
     "react": "^16.8.0 || ^17.0.0 || ^18",
     "react-dom": "^16.8.0 || ^17.0.0 || ^18"
   },
-  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/plugin-transform-react-jsx": "^7.12.12",
@@ -90,35 +59,11 @@
     "size-limit": "^5.0.5",
     "svg-partial-circle": "1.0.0",
     "svg-path-parser": "^1.1.0",
+    "turbo": "^1.4.6",
     "typescript": "^4.2.3"
   },
-  "jest": {
-    "testRegex": "/__tests__/.*\\.test\\.[jt]sx?$",
-    "testURL": "http://localhost/",
-    "testEnvironment": "jsdom",
-    "coverageReporters": [
-      "text",
-      "lcov"
-    ],
-    "collectCoverageFrom": [
-      "<rootDir>/src/**",
-      "!**/__tests__/**"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/jest.setup.js"
-    ]
-  },
-  "size-limit": [
-    {
-      "limit": "2 KB",
-      "path": "./es/index.js",
-      "ignore": [
-        "react"
-      ]
-    }
-  ],
   "simple-git-hooks": {
-    "pre-commit": "npm run test:source && npx lint-staged"
+    "pre-commits": "npm run test:source && npx lint-staged"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
@@ -128,5 +73,8 @@
     "*.{json,md}": [
       "prettier --write"
     ]
-  }
+  },
+  "workspaces": [
+    "packages/react"
+  ]
 }
