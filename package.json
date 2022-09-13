@@ -23,10 +23,6 @@
   },
   "author": "Andrea Carraro <me@andreacarraro.it>",
   "license": "MIT",
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ^18",
-    "react-dom": "^16.8.0 || ^17.0.0 || ^18"
-  },
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/plugin-transform-react-jsx": "^7.12.12",
@@ -35,7 +31,6 @@
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-node-resolve": "^11.2.0",
-    "@schwingbat/relative-angle": "^1.0.0",
     "@size-limit/preset-small-lib": "^5.0.5",
     "@storybook/addon-actions": "^6.1.21",
     "@storybook/react": "^6.1.21",
@@ -51,14 +46,9 @@
     "lint-staged": "^11.1.2",
     "prettier": "^2.2.1",
     "prop-types": "^15.7.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-tooltip": "^4.2.7",
     "rollup": "^2.40.0",
     "simple-git-hooks": "^2.4.1",
     "size-limit": "^5.0.5",
-    "svg-partial-circle": "1.0.0",
-    "svg-path-parser": "^1.1.0",
     "turbo": "^1.4.6",
     "typescript": "^4.2.3"
   },
