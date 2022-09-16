@@ -14,8 +14,8 @@ import type {
   BaseDataEntry,
   EventHandler,
   LabelRenderFunction,
-} from '../commonTypes';
-import { makePropsWithDefaults } from '../utils';
+} from '../../../shared/commonTypes';
+import { makePropsWithDefaults } from '../../../shared/utils';
 
 export type Props<DataEntry extends BaseDataEntry = BaseDataEntry> = {
   animate?: boolean;
@@ -72,6 +72,27 @@ export type PropsWithDefaults<
   DataEntry extends BaseDataEntry
 > = Props<DataEntry> & typeof defaultProps;
 
+function initialSideEffect({
+  sideEffect,
+}: {
+  sideEffect: () => void;
+}): () => void {
+  let timerId: NodeJS.Timeout | null;
+  let RAFId: number | null;
+  timerId = setTimeout(() => {
+    timerId = null;
+    RAFId = requestAnimationFrame(() => {
+      RAFId = null;
+      sideEffect();
+    });
+  });
+
+  return () => {
+    timerId && clearTimeout(timerId);
+    RAFId && cancelAnimationFrame(RAFId);
+  };
+}
+
 export function ReactMinimalPieChart<DataEntry extends BaseDataEntry>(
   originalProps: Props<DataEntry>
 ) {
@@ -86,24 +107,12 @@ export function ReactMinimalPieChart<DataEntry extends BaseDataEntry>(
 
   useEffect(() => {
     if (props.animate) {
-      return startInitialAnimation();
-    }
-
-    function startInitialAnimation() {
-      let animationTimerId: NodeJS.Timeout | null;
-      let animationRAFId: number | null;
-      animationTimerId = setTimeout(() => {
-        animationTimerId = null;
-        animationRAFId = requestAnimationFrame(() => {
-          animationRAFId = null;
-          setRevealOverride(null); // Start animation
-        });
+      return initialSideEffect({
+        sideEffect: () => {
+          // Trigger initial animation
+          setRevealOverride(null);
+        },
       });
-
-      return () => {
-        animationTimerId && clearTimeout(animationTimerId);
-        animationRAFId && cancelAnimationFrame(animationRAFId);
-      };
     }
   }, []);
 
