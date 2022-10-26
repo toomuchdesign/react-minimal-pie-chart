@@ -17,6 +17,27 @@ import type {
 } from '../commonTypes';
 import { makePropsWithDefaults } from '../utils';
 
+function useEffectAfterFirstPaint(effect?: () => void) {
+  useEffect(() => {
+    if (effect) {
+      let timerId: NodeJS.Timeout | null;
+      let RAFId: number | null;
+      timerId = setTimeout(() => {
+        timerId = null;
+        RAFId = requestAnimationFrame(() => {
+          effect();
+          RAFId = null;
+        });
+      });
+
+      return () => {
+        timerId && clearTimeout(timerId);
+        RAFId && cancelAnimationFrame(RAFId);
+      };
+    }
+  }, []);
+}
+
 export type Props<DataEntry extends BaseDataEntry = BaseDataEntry> = {
   animate?: boolean;
   animationDuration?: number;
@@ -84,28 +105,14 @@ export function ReactMinimalPieChart<DataEntry extends BaseDataEntry>(
     props.animate ? 0 : null
   );
 
-  useEffect(() => {
-    if (props.animate) {
-      return startInitialAnimation();
-    }
-
-    function startInitialAnimation() {
-      let animationTimerId: NodeJS.Timeout | null;
-      let animationRAFId: number | null;
-      animationTimerId = setTimeout(() => {
-        animationTimerId = null;
-        animationRAFId = requestAnimationFrame(() => {
-          animationRAFId = null;
-          setRevealOverride(null); // Start animation
-        });
-      });
-
-      return () => {
-        animationTimerId && clearTimeout(animationTimerId);
-        animationRAFId && cancelAnimationFrame(animationRAFId);
-      };
-    }
-  }, []);
+  useEffectAfterFirstPaint(
+    props.animate
+      ? () => {
+          // Trigger initial animation
+          setRevealOverride(null);
+        }
+      : undefined
+  );
 
   const extendedData = extendData(props);
   return (
