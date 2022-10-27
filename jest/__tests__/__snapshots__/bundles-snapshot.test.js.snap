@@ -107,25 +107,19 @@ exports[`Dist bundle is unchanged 1`] = `
     return target;
   }
 
-  function ReactMinimalPieChartDefaultLabel(_ref) {
-    _ref.dataEntry;
-        _ref.dataIndex;
-        var props = _objectWithoutPropertiesLoose(_ref, [\\"dataEntry\\", \\"dataIndex\\"]);
-
-    return /*#__PURE__*/React__default['default'].createElement(\\"text\\", Object.assign({
-      dominantBaseline: \\"central\\"
-    }, props));
-  }
-
-  function ReactMinimalPieChartLabel(_ref2) {
-    var renderLabel = _ref2.renderLabel,
-        labelProps = _ref2.labelProps;
-    var label = renderLabel(labelProps);
+  function ReactMinimalPieChartLabel(_ref) {
+    var renderLabel = _ref.renderLabel,
+        labelProps = _ref.labelProps;
+    var label = renderLabel(labelProps); // Default label
 
     if (typeof label === 'string' || typeof label === 'number') {
-      return /*#__PURE__*/React__default['default'].createElement(ReactMinimalPieChartDefaultLabel, Object.assign({
-        key: \\"label-\\" + (labelProps.dataEntry.key || labelProps.dataIndex)
-      }, labelProps), label);
+      labelProps.dataEntry;
+          labelProps.dataIndex;
+          var props = _objectWithoutPropertiesLoose(labelProps, [\\"dataEntry\\", \\"dataIndex\\"]);
+
+      return /*#__PURE__*/React__default['default'].createElement(\\"text\\", Object.assign({
+        dominantBaseline: \\"central\\"
+      }, props), label);
     }
 
     if (React__default['default'].isValidElement(label)) {
@@ -203,7 +197,7 @@ exports[`Dist bundle is unchanged 1`] = `
     if (label) {
       return makeLabelRenderProps(data, props).map(function (labelRenderProps, index) {
         return /*#__PURE__*/React__default['default'].createElement(ReactMinimalPieChartLabel, {
-          key: index,
+          key: \\"label-\\" + (labelRenderProps.dataEntry.key || index),
           renderLabel: label,
           labelProps: labelRenderProps
         });
@@ -352,6 +346,26 @@ exports[`Dist bundle is unchanged 1`] = `
     return paths;
   }
 
+  function useEffectAfterFirstPaint(effect) {
+    React.useEffect(function () {
+      if (effect) {
+        var timerId;
+        var RAFId;
+        timerId = setTimeout(function () {
+          timerId = null;
+          RAFId = requestAnimationFrame(function () {
+            effect();
+            RAFId = null;
+          });
+        });
+        return function () {
+          timerId && clearTimeout(timerId);
+          RAFId && cancelAnimationFrame(RAFId);
+        };
+      }
+    }, []);
+  }
+
   var defaultProps = {
     animationDuration: 500,
     animationEasing: 'ease-out',
@@ -373,27 +387,10 @@ exports[`Dist bundle is unchanged 1`] = `
         revealOverride = _useState[0],
         setRevealOverride = _useState[1];
 
-    React.useEffect(function () {
-      if (props.animate) {
-        return startInitialAnimation();
-      }
-
-      function startInitialAnimation() {
-        var animationTimerId;
-        var animationRAFId;
-        animationTimerId = setTimeout(function () {
-          animationTimerId = null;
-          animationRAFId = requestAnimationFrame(function () {
-            animationRAFId = null;
-            setRevealOverride(null); // Start animation
-          });
-        });
-        return function () {
-          animationTimerId && clearTimeout(animationTimerId);
-          animationRAFId && cancelAnimationFrame(animationRAFId);
-        };
-      }
-    }, []);
+    useEffectAfterFirstPaint(props.animate ? function () {
+      // Trigger initial animation
+      setRevealOverride(null);
+    } : undefined);
     var extendedData = extendData(props);
     return /*#__PURE__*/React__default['default'].createElement(\\"svg\\", {
       viewBox: \\"0 0 \\" + props.viewBoxSize[0] + \\" \\" + props.viewBoxSize[1],

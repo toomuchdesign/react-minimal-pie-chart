@@ -1,7 +1,5 @@
-import type { ReactElement, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import type { LabelRenderProps } from './Label';
-
-export type EventHandler<Event> = (event: Event, dataIndex: number) => void;
 
 export type LabelRenderFunction<DataEntry extends BaseDataEntry> = (
   labelRenderProps: LabelRenderProps<DataEntry>
