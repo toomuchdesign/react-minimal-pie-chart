@@ -82,7 +82,11 @@ export default function renderLabels<DataEntry extends BaseDataEntry>(
   const { label } = props;
   if (label) {
     return makeLabelRenderProps(data, props).map((labelRenderProps, index) => (
-      <Label key={index} renderLabel={label} labelProps={labelRenderProps} />
+      <Label
+        key={`label-${labelRenderProps.dataEntry.key || index}`}
+        renderLabel={label}
+        labelProps={labelRenderProps}
+      />
     ));
   }
 }

@@ -107,25 +107,19 @@ exports[`Dist bundle is unchanged 1`] = `
     return target;
   }
 
-  function ReactMinimalPieChartDefaultLabel(_ref) {
-    _ref.dataEntry;
-        _ref.dataIndex;
-        var props = _objectWithoutPropertiesLoose(_ref, [\\"dataEntry\\", \\"dataIndex\\"]);
-
-    return /*#__PURE__*/React__default['default'].createElement(\\"text\\", Object.assign({
-      dominantBaseline: \\"central\\"
-    }, props));
-  }
-
-  function ReactMinimalPieChartLabel(_ref2) {
-    var renderLabel = _ref2.renderLabel,
-        labelProps = _ref2.labelProps;
-    var label = renderLabel(labelProps);
+  function ReactMinimalPieChartLabel(_ref) {
+    var renderLabel = _ref.renderLabel,
+        labelProps = _ref.labelProps;
+    var label = renderLabel(labelProps); // Default label
 
     if (typeof label === 'string' || typeof label === 'number') {
-      return /*#__PURE__*/React__default['default'].createElement(ReactMinimalPieChartDefaultLabel, Object.assign({
-        key: \\"label-\\" + (labelProps.dataEntry.key || labelProps.dataIndex)
-      }, labelProps), label);
+      labelProps.dataEntry;
+          labelProps.dataIndex;
+          var props = _objectWithoutPropertiesLoose(labelProps, [\\"dataEntry\\", \\"dataIndex\\"]);
+
+      return /*#__PURE__*/React__default['default'].createElement(\\"text\\", Object.assign({
+        dominantBaseline: \\"central\\"
+      }, props), label);
     }
 
     if (React__default['default'].isValidElement(label)) {
@@ -203,7 +197,7 @@ exports[`Dist bundle is unchanged 1`] = `
     if (label) {
       return makeLabelRenderProps(data, props).map(function (labelRenderProps, index) {
         return /*#__PURE__*/React__default['default'].createElement(ReactMinimalPieChartLabel, {
-          key: index,
+          key: \\"label-\\" + (labelRenderProps.dataEntry.key || index),
           renderLabel: label,
           labelProps: labelRenderProps
         });

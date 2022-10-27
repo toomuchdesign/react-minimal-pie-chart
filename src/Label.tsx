@@ -17,14 +17,6 @@ export type LabelRenderProps<DataEntry extends BaseDataEntry> = {
   style?: CSSProperties;
 };
 
-function ReactMinimalPieChartDefaultLabel<DataEntry extends BaseDataEntry>({
-  dataEntry,
-  dataIndex,
-  ...props
-}: SVGProps<SVGTextElement> & LabelRenderProps<DataEntry>) {
-  return <text dominantBaseline="central" {...props} />;
-}
-
 export default function ReactMinimalPieChartLabel<
   DataEntry extends BaseDataEntry
 >({
@@ -35,14 +27,14 @@ export default function ReactMinimalPieChartLabel<
   labelProps: LabelRenderProps<DataEntry>;
 }) {
   const label = renderLabel(labelProps);
+
+  // Default label
   if (typeof label === 'string' || typeof label === 'number') {
+    const { dataEntry, dataIndex, ...props } = labelProps;
     return (
-      <ReactMinimalPieChartDefaultLabel
-        key={`label-${labelProps.dataEntry.key || labelProps.dataIndex}`}
-        {...labelProps}
-      >
+      <text dominantBaseline="central" {...props}>
         {label}
-      </ReactMinimalPieChartDefaultLabel>
+      </text>
     );
   }
 
