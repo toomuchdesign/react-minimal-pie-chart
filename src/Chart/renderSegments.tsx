@@ -1,5 +1,5 @@
 import React from 'react';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, SyntheticEvent } from 'react';
 import Path from '../Path';
 import { extractPercentage, functionProp, isNumber } from '../utils';
 import type { ExtendedData, BaseDataEntry } from '../commonTypes';
@@ -28,10 +28,11 @@ function getRevealValue<Reveal>(props: { reveal?: Reveal; animate?: boolean }) {
   return props.reveal;
 }
 
-function makeEventHandler<Event, EventHandler, Payload>(
-  eventHandler: undefined | (EventHandler & Function),
-  payload: Payload
-) {
+function makeEventHandler<
+  Event extends SyntheticEvent,
+  Payload,
+  EventHandler extends (event: Event, payload: Payload) => void
+>(eventHandler: undefined | EventHandler, payload: Payload) {
   return (
     eventHandler &&
     ((e: Event) => {

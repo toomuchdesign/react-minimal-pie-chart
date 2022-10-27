@@ -9,12 +9,7 @@ import type {
 import extendData from './extendData';
 import renderLabels from './renderLabels';
 import renderSegments from './renderSegments';
-import type {
-  Data,
-  BaseDataEntry,
-  EventHandler,
-  LabelRenderFunction,
-} from '../commonTypes';
+import type { Data, BaseDataEntry, LabelRenderFunction } from '../commonTypes';
 import { makePropsWithDefaults } from '../utils';
 
 function useEffectAfterFirstPaint(effect?: () => void) {
@@ -54,12 +49,12 @@ export type Props<DataEntry extends BaseDataEntry = BaseDataEntry> = {
   labelStyle?:
     | CSSProperties
     | ((dataIndex: number) => CSSProperties | undefined);
-  onBlur?: EventHandler<FocusEvent>;
-  onClick?: EventHandler<MouseEvent>;
-  onFocus?: EventHandler<FocusEvent>;
-  onKeyDown?: EventHandler<KeyboardEvent>;
-  onMouseOut?: EventHandler<MouseEvent>;
-  onMouseOver?: EventHandler<MouseEvent>;
+  onBlur?: (event: FocusEvent, dataIndex: number) => void;
+  onClick?: (event: MouseEvent, dataIndex: number) => void;
+  onFocus?: (event: FocusEvent, dataIndex: number) => void;
+  onKeyDown?: (event: KeyboardEvent, dataIndex: number) => void;
+  onMouseOut?: (event: MouseEvent, dataIndex: number) => void;
+  onMouseOver?: (event: MouseEvent, dataIndex: number) => void;
   paddingAngle?: number;
   radius?: number;
   reveal?: number;
