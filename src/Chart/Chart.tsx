@@ -12,27 +12,6 @@ import renderSegments from './renderSegments';
 import type { Data, BaseDataEntry, LabelRenderFunction } from '../commonTypes';
 import { makePropsWithDefaults } from '../utils';
 
-function useEffectAfterFirstPaint(effect?: () => void) {
-  useEffect(() => {
-    if (effect) {
-      let timerId: NodeJS.Timeout | null;
-      let RAFId: number | null;
-      timerId = setTimeout(() => {
-        timerId = null;
-        RAFId = requestAnimationFrame(() => {
-          effect();
-          RAFId = null;
-        });
-      });
-
-      return () => {
-        timerId && clearTimeout(timerId);
-        RAFId && cancelAnimationFrame(RAFId);
-      };
-    }
-  }, []);
-}
-
 export type Props<DataEntry extends BaseDataEntry = BaseDataEntry> = {
   animate?: boolean;
   animationDuration?: number;
@@ -100,14 +79,12 @@ export function ReactMinimalPieChart<DataEntry extends BaseDataEntry>(
     props.animate ? 0 : null
   );
 
-  useEffectAfterFirstPaint(
-    props.animate
-      ? () => {
-          // Trigger initial animation
-          setRevealOverride(null);
-        }
-      : undefined
-  );
+  useEffect(() => {
+    if (props.animate) {
+      // Trigger initial animation
+      setRevealOverride(null);
+    }
+  }, []);
 
   const extendedData = extendData(props);
   return (
