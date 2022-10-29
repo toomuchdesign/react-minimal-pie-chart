@@ -1,7 +1,20 @@
 // https://stackoverflow.com/questions/9017100/calculate-center-of-svg-arc
 // https://github.com/Ghostkeeper/SVGToolpathReader/blob/a2bbe90da64e6cd9d54fec553f61ba941001e85d/Parser.py#L493
 // @TODO Find a more reliable solution
-export function getArcCenter(x1, y1, rx, ry, phi, fA, fS, x2, y2) {
+export function getArcCenter(
+  x1: number,
+  y1: number,
+  rx: number,
+  ry: number,
+  phi: number,
+  fA: number,
+  fS: number,
+  x2: number,
+  y2: number
+): {
+  x: number;
+  y: number;
+} {
   var cx, cy;
 
   if (rx < 0) {

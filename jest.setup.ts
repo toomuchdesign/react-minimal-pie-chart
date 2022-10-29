@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/extend-expect';
 
 // https://stackoverflow.com/a/53464807/2902821
 expect.extend({
-  toEqualWithRoundingError(actual, expected, decimals = 12) {
+  toEqualWithRoundingError(actual: number, expected: number, decimals = 12) {
     const pass = Math.abs(expected - actual) < Math.pow(10, -decimals) / 2;
     if (pass) {
       return {

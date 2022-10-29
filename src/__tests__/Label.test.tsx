@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { render, dataMock, getArcInfo } from './testUtils';
 import {
@@ -6,9 +5,9 @@ import {
   extractPercentage,
   shiftVectorAlongAngle,
 } from '../utils';
-import { pieChartDefaultProps } from '../../src';
+import { pieChartDefaultProps, PieChartProps } from '../../src';
 
-function getExpectedLabelRenderProps(dataEntry) {
+function getExpectedLabelRenderProps(dataEntry: PieChartProps['data'][number]) {
   return {
     x: expect.any(Number),
     y: expect.any(Number),
@@ -43,13 +42,13 @@ describe('Label', () => {
     describe('returning a value', () => {
       const labels = [0, null, 'label'];
       describe.each`
-        description    | label                                   | expectedLabels
-        ${'number'}    | ${() => -5}                             | ${[-5, -5, -5]}
-        ${'number'}    | ${({ dataIndex }) => dataIndex}         | ${[0, 1, 2]}
-        ${'string'}    | ${() => 'label'}                        | ${['label', 'label', 'label']}
-        ${'null'}      | ${() => null}                           | ${[]}
-        ${'undefined'} | ${() => undefined}                      | ${[]}
-        ${'mixed'}     | ${({ dataIndex }) => labels[dataIndex]} | ${[0, 'label']}
+        description    | label                                                          | expectedLabels
+        ${'number'}    | ${() => -5}                                                    | ${[-5, -5, -5]}
+        ${'number'}    | ${({ dataIndex }: { dataIndex: number }) => dataIndex}         | ${[0, 1, 2]}
+        ${'string'}    | ${() => 'label'}                                               | ${['label', 'label', 'label']}
+        ${'null'}      | ${() => null}                                                  | ${[]}
+        ${'undefined'} | ${() => undefined}                                             | ${[]}
+        ${'mixed'}     | ${({ dataIndex }: { dataIndex: number }) => labels[dataIndex]} | ${[0, 'label']}
       `('$description', ({ label, expectedLabels }) => {
         it('renders expected <text> elements with expected content', () => {
           const { container } = render({ label });
@@ -72,7 +71,7 @@ describe('Label', () => {
         });
 
         container.querySelectorAll('text').forEach((label, index) => {
-          expect(label).toHaveTextContent(index);
+          expect(label).toHaveTextContent(`${index}`);
         });
       });
     });
@@ -83,9 +82,9 @@ describe('Label', () => {
     const labelPosition = 5;
     const expectedDistanceFromCenter = extractPercentage(radius, labelPosition);
     describe.each`
-      description      | segmentsShift       | expectedSegmentsShift
-      ${'as number'}   | ${1}                | ${[1, 1, 1]}
-      ${'as function'} | ${(index) => index} | ${[0, 1, 2]}
+      description      | segmentsShift               | expectedSegmentsShift
+      ${'as number'}   | ${1}                        | ${[1, 1, 1]}
+      ${'as function'} | ${(index: number) => index} | ${[0, 1, 2]}
     `(
       '+ segmentShift $description',
       ({ segmentsShift, expectedSegmentsShift }) => {
@@ -183,7 +182,7 @@ describe('Label', () => {
       'Label $description',
       ({ labelPosition, startAngle, expectedAlignment }) => {
         const { getByText } = render({
-          data: [{ value: 1 }],
+          data: [{ value: 1, color: 'red' }],
           lineWidth,
           lengthAngle,
           startAngle,

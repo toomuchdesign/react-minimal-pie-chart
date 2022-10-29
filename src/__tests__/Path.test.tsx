@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { render, dataMock, getArcInfo, fireEvent } from './testUtils';
 import {
   bisectorAngle,
@@ -19,7 +18,10 @@ describe('Path', () => {
 
   it('get empty "d" attributes when data values sum equals 0', () => {
     const { container } = render({
-      data: [{ value: 0 }, { value: 0 }],
+      data: [
+        { value: 0, color: 'red' },
+        { value: 0, color: 'green' },
+      ],
     });
     const paths = container.querySelectorAll('path');
     expect(paths.length).toEqual(2);
@@ -51,11 +53,11 @@ describe('Path', () => {
 
   describe('segmentsStyle prop', () => {
     describe.each`
-      description      | segmentsStyle                  | expectedStyle
-      ${'undefined'}   | ${undefined}                   | ${null}
-      ${'as object'}   | ${{ color: 'green' }}          | ${{ color: 'green' }}
-      ${'as function'} | ${(i) => ({ color: 'green' })} | ${{ color: 'green' }}
-      ${'as function'} | ${jest.fn((i) => undefined)}   | ${null}
+      description      | segmentsStyle                              | expectedStyle
+      ${'undefined'}   | ${undefined}                               | ${null}
+      ${'as object'}   | ${{ color: 'green' }}                      | ${{ color: 'green' }}
+      ${'as function'} | ${(index: number) => ({ color: 'green' })} | ${{ color: 'green' }}
+      ${'as function'} | ${jest.fn((i) => undefined)}               | ${null}
     `('$description', ({ segmentsStyle, expectedStyle }) => {
       if (jest.isMockFunction(segmentsStyle)) {
         it('gets called with expected arguments', () => {
@@ -86,10 +88,10 @@ describe('Path', () => {
      * 3- Compare shifted and non-shifted segments info
      */
     describe.each`
-      description      | segmentsShift       | expectedSegmentsShift
-      ${'as number'}   | ${1}                | ${[1, 1, 1]}
-      ${'as function'} | ${(index) => index} | ${[0, 1, 2]}
-      ${'as function'} | ${jest.fn()}        | ${[0, 0, 0]}
+      description      | segmentsShift               | expectedSegmentsShift
+      ${'as number'}   | ${1}                        | ${[1, 1, 1]}
+      ${'as function'} | ${(index: number) => index} | ${[0, 1, 2]}
+      ${'as function'} | ${jest.fn()}                | ${[0, 0, 0]}
     `('$description', ({ segmentsShift, expectedSegmentsShift }) => {
       if (jest.isMockFunction(segmentsShift)) {
         it('gets called with expected arguments', () => {
@@ -158,7 +160,7 @@ describe('Path', () => {
 
   describe('reveal prop', () => {
     const pathLength = degreesToRadians(25) * 360;
-    const singleEntryDataMock = [...dataMock[0]];
+    const singleEntryDataMock = [dataMock[0]];
 
     describe('undefined', () => {
       it('render a fully revealed path without "strokeDasharray" nor "strokeDashoffset"', () => {
