@@ -1,9 +1,14 @@
-import parseSVG from 'svg-path-parser';
+import { parseSVG } from 'svg-path-parser';
 import { degrees as getDegrees } from '@schwingbat/relative-angle';
 import { getArcCenter } from './getArcCenter';
 
-function getAbsoluteAngle(radius, point) {
-  const relativeAngle = getDegrees(radius, point);
+type Point = {
+  x: number;
+  y: number;
+};
+
+function getAbsoluteAngle(center: Point, point: Point): number {
+  const relativeAngle = getDegrees(center, point);
   if (relativeAngle < 0) {
     return 360 + relativeAngle;
   }
@@ -15,9 +20,18 @@ function getAbsoluteAngle(radius, point) {
  * - Paths with non-integer center/startAngle/lengthAngle values
  *   generate respective values with rounding issues
  */
-export function getArcInfo(element) {
+export function getArcInfo(element: Element) {
   const d = element.getAttribute('d');
+
+  if (!d) {
+    throw new Error('Provided element must have a "d" attribute');
+  }
+
   const [moveto, arc] = parseSVG(d);
+
+  if (moveto.command !== 'moveto' || arc.command !== 'elliptical arc') {
+    throw new Error('Provided path is not the section of a circumference');
+  }
 
   if (arc.rx !== arc.ry) {
     throw new Error('Provided path is not the section of a circumference');

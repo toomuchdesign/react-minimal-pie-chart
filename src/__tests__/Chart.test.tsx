@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { act, render, dataMock, getArcInfo } from './testUtils';
 import { degreesToRadians, extractPercentage } from '../utils';
@@ -7,7 +6,8 @@ import { pieChartDefaultProps } from '../../src';
 jest.useFakeTimers();
 
 beforeAll(() => {
-  global.requestAnimationFrame = (callback) => {
+  /// @ts-expect-error: this is a partial mock
+  global.requestAnimationFrame = (callback: () => void) => {
     callback();
     return 'id';
   };
@@ -22,6 +22,8 @@ describe('Chart', () => {
         children: <defs />,
       });
       const root = container.firstChild;
+
+      // @ts-expect-error: ChildNode type doesn't have tagName prop
       expect(root.tagName).toBe('svg');
       expect(root).toHaveClass('foo');
       expect(root).toHaveStyle({ color: 'green' });
@@ -118,7 +120,7 @@ describe('Chart', () => {
         lengthAngle: 200,
         background: 'green',
       });
-      const paths = container.querySelectorAll('path');
+      const paths = Array.from(container.querySelectorAll('path'));
       const [background, segment] = paths;
       const backgroundInfo = getArcInfo(background);
       const segmentInfo = getArcInfo(segment);
@@ -145,7 +147,7 @@ describe('Chart', () => {
         background: 'green',
         rounded: true,
       });
-      const paths = container.querySelectorAll('path');
+      const paths = Array.from(container.querySelectorAll('path'));
       const [background] = paths;
       expect(paths.length).toBe(dataMock.length + 1);
       expect(background).toHaveAttribute('stroke-linecap', 'round');
@@ -193,11 +195,11 @@ describe('Chart', () => {
         const fullPathLength = degreesToRadians(segmentRadius) * lengthAngle;
         let hiddenPercentage;
         const initialProps = {
-          data: [...dataMock[0]],
+          data: [dataMock[0]],
           animate: true,
           reveal,
         };
-        const { container, rerender } = render(initialProps);
+        const { container, reRender } = render(initialProps);
         const path = container.querySelector('path');
 
         // Paths are hidden
@@ -223,7 +225,7 @@ describe('Chart', () => {
 
         // Update reveal prop after initial animation
         const newReveal = 77;
-        rerender({
+        reRender({
           ...initialProps,
           reveal: newReveal,
         });
@@ -251,6 +253,7 @@ describe('Chart', () => {
         jest.runAllTimers();
       });
 
+      // @ts-expect-error: This is a Jest mocke
       console.error.mockRestore();
       expect(consoleError).not.toHaveBeenCalled();
     });
@@ -258,7 +261,10 @@ describe('Chart', () => {
     describe('stroke-dashoffset attribute', () => {
       it("doesn't generate zero rounding issues after animation (GitHub: #133)", () => {
         const { container } = render({
-          data: [{ value: 1 }, { value: 1.6 }],
+          data: [
+            { value: 1, color: 'red' },
+            { value: 1.6, color: 'blue' },
+          ],
           animate: true,
         });
 
