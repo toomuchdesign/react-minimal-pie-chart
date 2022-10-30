@@ -3,16 +3,6 @@ import { act, render, dataMock, getArcInfo } from './testUtils';
 import { degreesToRadians, extractPercentage } from '../utils';
 import { pieChartDefaultProps } from '../../src';
 
-jest.useFakeTimers();
-
-beforeAll(() => {
-  /// @ts-expect-error: this is a partial mock
-  global.requestAnimationFrame = (callback: () => void) => {
-    callback();
-    return 'id';
-  };
-});
-
 describe('Chart', () => {
   describe('SVG root element', () => {
     it('receive className, style and children props', () => {
@@ -187,13 +177,12 @@ describe('Chart', () => {
     describe.each`
       reveal       | expectedRevealedPercentage
       ${undefined} | ${100}
-      ${25}        | ${25}
-    `('reveal === ${reveal}', ({ reveal, expectedRevealedPercentage }) => {
-      it('re-render on did mount revealing the expected portion of segment', () => {
+    `('reveal === $reveal', ({ reveal, expectedRevealedPercentage }) => {
+      it('re-renders on mount revealing the expected portion of segment', () => {
         const segmentRadius = pieChartDefaultProps.radius / 2;
         const lengthAngle = pieChartDefaultProps.lengthAngle;
         const fullPathLength = degreesToRadians(segmentRadius) * lengthAngle;
-        let hiddenPercentage;
+        let expectedHiddenPercentage;
         const initialProps = {
           data: [dataMock[0]],
           animate: true,
@@ -202,25 +191,26 @@ describe('Chart', () => {
         const { container, reRender } = render(initialProps);
         const path = container.querySelector('path');
 
-        // Paths are hidden
-        hiddenPercentage = 100;
-        expect(path).toHaveAttribute('stroke-dasharray', `${fullPathLength}`);
-        expect(path).toHaveAttribute(
-          'stroke-dashoffset',
-          `${extractPercentage(fullPathLength, hiddenPercentage)}`
-        );
-
-        // Trigger async initial animation
-        act(() => {
-          jest.runAllTimers();
-        });
+        /**
+         * @NOTE testing library fires useEffect sync and therefore we can't
+         * assert against the DOM before useEffect is executed
+         *
+         * @TODO Find a way to ensure that segments are hidden on mount:
+         *
+         * expectedHiddenPercentage = 100;
+         * expect(path).toHaveAttribute('stroke-dasharray', `${fullPathLength}`);
+         * expect(path).toHaveAttribute(
+         *   'stroke-dashoffset',
+         *   `${extractPercentage(fullPathLength, expectedHiddenPercentage)}`
+         * );
+         */
 
         // Paths are revealed
-        hiddenPercentage = 100 - expectedRevealedPercentage;
+        expectedHiddenPercentage = 100 - expectedRevealedPercentage;
         expect(path).toHaveAttribute('stroke-dasharray', `${fullPathLength}`);
         expect(path).toHaveAttribute(
           'stroke-dashoffset',
-          `${extractPercentage(fullPathLength, hiddenPercentage)}`
+          `${extractPercentage(fullPathLength, expectedHiddenPercentage)}`
         );
 
         // Update reveal prop after initial animation
@@ -230,32 +220,13 @@ describe('Chart', () => {
           reveal: newReveal,
         });
 
-        hiddenPercentage = 100 - newReveal;
+        expectedHiddenPercentage = 100 - newReveal;
         expect(path).toHaveAttribute('stroke-dasharray', `${fullPathLength}`);
         expect(path).toHaveAttribute(
           'stroke-dashoffset',
-          `${extractPercentage(fullPathLength, hiddenPercentage)}`
+          `${extractPercentage(fullPathLength, expectedHiddenPercentage)}`
         );
       });
-    });
-
-    it("don't re-render when component is unmounted", () => {
-      // Simulate edge case of animation fired after component was unmounted
-      // See: https://github.com/toomuchdesign/react-minimal-pie-chart/issues/8
-      const consoleError = jest.spyOn(console, 'error');
-      const { unmount } = render({
-        animate: true,
-      });
-
-      unmount();
-      // Trigger async initial animation
-      act(() => {
-        jest.runAllTimers();
-      });
-
-      // @ts-expect-error: This is a Jest mocke
-      console.error.mockRestore();
-      expect(consoleError).not.toHaveBeenCalled();
     });
 
     describe('stroke-dashoffset attribute', () => {
@@ -266,11 +237,6 @@ describe('Chart', () => {
             { value: 1.6, color: 'blue' },
           ],
           animate: true,
-        });
-
-        // Trigger async initial animation
-        act(() => {
-          jest.runAllTimers();
         });
 
         // Expect all segments to be fully exposed

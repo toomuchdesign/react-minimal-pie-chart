@@ -346,26 +346,6 @@ exports[`Dist bundle is unchanged 1`] = `
     return paths;
   }
 
-  function useEffectAfterFirstPaint(effect) {
-    React.useEffect(function () {
-      if (effect) {
-        var timerId;
-        var RAFId;
-        timerId = setTimeout(function () {
-          timerId = null;
-          RAFId = requestAnimationFrame(function () {
-            effect();
-            RAFId = null;
-          });
-        });
-        return function () {
-          timerId && clearTimeout(timerId);
-          RAFId && cancelAnimationFrame(RAFId);
-        };
-      }
-    }, []);
-  }
-
   var defaultProps = {
     animationDuration: 500,
     animationEasing: 'ease-out',
@@ -387,10 +367,12 @@ exports[`Dist bundle is unchanged 1`] = `
         revealOverride = _useState[0],
         setRevealOverride = _useState[1];
 
-    useEffectAfterFirstPaint(props.animate ? function () {
-      // Trigger initial animation
-      setRevealOverride(null);
-    } : undefined);
+    React.useEffect(function () {
+      if (props.animate) {
+        // Trigger initial animation
+        setRevealOverride(null);
+      }
+    }, []);
     var extendedData = extendData(props);
     return /*#__PURE__*/React__default['default'].createElement(\\"svg\\", {
       viewBox: \\"0 0 \\" + props.viewBoxSize[0] + \\" \\" + props.viewBoxSize[1],
