@@ -15,7 +15,7 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "test": "jest ./src --runInBand",
+    "test": "jest ./src",
     "test:bundles": "npm run test:bundles:snapshot && npm run test:bundles:unit && npm run test:bundles:es5 && npm run test:bundles:size",
     "test:bundles:unit": "jest ./src --config ./jest/es.config.js && jest ./src --config ./jest/lib.config.js && jest ./src --config ./jest/dist.config.js",
     "test:bundles:snapshot": "jest ./jest/__tests__/bundles-snapshot.test.js",
