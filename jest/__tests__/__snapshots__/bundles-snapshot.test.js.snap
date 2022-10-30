@@ -5,11 +5,7 @@ exports[`Dist bundle is unchanged 1`] = `
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
   typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.ReactMinimalPieChart = {}, global.React));
-}(this, (function (exports, React) { 'use strict';
-
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-  var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+})(this, (function (exports, React) { 'use strict';
 
   function degreesToRadians(degrees) {
     return degrees * Math.PI / 180;
@@ -39,34 +35,32 @@ exports[`Dist bundle is unchanged 1`] = `
     return typeof prop === 'function' ? prop(payload) : prop;
   }
   function makePropsWithDefaults(props, defaultProps) {
-    var result = Object.assign({}, defaultProps, props); // @NOTE Object.assign doesn't default properties with undefined value (like React defaultProps does)
+    var result = Object.assign({}, defaultProps, props);
 
+    // @NOTE Object.assign doesn't default properties with undefined value (like React defaultProps does)
     for (var key in defaultProps) {
       if (props[key] === undefined) {
         result[key] = defaultProps[key];
       }
     }
-
     return result;
   }
 
   function sumValues(data) {
     var sum = 0;
-
     for (var i = 0; i < data.length; i++) {
       sum += data[i].value;
     }
-
     return sum;
-  } // Append \\"percentage\\", \\"degrees\\" and \\"startAngle\\" to each data entry
+  }
 
-
+  // Append "percentage", "degrees" and "startAngle" to each data entry
   function extendData(_ref) {
     var data = _ref.data,
-        totalAngle = _ref.lengthAngle,
-        totalValue = _ref.totalValue,
-        paddingAngle = _ref.paddingAngle,
-        chartStartAngle = _ref.startAngle;
+      totalAngle = _ref.lengthAngle,
+      totalValue = _ref.totalValue,
+      paddingAngle = _ref.paddingAngle,
+      chartStartAngle = _ref.startAngle;
     var total = totalValue || sumValues(data);
     var normalizedTotalAngle = valueBetween(totalAngle, -360, 360);
     var numberOfPaddings = Math.abs(normalizedTotalAngle) === 360 ? data.length : data.length - 1;
@@ -74,8 +68,9 @@ exports[`Dist bundle is unchanged 1`] = `
     var degreesTakenByPadding = singlePaddingDegrees * numberOfPaddings;
     var degreesTakenByPaths = normalizedTotalAngle - degreesTakenByPadding;
     var lastSegmentEnd = 0;
-    var extendedData = []; // @NOTE: Shall we evaluate percentage accordingly to dataEntry.value's sign?
+    var extendedData = [];
 
+    // @NOTE: Shall we evaluate percentage accordingly to dataEntry.value's sign?
     for (var i = 0; i < data.length; i++) {
       var dataEntry = data[i];
       var valueInPercentage = total === 0 ? 0 : dataEntry.value / total * 100;
@@ -88,7 +83,6 @@ exports[`Dist bundle is unchanged 1`] = `
         degrees: degrees
       }, dataEntry));
     }
-
     return extendedData;
   }
 
@@ -97,82 +91,67 @@ exports[`Dist bundle is unchanged 1`] = `
     var target = {};
     var sourceKeys = Object.keys(source);
     var key, i;
-
     for (i = 0; i < sourceKeys.length; i++) {
       key = sourceKeys[i];
       if (excluded.indexOf(key) >= 0) continue;
       target[key] = source[key];
     }
-
     return target;
   }
 
   function ReactMinimalPieChartLabel(_ref) {
     var renderLabel = _ref.renderLabel,
-        labelProps = _ref.labelProps;
-    var label = renderLabel(labelProps); // Default label
+      labelProps = _ref.labelProps;
+    var label = renderLabel(labelProps);
 
+    // Default label
     if (typeof label === 'string' || typeof label === 'number') {
       labelProps.dataEntry;
-          labelProps.dataIndex;
-          var props = _objectWithoutPropertiesLoose(labelProps, [\\"dataEntry\\", \\"dataIndex\\"]);
-
-      return /*#__PURE__*/React__default['default'].createElement(\\"text\\", Object.assign({
-        dominantBaseline: \\"central\\"
+        labelProps.dataIndex;
+        var props = _objectWithoutPropertiesLoose(labelProps, ["dataEntry", "dataIndex"]);
+      return /*#__PURE__*/React.createElement("text", Object.assign({
+        dominantBaseline: "central"
       }, props), label);
     }
-
-    if (React__default['default'].isValidElement(label)) {
+    if (React.isValidElement(label)) {
       return label;
     }
-
     return null;
   }
 
   function round(number) {
     var divisor = 1e14; // 14 decimals
-
     return Math.round((number + Number.EPSILON) * divisor) / divisor;
   }
-
   function evaluateTextAnchorPosition(_ref) {
     var labelPosition = _ref.labelPosition,
-        lineWidth = _ref.lineWidth,
-        labelHorizontalShift = _ref.labelHorizontalShift;
-    var dx = round(labelHorizontalShift); // Label in the vertical center
-
+      lineWidth = _ref.lineWidth,
+      labelHorizontalShift = _ref.labelHorizontalShift;
+    var dx = round(labelHorizontalShift);
+    // Label in the vertical center
     if (dx === 0) {
       return 'middle';
-    } // Outward label
-
-
+    }
+    // Outward label
     if (labelPosition > 100) {
       return dx > 0 ? 'start' : 'end';
-    } // Inward label
-
-
+    }
+    // Inward label
     var innerRadius = 100 - lineWidth;
-
     if (labelPosition < innerRadius) {
       return dx > 0 ? 'end' : 'start';
-    } // Overlying label
-
-
+    }
+    // Overlying label
     return 'middle';
   }
-
   function makeLabelRenderProps(data, props) {
     return data.map(function (dataEntry, index) {
       var _functionProp;
-
       var segmentsShift = (_functionProp = functionProp(props.segmentsShift, index)) != null ? _functionProp : 0;
       var distanceFromCenter = extractPercentage(props.radius, props.labelPosition) + segmentsShift;
-
       var _shiftVectorAlongAngl = shiftVectorAlongAngle(bisectorAngle(dataEntry.startAngle, dataEntry.degrees), distanceFromCenter),
-          dx = _shiftVectorAlongAngl.dx,
-          dy = _shiftVectorAlongAngl.dy; // This object is passed as argument to the \\"label\\" function prop
-
-
+        dx = _shiftVectorAlongAngl.dx,
+        dy = _shiftVectorAlongAngl.dy; // This object is passed as argument to the "label" function prop
       var labelRenderProps = {
         x: props.center[0],
         y: props.center[1],
@@ -190,14 +169,12 @@ exports[`Dist bundle is unchanged 1`] = `
       return labelRenderProps;
     });
   }
-
   function renderLabels(data, props) {
     var label = props.label;
-
     if (label) {
       return makeLabelRenderProps(data, props).map(function (labelRenderProps, index) {
-        return /*#__PURE__*/React__default['default'].createElement(ReactMinimalPieChartLabel, {
-          key: \\"label-\\" + (labelRenderProps.dataEntry.key || index),
+        return /*#__PURE__*/React.createElement(ReactMinimalPieChartLabel, {
+          key: "label-" + (labelRenderProps.dataEntry.key || index),
           renderLabel: label,
           labelProps: labelRenderProps
         });
@@ -205,6 +182,7 @@ exports[`Dist bundle is unchanged 1`] = `
     }
   }
 
+  // from http://stackoverflow.com/a/18473154
   var partialCircle = function partialCircle(cx, cy, r, start, end) {
     var length = end - start;
     if (length === 0) return [];
@@ -216,96 +194,90 @@ exports[`Dist bundle is unchanged 1`] = `
     var sweep = length < 0 ? '0' : '1';
     return [['M', fromX, fromY], ['A', r, r, 0, large, sweep, toX, toY]];
   };
-
   var svgPartialCircle = partialCircle;
+
+  var partialCircle$1 = svgPartialCircle;
 
   function makePathCommands(cx, cy, startAngle, lengthAngle, radius) {
     var patchedLengthAngle = valueBetween(lengthAngle, -359.999, 359.999);
-    return svgPartialCircle(cx, cy, // center X and Y
+    return partialCircle$1(cx, cy,
+    // center X and Y
     radius, degreesToRadians(startAngle), degreesToRadians(startAngle + patchedLengthAngle)).map(function (command) {
       return command.join(' ');
     }).join(' ');
   }
   function ReactMinimalPieChartPath(_ref) {
     var cx = _ref.cx,
-        cy = _ref.cy,
-        lengthAngle = _ref.lengthAngle,
-        lineWidth = _ref.lineWidth,
-        radius = _ref.radius,
-        _ref$shift = _ref.shift,
-        shift = _ref$shift === void 0 ? 0 : _ref$shift,
-        reveal = _ref.reveal,
-        rounded = _ref.rounded,
-        startAngle = _ref.startAngle,
-        title = _ref.title,
-        props = _objectWithoutPropertiesLoose(_ref, [\\"cx\\", \\"cy\\", \\"lengthAngle\\", \\"lineWidth\\", \\"radius\\", \\"shift\\", \\"reveal\\", \\"rounded\\", \\"startAngle\\", \\"title\\"]);
-
-    var pathRadius = radius - lineWidth / 2; //@NOTE This shift might be rendered as a translation in future
-
+      cy = _ref.cy,
+      lengthAngle = _ref.lengthAngle,
+      lineWidth = _ref.lineWidth,
+      radius = _ref.radius,
+      _ref$shift = _ref.shift,
+      shift = _ref$shift === void 0 ? 0 : _ref$shift,
+      reveal = _ref.reveal,
+      rounded = _ref.rounded,
+      startAngle = _ref.startAngle,
+      title = _ref.title,
+      props = _objectWithoutPropertiesLoose(_ref, ["cx", "cy", "lengthAngle", "lineWidth", "radius", "shift", "reveal", "rounded", "startAngle", "title"]);
+    var pathRadius = radius - lineWidth / 2;
+    //@NOTE This shift might be rendered as a translation in future
     var _shiftVectorAlongAngl = shiftVectorAlongAngle(bisectorAngle(startAngle, lengthAngle), shift),
-        dx = _shiftVectorAlongAngl.dx,
-        dy = _shiftVectorAlongAngl.dy;
-
+      dx = _shiftVectorAlongAngl.dx,
+      dy = _shiftVectorAlongAngl.dy;
     var pathCommands = makePathCommands(cx + dx, cy + dy, startAngle, lengthAngle, pathRadius);
     var strokeDasharray;
-    var strokeDashoffset; // Animate/hide paths with \\"stroke-dasharray\\" + \\"stroke-dashoffset\\"
-    // https://css-tricks.com/svg-line-animation-works/
+    var strokeDashoffset;
 
+    // Animate/hide paths with "stroke-dasharray" + "stroke-dashoffset"
+    // https://css-tricks.com/svg-line-animation-works/
     if (isNumber(reveal)) {
       var pathLength = degreesToRadians(pathRadius) * lengthAngle;
       strokeDasharray = Math.abs(pathLength);
       strokeDashoffset = strokeDasharray - extractPercentage(strokeDasharray, reveal);
     }
-
-    return /*#__PURE__*/React__default['default'].createElement(\\"path\\", Object.assign({
+    return /*#__PURE__*/React.createElement("path", Object.assign({
       d: pathCommands,
-      fill: \\"none\\",
+      fill: "none",
       strokeWidth: lineWidth,
       strokeDasharray: strokeDasharray,
       strokeDashoffset: strokeDashoffset,
       strokeLinecap: rounded ? 'round' : undefined
-    }, props), title && /*#__PURE__*/React__default['default'].createElement(\\"title\\", null, title));
+    }, props), title && /*#__PURE__*/React.createElement("title", null, title));
   }
 
   function combineSegmentTransitionsStyle(duration, easing, customStyle) {
-    // Merge chart's animation CSS transition with \\"transition\\" found to customStyle
-    var transition = \\"stroke-dashoffset \\" + duration + \\"ms \\" + easing;
-
+    // Merge chart's animation CSS transition with "transition" found to customStyle
+    var transition = "stroke-dashoffset " + duration + "ms " + easing;
     if (customStyle && customStyle.transition) {
-      transition = transition + \\",\\" + customStyle.transition;
+      transition = transition + "," + customStyle.transition;
     }
-
     return {
       transition: transition
     };
   }
-
   function getRevealValue(props) {
     //@NOTE When animation is on, chart has to be fully revealed when reveal is not set
     if (props.animate && !isNumber(props.reveal)) {
       return 100;
     }
-
     return props.reveal;
   }
-
   function makeEventHandler(eventHandler, payload) {
     return eventHandler && function (e) {
       eventHandler(e, payload);
     };
   }
-
   function renderSegments(data, props, revealOverride) {
     // @NOTE this should go in Path component. Here for performance reasons
     var reveal = revealOverride != null ? revealOverride : getRevealValue(props);
     var radius = props.radius,
-        _props$center = props.center,
-        cx = _props$center[0],
-        cy = _props$center[1];
+      _props$center = props.center,
+      cx = _props$center[0],
+      cy = _props$center[1];
     var lineWidth = extractPercentage(radius, props.lineWidth);
     var paths = data.map(function (dataEntry, index) {
       var segmentsStyle = functionProp(props.segmentsStyle, index);
-      return /*#__PURE__*/React__default['default'].createElement(ReactMinimalPieChartPath, {
+      return /*#__PURE__*/React.createElement(ReactMinimalPieChartPath, {
         cx: cx,
         cy: cy,
         key: dataEntry.key || index,
@@ -328,12 +300,11 @@ exports[`Dist bundle is unchanged 1`] = `
         onMouseOut: makeEventHandler(props.onMouseOut, index)
       });
     });
-
     if (props.background) {
-      paths.unshift( /*#__PURE__*/React__default['default'].createElement(ReactMinimalPieChartPath, {
+      paths.unshift( /*#__PURE__*/React.createElement(ReactMinimalPieChartPath, {
         cx: cx,
         cy: cy,
-        key: \\"bg\\",
+        key: "bg",
         lengthAngle: props.lengthAngle,
         lineWidth: lineWidth,
         radius: radius,
@@ -342,7 +313,6 @@ exports[`Dist bundle is unchanged 1`] = `
         stroke: props.background
       }));
     }
-
     return paths;
   }
 
@@ -360,13 +330,12 @@ exports[`Dist bundle is unchanged 1`] = `
     viewBoxSize: [100, 100]
   };
   function ReactMinimalPieChart(originalProps) {
-    var props = makePropsWithDefaults(originalProps, // @ts-expect-error: defaultProps.data is typed as BaseDataEntry
+    var props = makePropsWithDefaults(originalProps,
+    // @ts-expect-error: defaultProps.data is typed as BaseDataEntry
     defaultProps);
-
     var _useState = React.useState(props.animate ? 0 : null),
-        revealOverride = _useState[0],
-        setRevealOverride = _useState[1];
-
+      revealOverride = _useState[0],
+      setRevealOverride = _useState[1];
     React.useEffect(function () {
       if (props.animate) {
         // Trigger initial animation
@@ -374,10 +343,10 @@ exports[`Dist bundle is unchanged 1`] = `
       }
     }, []);
     var extendedData = extendData(props);
-    return /*#__PURE__*/React__default['default'].createElement(\\"svg\\", {
-      viewBox: \\"0 0 \\" + props.viewBoxSize[0] + \\" \\" + props.viewBoxSize[1],
-      width: \\"100%\\",
-      height: \\"100%\\",
+    return /*#__PURE__*/React.createElement("svg", {
+      viewBox: "0 0 " + props.viewBoxSize[0] + " " + props.viewBoxSize[1],
+      width: "100%",
+      height: "100%",
       className: props.className,
       style: props.style
     }, renderSegments(extendedData, props, revealOverride), renderLabels(extendedData, props), props.children);
@@ -386,9 +355,7 @@ exports[`Dist bundle is unchanged 1`] = `
   exports.PieChart = ReactMinimalPieChart;
   exports.pieChartDefaultProps = defaultProps;
 
-  Object.defineProperty(exports, '__esModule', { value: true });
-
-})));
+}));
 //# sourceMappingURL=index.js.map
 "
 `;
