@@ -1,3 +1,9 @@
+# 8.4.0
+
+- Improve `labelRenderProps` by using TS generics
+- Expose chart `PieChartProps` types
+- Rely on useEffect only to trigger initial animation
+
 # 8.3.0
 
 - Support React 18
