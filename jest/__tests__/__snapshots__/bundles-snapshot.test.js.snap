@@ -32,7 +32,9 @@ exports[`Dist bundle is unchanged 1`] = `
     return typeof value === 'number';
   }
   function functionProp(prop, payload) {
-    return typeof prop === 'function' ? prop(payload) : prop;
+    return typeof prop === 'function' ?
+    // @ts-expect-error: cannot find a way to type 2nd prop arg as anything-but-function
+    prop(payload) : prop;
   }
   function makePropsWithDefaults(props, defaultProps) {
     var result = Object.assign({}, defaultProps, props);

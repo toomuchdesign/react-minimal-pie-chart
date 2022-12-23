@@ -28,14 +28,17 @@ export function isNumber(value: unknown): value is number {
   return typeof value === 'number';
 }
 
-export function functionProp<Prop, Payload>(
-  prop: Prop,
-  payload?: Payload
-): Prop extends (...args: any) => any ? ReturnType<Prop> : Prop {
-  return typeof prop === 'function' ? prop(payload) : prop;
+export function functionProp<ReturnedProp, Payload>(
+  prop: ((args: Payload) => ReturnedProp) | ReturnedProp,
+  payload: Payload
+): ReturnedProp {
+  return typeof prop === 'function'
+    ? // @ts-expect-error: cannot find a way to type 2nd prop arg as anything-but-function
+      prop(payload)
+    : prop;
 }
 
-export function makePropsWithDefaults<Result extends Object>(
+export function makePropsWithDefaults<Result extends Record<string, unknown>>(
   props: Partial<Result>,
   defaultProps: Result
 ): Result {
