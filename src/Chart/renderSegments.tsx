@@ -20,12 +20,15 @@ function combineSegmentTransitionsStyle(
   };
 }
 
-function getRevealValue<Reveal>(props: { reveal?: Reveal; animate?: boolean }) {
+function getRevealValue({
+  reveal,
+  animate,
+}: Pick<ChartProps, 'reveal' | 'animate'>) {
   //@NOTE When animation is on, chart has to be fully revealed when reveal is not set
-  if (props.animate && !isNumber(props.reveal)) {
+  if (animate && !isNumber(reveal)) {
     return 100;
   }
-  return props.reveal;
+  return reveal;
 }
 
 function makeEventHandler<

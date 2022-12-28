@@ -10,7 +10,6 @@ import extendData from './extendData';
 import renderLabels from './renderLabels';
 import renderSegments from './renderSegments';
 import type { Data, BaseDataEntry, LabelRenderFunction } from '../commonTypes';
-import { makePropsWithDefaults } from '../utils';
 
 export type Props<DataEntry extends BaseDataEntry = BaseDataEntry> = {
   animate?: boolean;
@@ -64,17 +63,34 @@ export const defaultProps = {
 };
 
 export type PropsWithDefaults<
-  DataEntry extends BaseDataEntry
+  DataEntry extends BaseDataEntry = BaseDataEntry
 > = Props<DataEntry> & typeof defaultProps;
+
+function makePropsWithDefaults<DataEntry extends BaseDataEntry>(
+  props: Props<DataEntry>
+): PropsWithDefaults<DataEntry> {
+  const result: PropsWithDefaults<DataEntry> = Object.assign(
+    {},
+    defaultProps,
+    props
+  );
+
+  // @NOTE Object.assign doesn't default properties with undefined value (like React defaultProps does)
+  let key: keyof typeof defaultProps;
+  for (key in defaultProps) {
+    if (props[key] === undefined) {
+      // @ts-expect-error: TS cannot ensure we're assigning the expected props accross abjects
+      result[key] = defaultProps[key];
+    }
+  }
+
+  return result;
+}
 
 export function ReactMinimalPieChart<DataEntry extends BaseDataEntry>(
   originalProps: Props<DataEntry>
 ) {
-  const props = makePropsWithDefaults<PropsWithDefaults<DataEntry>>(
-    originalProps,
-    // @ts-expect-error: defaultProps.data is typed as BaseDataEntry
-    defaultProps
-  );
+  const props = makePropsWithDefaults(originalProps);
   const [revealOverride, setRevealOverride] = useState(
     props.animate ? 0 : null
   );

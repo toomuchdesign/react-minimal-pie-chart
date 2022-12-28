@@ -31,19 +31,14 @@ exports[`Dist bundle is unchanged 1`] = `
   function isNumber(value) {
     return typeof value === 'number';
   }
-  function functionProp(prop, payload) {
-    return typeof prop === 'function' ? prop(payload) : prop;
-  }
-  function makePropsWithDefaults(props, defaultProps) {
-    var result = Object.assign({}, defaultProps, props);
 
-    // @NOTE Object.assign doesn't default properties with undefined value (like React defaultProps does)
-    for (var key in defaultProps) {
-      if (props[key] === undefined) {
-        result[key] = defaultProps[key];
-      }
-    }
-    return result;
+  /**
+   * Conditionally return a prop or a function prop result
+   */
+  function functionProp(prop, payload) {
+    return typeof prop === 'function' ?
+    // @ts-expect-error: cannot find a way to type 2nd prop arg as anything-but-function
+    prop(payload) : prop;
   }
 
   function sumValues(data) {
@@ -255,12 +250,14 @@ exports[`Dist bundle is unchanged 1`] = `
       transition: transition
     };
   }
-  function getRevealValue(props) {
+  function getRevealValue(_ref) {
+    var reveal = _ref.reveal,
+      animate = _ref.animate;
     //@NOTE When animation is on, chart has to be fully revealed when reveal is not set
-    if (props.animate && !isNumber(props.reveal)) {
+    if (animate && !isNumber(reveal)) {
       return 100;
     }
-    return props.reveal;
+    return reveal;
   }
   function makeEventHandler(eventHandler, payload) {
     return eventHandler && function (e) {
@@ -329,10 +326,21 @@ exports[`Dist bundle is unchanged 1`] = `
     startAngle: 0,
     viewBoxSize: [100, 100]
   };
+  function makePropsWithDefaults(props) {
+    var result = Object.assign({}, defaultProps, props);
+
+    // @NOTE Object.assign doesn't default properties with undefined value (like React defaultProps does)
+    var key;
+    for (key in defaultProps) {
+      if (props[key] === undefined) {
+        // @ts-expect-error: TS cannot ensure we're assigning the expected props accross abjects
+        result[key] = defaultProps[key];
+      }
+    }
+    return result;
+  }
   function ReactMinimalPieChart(originalProps) {
-    var props = makePropsWithDefaults(originalProps,
-    // @ts-expect-error: defaultProps.data is typed as BaseDataEntry
-    defaultProps);
+    var props = makePropsWithDefaults(originalProps);
     var _useState = React.useState(props.animate ? 0 : null),
       revealOverride = _useState[0],
       setRevealOverride = _useState[1];

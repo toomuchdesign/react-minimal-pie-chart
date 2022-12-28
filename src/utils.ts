@@ -28,25 +28,15 @@ export function isNumber(value: unknown): value is number {
   return typeof value === 'number';
 }
 
-export function functionProp<Prop, Payload>(
-  prop: Prop,
-  payload?: Payload
-): Prop extends (...args: any) => any ? ReturnType<Prop> : Prop {
-  return typeof prop === 'function' ? prop(payload) : prop;
-}
-
-export function makePropsWithDefaults<Result extends Object>(
-  props: Partial<Result>,
-  defaultProps: Result
-): Result {
-  const result: Result = Object.assign({}, defaultProps, props);
-
-  // @NOTE Object.assign doesn't default properties with undefined value (like React defaultProps does)
-  for (const key in defaultProps) {
-    if (props[key] === undefined) {
-      result[key] = defaultProps[key];
-    }
-  }
-
-  return result;
+/**
+ * Conditionally return a prop or a function prop result
+ */
+export function functionProp<ReturnedProp, Payload>(
+  prop: ((args: Payload) => ReturnedProp) | ReturnedProp,
+  payload: Payload
+): ReturnedProp {
+  return typeof prop === 'function'
+    ? // @ts-expect-error: cannot find a way to type 2nd prop arg as anything-but-function
+      prop(payload)
+    : prop;
 }
