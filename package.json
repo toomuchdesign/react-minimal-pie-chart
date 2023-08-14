@@ -89,7 +89,7 @@
     "react-dom": "^18.2.0",
     "react-tooltip": "^4.4.3",
     "rollup": "^3.27.2",
-    "simple-git-hooks": "^2.4.1",
+    "simple-git-hooks": "^2.9.0",
     "size-limit": "^5.0.5",
     "svg-partial-circle": "1.0.0",
     "svg-path-parser": "^1.1.0",
