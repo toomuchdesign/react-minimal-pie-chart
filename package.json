@@ -75,7 +75,7 @@
     "@storybook/storybook-deployer": "^2.8.16",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
-    "@types/react": "^18.2.48",
+    "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
     "all-contributors-cli": "^6.26.1",
     "babel-jest": "^29.7.0",
