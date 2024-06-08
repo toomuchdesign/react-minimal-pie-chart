@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { act } from 'react';
 import {
   render as TLRender,
-  act,
   fireEvent,
   RenderResult,
 } from '@testing-library/react';

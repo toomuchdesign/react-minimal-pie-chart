@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 
 // https://stackoverflow.com/a/53464807/2902821
 expect.extend({

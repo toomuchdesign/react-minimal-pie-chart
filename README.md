@@ -5,7 +5,7 @@
 [![Coveralls][coveralls-badge]][coveralls]
 [![Bundle size][bundlephobia-badge]][bundlephobia]
 
-Lightweight React **SVG pie charts**, with **versatile options** and **CSS animation** included. **< 2kB** gzipped. [👏 Demo 👏][storybook].
+Lightweight React **SVG pie charts**, with **versatile options** and **CSS animation** included. **~2kB** gzipped. [👏 Demo 👏][storybook].
 
 <p align="center">
   <img
@@ -17,7 +17,7 @@ Lightweight React **SVG pie charts**, with **versatile options** and **CSS anima
 
 ## Why?
 
-Because [Recharts][recharts-github] is awesome, but when you just need a simple pie/donought chart, **~~3kB~~ 2kB** are usually enough.
+Because [Recharts][recharts-github] is awesome, but when you just need a simple pie/donought chart, **2kB** are usually enough.
 
 |                                                        |                                         Size<br>by Bundlefobia                                          | Benchmark Size \* | Loading time<br>on a slow 3g \* |
 | :----------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :---------------: | :-----------------------------: |

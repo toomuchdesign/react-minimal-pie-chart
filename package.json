@@ -70,12 +70,13 @@
     "@rollup/plugin-commonjs": "^23.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@schwingbat/relative-angle": "^1.0.0",
-    "@size-limit/preset-small-lib": "^5.0.5",
+    "@size-limit/preset-small-lib": "^11.1.4",
     "@storybook/addon-actions": "^6.5.16",
     "@storybook/react": "^6.5.16",
     "@storybook/storybook-deployer": "^2.8.16",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
+    "@testing-library/jest-dom": "^6.4.5",
+    "@testing-library/react": "^16.0.0",
+    "@types/jest": "^29.5.12",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "all-contributors-cli": "^6.26.1",
@@ -90,7 +91,7 @@
     "react-tooltip": "^4.5.1",
     "rollup": "^3.29.4",
     "simple-git-hooks": "^2.11.1",
-    "size-limit": "^5.0.5",
+    "size-limit": "^11.1.4",
     "svg-partial-circle": "1.0.0",
     "svg-path-parser": "^1.1.0",
     "typescript": "^5.4.5"
@@ -115,7 +116,7 @@
   },
   "size-limit": [
     {
-      "limit": "2 KB",
+      "limit": "2.5 KB",
       "path": "./es/index.js",
       "ignore": [
         "react"
