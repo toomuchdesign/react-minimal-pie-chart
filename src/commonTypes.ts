@@ -12,15 +12,13 @@ export type BaseDataEntry = {
   key?: string | number;
 };
 
-type BaseExtendedDataEntry<
-  DataEntry extends BaseDataEntry = BaseDataEntry
-> = DataEntry & {
-  degrees: number;
-  startAngle: number;
-  percentage: number;
-};
+type BaseExtendedDataEntry<DataEntry extends BaseDataEntry = BaseDataEntry> =
+  DataEntry & {
+    degrees: number;
+    startAngle: number;
+    percentage: number;
+  };
 
 export type Data<DataEntry extends BaseDataEntry = BaseDataEntry> = DataEntry[];
-export type ExtendedData<
-  DataEntry extends BaseDataEntry = BaseDataEntry
-> = BaseExtendedDataEntry<DataEntry>[];
+export type ExtendedData<DataEntry extends BaseDataEntry = BaseDataEntry> =
+  BaseExtendedDataEntry<DataEntry>[];

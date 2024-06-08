@@ -111,13 +111,8 @@ describe('Path', () => {
         const shiftedPaths = shiftedPie.querySelectorAll('path');
 
         originalPaths.forEach((path, index) => {
-          const {
-            startPoint,
-            startAngle,
-            lengthAngle,
-            radius,
-            center,
-          } = getArcInfo(path);
+          const { startPoint, startAngle, lengthAngle, radius, center } =
+            getArcInfo(path);
           const shiftedPathInfo = getArcInfo(shiftedPaths[index]);
           const { dx, dy } = shiftVectorAlongAngle(
             bisectorAngle(startAngle, lengthAngle),

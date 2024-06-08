@@ -34,7 +34,7 @@ function getRevealValue({
 function makeEventHandler<
   Event extends SyntheticEvent,
   Payload,
-  EventHandler extends (event: Event, payload: Payload) => void
+  EventHandler extends (event: Event, payload: Payload) => void,
 >(eventHandler: undefined | EventHandler, payload: Payload) {
   return (
     eventHandler &&

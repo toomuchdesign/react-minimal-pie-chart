@@ -62,9 +62,8 @@ export const defaultProps = {
   viewBoxSize: [100, 100] as [number, number],
 };
 
-export type PropsWithDefaults<
-  DataEntry extends BaseDataEntry = BaseDataEntry
-> = Props<DataEntry> & typeof defaultProps;
+export type PropsWithDefaults<DataEntry extends BaseDataEntry = BaseDataEntry> =
+  Props<DataEntry> & typeof defaultProps;
 
 function makePropsWithDefaults<DataEntry extends BaseDataEntry>(
   props: Props<DataEntry>

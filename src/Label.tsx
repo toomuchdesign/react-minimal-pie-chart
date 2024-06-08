@@ -18,7 +18,7 @@ export type LabelRenderProps<DataEntry extends BaseDataEntry> = {
 };
 
 export default function ReactMinimalPieChartLabel<
-  DataEntry extends BaseDataEntry
+  DataEntry extends BaseDataEntry,
 >({
   renderLabel,
   labelProps,
