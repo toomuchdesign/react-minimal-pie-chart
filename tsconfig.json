@@ -11,7 +11,8 @@
     "paths": {
       "*": ["@types/*"]
     },
-    "noErrorTruncation": true
+    "noErrorTruncation": true,
+    "types": ["jest", "@testing-library/jest-dom"]
   },
   "exclude": ["node_modules"]
 }

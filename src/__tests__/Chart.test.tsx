@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, render, dataMock, getArcInfo } from './testUtils';
+import { render, dataMock, getArcInfo } from './testUtils';
 import { degreesToRadians, extractPercentage } from '../utils';
 import { pieChartDefaultProps } from '../../src';
 
