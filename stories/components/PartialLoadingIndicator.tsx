@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { PieChart } from '../src';
+import { PieChart, PieChartProps } from '../../src';
 
-function LoadingIndicatorStory() {
+function PartialLoadingIndicatorStory(props: PieChartProps) {
   const [percentage, setPercentage] = useState(20);
   return (
     <div>
@@ -9,6 +9,9 @@ function LoadingIndicatorStory() {
         data={[{ value: 1, key: 1, color: '#E38627' }]}
         reveal={percentage}
         lineWidth={20}
+        background="#bfbfbf"
+        lengthAngle={270}
+        rounded
         animate
       />
       Reveal: {percentage}%
@@ -27,4 +30,4 @@ function LoadingIndicatorStory() {
   );
 }
 
-export default LoadingIndicatorStory;
+export default PartialLoadingIndicatorStory;
