@@ -8,3 +8,4 @@ types/
 package.json
 package-lock.json
 storybook-static
+.all-contributorsrc
