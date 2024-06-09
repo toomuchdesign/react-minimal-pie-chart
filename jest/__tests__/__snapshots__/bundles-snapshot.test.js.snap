@@ -91,6 +91,7 @@ exports[`Dist bundle is unchanged 1`] = `
     return t;
   }
 
+  var _excluded$1 = ["dataEntry", "dataIndex"];
   function ReactMinimalPieChartLabel(_ref) {
     var renderLabel = _ref.renderLabel,
       labelProps = _ref.labelProps;
@@ -100,7 +101,7 @@ exports[`Dist bundle is unchanged 1`] = `
     if (typeof label === 'string' || typeof label === 'number') {
       labelProps.dataEntry;
         labelProps.dataIndex;
-        var props = _objectWithoutPropertiesLoose(labelProps, ["dataEntry", "dataIndex"]);
+        var props = _objectWithoutPropertiesLoose(labelProps, _excluded$1);
       return /*#__PURE__*/React.createElement("text", Object.assign({
         dominantBaseline: "central"
       }, props), label);
@@ -143,7 +144,9 @@ exports[`Dist bundle is unchanged 1`] = `
       var distanceFromCenter = extractPercentage(props.radius, props.labelPosition) + segmentsShift;
       var _shiftVectorAlongAngl = shiftVectorAlongAngle(bisectorAngle(dataEntry.startAngle, dataEntry.degrees), distanceFromCenter),
         dx = _shiftVectorAlongAngl.dx,
-        dy = _shiftVectorAlongAngl.dy; // This object is passed as argument to the "label" function prop
+        dy = _shiftVectorAlongAngl.dy;
+
+      // This object is passed as argument to the "label" function prop
       var labelRenderProps = {
         x: props.center[0],
         y: props.center[1],
@@ -190,6 +193,7 @@ exports[`Dist bundle is unchanged 1`] = `
 
   var partialCircle$1 = svgPartialCircle;
 
+  var _excluded = ["cx", "cy", "lengthAngle", "lineWidth", "radius", "shift", "reveal", "rounded", "startAngle", "title"];
   function makePathCommands(cx, cy, startAngle, lengthAngle, radius) {
     var patchedLengthAngle = valueBetween(lengthAngle, -359.999, 359.999);
     return partialCircle$1(cx, cy,
@@ -210,7 +214,7 @@ exports[`Dist bundle is unchanged 1`] = `
       rounded = _ref.rounded,
       startAngle = _ref.startAngle,
       title = _ref.title,
-      props = _objectWithoutPropertiesLoose(_ref, ["cx", "cy", "lengthAngle", "lineWidth", "radius", "shift", "reveal", "rounded", "startAngle", "title"]);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded);
     var pathRadius = radius - lineWidth / 2;
     //@NOTE This shift might be rendered as a translation in future
     var _shiftVectorAlongAngl = shiftVectorAlongAngle(bisectorAngle(startAngle, lengthAngle), shift),
