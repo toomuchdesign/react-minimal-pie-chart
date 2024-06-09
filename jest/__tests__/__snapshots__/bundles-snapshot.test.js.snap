@@ -177,6 +177,10 @@ exports[`Dist bundle is unchanged 1`] = `
     }
   }
 
+  function getDefaultExportFromCjs (x) {
+  	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+  }
+
   // from http://stackoverflow.com/a/18473154
   var partialCircle = function partialCircle(cx, cy, r, start, end) {
     var length = end - start;
@@ -191,7 +195,7 @@ exports[`Dist bundle is unchanged 1`] = `
   };
   var svgPartialCircle = partialCircle;
 
-  var partialCircle$1 = svgPartialCircle;
+  var partialCircle$1 = /*@__PURE__*/getDefaultExportFromCjs(svgPartialCircle);
 
   var _excluded = ["cx", "cy", "lengthAngle", "lineWidth", "radius", "shift", "reveal", "rounded", "startAngle", "title"];
   function makePathCommands(cx, cy, startAngle, lengthAngle, radius) {
