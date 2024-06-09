@@ -37,9 +37,7 @@
     "postversion": "git push && git push --tags",
     "prepare": "npx simple-git-hooks && npm run test:source && npm run compile && npm run test:bundles",
     "start": "storybook dev",
-    "storybook:deploy": "storybook-to-ghpages",
-    "storybook:build": "build-storybook",
-    "build-storybook": "storybook build"
+    "storybook:build": "storybook build"
   },
   "keywords": [
     "react",
