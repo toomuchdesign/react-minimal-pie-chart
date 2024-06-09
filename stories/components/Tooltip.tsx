@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactTooltip from 'react-tooltip';
-import { PieChart, PieChartProps } from '../src';
+import { PieChart, PieChartProps } from '../../src';
 
 type BaseData = PieChartProps['data'][number];
 

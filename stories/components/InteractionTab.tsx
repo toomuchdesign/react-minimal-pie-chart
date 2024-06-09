@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { action } from '@storybook/addon-actions';
-import { PieChart, PieChartProps } from '../src';
+import { PieChart, PieChartProps } from '../../src';
 
 function DemoInteractionTab(props: PieChartProps) {
   const [selected, setSelected] = useState<undefined | number>(0);

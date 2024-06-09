@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { action } from '@storybook/addon-actions';
-import { PieChart, pieChartDefaultProps, PieChartProps } from '../src';
+import { PieChart, pieChartDefaultProps, PieChartProps } from '../../src';
 
-function DemoInteraction(props: PieChartProps) {
+function FullOption(props: PieChartProps) {
   const [selected, setSelected] = useState<number | undefined>(0);
   const [hovered, setHovered] = useState<number | undefined>(undefined);
 
@@ -16,15 +15,29 @@ function DemoInteraction(props: PieChartProps) {
     return entry;
   });
 
+  const lineWidth = 60;
+
   return (
     <PieChart
+      style={{
+        fontFamily:
+          '"Nunito Sans", -apple-system, Helvetica, Arial, sans-serif',
+        fontSize: '8px',
+      }}
       data={data}
       radius={pieChartDefaultProps.radius - 6}
+      lineWidth={60}
       segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
       segmentsShift={(index) => (index === selected ? 6 : 1)}
-      onClick={(event, index) => {
-        action('CLICK')(event, index);
-        console.log('CLICK', { event, index });
+      animate
+      label={({ dataEntry }) => Math.round(dataEntry.percentage) + '%'}
+      labelPosition={100 - lineWidth / 2}
+      labelStyle={{
+        fill: '#fff',
+        opacity: 0.75,
+        pointerEvents: 'none',
+      }}
+      onClick={(_, index) => {
         setSelected(index === selected ? undefined : index);
       }}
       onMouseOver={(_, index) => {
@@ -37,4 +50,4 @@ function DemoInteraction(props: PieChartProps) {
   );
 }
 
-export default DemoInteraction;
+export default FullOption;

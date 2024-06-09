@@ -36,9 +36,8 @@
     "version": "git add package.json",
     "postversion": "git push && git push --tags",
     "prepare": "npx simple-git-hooks && npm run test:source && npm run compile && npm run test:bundles",
-    "start": "start-storybook -p 9001 -c .storybook",
-    "storybook:deploy": "storybook-to-ghpages",
-    "storybook:build": "build-storybook"
+    "start": "storybook dev",
+    "storybook:build": "storybook build"
   },
   "keywords": [
     "react",
@@ -71,9 +70,10 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@schwingbat/relative-angle": "^1.0.0",
     "@size-limit/preset-small-lib": "^11.1.4",
-    "@storybook/addon-actions": "^6.5.16",
-    "@storybook/react": "^6.5.16",
-    "@storybook/storybook-deployer": "^2.8.16",
+    "@storybook/addon-essentials": "^8.1.6",
+    "@storybook/react": "^8.1.6",
+    "@storybook/react-vite": "^8.1.6",
+    "@storybook/test": "^8.1.6",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^16.0.0",
     "@types/jest": "^29.5.12",
@@ -92,6 +92,7 @@
     "rollup": "^3.29.4",
     "simple-git-hooks": "^2.11.1",
     "size-limit": "^11.1.4",
+    "storybook": "^8.1.6",
     "svg-partial-circle": "1.0.0",
     "svg-path-parser": "^1.1.0",
     "typescript": "^5.4.5"
