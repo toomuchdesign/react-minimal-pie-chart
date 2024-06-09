@@ -1,0 +1,40 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    groups:
+      rollup:
+        patterns:
+          - 'rollup*'
+          - '@rollup/*'
+      babel:
+        patterns:
+          - '@babel*'
+      storybook:
+        patterns:
+          - 'storybook'
+          - '@storybook/*'
+      testing-library:
+        patterns:
+          - '@testing-library/*'
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - '@types/react'
+          - '@types/react-dom'
+      jest:
+        patterns:
+          - 'jest*'
+          - '@types/jest'
+          - 'babel-jest'
+      size-limit:
+        patterns:
+          - 'size-limit'
+          - '@size-limit/*'
