@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'weekly'
+      interval: 'daily'
     groups:
       rollup:
         patterns:
@@ -38,4 +38,9 @@ updates:
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
-      interval: 'weekly'
+      interval: 'daily'
+    groups:
+      upload-download-artifact:
+        patterns:
+          - 'actions/upload-artifact'
+          - 'actions/download-artifact'
