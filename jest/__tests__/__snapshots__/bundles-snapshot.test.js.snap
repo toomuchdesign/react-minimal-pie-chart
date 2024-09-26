@@ -181,26 +181,36 @@ exports[`Dist bundle is unchanged 1`] = `
   	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
   }
 
-  // from http://stackoverflow.com/a/18473154
-  var partialCircle = function partialCircle(cx, cy, r, start, end) {
-    var length = end - start;
-    if (length === 0) return [];
-    var fromX = r * Math.cos(start) + cx;
-    var fromY = r * Math.sin(start) + cy;
-    var toX = r * Math.cos(end) + cx;
-    var toY = r * Math.sin(end) + cy;
-    var large = Math.abs(length) <= Math.PI ? '0' : '1';
-    var sweep = length < 0 ? '0' : '1';
-    return [['M', fromX, fromY], ['A', r, r, 0, large, sweep, toX, toY]];
-  };
-  var svgPartialCircle = partialCircle;
+  var svgPartialCircle;
+  var hasRequiredSvgPartialCircle;
 
-  var partialCircle$1 = /*@__PURE__*/getDefaultExportFromCjs(svgPartialCircle);
+  function requireSvgPartialCircle () {
+  	if (hasRequiredSvgPartialCircle) return svgPartialCircle;
+  	hasRequiredSvgPartialCircle = 1;
+
+  	// from http://stackoverflow.com/a/18473154
+  	var partialCircle = function partialCircle(cx, cy, r, start, end) {
+  	  var length = end - start;
+  	  if (length === 0) return [];
+  	  var fromX = r * Math.cos(start) + cx;
+  	  var fromY = r * Math.sin(start) + cy;
+  	  var toX = r * Math.cos(end) + cx;
+  	  var toY = r * Math.sin(end) + cy;
+  	  var large = Math.abs(length) <= Math.PI ? '0' : '1';
+  	  var sweep = length < 0 ? '0' : '1';
+  	  return [['M', fromX, fromY], ['A', r, r, 0, large, sweep, toX, toY]];
+  	};
+  	svgPartialCircle = partialCircle;
+  	return svgPartialCircle;
+  }
+
+  var svgPartialCircleExports = requireSvgPartialCircle();
+  var partialCircle = /*@__PURE__*/getDefaultExportFromCjs(svgPartialCircleExports);
 
   var _excluded = ["cx", "cy", "lengthAngle", "lineWidth", "radius", "shift", "reveal", "rounded", "startAngle", "title"];
   function makePathCommands(cx, cy, startAngle, lengthAngle, radius) {
     var patchedLengthAngle = valueBetween(lengthAngle, -359.999, 359.999);
-    return partialCircle$1(cx, cy,
+    return partialCircle(cx, cy,
     // center X and Y
     radius, degreesToRadians(startAngle), degreesToRadians(startAngle + patchedLengthAngle)).map(function (command) {
       return command.join(' ');
