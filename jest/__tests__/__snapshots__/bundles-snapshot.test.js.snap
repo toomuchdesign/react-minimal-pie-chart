@@ -313,7 +313,7 @@ exports[`Dist bundle is unchanged 1`] = `
       });
     });
     if (props.background) {
-      paths.unshift( /*#__PURE__*/React.createElement(ReactMinimalPieChartPath, {
+      paths.unshift(/*#__PURE__*/React.createElement(ReactMinimalPieChartPath, {
         cx: cx,
         cy: cy,
         key: "bg",
