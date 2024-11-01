@@ -282,7 +282,7 @@ Thanks to you all ([emoji key](https://github.com/kentcdodds/all-contributors#em
 [demo-interaction-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v8.0.0/stories/InteractionStory.tsx
 [demo-interaction-2-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v8.0.0/stories/InteractionTabStory.tsx
 [demo-tooltip]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html?path=/story/misc--tooltip-integration
-[demo-tooltip-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/master/stories/Tooltip.tsx
+[demo-tooltip-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/master/stories/components/Tooltip.tsx
 [demo-label-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v8.2.0/stories/index.tsx#L81
 [data-props-docs]: #about-data-prop
 [label-props-docs]: #custom-labels-with-label-render-prop
