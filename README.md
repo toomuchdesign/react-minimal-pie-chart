@@ -174,17 +174,17 @@ Render segment's percentage as labels:
 label={({ dataEntry }) => `${Math.round(dataEntry.percentage)} %`}
 ```
 
-See examples in the [demo source][demo-label-source].
+See examples in the [demo source](https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v8.2.0/stories/index.tsx#L81).
 
 ## How to
 
 ### User interactions with the chart
 
-See [demo][demo-interaction] and relative source [here][demo-interaction-source] and [here][demo-interaction-2-source].
+See [demo](https://toomuchdesign.github.io/react-minimal-pie-chart/index.html?path=/story/example-interaction--click-mouseover-mouseout-callbacks) and relative source [here](https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v8.0.0/stories/InteractionStory.tsx) and [here](https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v8.0.0/stories/InteractionTabStory.tsx).
 
 ### Custom tooltip
 
-See [demo][demo-tooltip] and [relative source][demo-tooltip-source].
+See [demo](https://toomuchdesign.github.io/react-minimal-pie-chart/index.html?path=/story/example-misc--tooltip-integration) and [relative source](https://github.com/toomuchdesign/react-minimal-pie-chart/blob/master/stories/components/Tooltip.tsx).
 
 ## Browsers support
 
@@ -278,12 +278,6 @@ Thanks to you all ([emoji key](https://github.com/kentcdodds/all-contributors#em
 [react-vis-bundlephobia]: https://bundlephobia.com/result?p=react-vis
 [react-vis-github]: https://github.com/uber/react-vis
 [storybook]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html
-[demo-interaction]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html?path=/story/interaction--click-mouseover-mouseout-callbacks
-[demo-interaction-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v8.0.0/stories/InteractionStory.tsx
-[demo-interaction-2-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v8.0.0/stories/InteractionTabStory.tsx
-[demo-tooltip]: https://toomuchdesign.github.io/react-minimal-pie-chart/index.html?path=/story/misc--tooltip-integration
-[demo-tooltip-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/master/stories/components/Tooltip.tsx
-[demo-label-source]: https://github.com/toomuchdesign/react-minimal-pie-chart/blob/v8.2.0/stories/index.tsx#L81
 [data-props-docs]: #about-data-prop
 [label-props-docs]: #custom-labels-with-label-render-prop
 [svg-elements]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element
