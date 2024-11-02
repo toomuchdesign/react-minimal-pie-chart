@@ -1,12 +1,8 @@
 {
+  "extends": "@tsconfig/node18/tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
     "lib": ["es6", "dom"],
-    "strict": true,
-    "esModuleInterop": true,
     "jsx": "react",
-    "declaration": true,
-    "declarationDir": "./types",
     "baseUrl": "./",
     "paths": {
       "*": ["@types/*"]
@@ -14,5 +10,5 @@
     "noErrorTruncation": true,
     "types": ["jest", "@testing-library/jest-dom"]
   },
-  "exclude": ["node_modules"]
+  "include": ["./src", "./stories", "@types"]
 }
