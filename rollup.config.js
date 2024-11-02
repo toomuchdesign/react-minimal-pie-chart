@@ -5,7 +5,7 @@ import { babel } from '@rollup/plugin-babel';
 let pkg = require('./package.json');
 let external = []
   // Mark dependencies and peerDependencies as external
-  .concat(Object.keys(pkg.dependencies), Object.keys(pkg.peerDependencies));
+  .concat(Object.keys(pkg.peerDependencies));
 const extensions = ['.js', '.ts', '.tsx'];
 
 let plugins = [

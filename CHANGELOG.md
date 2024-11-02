@@ -1,3 +1,9 @@
+# 8.4.1
+
+### Bugfixes
+
+- move `@types/svg-path-parser` to dev dependencies
+
 # 8.4.0
 
 - Improve `labelRenderProps` by using TS generics
