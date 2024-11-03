@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    name: Release new version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - run: npm ci
+
+      - name: Create release pull request
+        uses: changesets/action@v1
+        with:
+          publish: npx changeset tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
