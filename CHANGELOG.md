@@ -1,5 +1,11 @@
 # react-minimal-pie-chart
 
+## 8.4.1
+
+### Patch Changes
+
+- d1887ba: Move `@types/svg-path-parser` to dev dependencies
+
 ## 8.4.0
 
 ### Minor Changes
