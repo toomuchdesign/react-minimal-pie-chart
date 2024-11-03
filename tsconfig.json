@@ -4,11 +4,14 @@
     "lib": ["es6", "dom"],
     "jsx": "react",
     "baseUrl": "./",
-    "paths": {
-      "*": ["@types/*"]
-    },
     "noErrorTruncation": true,
+    "paths": {
+      "@schwingbat/relative-angle": [
+        "./@types/schwingbat/relative-angle/index.d.ts"
+      ],
+      "svg-partial-circle": ["./@types/svg-partial-circle/index.d.ts"]
+    },
     "types": ["jest", "@testing-library/jest-dom"]
   },
-  "include": ["./src", "./stories", "@types"]
+  "include": ["src", "stories", "@types"]
 }
