@@ -1,48 +1,36 @@
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import { babel } from '@rollup/plugin-babel';
+import typescript from '@rollup/plugin-typescript';
+import pkg from './package.json';
 
-let pkg = require('./package.json');
-let external = []
+const external = []
   // Mark dependencies and peerDependencies as external
-  .concat(Object.keys(pkg.peerDependencies));
-const extensions = ['.js', '.ts', '.tsx'];
+  .concat(Object.keys(pkg.dependencies), Object.keys(pkg.peerDependencies));
 
-let plugins = [
-  nodeResolve({
-    extensions,
+const plugins = [
+  typescript({
+    compilerOptions: {
+      declaration: true,
+      declarationDir: 'dist',
+    },
+    include: ['src/**'],
+    exclude: ['src/__tests__/**'],
   }),
-  babel({
-    extensions,
-    babelHelpers: 'bundled',
-  }),
-  commonjs(),
 ];
 
+/** @type {import('rollup').RollupOptions} */
 export default {
   input: 'src/index.ts',
   plugins: plugins,
-  external: external,
+  external,
   output: [
-    {
-      file: pkg.main,
-      format: 'cjs',
-      sourcemap: true,
-    },
     {
       file: pkg.module,
       format: 'es',
       sourcemap: true,
     },
     {
-      file: 'dist/index.js',
-      format: 'umd',
+      file: pkg.main,
+      format: 'cjs',
       sourcemap: true,
-      exports: 'named',
-      name: 'ReactMinimalPieChart',
-      globals: {
-        react: 'React',
-      },
     },
   ],
 };

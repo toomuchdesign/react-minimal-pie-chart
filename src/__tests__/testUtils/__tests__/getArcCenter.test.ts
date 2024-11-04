@@ -4,7 +4,8 @@
 import { getArcInfo } from '../getArcInfo';
 import { makePathCommands } from '../../../Path';
 
-function getArcInfoFromDAttribute(d) {
+function getArcInfoFromDAttribute(d: string) {
+  // @ts-expect-error We are providing getArcInfo with a partial input
   return getArcInfo({
     getAttribute: () => d,
   });
