@@ -12,7 +12,7 @@
   "scripts": {
     "test": "jest ./test",
     "test:bundles": "npm run test:bundles:snapshot && npm run test:bundles:unit && npm run test:bundles:size",
-    "test:bundles:unit": "jest ./test --config ./jest/es.config.js && jest ./test --config ./jest/lib.config.js && jest ./test --config ./jest/dist.config.js",
+    "test:bundles:unit": "jest ./test --config ./jest/cjs.config.ts",
     "test:bundles:snapshot": "jest ./jest/__tests__/bundles-snapshot.test.ts",
     "test:bundles:size": "size-limit",
     "test:source": "npm run test:ts && npm t -- --coverage",
@@ -78,6 +78,7 @@
     "storybook": "^8.1.6",
     "svg-path-parser": "^1.1.0",
     "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   },
   "jest": {

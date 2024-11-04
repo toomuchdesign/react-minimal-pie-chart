@@ -6,7 +6,7 @@ import {
 } from '@testing-library/react';
 // @NOTE this import must finish with "/src" to allow test runner
 // to remap it against bundled artefacts (npm run test:bundles:unit)
-import { PieChart, PieChartProps } from '../..';
+import { PieChart, PieChartProps } from '../../src';
 
 const dataMock = [
   { value: 10, color: 'blue' },

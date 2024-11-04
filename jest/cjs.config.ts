@@ -1,8 +1,8 @@
-var pkg = require('../package.json');
+import pkg from '../package.json';
 
 module.exports = Object.assign({}, pkg.jest, {
   rootDir: '../',
   moduleNameMapper: {
-    '/src$': '<rootDir>/es/index',
+    '/src$': '<rootDir>/dist/index.cjs.js',
   },
 });
