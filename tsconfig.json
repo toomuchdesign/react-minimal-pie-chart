@@ -9,7 +9,7 @@
       ],
       "svg-partial-circle": ["./@types/svg-partial-circle/index.d.ts"]
     },
-    "types": ["jest", "@testing-library/jest-dom"]
+    "types": ["jest", "@testing-library/jest-dom", "node"]
   },
   "include": ["src", "test", "stories", "@types"]
 }
