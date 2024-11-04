@@ -12,7 +12,6 @@ const plugins = [
       declarationDir: 'dist',
     },
     include: ['src/**'],
-    exclude: ['src/__tests__/**'],
   }),
 ];
 

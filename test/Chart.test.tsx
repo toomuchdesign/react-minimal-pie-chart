@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, dataMock, getArcInfo } from './testUtils';
-import { degreesToRadians, extractPercentage } from '../utils';
-import { pieChartDefaultProps } from '../../src';
+import { degreesToRadians, extractPercentage } from '../src/utils';
+import { pieChartDefaultProps } from '../src';
 
 describe('Chart', () => {
   describe('SVG root element', () => {

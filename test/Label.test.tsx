@@ -4,8 +4,8 @@ import {
   bisectorAngle,
   extractPercentage,
   shiftVectorAlongAngle,
-} from '../utils';
-import { pieChartDefaultProps, PieChartProps } from '../../src';
+} from '../src/utils';
+import { pieChartDefaultProps, PieChartProps } from '../src';
 
 function getExpectedLabelRenderProps(dataEntry: PieChartProps['data'][number]) {
   return {

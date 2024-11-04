@@ -4,7 +4,7 @@ import {
   degreesToRadians,
   extractPercentage,
   shiftVectorAlongAngle,
-} from '../utils';
+} from '../src/utils';
 
 describe('Path', () => {
   it('render one path for each entry in props.data', () => {

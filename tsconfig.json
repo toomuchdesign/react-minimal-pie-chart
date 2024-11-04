@@ -11,5 +11,5 @@
     },
     "types": ["jest", "@testing-library/jest-dom"]
   },
-  "include": ["src", "stories", "@types"]
+  "include": ["src", "test", "stories", "@types"]
 }

@@ -10,9 +10,9 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "test": "jest ./src",
+    "test": "jest ./test",
     "test:bundles": "npm run test:bundles:snapshot && npm run test:bundles:unit && npm run test:bundles:size",
-    "test:bundles:unit": "jest ./src --config ./jest/es.config.js && jest ./src --config ./jest/lib.config.js && jest ./src --config ./jest/dist.config.js",
+    "test:bundles:unit": "jest ./test --config ./jest/es.config.js && jest ./test --config ./jest/lib.config.js && jest ./test --config ./jest/dist.config.js",
     "test:bundles:snapshot": "jest ./jest/__tests__/bundles-snapshot.test.js",
     "test:bundles:size": "size-limit",
     "test:source": "npm run test:ts && npm t -- --coverage",
@@ -82,7 +82,6 @@
   },
   "jest": {
     "preset": "ts-jest",
-    "testRegex": "/__tests__/.*\\.test\\.[jt]sx?$",
     "testEnvironmentOptions": {
       "url": "http://localhost/"
     },
@@ -92,8 +91,7 @@
       "lcov"
     ],
     "collectCoverageFrom": [
-      "<rootDir>/src/**",
-      "!**/__tests__/**"
+      "<rootDir>/src"
     ],
     "setupFilesAfterEnv": [
       "<rootDir>/jest.setup.ts"

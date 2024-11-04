@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 import { getArcInfo } from '../getArcInfo';
-import { makePathCommands } from '../../../Path';
+import { makePathCommands } from '../../../src/Path';
 
 function getArcInfoFromDAttribute(d: string) {
   // @ts-expect-error We are providing getArcInfo with a partial input
