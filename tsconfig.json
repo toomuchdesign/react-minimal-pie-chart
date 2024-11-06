@@ -1,7 +1,6 @@
 {
   "extends": "@total-typescript/tsconfig/tsc/dom/library",
   "compilerOptions": {
-    "module": "preserve",
     "jsx": "react",
     "paths": {
       "@schwingbat/relative-angle": [
