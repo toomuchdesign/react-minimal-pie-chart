@@ -81,23 +81,6 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironmentOptions": {
-      "url": "http://localhost/"
-    },
-    "testEnvironment": "jsdom",
-    "coverageReporters": [
-      "text",
-      "lcov"
-    ],
-    "collectCoverageFrom": [
-      "src/**"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/jest.setup.ts"
-    ]
-  },
   "size-limit": [
     {
       "limit": "2.5 KB",
