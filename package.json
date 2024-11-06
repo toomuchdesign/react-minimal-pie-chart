@@ -92,7 +92,7 @@
       "lcov"
     ],
     "collectCoverageFrom": [
-      "<rootDir>/src"
+      "src/**"
     ],
     "setupFilesAfterEnv": [
       "<rootDir>/jest.setup.ts"
