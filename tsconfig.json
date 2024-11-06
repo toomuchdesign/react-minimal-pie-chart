@@ -1,7 +1,7 @@
 {
-  "extends": "@tsconfig/node18/tsconfig.json",
+  "extends": "@total-typescript/tsconfig/tsc/dom/library",
   "compilerOptions": {
-    "lib": ["es6", "dom"],
+    "module": "preserve",
     "jsx": "react",
     "paths": {
       "@schwingbat/relative-angle": [
@@ -10,7 +10,8 @@
       "svg-partial-circle": ["./@types/svg-partial-circle/index.d.ts"]
     },
     "types": ["jest", "@testing-library/jest-dom", "node"],
-    "resolveJsonModule": true
+    "noUncheckedIndexedAccess": false,
+    "verbatimModuleSyntax": false
   },
   "include": ["src", "test", "stories", "@types"]
 }

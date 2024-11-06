@@ -60,7 +60,7 @@
     "@storybook/test": "^8.1.6",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^16.0.0",
-    "@tsconfig/node18": "^18.2.4",
+    "@total-typescript/tsconfig": "^1.0.4",
     "@types/jest": "^29.5.12",
     "@types/node": "^22.8.6",
     "@types/react": "^18.3.3",
