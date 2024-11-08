@@ -6,7 +6,7 @@ export default defineConfig({
     setupFiles: ['vitest.setup.ts'],
     coverage: {
       provider: 'v8',
-      include: ['test/**'],
+      include: ['src/**'],
       enabled: true,
       reporter: [['lcov', { projectRoot: './' }], ['text']],
     },
