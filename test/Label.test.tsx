@@ -1,4 +1,5 @@
 import React from 'react';
+import { describe, it, expect, vi } from 'vitest';
 import { render, dataMock, getArcInfo } from './testUtils';
 import {
   bisectorAngle,
@@ -27,7 +28,7 @@ function getExpectedLabelRenderProps(dataEntry: PieChartProps['data'][number]) {
 describe('Label', () => {
   describe('label prop function', () => {
     it('gets called with expected arguments', () => {
-      const labelMock = jest.fn();
+      const labelMock = vi.fn();
       render({
         label: labelMock,
       });
@@ -125,15 +126,16 @@ describe('Label', () => {
   });
 
   describe('labelStyle prop', () => {
-    describe('as object', () => {});
-    it("pass provided value as labels' style", () => {
-      const { getAllByText } = render({
-        label: () => 'label',
-        labelStyle: { pointerEvents: 'none' },
-      });
+    describe('as object', () => {
+      it("pass provided value as labels' style", () => {
+        const { getAllByText } = render({
+          label: () => 'label',
+          labelStyle: { pointerEvents: 'none' },
+        });
 
-      getAllByText('label').forEach((label) => {
-        expect(label).toHaveStyle({ pointerEvents: 'none' });
+        getAllByText('label').forEach((label) => {
+          expect(label).toHaveStyle({ pointerEvents: 'none' });
+        });
       });
     });
 

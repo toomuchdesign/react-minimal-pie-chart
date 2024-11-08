@@ -8,7 +8,7 @@
       ],
       "svg-partial-circle": ["./@types/svg-partial-circle/index.d.ts"]
     },
-    "types": ["jest", "@testing-library/jest-dom", "node"],
+    "types": ["@testing-library/jest-dom", "node"],
     "noUncheckedIndexedAccess": false,
     "verbatimModuleSyntax": false
   },

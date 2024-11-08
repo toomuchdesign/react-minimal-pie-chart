@@ -1,6 +1,5 @@
-/**
- * @jest-environment node
- */
+// @vitest-environment node
+import { describe, it, expect } from 'vitest';
 import { getArcInfo } from '../getArcInfo';
 import { makePathCommands } from '../../../src/Path';
 

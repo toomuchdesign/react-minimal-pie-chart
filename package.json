@@ -10,12 +10,12 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "test": "jest ./test",
+    "test": "vitest --config ./vitest.config.mts",
     "test:bundles": "npm run test:bundles:snapshot && npm run test:bundles:unit && npm run test:bundles:size",
-    "test:bundles:unit": "jest ./test --config ./jest/cjs.config.ts",
+    "test:bundles:unit": "vitest --config ./test-bundles/cjs.vitest.config.mts --run && vitest --config ./test-bundles/es.vitest.config.mts --run",
     "test:bundles:snapshot": "jest ./jest/__tests__/bundles-snapshot.test.ts",
     "test:bundles:size": "size-limit",
-    "test:source": "npm run test:ts && npm t -- --coverage",
+    "test:source": "npm run test:ts && npm t -- --coverage --run",
     "test:ts": "tsc --noEmit",
     "test:update": "npm run build:source && npm run test:bundles:snapshot -- -u && git add ./jest/__tests__/__snapshots__",
     "clean": "rm -rf dist",
@@ -27,7 +27,7 @@
     "preversion": "npm run prepare",
     "version": "git add package.json",
     "postversion": "git push && git push --tags",
-    "prepare": "npx simple-git-hooks && npm run test:source && npm run build && npm run test:bundles",
+    "prepare": "npx simple-git-hooks && npm run test -- --run && npm run test:source && npm run build && npm run test:bundles",
     "start": "storybook dev",
     "storybook:build": "storybook build"
   },
@@ -61,13 +61,12 @@
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^16.0.0",
     "@total-typescript/tsconfig": "^1.0.4",
-    "@types/jest": "^29.5.12",
     "@types/node": "^22.8.6",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@types/svg-path-parser": "^1.1.6",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
+    "@vitest/coverage-v8": "^2.1.4",
+    "jsdom": "^25.0.1",
     "prettier": "^3.2.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -77,9 +76,8 @@
     "size-limit": "^11.1.4",
     "storybook": "^8.1.6",
     "svg-path-parser": "^1.1.0",
-    "ts-jest": "^29.2.5",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "^2.1.4"
   },
   "size-limit": [
     {
