@@ -13,7 +13,7 @@
     "test": "vitest --config ./vitest.config.mts",
     "test:bundles": "npm run test:bundles:snapshot && npm run test:bundles:unit && npm run test:bundles:size",
     "test:bundles:unit": "vitest --config ./test-bundles/cjs.vitest.config.mts --run && vitest --config ./test-bundles/es.vitest.config.mts --run",
-    "test:bundles:snapshot": "jest ./jest/__tests__/bundles-snapshot.test.ts",
+    "test:bundles:snapshot": "npm run test -- --run --dir ./test-bundles",
     "test:bundles:size": "size-limit",
     "test:source": "npm run test:ts && npm t -- --coverage --run",
     "test:ts": "tsc --noEmit",

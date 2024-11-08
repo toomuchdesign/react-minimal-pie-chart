@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Dist bundle is unchanged 1`] = `
+exports[`Dist bundle > is unchanged 1`] = `
 "import React, { useState, useEffect } from 'react';
 import partialCircle from 'svg-partial-circle';
 

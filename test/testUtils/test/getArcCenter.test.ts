@@ -11,7 +11,7 @@ function getArcInfoFromDAttribute(d: string) {
 }
 
 describe('getArcInfo test utility', () => {
-  it.only.each`
+  it.each`
     descr                    | cx         | cy         | startAngle | lengthAngle | radius
     ${'integer values'}      | ${50}      | ${50}      | ${0}       | ${90}       | ${25}
     ${'decimal cx'}          | ${222.222} | ${50}      | ${0}       | ${90}       | ${25}
