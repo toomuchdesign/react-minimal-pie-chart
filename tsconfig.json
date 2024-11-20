@@ -1,14 +1,16 @@
 {
-  "extends": "@tsconfig/node18/tsconfig.json",
+  "extends": "@total-typescript/tsconfig/tsc/dom/library",
   "compilerOptions": {
-    "lib": ["es6", "dom"],
     "jsx": "react",
-    "baseUrl": "./",
     "paths": {
-      "*": ["@types/*"]
+      "@schwingbat/relative-angle": [
+        "./@types/schwingbat/relative-angle/index.d.ts"
+      ],
+      "svg-partial-circle": ["./@types/svg-partial-circle/index.d.ts"]
     },
-    "noErrorTruncation": true,
-    "types": ["jest", "@testing-library/jest-dom"]
+    "types": ["@testing-library/jest-dom", "node"],
+    "noUncheckedIndexedAccess": false,
+    "verbatimModuleSyntax": false
   },
-  "include": ["./src", "./stories", "@types"]
+  "include": ["src", "test", "stories", "@types"]
 }

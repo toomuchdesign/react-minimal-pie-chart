@@ -1,17 +1,17 @@
-/**
- * @jest-environment node
- */
+// @vitest-environment node
+import { describe, it, expect } from 'vitest';
 import { getArcInfo } from '../getArcInfo';
-import { makePathCommands } from '../../../Path';
+import { makePathCommands } from '../../../src/Path';
 
-function getArcInfoFromDAttribute(d) {
+function getArcInfoFromDAttribute(d: string) {
+  // @ts-expect-error We are providing getArcInfo with a partial input
   return getArcInfo({
     getAttribute: () => d,
   });
 }
 
 describe('getArcInfo test utility', () => {
-  it.only.each`
+  it.each`
     descr                    | cx         | cy         | startAngle | lengthAngle | radius
     ${'integer values'}      | ${50}      | ${50}      | ${0}       | ${90}       | ${25}
     ${'decimal cx'}          | ${222.222} | ${50}      | ${0}       | ${90}       | ${25}

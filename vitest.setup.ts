@@ -1,4 +1,10 @@
-import '@testing-library/jest-dom';
+import { expect, afterEach } from 'vitest';
+import { cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom/vitest';
+
+afterEach(() => {
+  cleanup();
+});
 
 // https://stackoverflow.com/a/53464807/2902821
 expect.extend({

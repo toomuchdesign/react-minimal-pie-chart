@@ -1,10 +1,12 @@
+import { describe, it, expect, vi } from 'vitest';
 import { render, dataMock, getArcInfo, fireEvent } from './testUtils';
 import {
   bisectorAngle,
   degreesToRadians,
   extractPercentage,
   shiftVectorAlongAngle,
-} from '../utils';
+} from '../src/utils';
+const rgbGreen = 'rgb(0, 128, 0)';
 
 describe('Path', () => {
   it('render one path for each entry in props.data', () => {
@@ -55,12 +57,13 @@ describe('Path', () => {
     describe.each`
       description      | segmentsStyle                              | expectedStyle
       ${'undefined'}   | ${undefined}                               | ${null}
-      ${'as object'}   | ${{ color: 'green' }}                      | ${{ color: 'green' }}
-      ${'as function'} | ${(index: number) => ({ color: 'green' })} | ${{ color: 'green' }}
-      ${'as function'} | ${jest.fn((i) => undefined)}               | ${null}
+      ${'as object'}   | ${{ color: 'green' }}                      | ${{ color: rgbGreen }}
+      ${'as function'} | ${(index: number) => ({ color: 'green' })} | ${{ color: rgbGreen }}
+      ${'as function'} | ${vi.fn((i) => undefined)}                 | ${null}
     `('$description', ({ segmentsStyle, expectedStyle }) => {
-      if (jest.isMockFunction(segmentsStyle)) {
+      if (vi.isMockFunction(segmentsStyle)) {
         it('gets called with expected arguments', () => {
+          // @ts-expect-error vi.isMockFunction type guards to MockInstance
           render({ segmentsStyle });
           expect(segmentsStyle).toHaveBeenNthCalledWith(1, 0);
           expect(segmentsStyle).toHaveBeenNthCalledWith(2, 1);
@@ -91,10 +94,11 @@ describe('Path', () => {
       description      | segmentsShift               | expectedSegmentsShift
       ${'as number'}   | ${1}                        | ${[1, 1, 1]}
       ${'as function'} | ${(index: number) => index} | ${[0, 1, 2]}
-      ${'as function'} | ${jest.fn()}                | ${[0, 0, 0]}
+      ${'as function'} | ${vi.fn()}                  | ${[0, 0, 0]}
     `('$description', ({ segmentsShift, expectedSegmentsShift }) => {
-      if (jest.isMockFunction(segmentsShift)) {
+      if (vi.isMockFunction(segmentsShift)) {
         it('gets called with expected arguments', () => {
+          // @ts-expect-error vi.isMockFunction type guards to MockInstance
           render({ segmentsShift });
           expect(segmentsShift).toHaveBeenNthCalledWith(1, 0);
           expect(segmentsShift).toHaveBeenNthCalledWith(2, 1);
@@ -220,7 +224,7 @@ describe('Path', () => {
       ['onMouseOver', 'mouseover', fireEvent.mouseOver],
     ])('%s', (propName, eventType, event) => {
       it('fire callback with expected arguments', () => {
-        const eventCallbackMock = jest.fn((e) => e.persist());
+        const eventCallbackMock = vi.fn((e) => e.persist());
         const { container } = render({
           [propName]: eventCallbackMock,
         });

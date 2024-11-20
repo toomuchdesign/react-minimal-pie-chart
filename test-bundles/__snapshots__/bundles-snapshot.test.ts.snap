@@ -1,0 +1,249 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Dist bundle > is unchanged 1`] = `
+"import React, { useState, useEffect } from 'react';
+import partialCircle from 'svg-partial-circle';
+
+function degreesToRadians(degrees) {
+    return (degrees * Math.PI) / 180;
+}
+function valueBetween(value, min, max) {
+    if (value > max)
+        return max;
+    if (value < min)
+        return min;
+    return value;
+}
+function extractPercentage(value, percentage) {
+    return (percentage / 100) * value;
+}
+function bisectorAngle(startAngle, lengthAngle) {
+    return startAngle + lengthAngle / 2;
+}
+function shiftVectorAlongAngle(angle, distance) {
+    const angleRadians = degreesToRadians(angle);
+    return {
+        dx: distance * Math.cos(angleRadians),
+        dy: distance * Math.sin(angleRadians),
+    };
+}
+function isNumber(value) {
+    return typeof value === 'number';
+}
+/**
+ * Conditionally return a prop or a function prop result
+ */
+function functionProp(prop, payload) {
+    return typeof prop === 'function'
+        ? // @ts-expect-error: cannot find a way to type 2nd prop arg as anything-but-function
+            prop(payload)
+        : prop;
+}
+
+function sumValues(data) {
+    let sum = 0;
+    for (let i = 0; i < data.length; i++) {
+        sum += data[i].value;
+    }
+    return sum;
+}
+// Append "percentage", "degrees" and "startAngle" to each data entry
+function extendData({ data, lengthAngle: totalAngle, totalValue, paddingAngle, startAngle: chartStartAngle, }) {
+    const total = totalValue || sumValues(data);
+    const normalizedTotalAngle = valueBetween(totalAngle, -360, 360);
+    const numberOfPaddings = Math.abs(normalizedTotalAngle) === 360 ? data.length : data.length - 1;
+    const singlePaddingDegrees = Math.abs(paddingAngle) * Math.sign(totalAngle);
+    const degreesTakenByPadding = singlePaddingDegrees * numberOfPaddings;
+    const degreesTakenByPaths = normalizedTotalAngle - degreesTakenByPadding;
+    let lastSegmentEnd = 0;
+    const extendedData = [];
+    // @NOTE: Shall we evaluate percentage accordingly to dataEntry.value's sign?
+    for (let i = 0; i < data.length; i++) {
+        const dataEntry = data[i];
+        const valueInPercentage = total === 0 ? 0 : (dataEntry.value / total) * 100;
+        const degrees = extractPercentage(degreesTakenByPaths, valueInPercentage);
+        const startAngle = lastSegmentEnd + chartStartAngle;
+        lastSegmentEnd = lastSegmentEnd + degrees + singlePaddingDegrees;
+        extendedData.push(Object.assign({
+            percentage: valueInPercentage,
+            startAngle,
+            degrees,
+        }, dataEntry));
+    }
+    return extendedData;
+}
+
+function ReactMinimalPieChartLabel({ renderLabel, labelProps, }) {
+    const label = renderLabel(labelProps);
+    // Default label
+    if (typeof label === 'string' || typeof label === 'number') {
+        const { dataEntry, dataIndex, ...props } = labelProps;
+        return (React.createElement("text", { dominantBaseline: "central", ...props }, label));
+    }
+    if (React.isValidElement(label)) {
+        return label;
+    }
+    return null;
+}
+
+function round(number) {
+    const divisor = 1e14; // 14 decimals
+    return Math.round((number + Number.EPSILON) * divisor) / divisor;
+}
+function evaluateTextAnchorPosition({ labelPosition, lineWidth, labelHorizontalShift, }) {
+    const dx = round(labelHorizontalShift);
+    // Label in the vertical center
+    if (dx === 0) {
+        return 'middle';
+    }
+    // Outward label
+    if (labelPosition > 100) {
+        return dx > 0 ? 'start' : 'end';
+    }
+    // Inward label
+    const innerRadius = 100 - lineWidth;
+    if (labelPosition < innerRadius) {
+        return dx > 0 ? 'end' : 'start';
+    }
+    // Overlying label
+    return 'middle';
+}
+function makeLabelRenderProps(data, props) {
+    return data.map((dataEntry, index) => {
+        const segmentsShift = functionProp(props.segmentsShift, index) ?? 0;
+        const distanceFromCenter = extractPercentage(props.radius, props.labelPosition) + segmentsShift;
+        const { dx, dy } = shiftVectorAlongAngle(bisectorAngle(dataEntry.startAngle, dataEntry.degrees), distanceFromCenter);
+        // This object is passed as argument to the "label" function prop
+        const labelRenderProps = {
+            x: props.center[0],
+            y: props.center[1],
+            dx,
+            dy,
+            textAnchor: evaluateTextAnchorPosition({
+                labelPosition: props.labelPosition,
+                lineWidth: props.lineWidth,
+                labelHorizontalShift: dx,
+            }),
+            dataEntry,
+            dataIndex: index,
+            style: functionProp(props.labelStyle, index),
+        };
+        return labelRenderProps;
+    });
+}
+function renderLabels(data, props) {
+    const { label } = props;
+    if (label) {
+        return makeLabelRenderProps(data, props).map((labelRenderProps, index) => (React.createElement(ReactMinimalPieChartLabel, { key: \`label-\${labelRenderProps.dataEntry.key || index}\`, renderLabel: label, labelProps: labelRenderProps })));
+    }
+}
+
+function makePathCommands(cx, cy, startAngle, lengthAngle, radius) {
+    const patchedLengthAngle = valueBetween(lengthAngle, -359.999, 359.999);
+    return partialCircle(cx, cy, // center X and Y
+    radius, degreesToRadians(startAngle), degreesToRadians(startAngle + patchedLengthAngle))
+        .map((command) => command.join(' '))
+        .join(' ');
+}
+function ReactMinimalPieChartPath({ cx, cy, lengthAngle, lineWidth, radius, shift = 0, reveal, rounded, startAngle, title, ...props }) {
+    const pathRadius = radius - lineWidth / 2;
+    //@NOTE This shift might be rendered as a translation in future
+    const { dx, dy } = shiftVectorAlongAngle(bisectorAngle(startAngle, lengthAngle), shift);
+    const pathCommands = makePathCommands(cx + dx, cy + dy, startAngle, lengthAngle, pathRadius);
+    let strokeDasharray;
+    let strokeDashoffset;
+    // Animate/hide paths with "stroke-dasharray" + "stroke-dashoffset"
+    // https://css-tricks.com/svg-line-animation-works/
+    if (isNumber(reveal)) {
+        const pathLength = degreesToRadians(pathRadius) * lengthAngle;
+        strokeDasharray = Math.abs(pathLength);
+        strokeDashoffset =
+            strokeDasharray - extractPercentage(strokeDasharray, reveal);
+    }
+    return (React.createElement("path", { d: pathCommands, fill: "none", strokeWidth: lineWidth, strokeDasharray: strokeDasharray, strokeDashoffset: strokeDashoffset, strokeLinecap: rounded ? 'round' : undefined, ...props }, title && React.createElement("title", null, title)));
+}
+
+function combineSegmentTransitionsStyle(duration, easing, customStyle) {
+    // Merge chart's animation CSS transition with "transition" found to customStyle
+    let transition = \`stroke-dashoffset \${duration}ms \${easing}\`;
+    if (customStyle && customStyle.transition) {
+        transition = \`\${transition},\${customStyle.transition}\`;
+    }
+    return {
+        transition,
+    };
+}
+function getRevealValue({ reveal, animate, }) {
+    //@NOTE When animation is on, chart has to be fully revealed when reveal is not set
+    if (animate && !isNumber(reveal)) {
+        return 100;
+    }
+    return reveal;
+}
+function makeEventHandler(eventHandler, payload) {
+    return (eventHandler &&
+        ((e) => {
+            eventHandler(e, payload);
+        }));
+}
+function renderSegments(data, props, revealOverride) {
+    // @NOTE this should go in Path component. Here for performance reasons
+    const reveal = revealOverride ?? getRevealValue(props);
+    const { radius, center: [cx, cy], } = props;
+    const lineWidth = extractPercentage(radius, props.lineWidth);
+    const paths = data.map((dataEntry, index) => {
+        const segmentsStyle = functionProp(props.segmentsStyle, index);
+        return (React.createElement(ReactMinimalPieChartPath, { cx: cx, cy: cy, key: dataEntry.key || index, lengthAngle: dataEntry.degrees, lineWidth: lineWidth, radius: radius, rounded: props.rounded, reveal: reveal, shift: functionProp(props.segmentsShift, index), startAngle: dataEntry.startAngle, title: dataEntry.title, style: Object.assign({}, segmentsStyle, props.animate &&
+                combineSegmentTransitionsStyle(props.animationDuration, props.animationEasing, segmentsStyle)), stroke: dataEntry.color, tabIndex: props.segmentsTabIndex, onBlur: makeEventHandler(props.onBlur, index), onClick: makeEventHandler(props.onClick, index), onFocus: makeEventHandler(props.onFocus, index), onKeyDown: makeEventHandler(props.onKeyDown, index), onMouseOver: makeEventHandler(props.onMouseOver, index), onMouseOut: makeEventHandler(props.onMouseOut, index) }));
+    });
+    if (props.background) {
+        paths.unshift(React.createElement(ReactMinimalPieChartPath, { cx: cx, cy: cy, key: "bg", lengthAngle: props.lengthAngle, lineWidth: lineWidth, radius: radius, rounded: props.rounded, startAngle: props.startAngle, stroke: props.background }));
+    }
+    return paths;
+}
+
+const defaultProps = {
+    animationDuration: 500,
+    animationEasing: 'ease-out',
+    center: [50, 50],
+    data: [],
+    labelPosition: 50,
+    lengthAngle: 360,
+    lineWidth: 100,
+    paddingAngle: 0,
+    radius: 50,
+    startAngle: 0,
+    viewBoxSize: [100, 100],
+};
+function makePropsWithDefaults(props) {
+    const result = Object.assign({}, defaultProps, props);
+    // @NOTE Object.assign doesn't default properties with undefined value (like React defaultProps does)
+    let key;
+    for (key in defaultProps) {
+        if (props[key] === undefined) {
+            // @ts-expect-error: TS cannot ensure we're assigning the expected props accross abjects
+            result[key] = defaultProps[key];
+        }
+    }
+    return result;
+}
+function ReactMinimalPieChart(originalProps) {
+    const props = makePropsWithDefaults(originalProps);
+    const [revealOverride, setRevealOverride] = useState(props.animate ? 0 : null);
+    useEffect(() => {
+        if (props.animate) {
+            // Trigger initial animation
+            setRevealOverride(null);
+        }
+    }, []);
+    const extendedData = extendData(props);
+    return (React.createElement("svg", { viewBox: \`0 0 \${props.viewBoxSize[0]} \${props.viewBoxSize[1]}\`, width: "100%", height: "100%", className: props.className, style: props.style },
+        renderSegments(extendedData, props, revealOverride),
+        renderLabels(extendedData, props),
+        props.children));
+}
+
+export { ReactMinimalPieChart as PieChart, defaultProps as pieChartDefaultProps };
+//# sourceMappingURL=index.esm.js.map
+"
+`;

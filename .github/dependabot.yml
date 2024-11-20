@@ -9,9 +9,6 @@ updates:
         patterns:
           - 'rollup*'
           - '@rollup/*'
-      babel:
-        patterns:
-          - '@babel*'
       storybook:
         patterns:
           - 'storybook'
@@ -25,11 +22,10 @@ updates:
           - 'react-dom'
           - '@types/react'
           - '@types/react-dom'
-      jest:
+      vitest:
         patterns:
-          - 'jest*'
-          - '@types/jest'
-          - 'babel-jest'
+          - 'vitest'
+          - '@vitest/*'
       size-limit:
         patterns:
           - 'size-limit'

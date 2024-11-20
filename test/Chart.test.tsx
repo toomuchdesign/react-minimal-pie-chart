@@ -1,7 +1,9 @@
 import React from 'react';
+import { describe, it, expect } from 'vitest';
 import { render, dataMock, getArcInfo } from './testUtils';
-import { degreesToRadians, extractPercentage } from '../utils';
-import { pieChartDefaultProps } from '../../src';
+import { degreesToRadians, extractPercentage } from '../src/utils';
+import { pieChartDefaultProps } from '../src';
+const rgbGreen = 'rgb(0, 128, 0)';
 
 describe('Chart', () => {
   describe('SVG root element', () => {
@@ -16,7 +18,7 @@ describe('Chart', () => {
       // @ts-expect-error: ChildNode type doesn't have tagName prop
       expect(root.tagName).toBe('svg');
       expect(root).toHaveClass('foo');
-      expect(root).toHaveStyle({ color: 'green' });
+      expect(root).toHaveStyle({ color: rgbGreen });
 
       const children = container.querySelector('svg > defs');
       expect(children).toBeInTheDocument();
