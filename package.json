@@ -1,6 +1,6 @@
 {
   "name": "react-minimal-pie-chart",
-  "version": "8.4.1",
+  "version": "9.0.0",
   "description": "Lightweight but versatile SVG pie/donut charts for React",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",

@@ -1,5 +1,13 @@
 # react-minimal-pie-chart
 
+## 9.0.0
+
+### Major Changes
+
+- 3bfb426: UMD export removed
+- 3bfb426: Package compiled in ES6. Consuming JS engines should be able to interpret features like arrow functions and const.
+- 3bfb426: `svg-partial-circle` unbundled and imported via plain import
+
 ## 8.4.1
 
 ### Patch Changes
