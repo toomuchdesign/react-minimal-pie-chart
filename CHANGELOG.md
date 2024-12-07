@@ -1,5 +1,11 @@
 # react-minimal-pie-chart
 
+## 9.1.0
+
+### Minor Changes
+
+- a0ce709: Support react v19
+
 ## 9.0.0
 
 ### Major Changes
