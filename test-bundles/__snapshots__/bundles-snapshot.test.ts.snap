@@ -244,6 +244,5 @@ function ReactMinimalPieChart(originalProps) {
 }
 
 export { ReactMinimalPieChart as PieChart, defaultProps as pieChartDefaultProps };
-//# sourceMappingURL=index.esm.js.map
 "
 `;
