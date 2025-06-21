@@ -1,5 +1,11 @@
 # react-minimal-pie-chart
 
+## 9.1.1
+
+### Patch Changes
+
+- c7030b0: Remove broken sourcemaps
+
 ## 9.1.0
 
 ### Minor Changes
