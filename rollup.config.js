@@ -24,12 +24,10 @@ export default {
     {
       file: pkg.module,
       format: 'es',
-      sourcemap: true,
     },
     {
       file: pkg.main,
       format: 'cjs',
-      sourcemap: true,
     },
   ],
 };
