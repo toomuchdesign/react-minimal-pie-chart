@@ -61,7 +61,7 @@
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^16.1.0",
     "@total-typescript/tsconfig": "^1.0.4",
-    "@types/node": "^22.8.6",
+    "@types/node": "^24.2.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@types/svg-path-parser": "^1.1.6",
