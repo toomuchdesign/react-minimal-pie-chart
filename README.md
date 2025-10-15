@@ -147,7 +147,7 @@ type LabelRenderProps = {
   y: number;
   dx: number;
   dy: number;
-  textAnchor: string;
+  textAnchor: "start" | "middle" | "end" | "inherit" | undefined;
   dataEntry: {
     ...props.data[dataIndex]
     // props.data entry relative to the label extended with:
