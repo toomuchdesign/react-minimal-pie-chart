@@ -11,7 +11,7 @@ export type LabelRenderProps<DataEntry extends BaseDataEntry> = {
   y: number;
   dx: number;
   dy: number;
-  textAnchor: string;
+  textAnchor: 'start' | 'middle' | 'end' | 'inherit' | undefined;
   dataEntry: ExtendedData<DataEntry>[number];
   dataIndex: number;
   style?: CSSProperties;
