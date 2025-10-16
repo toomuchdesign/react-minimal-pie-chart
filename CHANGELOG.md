@@ -1,5 +1,11 @@
 # react-minimal-pie-chart
 
+## 9.1.2
+
+### Patch Changes
+
+- [#673](https://github.com/toomuchdesign/react-minimal-pie-chart/pull/673) [`0131eef`](https://github.com/toomuchdesign/react-minimal-pie-chart/commit/0131eefef840d0e4e7d2cb64162362051414466d) Thanks [@haagvivi](https://github.com/haagvivi)! - Update LabelRenderProps `textAnchor` types
+
 ## 9.1.1
 
 ### Patch Changes
