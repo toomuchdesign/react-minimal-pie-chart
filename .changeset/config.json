@@ -2,7 +2,7 @@
   "$schema": "https://unpkg.com/@changesets/config@3.0.2/schema.json",
   "changelog": [
     "@changesets/changelog-github",
-    { "repo": "toomuchdesign/json-schema-fns" }
+    { "repo": "toomuchdesign/react-minimal-pie-chart" }
   ],
   "commit": false,
   "fixed": [],
