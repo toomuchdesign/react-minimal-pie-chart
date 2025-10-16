@@ -27,7 +27,8 @@
     "preversion": "npm run prepare",
     "version": "git add package.json",
     "postversion": "git push && git push --tags",
-    "prepare": "npx simple-git-hooks && npm run test -- --run && npm run test:source && npm run build && npm run test:bundles",
+    "prepare": "npx simple-git-hooks && npm run test:source && npm run test -- --run && npm run build && npm run test:bundles",
+    "release": "npm run prepare && npx changeset publish",
     "start": "storybook dev",
     "storybook:build": "storybook build"
   },
@@ -39,6 +40,9 @@
     "chart",
     "typescript"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/toomuchdesign/react-minimal-pie-chart.git"
@@ -50,6 +54,7 @@
     "react-dom": "^16.8.0 || ^17 || ^18 || ^19"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.27.9",
     "@rollup/plugin-typescript": "^12.1.1",
     "@schwingbat/relative-angle": "^1.0.0",
