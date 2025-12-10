@@ -8,8 +8,9 @@ const external = []
 const plugins = [
   typescript({
     compilerOptions: {
+      outDir: 'dist',
       declaration: true,
-      declarationDir: 'dist',
+      sourceMap: false,
     },
     include: ['src/**'],
   }),
