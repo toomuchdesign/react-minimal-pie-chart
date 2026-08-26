@@ -92,7 +92,7 @@ export default function ReactMinimalPieChartPath({
       strokeLinecap={rounded ? 'round' : undefined}
       {...props}
     >
-      {title && <title>{title}</title>}
+      {title != null && <title>{title}</title>}
     </path>
   );
 }

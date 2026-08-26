@@ -53,6 +53,30 @@ describe('Path', () => {
     });
   });
 
+  describe('data[].title prop', () => {
+    it('renders a "<title>" element, including when title is 0', () => {
+      const { container } = render({
+        data: [
+          { value: 10, color: 'blue', title: 'first' },
+          { value: 15, color: 'orange', title: 0 },
+        ],
+      });
+      const paths = container.querySelectorAll('path');
+
+      expect(paths[0].querySelector('title')).toHaveTextContent('first');
+      expect(paths[1].querySelector('title')).toHaveTextContent('0');
+      // No stray text node should be rendered as a direct child of <path>
+      expect(paths[1].childNodes).toHaveLength(1);
+    });
+
+    it('renders no "<title>" element when title is undefined', () => {
+      const { container } = render();
+      const path = container.querySelector('path');
+
+      expect(path?.querySelector('title')).toBeNull();
+    });
+  });
+
   describe('segmentsStyle prop', () => {
     describe.each`
       description      | segmentsStyle                              | expectedStyle
