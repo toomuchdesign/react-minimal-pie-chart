@@ -79,7 +79,7 @@
     "storybook": "^8.1.6",
     "svg-path-parser": "^1.1.0",
     "typescript": "^5.4.5",
-    "vitest": "^4.0.1"
+    "vitest": "^5.0.0"
   },
   "size-limit": [
     {
