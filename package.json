@@ -72,7 +72,7 @@
     "prettier": "^3.2.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-tooltip": "^4.5.1",
+    "react-tooltip": "^6.0.8",
     "rollup": "^4.18.0",
     "simple-git-hooks": "^2.11.1",
     "size-limit": "^12.0.0",
