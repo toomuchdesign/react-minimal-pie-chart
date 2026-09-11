@@ -53,8 +53,8 @@ describe('Path', () => {
     });
   });
 
-  describe('data[].title prop', () => {
-    it('renders a "<title>" element, including when title is 0', () => {
+  describe('data[].title prop === 0', () => {
+    it('renders a "<title>" element', () => {
       const { container } = render({
         data: [
           { value: 10, color: 'blue', title: 'first' },
