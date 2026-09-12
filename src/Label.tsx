@@ -1,5 +1,5 @@
 import React from 'react';
-import type { CSSProperties, SVGProps } from 'react';
+import type { CSSProperties } from 'react';
 import type {
   ExtendedData,
   BaseDataEntry,
