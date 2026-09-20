@@ -1,5 +1,11 @@
 # react-minimal-pie-chart
 
+## 9.1.3
+
+### Patch Changes
+
+- [#834](https://github.com/toomuchdesign/react-minimal-pie-chart/pull/834) [`3d893c2`](https://github.com/toomuchdesign/react-minimal-pie-chart/commit/3d893c21b2706edfa8fb4f3d6d02232968076d63) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Fix rendering of numeric `title` values, including `0`, in chart paths.
+
 ## 9.1.2
 
 ### Patch Changes
