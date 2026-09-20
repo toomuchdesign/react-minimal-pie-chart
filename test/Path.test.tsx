@@ -53,6 +53,27 @@ describe('Path', () => {
     });
   });
 
+  describe('data[].title prop', () => {
+    it('renders a "<title>" element for string titles', () => {
+      const { container } = render({
+        data: [{ value: 10, color: 'blue', title: 'title-value' }],
+      });
+
+      const title = container.querySelector('path title');
+      expect(title).toHaveTextContent('title-value');
+    });
+
+    it('renders a "<title>" element when title is 0', () => {
+      const { container } = render({
+        data: [{ value: 10, color: 'blue', title: 0 }],
+      });
+
+      const path = container.querySelector('path');
+      expect(path?.querySelector('title')).toHaveTextContent('0');
+      expect(path?.childNodes).toHaveLength(1);
+    });
+  });
+
   describe('segmentsStyle prop', () => {
     describe.each`
       description      | segmentsStyle                              | expectedStyle

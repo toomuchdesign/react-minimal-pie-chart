@@ -160,7 +160,7 @@ function ReactMinimalPieChartPath({ cx, cy, lengthAngle, lineWidth, radius, shif
         strokeDashoffset =
             strokeDasharray - extractPercentage(strokeDasharray, reveal);
     }
-    return (React.createElement("path", { d: pathCommands, fill: "none", strokeWidth: lineWidth, strokeDasharray: strokeDasharray, strokeDashoffset: strokeDashoffset, strokeLinecap: rounded ? 'round' : undefined, ...props }, title && React.createElement("title", null, title)));
+    return (React.createElement("path", { d: pathCommands, fill: "none", strokeWidth: lineWidth, strokeDasharray: strokeDasharray, strokeDashoffset: strokeDashoffset, strokeLinecap: rounded ? 'round' : undefined, ...props }, title != null && React.createElement("title", null, title)));
 }
 
 function combineSegmentTransitionsStyle(duration, easing, customStyle) {
