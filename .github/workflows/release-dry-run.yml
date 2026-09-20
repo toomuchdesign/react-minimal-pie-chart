@@ -27,7 +27,7 @@ jobs:
 
       - uses: actions/setup-node@v7.0.0
         with:
-          node-version-file: .nvmrc
+          node-version: 22
 
       - run: npm ci --ignore-scripts
 
@@ -35,7 +35,7 @@ jobs:
       - run: npm run prepare
 
       - name: Show changesets publish plan
-        run: npx changeset publish-plan
+        run: npm exec -- changeset publish-plan
 
       - name: Dry-run npm publish
         run: npm publish --dry-run
