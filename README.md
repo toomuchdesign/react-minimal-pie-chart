@@ -196,6 +196,14 @@ Please consider that [`Math.sign`](https://developer.mozilla.org/en-US/docs/Web/
 
 ## Misc
 
+### Dry-run the release
+
+Validate that a release would succeed without publishing anything to npm:
+
+- Open [`Actions > Release (dry run)`](https://github.com/toomuchdesign/react-minimal-pie-chart/actions/workflows/release-dry-run.yml) and click `Run workflow`
+
+It runs `changeset publish-plan` (which packages/versions would be published) and `npm publish --dry-run` (builds and inspects the tarball contents). Neither command authenticates or uploads to npm.
+
 ### How svg arc paths work?
 
 - http://xahlee.info/js/svg_circle_arc.html
